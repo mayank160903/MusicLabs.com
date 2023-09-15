@@ -6,9 +6,9 @@ function ContactUs(){
         <Fragment>
 
         <div className="wholepage contact-bg">
-        <div className="body-container-wrapper body-container contact-bg">
+        <div className="container-wrapper container contact-bg">
         
-            <div className="section">
+            
             <div className="container-fluid">
                 <div className="mainformcont">
                 <div className="container">
@@ -103,7 +103,7 @@ function ContactUs(){
                 </div>
                 </div>
             </div>
-            </div>
+            
             <div>
             <br/>
             <br/>
