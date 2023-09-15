@@ -5,7 +5,7 @@ import {Outlet} from "react-router-dom"
 // import SideBar from "../components/Sidebar";
 // import HeaderBarUnsigned from "../components/Header2";
 
-import classes from './RootLayout.module.css'
+// import classes from './RootLayout.module.css'
 
 function RootLayout(){
     
@@ -13,11 +13,9 @@ function RootLayout(){
     return(
     
     <Fragment>  
-        <div className={classes.topHeader}>
-        <header style={{position: "sticky"}}></header></div>
-        <main>
+        
             <Outlet/>
-        </main>
+      
     </Fragment> 
     
     )

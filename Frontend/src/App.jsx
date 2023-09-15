@@ -5,16 +5,21 @@ import './App.css'
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import RootLayout from './pages/RootLayout'
+import ContactUs from './pages/ContactUs'
 
 function App() {
   const [count, setCount] = useState(0)
 
   const router = createBrowserRouter([
-    { path: '/', Element: <RootLayout/>, 
+    { path: '/', element: <RootLayout/>, 
       children: [
-          ]
+        { path: '/', element: <div>Home</div> },
+        { path: '/ContactUs', element: <ContactUs/> },
+      ]
     },  
   ])
+
+  
 
 
   return (
