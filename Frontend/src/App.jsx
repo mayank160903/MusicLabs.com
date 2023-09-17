@@ -6,6 +6,7 @@ import './App.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import RootLayout from './pages/RootLayout'
 import ContactUs from './pages/ContactUs'
+import WishlistPage from './pages/Wishlist'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -13,8 +14,9 @@ function App() {
   const router = createBrowserRouter([
     { path: '/', element: <RootLayout/>, 
       children: [
-        { path: '/', element: <div>Home</div> },
-        { path: '/ContactUs', element: <ContactUs/> },
+        {path: '/', element: <div>Home</div> },
+        {path: '/ContactUs', element: <ContactUs/> },
+        {path: '/wishlist', element: <WishlistPage/>},
       ]
     },  
   ])
