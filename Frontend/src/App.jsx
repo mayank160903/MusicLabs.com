@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import RootLayout from './pages/RootLayout'
 import ContactUs from './pages/ContactUs'
 import WishlistPage from './pages/Wishlist'
+import Instructor from './pages/Instructor';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,6 +18,7 @@ function App() {
         {path: '/', element: <div>Home</div> },
         {path: '/ContactUs', element: <ContactUs/> },
         {path: '/wishlist', element: <WishlistPage/>},
+        {path: '/instructor',element:<Instructor/>},
       ]
     },  
   ])
