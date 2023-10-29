@@ -1,7 +1,8 @@
 import { Fragment, useState } from "react"
-
+import Header from "../Header/Header";
 import './Wishlist.css'
 import { Delete } from "@mui/icons-material";
+import Footer from "../Footer/Footer";
 
 let HOLDER_DATA = [{
     title: "Guitar",
@@ -42,8 +43,8 @@ function WishlistPage(){
 
 
     return(
-        
         <Fragment>
+          <Header />
     <div className="toast-container position-fixed top-0 end-0 p-3">
     <div className="toast" role="alert" aria-live="assertive" aria-atomic="true">
       <div className="toast-header">
@@ -212,6 +213,7 @@ function WishlistPage(){
               </div>
             </div>  
          </div>
+         <Footer />
       </Fragment>
           
         )
