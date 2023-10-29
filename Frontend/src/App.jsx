@@ -9,14 +9,15 @@ import ContactUs from './pages/ContactUs'
 import WishlistPage from './pages/Wishlist/Wishlist'
 import Instructor from './pages/Instructor';
 import PaymentPage from './pages/PaymentPage/PaymentPage'
+import Homepage from './pages/Homepage/homepage'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   const router = createBrowserRouter([
     { path: '/', element: <RootLayout/>, 
       children: [
-        {path: '/', element: <div>Home</div> },
+        {path: '/home', element: <Homepage/> },
         {path: '/ContactUs', element: <ContactUs/> },
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/instructor',element:<Instructor/>},
@@ -24,9 +25,9 @@ function App() {
         
       ]
     },  
-  ])
+  ]);
 
-  
+
 
 
   return (
