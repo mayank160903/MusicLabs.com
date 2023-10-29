@@ -69,7 +69,7 @@
     }
     
     .wishblock{
-        padding: 16px 0px 21px 24px;
+        padding: 28px 0px 28px 24px;
         display: flex;
         flex-direction: row;
         min-width: 480px;
@@ -95,6 +95,14 @@
               font-size: 20px;
               font-weight: 300;
               white-space: nowrap;
+    }
+
+    .del-icon{
+        cursor: pointer;
+    
+    }
+    .del-icon:hover {
+        
     }
     
     .nothinginwish{
@@ -125,7 +133,7 @@
     
         text-decoration: inherit;
         transition: ease-in;
-        color: white;
+        color: #C0BAB2;
         text-align: left;
         
     }
@@ -133,6 +141,22 @@
      color: #2262c8;
      font-size: 1rem;
     }
+
+    .atb div{
+    
+        text-decoration: inherit;
+        transition: ease-in;
+        color: #C0BAB2;
+        text-align: left;
+        cursor: pointer;
+        
+    }
+
+    .atb div:hover{
+     color: #2262c8;
+     font-size: 1rem;
+    }
+
     .rate:not(:checked) > label {
         float:right;
         width:1em;
@@ -278,4 +302,5 @@
         color: white;
         font-weight: 600;
         display: inline-grid;
+        margin-left: 2.2rem;
     }

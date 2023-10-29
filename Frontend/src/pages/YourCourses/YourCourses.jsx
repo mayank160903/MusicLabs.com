@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react"
 
 import './Wishlist.css'
+import { Delete } from "@mui/icons-material";
 
 let HOLDER_DATA = [{
     title: "Guitar",
@@ -17,7 +18,7 @@ let HOLDER_DATA = [{
         imageUrl: "https://masterofmusic.onrender.com/images/fam-solos.jpg"
     }]
 
-function WishlistPage(){
+function YourCoursesPage(){
 
 
    const [wishlist, setWishlist] = useState(HOLDER_DATA);
@@ -56,10 +57,10 @@ function WishlistPage(){
                                     
                                 </div></div>
                                 
-                              <h5 className="proftitle2 align-items-end" >Welcome, (username)</h5>
+                              <h5 className="proftitle2 align-items-end ml-8" >Welcome, (username)</h5>
                             </div>
                             <ul className="list-group list-group-flush" style={{fontSize: '16px'}}>
-                              <li className="list-group-item atb" style={{borderBottom: '2px solid grey', backgroundColor: '#181a1b'}}><a href = "/student-profile">Your Profile</a></li>
+                              <li className="list-group-item atb" style={{borderBottom: '2px solid grey', backgroundColor: '#181a1b'}}><a href = "/student-profile" color="#C0BAB2">Your Profile</a></li>
                               <li className="list-group-item atb" style={{borderBottom: '2px solid grey', backgroundColor: '#181a1b'}}><a href = "/wishlist"> Wishlist</a></li>
                               <li className="list-group-item atb" style={{borderBottom: '2px solid grey', backgroundColor: '#181a1b'}}><a href = "/yourcourses">Your Courses</a></li>
                               <li className="list-group-item atb" style={{borderBottom: '2px solid grey',  backgroundColor: '#181a1b'}}><a href = "/">Home</a></li>
@@ -123,8 +124,9 @@ function WishlistPage(){
                                     {/* <form id="del" onsubmit="return deleteHandler()">
                                     <input type="hidden" name="del-item"></input>
                                   */}
-                                    <div style={{paddingLeft: '2rem'}}>
-                                      <i className="bi bi-trash delicon" id = 'delete1'></i></div>
+                                    {/* <div style={{paddingLeft: '5.2rem'}} className="del-icon">
+                                      <Delete sx={{color: 'grey', fontSize: 28}} className=""></Delete>
+                                      </div> */}
                                     {/* </form> */}
                                     
                                     
@@ -160,4 +162,4 @@ function WishlistPage(){
 
 }
 
-export default WishlistPage
+export default YourCoursesPage;
