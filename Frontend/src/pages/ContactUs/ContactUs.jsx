@@ -1,10 +1,12 @@
 import { Fragment } from "react";
 import './ContactUs.css'
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 function ContactUs(){
     return(
         <Fragment>
-
+            <Header />
         <div className="wholepage contact-bg">
         <div className="container-wrapper container contact-bg">
         
@@ -111,9 +113,7 @@ function ContactUs(){
             </div>
             </div>
             </div>
-         
-
-
+         <Footer />
         </Fragment>
     )
 }

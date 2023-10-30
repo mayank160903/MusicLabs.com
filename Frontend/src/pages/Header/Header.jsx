@@ -6,7 +6,7 @@ import guitaricon from '../../images/guitariconnav.png';
 const Header = () => {
     return (
         <div>
-            <div className="upper-head">
+            <div className="upper-header">
                 <div className="top-logo">
                     <img src={logo2} width="120" height="120" className="center" alt="Logo" />
                 </div>
