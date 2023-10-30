@@ -5,11 +5,13 @@ import './App.css'
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import RootLayout from './pages/RootLayout'
-import ContactUs from './pages/ContactUs'
+import ContactUs from './pages/ContactUs/ContactUs'
 import WishlistPage from './pages/Wishlist/Wishlist'
-import Instructor from './pages/Instructor';
+import Instructor from './pages/Instructor/Instructor';
 import PaymentPage from './pages/PaymentPage/PaymentPage'
 import Homepage from './pages/Homepage/homepage'
+import Spotlight from './pages/Spotlight/Spotlight'
+import Faq from './pages/Faq/Faq'
 
 function App() {
   const [count, setCount] = useState(0);
@@ -17,11 +19,15 @@ function App() {
   const router = createBrowserRouter([
     { path: '/', element: <RootLayout/>, 
       children: [
-        {path: '/home', element: <Homepage/> },
+        {path: '/', element: <Homepage/> },
         {path: '/ContactUs', element: <ContactUs/> },
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/instructor',element:<Instructor/>},
         {path: '/checkout', element: <PaymentPage/>},
+        {path: '/spotlight', element: <Spotlight/>},
+        {path: '/faq', element: <Faq/>},
+
+
         
       ]
     },  

@@ -1,5 +1,5 @@
 
-.upper-head {
+.upper-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -34,10 +34,6 @@
 
 }
 
-.specific .navbar ul {
-
-
-}
 
 .specific .navbar li {
     margin: 15px 20px;
