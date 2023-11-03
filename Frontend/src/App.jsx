@@ -18,6 +18,10 @@ import SigninSignupForm from './pages/Signup/Signup';
 
 import Certificate from './pages/Certificate/Certificate';
 
+import LoginForm from './pages/login/Login';
+
+import ForgotPassword from './pages/forgotpassword/ForgotPassword'
+
 function App() {
   const [count, setCount] = useState(0);
 
@@ -33,8 +37,8 @@ function App() {
         {path: '/faq', element: <Faq/>},
         {path: '/Signup', element: <SigninSignupForm/>},
         {path: '/certificate', element: <Certificate/>},
-
-        
+        {path: '/login', element: <LoginForm/>},
+        {path: '/forgot', element: <ForgotPassword/>},
       ]
     },  
   ]);
