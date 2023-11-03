@@ -13,6 +13,11 @@ import Homepage from './pages/Homepage/homepage'
 import Spotlight from './pages/Spotlight/Spotlight'
 import Faq from './pages/Faq/Faq'
 
+import SigninSignupForm from './pages/Signup/Signup';
+
+
+import Certificate from './pages/Certificate/Certificate';
+
 function App() {
   const [count, setCount] = useState(0);
 
@@ -26,7 +31,8 @@ function App() {
         {path: '/checkout', element: <PaymentPage/>},
         {path: '/spotlight', element: <Spotlight/>},
         {path: '/faq', element: <Faq/>},
-
+        {path: '/Signup', element: <SigninSignupForm/>},
+        {path: '/certificate', element: <Certificate/>},
 
         
       ]
