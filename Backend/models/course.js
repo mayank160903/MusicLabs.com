@@ -10,47 +10,56 @@ const courseSchema = new mongoose.Schema({
 
     teacher: [{
         type: Schema.Types.ObjectId, 
-        ref: 'teachers', required: true
+        ref: 'teachers',
+        required: [true , "Teacher Id is required"] ,
+
     }],
 
     category: {
-        type: String,
-        required: true
+        type : Schema.Types.ObjectId,
+        ref : 'categorys',
+        required: [true , "Category is required"],
     },
     description: {
-        type: String
+        type: String,
+        required : [true , "Description is required"],
+    },
+    photo :{
+        data : Buffer,
+        contentType: String,
     },
     
     price: {
         type: String,
         required: true,
     },
+    sections : [{
+        type : mongoose.Types.ObjectId,
+       ref:'Sections',
+       required:[true , 'Sections are required'], 
+    }],
 
-    imageUrl: { 
-        type: String, 
-        required: true },
-
-    sections: [
+    ratings :{
+        type : Number,
+        default : 0,
+    }
+    ,
+    quizes :[
         {
-            section_name: {
-                type: String
-            },
-            videos: [
-                {
-                    video_name: {
-                        type: String
-                    },
-                    video_url: {
-                        type: String
-                    },
-                }
-            ]
+            type : mongoose.Types.ObjectId,
+            ref : 'quizes',
         }
     ]
-})
 
-// git checking 
 
-// here for sure 
+    
+},
+    {
+        timestamps : true,
+    }
+
+)
+
+
 
 module.exports = mongoose.model("courses", courseSchema);

@@ -5,18 +5,29 @@ const Schema = mongoose.Schema;
 
 const teacherSchema = new Schema({
   
-  fullname: {type: String,required: true},
-  username: { type: String, required: true},
+  firstName: {type: String,required: true},
+  lastName: { type: String, required: true},
   email: { type: String, required: true },
-  // phone: { type: Number, required: true},
+  
   password: { type: String, required: true },
-  courses : [
-    {
-        type: mongoose.ObjectId,
-        ref: "courses",
-    },
-],
-});
+  role :{
+    type : String,
+    default : 'Teacher',
+    required : true
+  },
+  resume : {
+    data :Buffer,
+    contentType : String,
+  },
+  
+  
+},
+{
+  timestamps: true,
+}
+
+
+);
 
 
 module.exports =  mongoose.model('teachers', teacherSchema);
