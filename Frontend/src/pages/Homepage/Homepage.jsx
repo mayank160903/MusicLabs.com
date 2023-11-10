@@ -17,7 +17,7 @@ const Homepage = () => {
 
     <div className="body-bg "> 
     <div className="bg">
-       <Header />
+       {/* <Header /> */}
         <div className="centertext">
             <div className="centertext">
                 <p>Begin your music Journey with Master Of Musics</p>
@@ -168,7 +168,7 @@ const Homepage = () => {
         Find more courses at
         <button
           onClick={() => (window.location.href = "/")}
-          className="home-login-button"
+          className="home-login-button  ml-2"
         >
           <div className="button-content">CATALOGUE</div>
         </button>

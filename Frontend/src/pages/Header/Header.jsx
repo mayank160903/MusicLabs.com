@@ -7,8 +7,8 @@ const Header = () => {
     return (
         <div>
             <div className="upper-header">
-                <div className="top-logo">
-                    <img src={logo2} width="120" height="120" className="center" alt="Logo" />
+                <div className="top-logo py-3 pl-5">
+                    <img src={logo2} width="120" height="120" className="centerStyle" alt="Logo" />
                 </div>
                 <div className="title-text">
                     <h1 className="title">MASTER OF MUSICS</h1>
@@ -32,7 +32,7 @@ const Header = () => {
                     <li><a href="/contactus">CONTACT US</a></li>
                     <li><a href="/catalogue">CATALOGUE</a></li>
                     <li><a href="/">HOME</a></li>
-                    <li><a href="/"><img src={guitaricon} class="icon" width="64" height="64" /></a></li>
+                    <li className='mt-0 mb-1 '><a href="/" className='m-0 p-0'><img src={guitaricon} className="icon" width="60" height="60" /></a></li>
 
  </ul>
                     </nav>

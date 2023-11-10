@@ -6,7 +6,7 @@ import Footer from '../Footer/Footer';
 const FAQComponent = () => {
     return (
         <>
-        <Header />
+        {/* <Header /> */}
         <div className="faq">
             <h1>Frequently Asked Questions</h1>
         <br />
