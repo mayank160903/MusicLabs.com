@@ -44,7 +44,6 @@ function WishlistPage(){
 
     return(
         <Fragment>
-          <Header />
     <div className="toast-container position-fixed top-0 end-0 p-3">
     <div className="toast" role="alert" aria-live="assertive" aria-atomic="true">
       <div className="toast-header">

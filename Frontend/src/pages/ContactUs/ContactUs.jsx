@@ -6,7 +6,7 @@ import Footer from "../Footer/Footer";
 function ContactUs(){
     return(
         <Fragment>
-            <Header />
+            {/* <Header /> */}
         <div className="wholepage contact-bg">
         <div className="container-wrapper container contact-bg">
         

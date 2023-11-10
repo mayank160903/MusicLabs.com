@@ -7,7 +7,7 @@ import Footer from '../Footer/Footer';
 const MyComponent = () => {
     return (
         <div style={{ backgroundColor: 'black' }}>
-            <Header />
+            {/* <Header /> */}
             <div className="description">
                 <div className="title-text">
                     <h1 className="our-team-header">STUDENT<div style={{ color: 'aqua' }}>SPOTLIGHT</div></h1>
@@ -24,7 +24,7 @@ const MyComponent = () => {
             <div className="container">
             <span className="line"></span>
             <div className="item">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/BlO8vHshYRk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/BlO8vHshYRk" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 <div className="info">
                     <p className="about">Student Spotlight: </p>
                     <p className="about-info">Carl Brown helps our students and explains how to hold the barre chords properly.</p>
@@ -34,7 +34,7 @@ const MyComponent = () => {
             </div>
             <span className="line"></span>
             <div className="item">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/jZjc-Avbig0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/jZjc-Avbig0" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 <div className="info">
                     <p className="about">Student Spotlight: </p>
                     <p className="about-info">Carl Brown helps our students and explains how to hold the barre chords properly.</p>
@@ -43,10 +43,11 @@ const MyComponent = () => {
             </div>
             <span className="line"></span>
             <div className="item">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/svaH5cQ6gZY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/svaH5cQ6gZY" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 <div className="info">
                     <p className="about">Student Spotlight:  </p>
-                    <p className="about-info">The guitar is a fretted musical instrument that typically has six strings. It is usually held flat against the player's body and played by strumming or plucking the strings with the dominant hand, while simultaneously pressing selected strings against frets with the fingers of the opposite hand.</p>
+                    <p></p>
+                    <h4 className="instruct">Instuctor Name:<span className="name">  CARL BROWN</span></h4>
                     <h4 className="instruct">Instuctor Name:<span className="name">  CARL BROWN</span></h4>
                 </div>
             </div>
@@ -61,7 +62,7 @@ const MyComponent = () => {
             </div>
             <span className="line"></span>
             <div className="item">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/DLQ6fbKISFo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/DLQ6fbKISFo" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 <div className="info">
                     <p className="about">Student Spotlight:  </p>
                     <p className="about-info">The guitar is a fretted musical instrument that typically has six strings. It is usually held flat against the player's body and played by strumming or plucking the strings with the dominant hand, while simultaneously pressing selected strings against frets with the fingers of the opposite hand.</p>

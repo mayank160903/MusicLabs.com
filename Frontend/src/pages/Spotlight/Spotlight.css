@@ -80,8 +80,9 @@
     
     /* display: inline-block; */
     text-align: center;
-    margin-top: 80px;
-    margin-bottom: 80px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    margin-right: 2rem;
     font-family: 'Archivo Black', sans-serif;
     /* padding: 20px; */
 }
