@@ -4,42 +4,38 @@ const teacherSchema = require(__dirname + "/models/teacher.js");
 const coursesSchema = require(__dirname + "/models/course.js");
 const userRoute = require('./routes/UserRoutes.js');
 const bodyParser = require("body-parser");
+const dotenv = require('dotenv');
+const cors  = require('cors');
+
+dotenv.config();
 
 const express = require('express');
-const path = require('path');
+
 const app = express();
-const mongoose = require("mongoose");
+
 
 
 const AuthRoutes = require("./routes/AuthRoutes.js");
 
 
 const connectDb = require('./database/db.js');
-// const session=require("express-session");
-const { homedir } = require('os');
-// const user = require('./models/user.js');
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static('public'));
+
 app.use(express.json());
 
+app.use(cors());
 
 
-app.set("view engine", "ejs");
-app.set('views','./views');
 connectDb();
-// app.use(session({
-//     secret: "Key sign",
-//     resave: false,
-//     saveUninitialized: false,
-    
-// }))
 
 
-// app.use('/', UserRoutes)
 
-app.use('/', AuthRoutes)
+
+
+app.use('/api/v1/user', AuthRoutes)
 
 
 

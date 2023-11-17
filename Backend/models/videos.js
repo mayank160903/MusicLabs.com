@@ -8,6 +8,10 @@ const videoSchema = new mongoose.Schema({
     videos :{
         data : Buffer,
         contentType : String,
+    },
+    seen:{
+        type : Boolean,
+        default : false
     }
 
 });
