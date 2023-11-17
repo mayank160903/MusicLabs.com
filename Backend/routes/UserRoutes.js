@@ -9,4 +9,4 @@ router.post("/remove-wishlist/:Id")
 router.get("/checkout/:coursename")
 router.get("/remove/:course")
 
-module.exports(router)
+module.exports = router;

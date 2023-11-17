@@ -1,7 +1,7 @@
-const userSchema = require(__dirname + "/models/user.js");
-const contactSchema = require(__dirname + "/models/contact.js");
-const teacherSchema = require(__dirname + "/models/teacher.js");
-const coursesSchema = require(__dirname + "/models/course.js");
+const userSchema = require("./models/user.js");
+const contactSchema = require("./models/contact.js");
+const teacherSchema = require("./models/teacher.js");
+const coursesSchema = require("./models/course.js");
 // const userRoute = require('./routes/UserRoutes.js');
 const bodyParser = require("body-parser");
 
