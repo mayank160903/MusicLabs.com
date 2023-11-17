@@ -12,7 +12,8 @@ const ejs = require("ejs");
 const mongoose = require("mongoose");
 
 
-import { UserRoutes } from './routes/UserRoutes.js';
+const AuthRoutes = require(__dirname + "./routes/AuthRoutes.js");
+
 
 const connectDb = require('./data/db.js');
 const session=require("express-session");
@@ -39,6 +40,7 @@ app.use(session({
 
 app.use('/', UserRoutes)
 
+app.use('/', AuthRoutes)
 
 
 
