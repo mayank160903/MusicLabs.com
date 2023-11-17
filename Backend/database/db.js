@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const connectDb = async () => {
     try {
-        const conn = mongoose.connect('mongodb+srv://rehan:3456tyui@ecommerce-web.ljy5jgh.mongodb.net/Music_Mastery');
+        const conn = mongoose.connect(process.env.MONGO_URL);
         console.log('connection established');
     }
     catch (error) {
