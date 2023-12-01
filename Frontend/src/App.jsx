@@ -21,9 +21,11 @@ import Certificate from './pages/Certificate/Certificate';
 import LoginForm from './pages/login/Login';
 
 import ForgotPassword from './pages/forgotpassword/ForgotPassword'
+import CourseLayout from './pages/CoursePage/CourseLayout'
 
 function App() {
   const [count, setCount] = useState(0);
+
 
   const router = createBrowserRouter([
     { path: '/', element: <RootLayout/>, 
@@ -39,6 +41,10 @@ function App() {
         {path: '/certificate', element: <Certificate/>},
         {path: '/login', element: <LoginForm/>},
         {path: '/forgot', element: <ForgotPassword/>},
+        {path: '/course/:courseId', element: <CourseLayout/>, 
+        children:[
+          {path: ':section', element: <h1>hello</h1>},
+        ]}
       ]
     },  
   ]);
@@ -48,6 +54,7 @@ function App() {
 
   return (
     <>
+    
       <RouterProvider router={router}>
       </RouterProvider>
     </>
