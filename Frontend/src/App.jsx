@@ -37,7 +37,7 @@ function App() {
         {path: '/checkout', element: <PaymentPage/>},
         {path: '/spotlight', element: <Spotlight/>},
         {path: '/faq', element: <Faq/>},
-        {path: '/Signup', element: <SigninSignupForm/>},
+        {path: '/register', element: <SigninSignupForm/>},
         {path: '/certificate', element: <Certificate/>},
         {path: '/login', element: <LoginForm/>},
         {path: '/forgot', element: <ForgotPassword/>},
