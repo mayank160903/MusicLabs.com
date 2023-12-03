@@ -6,44 +6,55 @@ const {hashPassword , comparePassword} = require('../helper/authhelper.js');
 
 const JWT  = require('jsonwebtoken')
 
-exports.registerController = async(req,res) => {
+exports.registerController = async (req,res) => {
     try{
-        const {firstName  , lastName , email , password , role} = req.body;
+       
+        const {firstName  , lastName , email , password , role , resume} = req.body;
         if(role==="User"){
+           
             if(!firstName || !lastName || !email || !password){
                 return res.status(409).send({success : false ,  message : "Please fill all the details "});
             }
-            const existingUser = await userModel.find({email});
+            
+            const existingUser = await userSchema.findOne({email : email});
+            
+
+           
          if(existingUser){
-            return res.status(400).send({success : true , message :"User already exist please login" });
+            return res.status(400).send({success : false , message :"User already exist please login" });
          }
 
             const hashedPassword = await hashPassword(password);
             const user = new userSchema({firstName , lastName,
             email ,password : hashedPassword , role});
             await user.save();
-
-                return res.status(201).send({success : true , message : "User login successfully "});
+                
+                return res.status(200).send({success : true , message : "User login successfully "});
         }
         else{
+          
             if(!firstName || !lastName || !email || !password){
                 return res.status(409).send({success : false ,  message : "Please fill all the details "});
             }
-            const { resume  } = req.files;
-            if(resume.size >  1000000){
-                return res.status(409).send({success : false , message : "Resume size will be less than 1MB"});
-            }
+
+           
+            const existingTeacher = await teacherSchema.findOne({email : email});
+            
+                console.log("here further is coming");
+           
+         if(existingTeacher){
+            return res.status(400).send({success : false , message :"User already exist please login" });
+         }
+
+
             const hashedPassword = await hashPassword(password);
 
             const teacher = await teacherSchema({firstName  ,
             lastName , email , password : hashedPassword  , role});
-            if (resume) {
-                teacher.resume.data = fs.readFileSync(resume.path);
-                teacher.resume.contentType = resume.type;
-            }
+           
             await teacher.save();
-
-            return res.status(201).send({success : true , message : "Teacher registered successfully "});
+             
+            return res.status(200).send({success : true , message : "Teacher registered successfully "});
 
 
 
@@ -61,30 +72,37 @@ exports.loginController = async(req , res) =>{
         const {email , password , role} = req.body;
 
         if(role==="User"){
-            const user = await userSchema.find({email});
+            
+
+            const user = await userSchema.findOne({email});
             if(!user){
                 return res.status(404).send({success : false , message : "User not registered please register first"});
             }
+           
+            console.log(user);
 
             const check = await comparePassword(password , user.password);
+            console.log(check);
             if(!check){
                 return res.status(404).send({success : false , message : "Your Details didn't match" });
 
             }
+        
             const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
                 expiresIn: "7d",
               });
-            return res.status(201).send({success  : true , message : "Login Successfully " , user , token});
+             
+            return res.status(200).send({success  : true , message : "Login Successfully " , user , token});
 
 
         }
         else{
-           const teacher = await teacherSchema.find({email});
+           const teacher = await teacherSchema.findOne({email});
            if(!teacher){
             return res.status(404).send({success : false , message : "Teacher not registered "});
 
            }
-           const check = await comparePassword(password , teacher._id) ;
+           const check = await comparePassword(password , teacher.password) ;
 
            if(!check){
             return res.status(400).send({success  : false , message : "Your Details didn't match"});
@@ -94,7 +112,7 @@ exports.loginController = async(req , res) =>{
            const token = await JWT.sign({ _id: teacher._id }, process.env.JWT_SECRET, {
             expiresIn: "7d",
           });
-        return res.status(201).send({success  : true , message : "Login Successfully " , teacher , token});
+        return res.status(200).send({success  : true , message : "Login Successfully " , teacher , token});
 
 
         }

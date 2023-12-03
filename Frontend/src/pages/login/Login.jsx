@@ -1,6 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+
+  const navigate = useNavigate();
+
+  const [loginData, setLoginData] = useState({
+    email: '',
+    role: 'User',
+    password: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleLogin = async () => {
+    try {
+      // Perform validation if needed
+
+      // Send login data to the backend
+      const response = await axios.post('http://localhost:8000/api/v1/user/login', loginData);
+
+      if (response.status === 200) {
+        // Navigate to the homepage upon successful login
+        navigate('/');
+      } else {
+        // Handle other cases, e.g., display an error message
+        console.error('Login failed:', response.data.message);
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      // Handle error
+    }
+  };
+
   return (
     <div className="min-w-screen min-h-screen bg-gray-900 flex items-center justify-center px-5 py-5">
       <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style={{ maxWidth: '1000px' }}>
@@ -30,6 +69,8 @@ const LoginForm = () => {
                     type="email"
                     id="email"
                     name="email"
+                    value={loginData.email}
+                    onChange={handleInputChange}
                     className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                     placeholder="johnsmith@example.com"
                   />
@@ -48,10 +89,12 @@ const LoginForm = () => {
                   <select
                     id="role"
                     name="role"
+                    value={loginData.role}
+                   onChange={handleInputChange}
                     className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus-border-indigo-500"
                   >
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
+                    <option value="User">User</option>
+                    <option value="teacher">teacher</option>
                   </select>
                 </div>
               </div>
@@ -69,6 +112,8 @@ const LoginForm = () => {
                     type="password"
                     id="password"
                     name="password"
+                    value={loginData.password}
+                onChange={handleInputChange}
                     className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                     placeholder="****"
                   />
@@ -80,6 +125,7 @@ const LoginForm = () => {
                 <button
                   className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
                   type="submit"
+                  onClick={handleLogin}
                 >
                   LOGIN
                 </button>

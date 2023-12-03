@@ -12,7 +12,7 @@ const teacherSchema = new Schema({
   password: { type: String, required: true },
   role :{
     type : String,
-    default : 'Teacher',
+    // default : 'Teacher',
     required : true
   },
   resume : {
