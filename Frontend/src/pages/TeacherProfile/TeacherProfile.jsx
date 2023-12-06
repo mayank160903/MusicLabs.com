@@ -8,6 +8,7 @@ import PlaceIcon from "@mui/icons-material/Place";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import EmailIcon from "@mui/icons-material/Email";
 import { useParams } from "react-router";
+import profileImage from "./teacher_Profile_image copy.png"
 
 
 const Teacher = () => {
@@ -50,7 +51,7 @@ const Teacher = () => {
 
               <img
                 className="circle_image"
-                src="/teacher_Profile_image.png"
+                src={profileImage}
                 alt="Teacher Profile"
               />
             </div>
@@ -58,29 +59,29 @@ const Teacher = () => {
         </div>
         <div className="container">
           <div className="row">
-            <div className="col-md-5">
-              <h1 className="text-white">FullName</h1>
-              <p className="text-white">Username</p>
+            <div className="col-md-5 ">
+              <h1 className="text-white mx-20">FullName</h1>
+              <div className="text-white mx-20">Username</div>
               <br />
               <br />
-              <span className="text-white">
+              <span className="text-white mx-20">
                 <PlaceIcon /> Location : California, USA
               </span>
               <br />
               <br />
-              <span className="text-white">
+              <span className="text-white mx-20">
                 <CalendarMonthIcon /> Joining Of Year : 3 march 2002
               </span>
               <br />
               <br />
-              <span className="text-white">
+              <span className="text-white mx-20">
                 <EmailIcon /> Email : Email
               </span>
               <br />
               <br />
               <br />
               <br />
-              <div className="btn-main">
+              <div className="btn-main mx-20">
                 <NavLink to={`/teachereditprofile/${teacherData.id}`}>
                   <button className="btn-button">Edit Profile</button>
                 </NavLink>
@@ -94,53 +95,47 @@ const Teacher = () => {
             </div>
 
             <div className="col-md-5 offset-1">
-              <h1 className="d-flex justify-content-center align-items-center animated-text">
+              <div className="flex justify-center items-center animated-text text-4xl">
                 Description
-              </h1>
-              <h4 className="content text-white">
+              </div>
+              <div className="content text-white text-2xl">
                 Hey whatsup you guys? Marty Schwartz here and I am here to help
                 you with your music learning
-              </h4>
-              <h1 className="d-flex justify-content-center align-items-center animated-text">
+              </div>
+              <div className="flex justify-center items-center animated-text text-4xl mt-4">
                 Education
-              </h1>
+              </div>
 
-              <h4 className="mt-3" style={{ color: "white" }}>
-                Post Graduation from Angus University of Music, California :
-                <img src="/degree.jpg" alt="degree" />
-              </h4>
+              <div className="mt-3 text-2xl" style={{ color: "white" }} >
+                <span className="whitespace-nowrap">Post Graduation from Angus University of Music, California : <img src="/degree.jpg" alt="degree" height={70} width={60} className="inline-block"/></span>
+              </div>
 
-              <h4 className="mt-3" style={{ color: "white" }}>
-                Masters degree at Angus University of Music, California :{" "}
-                <img
-                  src="/achievements.png"
-                  className="img-fluid rounded-circle"
-                  alt="degree"
-                />
-              </h4>
+              <div className="mt-3 text-2xl" style={{ color: "white" }}>
+                <span className="whitespace-nowrap">Masters degree at Angus University of Music, California :<img src="/achievements.png" className="img-fluid rounded-circle inline-block" alt="degree" height={70} width={60} /></span>
+              </div>
 
-              <h1 className="d-flex justify-content-center align-items-center animated-text">
+              <div className="d-flex justify-content-center align-items-center animated-text text-4xl">
                 Experience
-              </h1>
+              </div>
 
-              <h4 className="mt-3" style={{ color: "white" }}>
+              <div className="mt-3 text-2xl" style={{ color: "white" }}>
                 On the teaching field since 2003
-              </h4>
-              <h4 className="mt-3" style={{ color: "white" }}>
+              </div>
+              <div className="mt-3 text-2xl" style={{ color: "white" }}>
                 Rock, Blues, Music Theory
-              </h4>
+              </div>
 
-              <h1 className="d-flex justify-content-center align-items-center animated-text">
+              <div className="d-flex justify-content-center align-items-center animated-text text-4xl mt-4">
                 Achievements
-              </h1>
+              </div>
 
-              <h4 className="mt-3" style={{ color: "white" }}>
+              <div className="mt-3 text-2xl" style={{ color: "white" }}>
                 Masters degree at Angus University of Music, California :{" "}
                
-              </h4>
-              <h4 className="mt-3" style={{ color: "white" }}>
+              </div>
+              <div className="mt-3 text-2xl" style={{ color: "white" }}>
                 Grammy Award for Best New Artist
-              </h4>
+              </div>
             </div>
           </div>
         </div>

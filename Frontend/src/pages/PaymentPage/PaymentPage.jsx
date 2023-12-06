@@ -52,12 +52,12 @@ function PaymentPage(){
               <img src={course.imageUrl} className={styles.img1} alt="Course" />
             </div>
             <div className={styles.description}>
-              <p className={styles.productCode + ' ' + styles.small} style={{ color: 'grey' }}>
+              <p className={styles.productCode + ' ' + styles.small} style={{ color: 'black' }}>
                 Product code: {course._id}
               </p>
-              <h1 className={styles.course_title}>{course.title}</h1>
-              <p className={styles.teacher}>By {course.teacher}</p> {/* Make sure 'course.teacher' is an array */}
-              <p className={styles.courseInfo}>{course.description}</p>
+              <h1 className={styles.course_title} style={{ color: 'black' }}>{course.title}</h1>
+              <p className={styles.teacher} style={{ color: 'black' }}>By {course.teacher}</p> {/* Make sure 'course.teacher' is an array */}
+              <p className={styles.courseInfo} style={{ color: 'black' }}>{course.description}</p>
             </div>
           </div>
           <div className={styles.bagTotal}>
@@ -87,18 +87,19 @@ function PaymentPage(){
                 name="promo-checkbox"
                 id="promo"
                 placeholder="Enter your promo code here"
+                style ={{border :  '2px solid black' }}
               />
               <button className={styles.apply} onClick={confrm}>Apply</button>
             </div>
             <form action={`/purchase/${course._id}`} method="post">
-              <button className={styles.checkbtn} type="submit" id="chkout">
+              <button className={styles.checkbtn} type="submit" id="chkout" style={{backgroundColor: '#9966cc'}}>
                 <div>Proceed to Checkout</div>
               </button>
             </form>
           </div>
-          <div style={{ textAlign: 'center', marginBottom: '2rem', marginTop: '0.7rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '2rem', marginTop: '0.7rem'}}>
             <abbr title="Click To Copy Phone Number" style={{ textDecoration: 'none' }} id="ccpy">
-              <p className={styles.hlp} onClick={() => copyToClip('8076779704')}>
+              <p className={styles.hlp} onClick={() => copyToClip('8076779704')} style={{color : 'black' }}>
                 Need help? Call +91 8076779704
               </p>
             </abbr>
