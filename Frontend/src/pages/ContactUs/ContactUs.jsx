@@ -8,12 +8,12 @@ function ContactUs(){
         <Fragment>
             {/* <Header /> */}
         <div className="wholepage contact-bg">
-        <div className="container-wrapper container contact-bg">
+        <div className="container-wrapper contact-bg">
         
             
             <div className="container-fluid">
                 <div className="mainformcont">
-                <div className="container">
+                <div className="">
                     <div className="mainform d-flex flex-row flex-wrap">
 
                     <div className="formblock col">
@@ -24,7 +24,7 @@ function ContactUs(){
                         </div>
 
                         <div className="mt-5 container-fluid-wrapper">
-                        <div className="container">
+                        <div className="">
                             <div className="form-col-container row row-cols-2">
 
                             <div className="col-2 forminnerblock ">
@@ -64,9 +64,6 @@ function ContactUs(){
                     </div>
                     <div className="formb2 mt-5">
                         <div className="contact-wrapper">
-
-
-
                         <form id="contact-form" type="submit" action="/connect" className ="form-horizontal" role="form"
                             method="POST">
 

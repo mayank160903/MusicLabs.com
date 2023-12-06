@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
+import signup from '../../images/signup1.jpg';
+
 
 const LoginForm = () => {
 
@@ -45,16 +47,16 @@ const LoginForm = () => {
     <div className="min-w-screen min-h-screen bg-gray-900 flex items-center justify-center px-5 py-5">
       <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style={{ maxWidth: '1000px' }}>
         <div className="md:flex w-full">
-          <div className="hidden md:block w-1/2 bg-indigo-500 py-10 px-10">
+          <div className="hidden md:block w-1/2 py-10 px-10">
             <img
-              src="https://i.pinimg.com/originals/60/fd/e8/60fde811b6be57094e0abc69d9c2622a.jpg"
+              src={signup}
               alt="Side Image"
               className="object-cover object-center w-full h-full rounded-full"
             />
           </div>
           <div className="w-full md:w-1/2 py-10 px-5 md:px-10">
             <div className="text-center mb-10">
-              <h1 className="font-bold text-3xl text-gray-900">LOGIN</h1>
+              <h1 className="font-bold text-3xl">LOGIN</h1>
               <p>Enter your login information</p>
             </div>
             <div className="flex -mx-3">

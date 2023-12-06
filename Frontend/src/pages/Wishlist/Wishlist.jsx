@@ -212,7 +212,7 @@ function WishlistPage(){
               </div>
             </div>  
          </div>
-         <Footer />
+         {/* <Footer /> */}
       </Fragment>
           
         )
