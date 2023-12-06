@@ -80,7 +80,8 @@
   .formtxt{
   padding-top: 25px;
   padding-left: 20px;
-  color: #74828c;
+  /* color: #74828c; */
+  color : white;
   display: inline;
   
   margin-bottom: 0px;
