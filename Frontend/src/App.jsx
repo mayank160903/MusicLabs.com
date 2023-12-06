@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -33,7 +33,8 @@ import StudentEditProfile from './pages/StudentEditProfile/StudentEditProfile';
 function App() {
   const [count, setCount] = useState(0);
 
-
+  const PaymentPage = React.lazy(() => import('./pages/PaymentPage/PaymentPage'))
+  
   const router = createBrowserRouter([
     {path:'/dashboard', element:<AdminDashboard/>},
     { path: '/', element: <RootLayout/>, 
@@ -43,7 +44,7 @@ function App() {
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/instructor',element:<Instructor/>},
         {path:'/teacher/:id', element:<Teacher/>},
-       
+        
         {path: '/checkout', element: <PaymentPage/>},
         {path: '/spotlight', element: <Spotlight/>},
         {path: '/faq', element: <Faq/>},

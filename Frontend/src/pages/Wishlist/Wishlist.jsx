@@ -195,7 +195,7 @@ function WishlistPage(){
 
                                 <div className="rightitembar">
                                                                                             
-                                  <button className="buy-now">
+                                  <button className="buy-now pb-2">
                                     Go To Course</button>
                                 </div>
                             </div>)
