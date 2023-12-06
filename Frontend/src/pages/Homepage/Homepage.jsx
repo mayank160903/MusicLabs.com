@@ -26,26 +26,26 @@ const Homepage = () => {
                 </div>
         </div>
         </div>
-      <div className="video-part">
-        <div className="our-team">
-          <h1 className="our-team-header">OUR TEAM</h1>
-          <p className="our-team-content">
+      <div className="video-part-home">
+        <div className="our-team-home">
+          <h1 className="our-team-header-home">OUR TEAM</h1>
+          <p className="our-team-content-home">
             We have music instructors from the best institutes of music.
           </p>
-          <p className="our-team-content">
+          <p className="our-team-content-home">
             Heavy metal like Metallica, Megadeth, Black Sabbath
           </p>
-          <p className="our-team-content">
+          <p className="our-team-content-home">
             Hard Rock like AC/DC and Guns-and-Roses, Classy Blues like{" "}
           </p>
-          <p className="our-team-content">
+          <p className="our-team-content-home">
             Pink Floyd and The Beatles, Jimi Hendrix's blues chords,
           </p>
-          <p className="our-team-content">
+          <p className="our-team-content-home">
             core music theory, Amplifier settings, guitar tone, guitar
             maintenance
           </p>
-          <p className="our-team-content">
+          <p className="our-team-content-home">
             you name it, we have it. Have a look at our instructors below!
           </p>
           <button

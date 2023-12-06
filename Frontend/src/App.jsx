@@ -27,6 +27,7 @@ import CourseLayout from './pages/CoursePage/CourseLayout'
 import Teacher from './pages/TeacherProfile/TeacherProfile';
 
 import AdminDashboard from './dashboard/Admin';
+import Catalogue from './pages/Catalogue/Catalogue'
 
 
 function App() {
@@ -43,7 +44,7 @@ function App() {
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/instructor',element:<Instructor/>},
         {path:'/teacher/:id', element:<Teacher/>},
-       
+        {path:'/catalogue', element:<Catalogue />},
         {path: '/checkout', element: <PaymentPage/>},
         {path: '/spotlight', element: <Spotlight/>},
         {path: '/faq', element: <Faq/>},
