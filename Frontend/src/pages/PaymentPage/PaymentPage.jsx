@@ -38,11 +38,7 @@ function PaymentPage(){
         // Implement the copyToClip function here
       };
 
-      function buyCourseHandler(){
-
-      }
-
-      //razorpay
+  
   const [orderId, setOrderId] = useState("");
 
   const createOrder = async () => {
@@ -166,7 +162,7 @@ function PaymentPage(){
         </div>
       </div> */}
     </div>
-  );
+
         </Fragment>
     )
 }
