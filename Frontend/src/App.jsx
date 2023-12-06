@@ -13,7 +13,7 @@ import PaymentPage from './pages/PaymentPage/PaymentPage'
 import Homepage from './pages/Homepage/homepage'
 import Spotlight from './pages/Spotlight/Spotlight'
 import Faq from './pages/Faq/Faq'
-
+import StudentProfile from './pages/StudentProfile/StudentProfile';
 import SigninSignupForm from './pages/Signup/Signup';
 
 
@@ -43,7 +43,8 @@ function App() {
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/instructor',element:<Instructor/>},
         {path:'/teacher/:id', element:<Teacher/>},
-       
+
+       {path:'/studentprofile', element:<StudentProfile/>},
         {path: '/checkout', element: <PaymentPage/>},
         {path: '/spotlight', element: <Spotlight/>},
         {path: '/faq', element: <Faq/>},
