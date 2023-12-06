@@ -1,7 +1,6 @@
 import React from "react";
 import "./homestyle.css";
-import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
+// import Footer from "../Footer/Footer";
 import course1 from '../../images/beginnerpic.jpg'
 import course2 from '../../images/course_rock.jpg'
 import course3 from '../../images/metalpic.jpg'
@@ -15,14 +14,13 @@ import course9 from '../../images/guitartechnique.jpg'
 const Homepage = () => {
   return (
 
-    <div className="body-bg "> 
+    <div className="body-bg"> 
     <div className="bg">
-       {/* <Header /> */}
-        <div className="centertext">
-            <div className="centertext">
-                <p>Begin your music Journey with Master Of Musics</p>
-                <p>From Classic Blues to Heavy Metal,</p>
-                <p>We have everything covered for you</p>
+        <div className="centertext-content">
+            <div className="centertext-content">
+                <p className="centertext-content">Begin your music Journey with Master Of Musics</p>
+                <p className="centertext-content">From Classic Blues to Heavy Metal,</p>
+                <p className="centertext-content" >We have everything covered for you</p>
                 <p className="centersubtext">Join us to begin your Journey!</p>
                 <button onclick="window.location.href = '/'" className = "home-login-button"><div className="button-content" id="join-us">JOIN US</div></button>
                 </div>
@@ -32,11 +30,10 @@ const Homepage = () => {
         <div className="our-team">
           <h1 className="our-team-header">OUR TEAM</h1>
           <p className="our-team-content">
-            We have music instructors from the best institutes of music. Heavy
-            metal like Metallica, Megadeth, Black Sabbath
+            We have music instructors from the best institutes of music.
           </p>
           <p className="our-team-content">
-            of music. Heavy metal like Metallica, Megadeth, Black Sabbath
+            Heavy metal like Metallica, Megadeth, Black Sabbath
           </p>
           <p className="our-team-content">
             Hard Rock like AC/DC and Guns-and-Roses, Classy Blues like{" "}
@@ -72,7 +69,7 @@ const Homepage = () => {
       </div>
 
       <div className="course-heading">SOME OF OUR COURSES</div>
-      <div className="container text-center" style={{ color: "aliceblue" }}>
+      <div className="text-center" style={{ color: "aliceblue" }}>
         <div className="row" id="col1">
           <div className="col">
             <a href="/beginnercoursedesc">
@@ -174,10 +171,10 @@ const Homepage = () => {
         </button>
       </div>
 
-      <div className="full_trial_box">
+      {/* <div className="full_trial_box">
         <div className="trial-box">
           <div className="text">
-            <h1>START YOUR FREE TRIAL TODAY!</h1>
+            <h1 className="trial-box-text-one">START YOUR FREE TRIAL TODAY!</h1>
             <h3>Step by step instructions here!</h3>
           </div>
           <div className="button-trial">
@@ -189,16 +186,16 @@ const Homepage = () => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="pre-footer">
-        <p>
+      <div className="pre-footer-bg">
+        <p className="pre-footer">
           "Music Lessons that are second to none. This website boosted my music
           skills"
         </p>
-        <p>Practice and the right guidance is all it takes.</p>
+        <p className="pre-footer">Practice and the right guidance is all it takes.</p>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
