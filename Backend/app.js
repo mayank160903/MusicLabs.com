@@ -2,7 +2,7 @@ const userSchema = require("./models/user.js");
 const contactSchema = require("./models/contact.js");
 const teacherSchema = require(__dirname + "/models/teacher.js");
 const coursesSchema = require(__dirname + "/models/course.js");
-const userRoute = require('./routes/UserRoutes.js');
+// const userRoute = require('./routes/UserRoutes.js');
 const bodyParser = require("body-parser");
 const dotenv = require('dotenv');
 const cors  = require('cors');
@@ -12,14 +12,19 @@ dotenv.config();
 
 const express = require('express');
 
+
+
 const app = express();
 
 app.use(fileUpload());
 
 const AuthRoutes = require("./routes/AuthRoutes.js");
+const UserRoutes = require("./routes/UserRoutes.js");
 
 
 const connectDb = require('./database/db.js');
+
+
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -37,6 +42,7 @@ connectDb();
 
 
 app.use('/api/v1/user', AuthRoutes)
+app.use('/api/v1/user', UserRoutes)
 
 
 

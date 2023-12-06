@@ -22,6 +22,8 @@ import LoginForm from './pages/login/Login';
 
 import ForgotPassword from './pages/forgotpassword/ForgotPassword'
 import CourseLayout from './pages/CoursePage/CourseLayout'
+import Teacher from './pages/TeacherProfile/TeacherProfile';
+
 
 function App() {
   const [count, setCount] = useState(0);
@@ -34,6 +36,8 @@ function App() {
         {path: '/ContactUs', element: <ContactUs/> },
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/instructor',element:<Instructor/>},
+        {path:'/teacher/:id', element:<Teacher/>},
+        
         {path: '/checkout', element: <PaymentPage/>},
         {path: '/spotlight', element: <Spotlight/>},
         {path: '/faq', element: <Faq/>},
