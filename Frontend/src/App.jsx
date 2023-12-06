@@ -13,6 +13,7 @@ import PaymentPage from './pages/PaymentPage/PaymentPage'
 import Homepage from './pages/Homepage/homepage'
 import Spotlight from './pages/Spotlight/Spotlight'
 import Faq from './pages/Faq/Faq'
+// import NewHeader from './pages/Header/NewHeader'
 
 import SigninSignupForm from './pages/Signup/Signup';
 
@@ -37,6 +38,7 @@ function App() {
     { path: '/', element: <RootLayout/>, 
       children: [
         {path: '/', element: <Homepage/> },
+        // {path: '/testing', element: <NewHeader /> },
         {path: '/ContactUs', element: <ContactUs/> },
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/instructor',element:<Instructor/>},
@@ -56,9 +58,6 @@ function App() {
       ]
     },  
   ]);
-
-
-
 
   return (
     <>
