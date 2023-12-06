@@ -15,6 +15,7 @@
   background-size: 2em 2em;
   background-color: #232323;
   overflow-y: hidden;
+  color : black;
 
 }
 
@@ -124,6 +125,8 @@ button {
 .productCode{
     font-size: 0.8rem;
     margin-bottom: 0.1rem;
+    color: 'black';
+   
   }
 
 
@@ -132,6 +135,7 @@ button {
 .description {
   padding-right: 1rem;
   width: 60%;
+  color : black;
 }
 
 input[type=text] {

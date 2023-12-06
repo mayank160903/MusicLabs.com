@@ -28,6 +28,8 @@ import Teacher from './pages/TeacherProfile/TeacherProfile';
 
 import AdminDashboard from './dashboard/Admin';
 import Catalogue from './pages/Catalogue/Catalogue'
+import TeacherEditProfile from './pages/TeacherEditProfile/TeacherEditProfile';
+import StudentEditProfile from './pages/StudentEditProfile/StudentEditProfile';
 
 
 function App() {
