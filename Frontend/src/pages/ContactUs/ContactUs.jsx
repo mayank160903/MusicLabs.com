@@ -19,7 +19,7 @@ function ContactUs(){
                     <div className="formblock col">
                         <div className="fhv">
                         <span className="formheader">
-                            <h1>Get in Touch With Us</h1>
+                            <h1 style={{ fontSize: '24px' }}>Get in Touch With Us</h1>
                         </span>
                         </div>
 
@@ -71,13 +71,13 @@ function ContactUs(){
                             method="POST">
 
                             <div className="form-group row justify-content-between " style={{width:'100%'}}>
-                            <div className="col-sm-6" style={{paddingRight: '0px', paddingLeft: '30px'}}>
+                            <div className="col-sm-6 " style={{paddingRight: '0px' , paddingLeft: '12px'}}>
                                 <input type="text" className="form-control" id="name" placeholder=" FIRST NAME" name="fname"
-                                value="" required/>
+                                value="" required style={{ width: '180px' , backgroundColor: 'white' }}/>
                             </div>
 
-                            <div className="col-sm-6" style={{paddingLeft: '28px', paddingRight: '0px'}}>
-                                <input type="text" className="form-control" id="name2" placeholder="LAST NAME" name="lname" value=""
+                            <div className="col-sm-6" style={{paddingLeft: '45px', paddingRight: '0px'}}>
+                                <input type="text" className="form-control" id="name2" placeholder="LAST NAME" name="lname" value="" style={{ width: '180px' , backgroundColor: 'white' }}
                                 required/>
                             </div>
 
@@ -85,12 +85,12 @@ function ContactUs(){
 
                             <div className="form-group">
                             <div className="col-sm-12">
-                                <input type="email" className="form-control " id="email" placeholder="EMAIL" name="email" value=""
+                                <input type="email" className="form-control " id="email" placeholder="EMAIL" name="email" value="" style = {{backgroundColor: 'white'}}
                                 required/>
                             </div>
                             </div>
                             <div className="col-sm-12">
-                            <textarea className="form-control " rows="10" placeholder="MESSAGE" name="message" required></textarea>
+                            <textarea className="form-control " rows="10" placeholder="MESSAGE" name="message"  style = {{backgroundColor: 'white'}} required></textarea>
                             </div>
 
                             <button className="btn btn-primary send-button" id="submit" type="submit" value="SEND">
@@ -113,7 +113,7 @@ function ContactUs(){
             </div>
             </div>
             </div>
-         <Footer />
+         {/* <Footer /> */}
         </Fragment>
     )
 }

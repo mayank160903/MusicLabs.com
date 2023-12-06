@@ -27,6 +27,8 @@ import CourseLayout from './pages/CoursePage/CourseLayout'
 import Teacher from './pages/TeacherProfile/TeacherProfile';
 
 import AdminDashboard from './dashboard/Admin';
+import TeacherEditProfile from './pages/TeacherEditProfile/TeacherEditProfile';
+import StudentEditProfile from './pages/StudentEditProfile/StudentEditProfile';
 
 
 function App() {
