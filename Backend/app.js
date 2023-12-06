@@ -20,7 +20,7 @@ app.use(fileUpload());
 
 const AuthRoutes = require("./routes/AuthRoutes.js");
 const UserRoutes = require("./routes/UserRoutes.js");
-
+const paymentRoutes = require("./routes/PaymentRoutes.js");
 
 const connectDb = require('./database/db.js');
 
@@ -43,7 +43,7 @@ connectDb();
 
 app.use('/api/v1/user', AuthRoutes)
 app.use('/api/v1/user', UserRoutes)
-
+app.use('/api', paymentRoutes)
 
 
 const PORT = 8000;
