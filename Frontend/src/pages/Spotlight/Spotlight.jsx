@@ -1,13 +1,10 @@
 import React from 'react';
 import './Spotlight.css';
 import spotlightimg from '../../images/spotlight.jpg';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 
 const MyComponent = () => {
     return (
         <div style={{ backgroundColor: 'black' }}>
-            {/* <Header /> */}
             <div className="description">
                 <div className="title-text">
                     <h1 className="our-team-header">STUDENT<div style={{ color: 'aqua' }}>SPOTLIGHT</div></h1>
@@ -21,7 +18,7 @@ const MyComponent = () => {
             </div>
 
             {/* IFRAME videos */}
-            <div className="container">
+            <div className="">
             <span className="line"></span>
             <div className="item">
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/BlO8vHshYRk" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -119,7 +116,6 @@ const MyComponent = () => {
                 {/* For brevity, only the structure is provided */}
                 {/* You need to insert your iframe elements here */}
             </div>
-            <Footer />
         </div>
     );
 }

@@ -163,7 +163,7 @@ useEffect(() => {
 
          
         <div 
-          className="container text-center inst-grid grid-txt "
+          className="text-center inst-grid grid-txt "
           style={{ color: "aliceblue" }}
         >
         
