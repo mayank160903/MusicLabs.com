@@ -26,8 +26,11 @@ import CourseLayout from './pages/CoursePage/CourseLayout'
 import Teacher from './pages/TeacherProfile/TeacherProfile';
 
 import AdminDashboard from './dashboard/Admin';
+<<<<<<< HEAD
 import TeacherEditProfile from './pages/TeacherEditProfile/TeacherEditProfile';
 import StudentEditProfile from './pages/StudentEditProfile/StudentEditProfile';
+=======
+>>>>>>> 270ff4b7be4c886fe191d5c1e67dbd1926f0e4e5
 
 
 function App() {
@@ -43,8 +46,7 @@ function App() {
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/instructor',element:<Instructor/>},
         {path:'/teacher/:id', element:<Teacher/>},
-        {path:'/teachereditprofile/:id',element:<TeacherEditProfile/>},
-        {path:'/studenteditprofile/:id',element:<StudentEditProfile/>},
+       
         {path: '/checkout', element: <PaymentPage/>},
         {path: '/spotlight', element: <Spotlight/>},
         {path: '/faq', element: <Faq/>},
