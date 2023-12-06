@@ -23,7 +23,8 @@ import LoginForm from './pages/login/Login';
 import ForgotPassword from './pages/forgotpassword/ForgotPassword'
 import CourseLayout from './pages/CoursePage/CourseLayout'
 import Teacher from './pages/TeacherProfile/TeacherProfile';
-
+import TeacherEditProfile from './pages/TeacherEditProfile/TeacherEditProfile';
+import StudentEditProfile from './pages/StudentEditProfile/StudentEditProfile';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -37,6 +38,8 @@ function App() {
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/instructor',element:<Instructor/>},
         {path:'/teacher/:id', element:<Teacher/>},
+        {path:'/teachereditprofile/:id',element:<TeacherEditProfile/>},
+        {path:'/studenteditprofile/:id',element:<StudentEditProfile/>},
         
         {path: '/checkout', element: <PaymentPage/>},
         {path: '/spotlight', element: <Spotlight/>},
