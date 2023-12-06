@@ -163,7 +163,7 @@ useEffect(() => {
 
          
         <div 
-          className="container text-center inst-grid grid-txt"
+          className="container text-center inst-grid grid-txt "
           style={{ color: "aliceblue" }}
         >
         
@@ -171,30 +171,28 @@ useEffect(() => {
           {instructordata && instructordata!=null &&  instructordata.map((instructor,i) => (
             <div className="col">
             
-              <div className="card card-prop" style={{ width: "18rem" }}>
+              <div className="bg-white border border-gray-300 rounded-md p-4 shadow-md" style={{ width: "18rem" }}>
                 {/* <img
                   src={instructor.avatar}
                   className="card-img-top img-size"
                   alt="..."
                 /> */}
 
-                <img
-                  src="marty-inst.jpg"
-                  className="card-img-top img-size"
-                  alt="..."
-                />
+                <img src="marty-inst.jpg" className="object-contain w-full h-auto rounded-t-md " alt="..."  />
 
                 <div className="card-body">
-                  <h5 className="card-title">{instructor.firstName + " " + instructor.lastName}</h5>
-                  <p className="card-text">
+                  <h5 className="card-title text-black mt-3  text-xl">{instructor.firstName + " " + instructor.lastName}</h5>
+                  <p className="card-text text-black mt-2 text-base">
                     {instructor.description}
                   </p>
                 </div>
-                <ul className="list-group list-group-flush">
+                <hr class="border-t border-black my-1 mt-2"></hr>
+                <ul className="list-group list-group-flush text-black px-auto">
                   {/* <li className="list-group-item">Blues, Rock</li> */}
-                  <li className="list-group-item">{instructor.username}</li>
+                  <li className="list-group-item mb-2 ">{instructor.username}</li>
                 </ul>
-                <div className="card-body">
+                <hr class="border-t border-black -my-1 "></hr>
+                <div className="text-blue-500 underline mt-3">
                   <NavLink to={`/teacher/${instructor._id}`} className="card-link">
                     View Profile
                   </NavLink>
