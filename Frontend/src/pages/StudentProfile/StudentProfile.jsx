@@ -4,6 +4,7 @@ import Image from "react-bootstrap/Image";
 import PlaceIcon from "@mui/icons-material/Place";
 import EmailIcon from "@mui/icons-material/Email";
 import { NavLink } from "react-router-dom";
+import profileImage from "./teacher_Profile_image copy.png"
 
 const Student = () => {
   return (
@@ -35,61 +36,68 @@ const Student = () => {
         <div className="container">
           <div className="row circle_img">
             <div className="col-10 circle_img_col d-flex align-items-start justify-content-center">
-              <Image
+              {/* <Image
                 className="circle_image"
                 src="/teacher_Profile_image.png"
+              /> */}
+
+              <img
+                className="circle_image"
+                src={profileImage}
+                alt="Teacher Profile"
               />
+
             </div>
           </div>
         </div>
         <div className="container">
           <div className="row">
             <div className="col-md-5">
-              <h1 className="text-white">FullName</h1>
-              <p className="text-white">Username</p>
+              <div className="text-white mx-20 text-lg">FullName</div>
+              <div className="text-white mx-20 text-lg">Username</div>
               <br />
               <br />
-              <span className="text-white">
+              <span className="text-white mx-20 text-lg">
                 <PlaceIcon /> Location : California, USA
               </span>
               <br />
               <br />
-              <span className="text-white">
+              <span className="text-white mx-20 text-lg">
                 <EmailIcon /> Email : Email
               </span>
               <br />
               <br />
               <br />
               <br />
-              <div className="btn-main">
+              <div className="btn-main mx-20">
                 <NavLink href="#">
                   <button className="btn-button">Edit Profile</button>
                 </NavLink>
               </div>
             </div>
             <div className="col-md-5 offset-1">
-              <h1 className="d-flex justify-content-center align-items-center animated-text">
+              <div className="d-flex justify-content-center align-items-center animated-text text-4xl">
                 specializes in a particular musical instrument
-              </h1>
-              <h4 className="content text-white text-center">Piano</h4>
-              <h1 className="d-flex justify-content-center align-items-center animated-text">
+              </div>
+              <div className="content text-white text-center text-2xl">Piano</div>
+              <div className="d-flex justify-content-center align-items-center animated-text text-4xl">
                 YOUR BIO
-              </h1>
-              <h4 className="content text-white ">
+              </div>
+              <div className="content text-white text-2xl">
                 Hi, I'm passionate about playing the piano and learning music.
                 I'm currently enrolled in piano classes at XYZ Music School.
-              </h4>
-              <h1 className="d-flex justify-content-center align-items-center animated-text">
+              </div>
+              <div className="d-flex justify-content-center align-items-center animated-text text-4xl">
                 Music Genres
-              </h1>
-              <h4 className="content text-white ">Classical, Jazz</h4>
-              <h1 className="d-flex justify-content-center align-items-center animated-text">
+              </div>
+              <div className="content text-white text-2xl ">Classical, Jazz</div>
+              <div className="d-flex justify-content-center align-items-center animated-text text-4xl">
                 YOUR Performance Videos Link
-              </h1>
-              <h4 className="content text-white ">XYZ</h4>
-              <h1 className="d-flex justify-content-center align-items-center animated-text">
+              </div>
+              <div className="content text-white text-2xl">XYZ</div>
+              <div className="d-flex justify-content-center align-items-center animated-text text-4xl">
                 YOUR Upcoming Performance
-              </h1>
+              </div>
               <ul>
                 <li>Concert at City Hall - 05/15/2023</li>
                 <li>Jazz Festival - 07/20/2023</li>
@@ -106,7 +114,7 @@ const Student = () => {
             <div className="col-md-5">
               <NavLink href="#">
                 <img
-                  src="beginnerpic.jpg"
+                  src="/beginnerpic.jpg"
                   style={{ width: "360px", height: "180px" }}
                   className="grid-element "
                 />
