@@ -84,7 +84,8 @@
 
 
 
-.video-part{
+.video-part-home{
+    background-color: black;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -99,7 +100,7 @@
  
 }
 
-.our-team{
+.our-team-home{
     /* font-size: 100px; */
     display: inline-block;
     text-align: center;
@@ -110,17 +111,18 @@
 
 
 
-.our-team-header{
+.our-team-header-home{
+    font-size: 50px;
     font-family: 'Quicksand', sans-serif;
     color: white;
     font-weight: bolder;
 }
 
-.our-team-content{
+.our-team-content-home{
     padding: 8px;
     font-family: 'Quicksand', sans-serif;
     color: white;
-    font-size: 50px;
+    font-size: 20px;
 }
 
 .course-heading{
