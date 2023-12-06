@@ -25,7 +25,7 @@
 }
 
 .specific header{
-    background-color: black;
+    /* background-color: black; */
 }
 
 .specific .navbar {
@@ -52,7 +52,8 @@
 
 .specific .navbar li a {
     font-size: 12px;
-    color: rgba(211, 211, 214, 0.856);
+    /* color: rgba(211, 211, 214, 0.856); */
+    color: black;
     padding: 5px 5px;
     font-family: 'Bruno Ace', cursive;
     text-decoration: none;
@@ -65,7 +66,7 @@
     font-size: 13px;
     /* background-color: rgba(0, 0, 0, 0.471); */
     border-radius: 15px;
-    transform:scale(1.1);
+    transform:scale(1.01);
     /* font-family: 'Tilt Prism', cursive; */
 
 }
@@ -98,7 +99,7 @@ button{
 
 .dropbtn {
     background-color: #04AA6D;
-    color: white;
+    color: black;
     padding: 16px;
     font-size: 16px;
     border: none;
