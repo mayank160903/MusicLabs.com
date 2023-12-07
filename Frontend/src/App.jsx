@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -13,8 +13,7 @@ import PaymentPage from './pages/PaymentPage/PaymentPage'
 import Homepage from './pages/Homepage/homepage'
 import Spotlight from './pages/Spotlight/Spotlight'
 import Faq from './pages/Faq/Faq'
-// import NewHeader from './pages/Header/NewHeader'
-
+import StudentProfile from './pages/StudentProfile/StudentProfile';
 import SigninSignupForm from './pages/Signup/Signup';
 
 
@@ -30,12 +29,14 @@ import AdminDashboard from './dashboard/Admin';
 import Catalogue from './pages/Catalogue/Catalogue'
 import TeacherEditProfile from './pages/TeacherEditProfile/TeacherEditProfile';
 import StudentEditProfile from './pages/StudentEditProfile/StudentEditProfile';
+import CreateCourseLayout from './pages/CreateCoursePage.jsx/CreateCourse'
 
 
 function App() {
   const [count, setCount] = useState(0);
 
-
+  const PaymentPage = React.lazy(() => import('./pages/PaymentPage/PaymentPage'))
+  
   const router = createBrowserRouter([
     {path:'/dashboard', element:<AdminDashboard/>},
     { path: '/', element: <RootLayout/>, 
@@ -47,6 +48,8 @@ function App() {
         {path: '/instructor',element:<Instructor/>},
         {path:'/teacher/:id', element:<Teacher/>},
         {path:'/catalogue', element:<Catalogue />},
+
+       {path:'/studentprofile', element:<StudentProfile/>},
         {path: '/checkout', element: <PaymentPage/>},
         {path: '/spotlight', element: <Spotlight/>},
         {path: '/faq', element: <Faq/>},
@@ -57,7 +60,12 @@ function App() {
         {path: '/course/:courseId', element: <CourseLayout/>, 
         children:[
           {path: ':section', element: <h1>hello</h1>},
-        ]}
+        ]},
+        
+        {path: '/createcourse/:courseid', element: <CreateCourseLayout/>},
+
+        {path: '/createcourse/:courseid/:section', element: <CreateCourseLayout/>},
+        {path: '/createcourse', element: <CreateCourseLayout/>}
       ]
     },  
   ]);

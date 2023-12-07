@@ -1,49 +1,81 @@
-import { Fragment, useState } from "react"
+import { Fragment, startTransition, useState } from "react"
 import Header from "../Header/Header";
+// import { useDispatch } from '@reduxjs/toolkit'
+import {useNavigate} from 'react-router'
+
 import './Wishlist.css'
-import { Delete } from "@mui/icons-material";
+import { Celebration, Delete } from "@mui/icons-material";
 import Footer from "../Footer/Footer";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { courseActions } from "../../store/courses";
+
+
 
 let HOLDER_DATA = [{
-    title: "Guitar",
-    teacher: "John Doe",
-    price: "100",
+    title: "Music Mastery",
+    teacher: "Jake Rockson",
+    price: "150",
     imageUrl: "https://masterofmusic.onrender.com/images/fam-solos.jpg",
-    _id: '1'
+    _id: '10'
     },
     {
         title: "Tabla",
         teacher: "John Doe",
         price: "150",
-        _id: '2',
+        _id: '20',
         imageUrl: "https://masterofmusic.onrender.com/images/fam-solos.jpg"
     }]
 
-    let HOLDER_DATA_courses = [{
-      title: "Learn How To Play Guitar in 10 Days",
-      teacher: "Rock Rockson",
-      price: "500",
-      imageUrl: "https://masterofmusic.onrender.com/images/fam-solos.jpg",
-      _id: '2'
-      },
-      {
-          title: "Tabla Tabla",
-          teacher: "John Doe",
-          price: "150",
-          _id: '3',
-          imageUrl: "https://masterofmusic.onrender.com/images/fam-solos.jpg"
-      }]
+  //   let HOLDER_DATA_courses = [{
+  //     title: "Learn How To Play Guitar in 10 Days",
+  //     teacher: "Rock Rockson",
+  //     price: "500",
+  //     imageUrl: "https://masterofmusic.onrender.com/images/fam-solos.jpg",
+  //     _id: '1'
+  //     },
+  //     {
+  //         title: "Tabla Tabla",
+  //         teacher: "John Doe",
+  //         price: "150",
+  //         _id: '2',
+  //         imageUrl: "https://masterofmusic.onrender.com/images/fam-solos.jpg"
+  //     },
+  //     {
+  //       title: "Tabla",
+  //       teacher: "John Doe",
+  //       price: "150",
+  //       _id: '3',
+  //       imageUrl: "https://masterofmusic.onrender.com/images/fam-solos.jpg",
+  //       completed: true
+  //   },
+  // ]
 
 function WishlistPage(){
 
-
+   const courses = useSelector((state)=>state.course)
    const [wishlist, setWishlist] = useState(HOLDER_DATA);
-   const [courses, setCourses] = useState(HOLDER_DATA_courses);
+  //  const [courses, setCourses] = useState(HOLDER_DATA_courses);
    const [mode,setMode] = useState("wish");
+   const dispatch = useDispatch();
+
+  //  const dispatch = useDispatch();
+   const navigate = useNavigate();
+
+   function purchaseCourseHandler(wishitem){
+      dispatch(courseActions.addCourse(wishitem))
+     startTransition(()=>{ 
+       navigate("/checkout")
+      })
+    }
+
+    function getCertificate(){
+      navigate("/certificate")
+    }
 
 
     return(
-        <Fragment>
+    <Fragment>
     <div className="toast-container position-fixed top-0 end-0 p-3">
     <div className="toast" role="alert" aria-live="assertive" aria-atomic="true">
       <div className="toast-header">
@@ -77,12 +109,12 @@ function WishlistPage(){
                               <h5 className="proftitle2 align-items-end ml-8" >Welcome, (username)</h5>
                             </div>
                             <ul className="list-group list-group-flush" style={{fontSize: '16px'}}>
-                              <li className="list-group-item atb" style={{borderBottom: '2px solid grey', backgroundColor: '#181a1b'}}><a href = "/student-profile" color="#C0BAB2">Your Profile</a></li>
+                              <li className="list-group-item atb" style={{borderBottom: '2px solid grey', backgroundColor: '#181a1b'}}><Link to = "/studentprofile" color="#C0BAB2">Your Profile</Link></li>
                               <li className="list-group-item atb" style={{borderBottom: '2px solid grey', backgroundColor: '#181a1b'}}><div onClick={()=>{setMode('wish')}}> Wishlist</div></li>
 
                               <li className="list-group-item atb" style={{borderBottom: '2px solid grey', backgroundColor: '#181a1b'}}><div onClick={()=>{setMode('courses')}}>Your Courses</div></li>
 
-                              <li className="list-group-item atb" style={{borderBottom: '2px solid grey',  backgroundColor: '#181a1b'}}><a href = "/">Home</a></li>
+                              <li className="list-group-item atb" style={{borderBottom: '2px solid grey',  backgroundColor: '#181a1b'}}><Link to = "/">Home</Link></li>
                               
                               <li className="atb list-group-item" style={{borderBottom: '2px solid grey',  backgroundColor: '#181a1b'}}><a href = "/logout" id = "logoutbtn" className = "logout-button">Log Out</a></li>
                             </ul>
@@ -99,11 +131,11 @@ function WishlistPage(){
                     <div className="rightcont">
                         <div className="rightmain d-flex flex-column">
                             <div className="rhead">
-                               <div className="" id="wishlist-count"> {mode === 'wish' ? `Your Wishlist (${wishlist.length})`:`Your Courses (${wishlist.length})`}</div>
+                               <div className="" id="wishlist-count"> {mode === 'wish' ? `Your Wishlist (${wishlist.length})`:`Your Courses (${courses.length})`}</div>
                             </div>
                           
                           
-
+                      <div className="overflow-auto max-h-[70vh]">
                            {mode === 'wish' ? (  
                           
                             wishlist.map((wishitem) => {
@@ -151,7 +183,7 @@ function WishlistPage(){
                                     {/* </form> */}
                                     
                                     
-                                    <button className="buy-now h-[48px]" onClick="window.location.href = '/checkout/<%=user.wishlist[i]._id %>' ">Buy Now</button>
+                                    <button className="buy-now h-[48px]" onClick={()=>{purchaseCourseHandler(wishitem)}}>Buy Now</button>
 
                                 </div>
                                 </div>)
@@ -194,8 +226,8 @@ function WishlistPage(){
                                 </div>
 
                                 <div className="rightitembar">
-                                                                                            
-                                  <button className="buy-now">
+                                {course.completed == true && <Celebration onClick={getCertificate}sx={{marginLeft: '3rem', cursor:'pointer'}}/>}                                                           
+                                  <button className="buy-now pb-2" onClick={()=>{navigate(`/course/${course.title}/1`)}}>
                                     Go To Course</button>
                                 </div>
                             </div>)
@@ -203,7 +235,7 @@ function WishlistPage(){
 
 
                             )}
-                            
+                            </div> 
                                   </div>
                               </div>
                           </div>
