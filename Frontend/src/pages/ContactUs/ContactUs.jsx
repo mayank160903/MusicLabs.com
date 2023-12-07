@@ -8,9 +8,7 @@ function ContactUs(){
         <Fragment>
             {/* <Header /> */}
         <div className="wholepage contact-bg">
-        <div className="container-wrapper contact-bg">
-        
-            
+        <div className="container-wrapper contact-bg">            
             <div className="container-fluid">
                 <div className="mainformcont">
                 <div className="">
@@ -69,7 +67,7 @@ function ContactUs(){
 
                             <div className="form-group row justify-content-between " style={{width:'100%'}}>
                             <div className="col-sm-6 " style={{paddingRight: '0px' , paddingLeft: '12px'}}>
-                                <input type="text" className="form-control" id="name" placeholder=" FIRST NAME" name="fname"
+                                <input type="text" className="form-control" id="name" placeholder="FIRST NAME" name="fname"
                                 value="" required style={{ width: '180px' , backgroundColor: 'white' }}/>
                             </div>
 

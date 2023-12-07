@@ -65,16 +65,14 @@ const LoginForm = () => {
                   Email
                 </label>
                 <div className="flex">
-                  <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                    <i className="mdi mdi-email-outline text-gray-400 text-lg"></i>
-                  </div>
+        
                   <input
                     type="email"
                     id="email"
                     name="email"
                     value={loginData.email}
                     onChange={handleInputChange}
-                    className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                    className="w-full pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                     placeholder="johnsmith@example.com"
                   />
                 </div>
@@ -86,15 +84,12 @@ const LoginForm = () => {
                   Role
                 </label>
                 <div className="flex">
-                  <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                    <i className="mdi mdi-account-outline text-gray-400 text-lg"></i>
-                  </div>
                   <select
                     id="role"
                     name="role"
                     value={loginData.role}
                    onChange={handleInputChange}
-                    className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus-border-indigo-500"
+                    className="w-full pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus-border-indigo-500"
                   >
                     <option value="User">User</option>
                     <option value="teacher">teacher</option>
@@ -108,16 +103,14 @@ const LoginForm = () => {
                   Password
                 </label>
                 <div className="flex">
-                  <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                    <i className="mdi mdi-lock-outline text-gray-400 text-lg"></i>
-                  </div>
+             
                   <input
                     type="password"
                     id="password"
                     name="password"
                     value={loginData.password}
                 onChange={handleInputChange}
-                    className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                    className="w-full pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                     placeholder="****"
                   />
                 </div>

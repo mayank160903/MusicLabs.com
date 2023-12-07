@@ -24,6 +24,10 @@ head-slides{
  
 }
 
+.card-bg-manual{
+    background-color: white;
+}
+
 .our-team{
     
     display: inline-block;
