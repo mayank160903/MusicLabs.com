@@ -16,7 +16,23 @@ let HOLDER_DATA = [{
         price: "150",
         _id: '2',
         imageUrl: "https://masterofmusic.onrender.com/images/fam-solos.jpg"
-    }]
+    },
+    {
+      title: "Tabla",
+      teacher: "John Doe",
+      price: "150",
+      _id: '3',
+      imageUrl: "https://masterofmusic.onrender.com/images/fam-solos.jpg"
+  },
+  {
+    title: "Tabla",
+    teacher: "John Doe",
+    price: "150",
+    _id: '4',
+    imageUrl: "https://masterofmusic.onrender.com/images/fam-solos.jpg"
+},
+
+  ]
 
 function YourCoursesPage(){
 
@@ -84,7 +100,7 @@ function YourCoursesPage(){
                             </div>
                           
                           
-
+                    <div className="overflow-auto">
                              {wishlist.map((wishitem) => {
                                 return(
                               <div key={wishitem._id} className="wishblock" id={wishitem._id}>
@@ -136,7 +152,7 @@ function YourCoursesPage(){
                             </div>)
                             })}
                             
-
+                    </div>
 
                             <div className = "nothinginwish" hidden id="empty-cart">Your Wishlist is Empty!</div>
                             

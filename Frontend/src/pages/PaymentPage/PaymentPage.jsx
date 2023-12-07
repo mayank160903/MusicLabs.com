@@ -48,7 +48,7 @@ function PaymentPage(){
       );
       setOrderId(response.data.id);
     } catch (error) {
-      console.error("Error creating order:", error);
+      console.error("Error in placing order:", error);
     }
   };
 
