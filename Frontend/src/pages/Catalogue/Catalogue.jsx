@@ -106,7 +106,7 @@ const Catalogue = (props) => {
                         <div className="row row-cols-1 row-cols-md-3 g-4 cards">
                           <div className="col card-pad">
                             <div className="card card-bg-manual crd">
-                              <a href="/coursedescpage"><img src={andy}
+                              <a href="https://masterofmusic.onrender.com/coursedescpage/64496f0b08a2f722ccbb222b" target='_blank'><img src={andy}
                                   style={customStyle3} className="card-img-top" alt="..." /></a>
                               <div className="card-body">
                                 <h6 className="card-title">Music Theory for Beginners</h6>
@@ -116,7 +116,7 @@ const Catalogue = (props) => {
                           </div>
                           <div className="col card-pad">
                             <div className="card crd">
-                              <a href="/coursedescpage"><img src={musictheory}
+                              <a href="https://masterofmusic.onrender.com/coursedescpage/64496f0b08a2f722ccbb222b" target="_blank"><img src={musictheory}
                                   style={customStyle3} className="card-img-top" alt="..." /></a>
                               <div className="card-body">
                                 <h6 className="card-title">Dive into Music Theory</h6>
@@ -126,7 +126,7 @@ const Catalogue = (props) => {
                           </div>
                           <div className="col card-pad">
                             <div className="card crd">
-                              <a href="/coursedescpage"><img src={carl}
+                              <a href="https://masterofmusic.onrender.com/coursedescpage/64496f0b08a2f722ccbb222b" target="_blank"><img src={carl}
                                   style={customStyle3} className="card-img-top" alt="..." /></a>
                               <div className="card-body">
                                 <h6 className="card-title">Music Theory A-Z</h6>
@@ -154,7 +154,7 @@ const Catalogue = (props) => {
                         <div className="row row-cols-1 row-cols-md-3 g-4 cards">
                           <div className="col card-pad">
                             <div className="card crd">
-                              <a href="/coursedescpage"><img src={marty}
+                              <a href="https://masterofmusic.onrender.com/coursedescpage/64496f0b08a2f722ccbb222b" target="_blank"><img src={marty}
                                   style={customStyle3} className="card-img-top" alt="..." /></a>
                               <div className="card-body">
                                 <h6 className="card-title">Your Very First guitar lessons</h6>

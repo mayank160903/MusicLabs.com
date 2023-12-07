@@ -48,7 +48,7 @@ function App() {
         {path: '/instructor',element:<Instructor/>},
         {path:'/teacher/:id', element:<Teacher/>},
         {path:'/catalogue', element:<Catalogue />},
-
+        {path: '/studenteditprofile', element: <StudentEditProfile/>},
        {path:'/studentprofile', element:<StudentProfile/>},
         {path: '/checkout', element: <PaymentPage/>},
         {path: '/spotlight', element: <Spotlight/>},
