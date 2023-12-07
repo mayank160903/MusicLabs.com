@@ -23,9 +23,7 @@ const LoginForm = () => {
 
   const handleLogin = async () => {
     try {
-      // Perform validation if needed
-
-      // Send login data to the backend
+     
       const response = await axios.post('http://localhost:8000/api/v1/user/login', loginData);
 
       if (response.status === 200) {
