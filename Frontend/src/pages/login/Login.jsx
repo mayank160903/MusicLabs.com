@@ -25,7 +25,9 @@ const LoginForm = () => {
 
   const handleLogin = async () => {
     try {
-     
+      if(loginData.role == 'admin'){
+        navigate('/dashboard')
+      }
       const response = await axios.post('http://localhost:8000/api/v1/user/login', loginData);
 
       if (response.status === 200) {
