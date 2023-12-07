@@ -1,7 +1,9 @@
-import exp from "constants";
+// import exp from "constants";
 import { Fragment, useState } from "react";
 
 import styles from './PaymentPage.module.css'
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 
 const HOLDER_COURSE = 
@@ -22,6 +24,7 @@ const HOLDER_COURSE =
 function PaymentPage(){
 
     const [course,setCourse] = useState(HOLDER_COURSE);
+    const navigate = useNavigate();
     
     const piiche = () => {
         // Implement the piiche function here
@@ -35,9 +38,55 @@ function PaymentPage(){
         // Implement the copyToClip function here
       };
 
+  
+  const [orderId, setOrderId] = useState("");
+
+  const createOrder = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/create-order"
+      );
+      setOrderId(response.data.id);
+    } catch (error) {
+      console.error("Error in placing order:", error);
+    }
+  };
+
+  const displayRazorpay = async () => {
+    const options = {
+      key: "rzp_test_CFaCcyskyo1gnl",
+      amount: 150 * 100, // Amount in paise (Example: 50000 paise = ₹500)
+      currency: "INR",
+      name: "Masters Of Music",
+      description: course.title,
+      order_id: orderId,
+      handler: function (response) {
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature);o
+        navigate('/')
+        alert("Payment successful")
+      },
+      prefill: {
+        name: "Harshit",
+        email: "harshitc@gmail.com",
+        contact: "8076784892",
+      },
+      theme: {
+        color: "#333333",
+      },
+    };
+    const razorpayInstance = new window.Razorpay(options);
+    razorpayInstance.open();
+  };
+
+  const handlePayment = async () => {
+    await createOrder();
+    await displayRazorpay();
+ };
+
     return(
         <Fragment>
-           (
     <div className={styles.checkoutbody}>
       <div className={styles.centerWrapper}> {/* Use CSS Modules for class names */}
         <div className={styles.content}>
@@ -91,11 +140,11 @@ function PaymentPage(){
               />
               <button className={styles.apply} onClick={confrm}>Apply</button>
             </div>
-            <form action={`/purchase/${course._id}`} method="post">
-              <button className={styles.checkbtn} type="submit" id="chkout" style={{backgroundColor: '#9966cc'}}>
+            
+              <button className={styles.checkbtn} type="submit" id="chkout" style={{backgroundColor: '#9966cc'}} onClick={handlePayment}>
                 <div>Proceed to Checkout</div>
               </button>
-            </form>
+            {/* </form> */}
           </div>
           <div style={{ textAlign: 'center', marginBottom: '2rem', marginTop: '0.7rem'}}>
             <abbr title="Click To Copy Phone Number" style={{ textDecoration: 'none' }} id="ccpy">
@@ -113,7 +162,7 @@ function PaymentPage(){
         </div>
       </div> */}
     </div>
-  );
+
         </Fragment>
     )
 }
