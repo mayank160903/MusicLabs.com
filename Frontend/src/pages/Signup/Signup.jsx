@@ -8,6 +8,7 @@ import { toast, ToastContainer } from 'react-toastify'; // Import toast from toa
 import './Signup.css';
 import 'react-toastify/dist/ReactToastify.css';
 import signup from '../../images/signup1.jpg';
+import { Input } from '@mui/base';
 
 const RegistrationForm = () => {
 
@@ -100,14 +101,12 @@ const handleRegister = async () => {
                   First name
                 </label>
                 <div className="flex">
-                  <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                    <i className="mdi mdi-account-outline text-gray-400 text-lg"></i>
-                  </div>
+                
                   <input
                     type="text"
                     id="firstName"
                     name="firstName"
-                    className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                    className="w-full pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                     placeholder="John"
                     onChange={handleChange}
                   />
@@ -118,14 +117,12 @@ const handleRegister = async () => {
                   Last name
                 </label>
                 <div className="flex">
-                  <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                    <i className="mdi mdi-account-outline text-gray-400 text-lg"></i>
-                  </div>
+                
                   <input
                     type="text"
                     id="lastName"
                     name="lastName"
-                    className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                    className="w-full pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                     placeholder="Smith"
                     onChange={handleChange}
                   />
@@ -138,14 +135,12 @@ const handleRegister = async () => {
                   Email
                 </label>
                 <div className="flex">
-                  <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                    <i className="mdi mdi-email-outline text-gray-400 text-lg"></i>
-                  </div>
+                 
                   <input
                     type="email"
                     id="email"
                     name="email"
-                    className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                    className="w-full pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                     placeholder="johnsmith@example.com"
                     onChange={handleChange}
                   />
@@ -158,14 +153,12 @@ const handleRegister = async () => {
                   Role
                 </label>
                 <div className="flex">
-                  <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                    <i className="mdi mdi-account-outline text-gray-400 text-lg"></i>
-                  </div>
+                  
                   <select
                     id="role"
                     name="role"
                     onChange={handleChange}
-                    className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                    className="w-full pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                   >
                     <option value="User">User</option>
                     <option value="teacher">Teacher</option>
@@ -180,15 +173,13 @@ const handleRegister = async () => {
               Resume
             </label>
             <div className="flex">
-              <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                <i className="mdi mdi-account-outline text-gray-400 text-lg"></i>
-              </div>
+              
               <input
                 type="file"
                 id="adminData"
                 accept="image/*"
                 name="resume"
-                className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                className="w-full pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
                 placeholder="Select your Resume"
                 onChange={handleResumeChange}
               />
@@ -202,15 +193,13 @@ const handleRegister = async () => {
                   Password
                 </label>
                 <div className="flex">
-                  <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center">
-                    <i className="mdi mdi-lock-outline text-gray-400 text-lg"></i>
-                  </div>
+                  
                   <input
                     type="password"
                     id="password"
                     name="password"
-                    className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                    placeholder="****"
+                    className="w-full pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                    placeholder="******"
                     onChange={handleChange}
                   />
                 </div>

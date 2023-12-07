@@ -39,7 +39,7 @@ input {
   z-index: 5;
 }
 
-form {
+.signupform {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,16 +134,16 @@ form.sign-in-form {
 }
 
 .btn {
-  width: 150px;
-  background-color: #5995fd;
-  border: none;
-  outline: none;
-  height: 49px;
-  border-radius: 49px;
-  color: #fff;
+  /* width: 150px; */
+  /* background-color: #5995fd; */
+  /* border: none; */
+  /* outline: none; */
+  /* height: 49px; */
+  /* border-radius: 49px; */
+  /* color: #fff; */
   text-transform: uppercase;
   font-weight: 600;
-  margin: 10px 0;
+  /* margin: 10px 0; */
   cursor: pointer;
   transition: 0.5s;
 }
@@ -375,9 +375,7 @@ form.sign-in-form {
 }
 
 @media (max-width: 570px) {
-  form {
-    padding: 0 1.5rem;
-  }
+ 
 
   .image {
     display: none;
