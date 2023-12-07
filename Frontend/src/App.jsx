@@ -13,7 +13,7 @@ import PaymentPage from './pages/PaymentPage/PaymentPage'
 import Homepage from './pages/Homepage/homepage'
 import Spotlight from './pages/Spotlight/Spotlight'
 import Faq from './pages/Faq/Faq'
-
+import StudentProfile from './pages/StudentProfile/StudentProfile';
 import SigninSignupForm from './pages/Signup/Signup';
 
 
@@ -28,6 +28,7 @@ import Teacher from './pages/TeacherProfile/TeacherProfile';
 import AdminDashboard from './dashboard/Admin';
 import TeacherEditProfile from './pages/TeacherEditProfile/TeacherEditProfile';
 import StudentEditProfile from './pages/StudentEditProfile/StudentEditProfile';
+import CreateCourseLayout from './pages/CreateCoursePage.jsx/CreateCourse'
 
 
 function App() {
@@ -44,7 +45,8 @@ function App() {
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/instructor',element:<Instructor/>},
         {path:'/teacher/:id', element:<Teacher/>},
-        
+
+       {path:'/studentprofile', element:<StudentProfile/>},
         {path: '/checkout', element: <PaymentPage/>},
         {path: '/spotlight', element: <Spotlight/>},
         {path: '/faq', element: <Faq/>},
@@ -55,7 +57,12 @@ function App() {
         {path: '/course/:courseId', element: <CourseLayout/>, 
         children:[
           {path: ':section', element: <h1>hello</h1>},
-        ]}
+        ]},
+        
+        {path: '/createcourse/:courseid', element: <CreateCourseLayout/>},
+
+        {path: '/createcourse/:courseid/:section', element: <CreateCourseLayout/>},
+        {path: '/createcourse', element: <CreateCourseLayout/>}
       ]
     },  
   ]);

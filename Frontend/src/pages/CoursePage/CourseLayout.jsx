@@ -8,45 +8,111 @@ import { useParams } from "react-router";
 import { Box } from "@mui/material";
 
 const DUMMY = {
-    title: "Course Name",
-    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio vitae minima debitis at ratione temporibus rerum, tempore nesciunt non corporis, totam, labore dolorum libero illo deserunt harum repellat consectetur? Voluptatem! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae aliquid cumque, nesciunt rerum molestias a beatae? Reiciendis, rem repudiandae sint qui culpa inventore illo ab unde minima quos fuga! Blanditiis.",
-    price: 100,
+    title: "Mastering Music",
+    description: "Welcome to Mastering Music: A Comprehensive Guide, an immersive and dynamic exploration of the rich tapestry of music. Whether you're just beginning your musical journey or seeking to deepen your expertise, this meticulously crafted course offers an expansive and enlightening experience. Throughout this comprehensive guide, you'll delve into the intricate realms of music theory, instrument mastery, performance finesse, composition techniques, and the ever-evolving technological landscape within music creation. Each segment of this course is thoughtfully curated to offer a holistic understanding of music in all its forms." ,
+    price: 150,
     sections: [
-        {name: 'Introduction', videos: [{name: 'Lesson 1', videos: 'Lesson Content', id:1},{name: 'Lesson 1', videos: 'Lesson Content', id:2}]},
-        {name: 'Section 2', videos: [{name: 'Lesson 1', videos: 'Lesson Content', id:3},{name: 'Lesson 1', videos: 'Lesson Content', id:4}]},
-        {name: 'Moving Forward', videos: [{name: 'Key Strokes', videos: 'Lesson Content', id:5},{name: 'Lesson 1', videos: 'Lesson Content',id:6}]},
+        {name: 'Introduction', videos: [{name: 'Intro', videos: 'video1', id:1},{name: 'What is Expected of You?', videos: 'video1', id:4}, {name: 'How to Watch And Learn', videos: 'video1', id:69}, { name: 'Getting Started', videos: 'video1', id:2 },
+        { name: 'Course Overview', videos: 'video1', id:3 },
+        { name: 'Navigating the Platform', videos: 'video1', id:4 }]},
 
+        {name: 'Common Early Mistakes', videos: [ { name: 'Overlooking Fundamentals', videos: 'video1', id:33 },
+        { name: 'Ignoring Practice Consistency', videos: 'video1', id:34 },
+        { name: 'Rushing Through Techniques', videos: 'video1', id:35 },
+        { name: 'Not Seeking Guidance', videos: 'video1', id:36 }]},
+        
+    {
+    name: 'Music Theory Fundamentals',
+    videos: [
+      { name: 'Understanding Chords', videos: 'video1', id:17 },
+      { name: 'Melody Composition Basics', videos: 'video1', id:18 },
+      { name: 'Rhythmic Structures', videos: 'video1', id:19 },
+      {name: 'Exploring 7 the Rhymes', videos: 'video1', id:67}
+    ]},
+    {
+      name: 'Song Studies',
+      videos: [
+        { name: 'Classic Rock Anthems', videos: 'video1', id:11 },
+        { name: 'Pop Ballads Deconstructed', videos: 'video1', id:12 },
+        { name: 'Jazz Standards Exploration', videos: 'video1', id:13 },
+        { name: 'Harmony and Counterpoint', videos: 'video1', id:20 },
+{ name: 'Theme Development', videos: 'video1', id:21 },
+{ name: 'Instrumentation Strategies', videos: 'video1', id:22 }
+      ]
+    },
+    {
+        name: 'Basic Principles',
+        videos: [
+                { name: 'Exploring Advanced Chords', videos: 'video1', id:37 },
+                { name: 'Mastering Rhythmic Patterns', videos: 'video1', id:38 },
+                { name: 'Understanding Song Structures', videos: 'video1', id:39 },
+                { name: 'Improvisation Techniques', videos: 'video1', id:40 }
+              ]},
+              {name: 'Scales and Soloing Techniques',
+              videos: [
+                { name: 'Introduction to Major Scale', videos: 'video1', id:47 },
+                { name: 'Pentatonic Scale Mastery', videos: 'video1', id:48 },
+                { name: 'Exploring Modes: Dorian', videos: 'video1', id:49 },
+                { name: 'Advanced Bending Techniques', videos: 'video1', id:50 },
+                { name: 'Improvisation Strategies', videos: 'video1', id:51 }
+              ]},
+              {
+                name: 'Improvisation Strategies',
+                videos: [
+                  { name: 'Developing Melodic Phrasing', videos: 'video1', id:52 },
+                  { name: 'Understanding Chord Progressions', videos: 'video1', id:53 },
+                  { name: 'Creating Expressive Solos', videos: 'video1', id:54 },
+                  { name: 'Exploring Modal Interchange', videos: 'video1', id:55 },
+                  { name: 'Mastering Rhythmic Variation', videos: 'video1', id:56 }
+                ]
+              },
+              {
+            name: 'Advanced Techniques',
+            videos: [
+              { name: 'Mastering Scales', videos: 'video1', id:8 },
+              { name: 'Soloing Strategies', videos: 'video1', id:9 },
+              { name: 'Rhythm Mastery', videos: 'video1', id:10 }
+            ]
+          },
+    {name: 'Performance Mastery',
+    videos: [
+      { name: 'Stage Presence Techniques', videos: 'video1', id:14 },
+      { name: 'Connecting with Your Audience', videos: 'video1', id:15 },
+      { name: 'Live Gig Preparation', videos: 'video1', id:16 }
     ]
-
+  },
+    {name: 'Path ahead', videos: [{name: 'Key Strokes', videos: 'video1', id:5},{name: 'Lesson 1', videos: 'video1',id:6}]},
+    ]
 }
 
 function CourseLayout(){
 
     const params = useParams();
     const [value, setValue] = useState(true);
-    const [currentSection, setCurrentSection] = useState("");
+    const [currentSection, setCurrentSection] = useState(DUMMY.sections[0].name);
     // const dispatch = useDispatch();
     // dispatch(authActions.login());
    const isLoggedin =  useSelector(state => state.auth.isLoggedin);
+   const [video, setVideo] = useState(1);
     
     return (
         <div className="relative h-auto flex pb-6">
         <div className="flex flex-col">
-            <div className="w-[72vw] h-fit">
-               <MainContent currentVideo={params.section} currentSection={currentSection} content={DUMMY}/>
+            <div className="w-[76vw] h-fit">
+               <MainContent currentVideo={params.section} currentSection={currentSection} content={DUMMY} video={video}/>
                <Box sx={{marginTop: '1rem', padding: 2}}>
                 <div className="flex flex-col">
-                    <div className="font-bold text-2xl"> Course Description </div>
+                    <div className="font-bold text-2xl mb-4"> Course Description </div>
                    <div> {DUMMY.description} </div>
                 </div>
                </Box>
             </div>
-            <div className="absolute inset-y-0 right-0 w-[28vw] bg-cyan-300">
+            <div className="absolute inset-y-0 overflow-auto scroll-y right-0 mt-12 w-[24vw] bg-slate-800">
             
              { DUMMY.sections.map((section, index)=>{
                 console.log(section.videos)
                     return(
-                        <Dropdown key={index} currentSection={currentSection} setCurrentSection={setCurrentSection} title={section.name} num={index+1} total={section.videos.length}  content={section?.videos}/>    
+                        <Dropdown key={index} currentSection={currentSection} setCurrentSection={setCurrentSection} title={section.name} num={index+1} total={section.videos.length}  content={section?.videos} setVideo={setVideo}/>    
                     )
                 })
             }

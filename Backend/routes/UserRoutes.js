@@ -11,7 +11,7 @@ router.get("/add-to-wl/:course")
 router.post("/remove-wishlist/:Id")
 router.get("/checkout/:coursename")
 router.get("/remove/:course")
-
+// router.get()
 
 router.get('/instructorData', InstructorDataController)
 

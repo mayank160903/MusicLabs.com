@@ -1,12 +1,14 @@
 
 import { Fragment, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Dropdown from "../../components/CoursePage/Dropdown";
 import MainContent from "../../components/CoursePage/MainContent";
 import { useParams } from "react-router";
 import { Box } from "@mui/material";
 import { AddCircleRounded, AddIcCallRounded } from "@mui/icons-material";
+// import CreateCourseDropdownDropdown from "./CreateCourseDropdown";
+import CreateCourseDropdown from "./CreateCourseDropdown";
 
 const DUMMY = {
     title: "Course Name",
@@ -34,7 +36,7 @@ function CreateCourseLayout(){
 
    function addSectionHandler(){
     setCourseInfo(curr=>{
-        const new_section = {name: 'Enter Name', videos: []}
+        const new_section = {name: 'Enter Name', videos: [{name: 'Enter Lesson Name', videos: 'Lesson Content', id:1}]}
         return {curr, sections : [...curr.sections, new_section] }
     })
 
@@ -44,7 +46,7 @@ function CreateCourseLayout(){
         <div className="relative h-auto flex pb-6">
         <div className="flex flex-col">
             <div className="w-[72vw] h-fit">
-               <MainContent currentVideo={params.section}/>
+               <MainContent currentVideo={params.section} currentSection={currentSection} content={courseInfo}/>
                <Box sx={{marginTop: '1rem', padding: 2}}>
                 <div className="flex flex-col">
                     <div className="font-bold text-2xl"> Course Description </div>
@@ -57,7 +59,7 @@ function CreateCourseLayout(){
                { courseInfo.sections.map((section, index)=>{
                 {/* console.log(section.videos) */}
                     return(
-                        <Dropdown key={index} currentSection={currentSection} setCurrentSection={setCurrentSection} title={section.name} num={index+1} total={section.videos.length} finished={1} content={section?.videos}/>    
+                        <CreateCourseDropdown key={index} currentSection={currentSection} setCurrentSection={setCurrentSection} title={section.name} num={index+1} total={section.videos.length} content={section.videos} setContent={setCourseInfo} />    
                     )
                 })
             }
@@ -66,13 +68,14 @@ function CreateCourseLayout(){
 
             <div onClick={addSectionHandler}>
             <div className="flex flex-col mt-4 cursor-pointer">
-            <div className="width-[100%] flex justify-center"><AddCircleRounded/></div>
-            <div className="mx-auto  text-center  font-bold">
+            <div className="width-[100%] flex justify-center"><AddCircleRounded sx={{color:"white"}}/></div>
+            <div className="mx-auto  text-center bg-black text-white font-bold">
                 Add New Content
             </div>
             </div>
             </div>
-    
+
+
             <div>
 
             </div>
