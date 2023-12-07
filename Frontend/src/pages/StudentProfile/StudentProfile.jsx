@@ -3,16 +3,16 @@ import "./studentProfile.css";
 import Image from "react-bootstrap/Image";
 import PlaceIcon from "@mui/icons-material/Place";
 import EmailIcon from "@mui/icons-material/Email";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import profileImage from "./teacher_Profile_image copy.png"
 
 const Student = () => {
   return (
     <>
-      <div className="header_container">
+      {/* <div className="header_container">
         <div className="row">
           <div className="col-12">
-            <div className="upper-head">
+            {/* <div className="upper-head">
               <div className="top-logo">
                 <img
                   className="bg"
@@ -27,10 +27,10 @@ const Student = () => {
                   Master your music skills with the best music lessons!
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            </div> */}
+          {/* </div> */}
+        {/* </div> */}
+      {/* </div> */}
 
       <div className="body_container">
         <div className="container">
@@ -70,9 +70,9 @@ const Student = () => {
               <br />
               <br />
               <div className="btn-main mx-20">
-                <NavLink href="#">
+                <Link to="/studenteditprofile">
                   <button className="btn-button">Edit Profile</button>
-                </NavLink>
+                </Link>
               </div>
             </div>
             <div className="col-md-5 offset-1">
