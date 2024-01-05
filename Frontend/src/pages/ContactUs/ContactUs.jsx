@@ -14,7 +14,7 @@ function ContactUs(){
                 <div className="">
                     <div className="mainform d-flex flex-row flex-wrap">
 
-                    <div className="formblock col">
+                    <div className="formblock col font-extralight">
                         <div className="fhv">
                         <span className="formheader">
                             <h1 style={{ fontSize: '24px' }}>Get in Touch With Us</h1>

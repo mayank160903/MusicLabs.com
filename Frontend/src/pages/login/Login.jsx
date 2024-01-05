@@ -8,6 +8,7 @@ import signup from '../../images/signup1.jpg';
 const LoginForm = () => {
 
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
 
   const [loginData, setLoginData] = useState({
     email: '',
@@ -28,16 +29,19 @@ const LoginForm = () => {
       if(loginData.role == 'admin'){
         navigate('/dashboard')
       }
+      setLoading(true)
       const response = await axios.post('http://localhost:8000/api/v1/user/login', loginData);
-
+      setLoading(false)
       if (response.status === 200) {
         // Navigate to the homepage upon successful login
         navigate('/');
       } else {
         // Handle other cases, e.g., display an error message
+        navigate('/')
         console.error('Login failed:', response.data.message);
       }
     } catch (error) {
+      navigate('/')
       console.error('Error during login:', error);
       // Handle error
     }
@@ -124,7 +128,8 @@ const LoginForm = () => {
                   type="submit"
                   onClick={handleLogin}
                 >
-                  LOGIN
+                {!loading && "LOGIN"}
+                {loading && "Loading..."}
                 </button>
               </div>
             </div>
