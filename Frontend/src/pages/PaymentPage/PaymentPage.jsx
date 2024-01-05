@@ -27,7 +27,7 @@ function PaymentPage(){
     const navigate = useNavigate();
     
     const piiche = () => {
-        // Implement the piiche function here
+      navigate(-1)
       };
     
       const confrm = () => {
@@ -91,9 +91,9 @@ function PaymentPage(){
       <div className={styles.centerWrapper}> {/* Use CSS Modules for class names */}
         <div className={styles.content}>
           <div className={styles.topBar}>
-            <div>
-              <i className="fas fa-arrow-left"></i>
-              <span className={styles.bb} onClick={piiche}>Go Back</span>
+            <div onClick={piiche} className="cursor-pointer">
+              <i className="fas fa-arrow-left mr-2"></i>
+              <span className={styles.bb} >Go Back</span>
             </div>
           </div>
           <div className={styles.bagProduct}> {/* Combine multiple class names */}
@@ -116,7 +116,7 @@ function PaymentPage(){
             </div>
             <div style={{ margin: '1rem 0' }} id="abracadbra">
               <input type="checkbox" name="promo-check" id="mycheck" />
-              <label htmlFor="promo-check">I have a promo code</label>
+              <label htmlFor="promo-check" className="ml-3">I have a promo code</label>
             </div>
             {/* <div className={styles.promoWarning} id="warn1">
               <p className={styles.warn1}>Please Enter a Promo Code!</p>
@@ -142,7 +142,7 @@ function PaymentPage(){
             </div>
             
               <button className={styles.checkbtn} type="submit" id="chkout" style={{backgroundColor: '#9966cc'}} onClick={handlePayment}>
-                <div>Proceed to Checkout</div>
+                <div className="uppercase">Proceed to Checkout</div>
               </button>
             {/* </form> */}
           </div>

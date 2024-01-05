@@ -42,8 +42,8 @@
   }
   
   .mainformcont{
-    padding-top: 80px !important;
-    padding-bottom: 80px !important;
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
   }
   
   .mainform{
@@ -62,7 +62,9 @@
   
   .formblock{
     display: flex;
+    font-family: 'Quicksand', sans-serif;
     flex-direction: column;
+    font-weight: 500;
   }
   
   
