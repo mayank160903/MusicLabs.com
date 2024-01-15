@@ -42,7 +42,7 @@ exports.registerController = async (req,res) => {
             email ,password : hashedPassword , role});
             await user.save();
                 
-                return res.status(200).send({success : true , message : "User login successfully "});
+                return res.status(200).send({success : true , message : "User Registered Successfully" , user});
         }
         else{
           

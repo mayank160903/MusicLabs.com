@@ -1,16 +1,23 @@
+import { LocalConvenienceStoreOutlined } from "@mui/icons-material";
 import { createSlice } from "@reduxjs/toolkit";
 
 
-let authSlice = createSlice({
+
+export const  authSlice = createSlice({
     name:'auth',
-    initialState: {isLoggedin: false, user: null, role: null, token: null},
+    initialState: {isLoggedin: false, firstName: null, lastName : null , role: null, token: null},
 
     reducers:{
         login(state, action){
             state.isLoggedin = true;
-            state.user = action.payload.user;
+            state.firstName = action.payload.firstName;
+            state.lastName = action.payload.lastName;
             state.token = action.payload.token;
             state.role = action.payload.role;
+            console.log(state.isLoggedin);
+            console.log(state.firstName);
+            console.log(token);
+            console.log(role);
         },
         logout(state){
             state.isLoggedin = false;
@@ -21,6 +28,6 @@ let authSlice = createSlice({
     }
 })
 
-export const authActions = authSlice.actions;
+export const {login , logout} = authSlice.actions;
 
-export default authSlice
+export default authSlice.reducer;
