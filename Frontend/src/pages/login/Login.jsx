@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
-import signup from '../../images/signup1.jpg';
+import { login } from '../../store/auth';
 
+import signup from '../../images/signup1.jpg';
+import { useDispatch } from 'react-redux';
 
 const LoginForm = () => {
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false)
 
@@ -34,6 +36,12 @@ const LoginForm = () => {
       setLoading(false)
       if (response.status === 200) {
         // Navigate to the homepage upon successful login
+        console.log(response.data);
+        const user = response.data.user
+        const token = response.data.token;
+
+        dispatch(login({firstName : user.firstName , lastName : user.lastName , role : user.role , token : token}));
+
         navigate('/');
       } else {
         // Handle other cases, e.g., display an error message

@@ -4,7 +4,20 @@ const teacherSchema = require('../models/teacher.js');
 
 const {hashPassword , comparePassword} = require('../helper/authhelper.js');
 
+const multer = require('multer');
+
 const JWT  = require('jsonwebtoken')
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads/'); // Set the destination folder for uploaded files
+    },
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + '-' + file.originalname); // Set the filename
+    },
+  });
+
+  const upload = multer({ storage: storage });
 
 exports.registerController = async (req,res) => {
     try{
@@ -29,7 +42,7 @@ exports.registerController = async (req,res) => {
             email ,password : hashedPassword , role});
             await user.save();
                 
-                return res.status(200).send({success : true , message : "User login successfully "});
+                return res.status(200).send({success : true , message : "User Registered Successfully" , user});
         }
         else{
           
