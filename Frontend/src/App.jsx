@@ -30,6 +30,8 @@ import Catalogue from './pages/Catalogue/Catalogue'
 import TeacherEditProfile from './pages/TeacherEditProfile/TeacherEditProfile';
 import StudentEditProfile from './pages/StudentEditProfile/StudentEditProfile';
 import CreateCourseLayout from './pages/CreateCoursePage.jsx/CreateCourse'
+import Headertest from './pages/Header/Headertest'
+import CourseUpload from './pages/courseUpload/courseUpload'
 
 
 function App() {
@@ -44,6 +46,7 @@ function App() {
         {path: '/', element: <Homepage/> },
         // {path: '/testing', element: <NewHeader /> },
         {path: '/ContactUs', element: <ContactUs/> },
+        {path: '/HeaderTest', element: <Headertest />},
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/instructor',element:<Instructor/>},
         {path:'/teacher/:id', element:<Teacher/>},
@@ -65,7 +68,8 @@ function App() {
         {path: '/createcourse/:courseid', element: <CreateCourseLayout/>},
 
         {path: '/createcourse/:courseid/:section', element: <CreateCourseLayout/>},
-        {path: '/createcourse', element: <CreateCourseLayout/>}
+        {path: '/createcourse', element: <CreateCourseLayout/>},
+        {path: '/courseUpload', element: < CourseUpload />}
       ]
     },  
   ]);

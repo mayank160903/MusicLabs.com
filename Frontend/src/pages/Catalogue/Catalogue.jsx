@@ -11,7 +11,7 @@ import carl from '../../images/carl-pic.jpg';
 import marty from '../../images/marty-pic.jpg';
 import justin from '../../images/justin-pic.jpg';
 import metal from '../../images/ez-metal.jpg';
-
+import catavid from '../../images/jamplay_vid.mp4';
 
 
 import './Catalogue.css';
@@ -73,7 +73,7 @@ const Catalogue = (props) => {
                         <p className="our-team-content">become the best guitar player you can be.</p>
                       </div>
                       <div className="video_box">
-                        <video id="home-video" src="images/catalogue-video.mp4" type="video/mp4" controls></video>
+                        <video id="home-video" src={catavid} type="video/mp4" controls></video>
                       </div>
                     </div>
 
