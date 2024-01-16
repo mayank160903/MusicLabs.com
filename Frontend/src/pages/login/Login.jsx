@@ -6,6 +6,7 @@ import { login } from '../../store/auth';
 
 import signup from '../../images/signup1.jpg';
 import { useDispatch } from 'react-redux';
+import OAuth from './GoogleAuth';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -130,15 +131,16 @@ const LoginForm = () => {
               </div>
             </div>
             <div className="flex -mx-3">
-              <div className="w-full px-3 mb-5">
+              <div className="w-full px-3 mb-5 ">
                 <button
-                  className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
+                  className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold "
                   type="submit"
                   onClick={handleLogin}
                 >
                 {!loading && "LOGIN"}
                 {loading && "Loading..."}
                 </button>
+                  <OAuth />
               </div>
             </div>
           </div>
