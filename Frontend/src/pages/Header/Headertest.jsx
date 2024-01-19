@@ -2,6 +2,7 @@ import { Fragment, useState } from 'react'
 import logo from '../../images/logo-new.png';
 import cartlogo from '../../images/cart.png'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
+import {Link} from 'react-router-dom';
 import {
   ArrowPathIcon,
   Bars3Icon,
@@ -36,10 +37,10 @@ export default function Example() {
     <header className="bg-slate-50 p-2.5">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8 sticky top-0" aria-label="Global">
         <div className="flex lg:flex-1 space-x-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <Link to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <img className="h-15 pb-2 pr-10 w-auto" src={logo} alt="" />
-          </a>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -52,52 +53,52 @@ export default function Example() {
           </button>
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
-          <a href="/" className="text-sm p-2 font-semibold leading-6 text-slate-950">
+          <Link to="/" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Home
-          </a>
-          <a href="/catalogue" className="text-sm p-2 font-semibold leading-6 text-slate-950">
+          </Link>
+          <Link to="/catalogue" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Catalogue
-          </a>
-          <a href="/ContactUs" className="text-sm p-2 font-semibold leading-6 text-slate-950">
+          </Link>
+          <Link to="/ContactUs" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Contact Us
-          </a>
-          <a href="/instructor" className="text-sm p-2 font-semibold leading-6 text-slate-950">
+          </Link>
+          <Link to="/instructor" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Our Instructors
-          </a>
-          <a href="/faq" className="text-sm p-2 font-semibold leading-6 text-slate-950">
+          </Link>
+          <Link to="/faq" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             FAQs
-          </a>
-          <a href="/spotlight" className="text-sm p-2 font-semibold leading-6 text-slate-950">
+          </Link>
+          <Link to="/spotlight" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Spotlight
-          </a>
-          <a href="/wishlist" className="text-sm p-2 font-semibold leading-6 text-slate-950">
+          </Link>
+          <Link to="/wishlist" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             <img src={cartlogo} alt="" />
-          </a>
-          <a href="/login" className="text-sm bg-black p-2 px-3 font-semibold leading-6 border-solid border-2 border-slate-950 text-slate-50">
+          </Link>
+          <Link to="/login" className="text-sm bg-black p-2 px-3 font-semibold leading-6 border-solid border-2 border-slate-950 text-slate-50">
             Log In
-          </a>
-          <a href="/register" className="text-sm bg-slate-50 px-2 p-2 font-semibold leading-6 border-solid border-2 border-slate-950 text-slate-950">
+          </Link>
+          <Link to="/register" className="text-sm bg-slate-50 px-2 p-2 font-semibold leading-6 border-solid border-2 border-slate-950 text-slate-950">
             Sign Up
-          </a>
+          </Link>
         </Popover.Group>
         {/* <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <Link to="/" className="text-sm font-semibold leading-6 text-gray-900">
             Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+          </Link>
         </div> */}
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
+            <Link to="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img
                 className="h-8 w-auto"
                 src={logo}
                 alt=""
               />
-            </a>
+            </Link>
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700"
@@ -135,63 +136,63 @@ export default function Example() {
                     </>
                   )}
                 </Disclosure>
-                <a
-                  href="/"
+                <Link
+                  to="/"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Home
-                </a>
-                <a
-                  href="/catalogue"
+                </Link>
+                <Link
+                  to="/catalogue"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Catalogue
-                </a>
-                <a
-                  href="/ContactUs"
+                </Link>
+                <Link
+                  to="/ContactUs"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Contact Us
-                </a>
-                <a
-                  href="instructor"
+                </Link>
+                <Link
+                  to="instructor"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Our Instructors
-                </a>
-                <a
-                  href="/faq"
+                </Link>
+                <Link
+                  to="/faq"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   FAQs
-                </a>
-                <a
-                  href="/spotlight"
+                </Link>
+                <Link
+                  to="/spotlight"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Spotlight
-                </a>
-                <a
-                  href="/wishlist"
+                </Link>
+                <Link
+                  to="/wishlist"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Wishlist
-                </a>
+                </Link>
               </div>
               <div className="py-6">
-                <a
-                  href="/login"
+                <Link
+                  to="/login"
                   className="-mx-3  block rounded-lg px-3 py-2.5 my-2 text-base font-semibold leading-7 bg-black text-slate-50 hover:text-gray-200"
                 >
                   Log in
-                </a>
-                <a
-                  href="/register"
+                </Link>
+                <Link
+                  to="/register"
                   className="-mx-3  block rounded-lg px-3 py-2.5 my-2 text-base font-semibold leading-7 bg-slate-50 hover:text-gray-200 border-solid border-2 border-slate-950 text-slate-950
                   "
                 >
                   Sign Up
-                </a>
+                </Link>
               </div>
             </div>
           </div>
