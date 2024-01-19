@@ -2,6 +2,7 @@ import { Fragment, useEffect} from "react";
 import {Outlet} from "react-router-dom"
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
+import Headertest from './Header/Headertest';
 // import { useSelector } from "react-redux/es/hooks/useSelector";
 // import HeaderBar from "../components/Header";
 // import SideBar from "../components/Sidebar";
@@ -16,7 +17,8 @@ function RootLayout(){
     
     <Fragment>  
 
-            <Header/>
+            {/* <Header/> */}
+            <Headertest />
             <Outlet/>
             <Footer/>
       
