@@ -33,6 +33,7 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    
     sections : [{
         type : mongoose.Types.ObjectId,
        ref:'Sections',
