@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
-import signup from '../../images/signup1.jpg';
+import { login } from '../../store/auth';
 
+import signup from '../../images/signup1.jpg';
+import { useDispatch } from 'react-redux';
+import OAuth from './GoogleAuth';
 
 const LoginForm = () => {
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false)
 
@@ -34,6 +37,12 @@ const LoginForm = () => {
       setLoading(false)
       if (response.status === 200) {
         // Navigate to the homepage upon successful login
+        console.log(response.data);
+        const user = response.data.user
+        const token = response.data.token;
+
+        dispatch(login({firstName : user.firstName , lastName : user.lastName , role : user.role , token : token}));
+
         navigate('/');
       } else {
         // Handle other cases, e.g., display an error message
@@ -122,15 +131,16 @@ const LoginForm = () => {
               </div>
             </div>
             <div className="flex -mx-3">
-              <div className="w-full px-3 mb-5">
+              <div className="w-full px-3 mb-5 ">
                 <button
-                  className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
+                  className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold "
                   type="submit"
                   onClick={handleLogin}
                 >
                 {!loading && "LOGIN"}
                 {loading && "Loading..."}
                 </button>
+                  <OAuth />
               </div>
             </div>
           </div>

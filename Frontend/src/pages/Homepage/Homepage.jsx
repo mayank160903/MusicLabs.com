@@ -10,6 +10,7 @@ import course6 from '../../images/musictheorypic.jpg'
 import course7 from '../../images/guitartone.jpg'
 import course8 from '../../images/legendstyles.jpg'
 import course9 from '../../images/guitartechnique.jpg'
+// import homevideo from '../../images/intro_carl.mp4';
 
 const Homepage = () => {
   return (
@@ -61,7 +62,7 @@ const Homepage = () => {
           <video
             poster="images/logo.jpg"
             id="home-video"
-            src="images/homevideo.mp4"
+            src=""
             type="video/mp4"
             controls
           ></video>

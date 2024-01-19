@@ -16,6 +16,7 @@ const userSchema = new Schema({
       default : 'User',
       required : true
     },
+    
   
 },
 
