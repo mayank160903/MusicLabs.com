@@ -1,5 +1,6 @@
 import { AddCircleRounded } from "@mui/icons-material";
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Checkbox, Container, TextField } from "@mui/material";
+import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import { useNavigation, useNavigate, useParams } from "react-router"
 // import styles from './CoursePage.module.css';
@@ -50,7 +51,7 @@ function CreateCourseDropdown({currentSection, setCurrentSection, title, num, to
         videoInput: '',
       });
     
-      const handleInputChange = (event) => {
+      const handleNameChange = (event) => {
         const { name, value } = event.target;
         setFormData({
           ...formData,
@@ -58,11 +59,27 @@ function CreateCourseDropdown({currentSection, setCurrentSection, title, num, to
         });
       };
 
-    function addContentHandler(e){
+  async function addContentHandler(e){
         e.preventDefault();
-        console.log(formData)
-        setContent1([...content1,{name: formData.textInput, videos: formData.videoInput, id: 9}])
+        console.log(e.target.elements.videoInput)
+
+        setContent1([...content1,{name:e.target.elements.textInput.value, videos: e.target.elements.videoInput.files[0], id: 9}])
+
+        const formData = new FormData();
+        formData.append('name', e.target.elements.textInput.value);
+        formData.append('video', e.target.elements.videoInput.files[0]);
         // setContent([])
+
+        try {
+          const response = await axios.post('http://localhost:8000/api/upload/upload-video', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+          console.log(response.data);
+        } catch (error) {
+          console.error('Error uploading video:', error);
+        }
         setAddSection(false)
     }
 
@@ -117,7 +134,7 @@ function CreateCourseDropdown({currentSection, setCurrentSection, title, num, to
             label="Text Input"
             name="textInput"
             value={formData.textInput}
-            onChange={handleInputChange}
+            onChange={handleNameChange}
           />
         </Box>
         <Box marginBottom={2}>
@@ -126,7 +143,7 @@ function CreateCourseDropdown({currentSection, setCurrentSection, title, num, to
             name="videoInput"
             type="file"
             value={formData.videoInput}
-            onChange={handleInputChange}
+            onChange={handleNameChange}
           />
         </Box>
         <Box marginBottom={2}>

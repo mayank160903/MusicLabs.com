@@ -70,7 +70,9 @@ function WishlistPage(){
     }
 
     function getCertificate(){
+      
       navigate("/certificate")
+    
     }
 
 
