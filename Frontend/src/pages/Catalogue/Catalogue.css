@@ -176,3 +176,13 @@ hr{
     background-color: #2b5476bf;
 }
 
+
+
+
+.home_section .products_section{
+    /* padding: 10px 20px; */
+    width: 98%;
+    margin:10px auto;
+    background-color: #fff;
+    border-radius: 4px;
+}
