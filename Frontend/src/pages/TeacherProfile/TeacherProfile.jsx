@@ -82,7 +82,7 @@ const Teacher = () => {
               <br />
               <br />
               <div className="btn-main mx-20">
-                <NavLink to={`/teachereditprofile/${teacherData.id}`}>
+                <NavLink to="/teachereditprofile">
                   <button className="btn-button">Edit Profile</button>
                 </NavLink>
                 <br />
@@ -94,7 +94,7 @@ const Teacher = () => {
               </div>
             </div>
 
-            <div className="col-md-5 offset-1">
+            <div className="col-md-5 ml-3 offset-1">
               <div className="flex justify-center items-center animated-text text-4xl">
                 Description
               </div>
