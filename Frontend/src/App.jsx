@@ -9,7 +9,7 @@ import RootLayout from './pages/RootLayout'
 import ContactUs from './pages/ContactUs/ContactUs'
 import WishlistPage from './pages/Wishlist/Wishlist'
 import Instructor from './pages/Instructor/Instructor';
-import PaymentPage from './pages/PaymentPage/PaymentPage'
+// import PaymentPage from './pages/PaymentPage/PaymentPage'
 import Homepage from './pages/Homepage/homepage'
 import Spotlight from './pages/Spotlight/Spotlight'
 import Faq from './pages/Faq/Faq'
@@ -33,6 +33,7 @@ import CreateCourseLayout from './pages/CreateCoursePage.jsx/CreateCourse'
 import Headertest from './pages/Header/Headertest'
 import CourseUpload from './pages/courseUpload/courseUpload'
 
+const PaymentPage = React.lazy('./pages/PaymentPage/PaymentPage')
 
 function App() {
   const [count, setCount] = useState(0);

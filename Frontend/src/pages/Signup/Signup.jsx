@@ -34,9 +34,7 @@ const handleResumeChange = (e) => {
   }));
 };
 const handleChange = (e) => {
-  const { name, value } = e.target;
-  // console.log(name);
-  // console.log(value);
+  const { name, value } = e.target;;
   setFormData((prevData) => ({
     ...prevData,
     [name]: value,
