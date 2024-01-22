@@ -15,10 +15,11 @@ import Spotlight from './pages/Spotlight/Spotlight'
 import Faq from './pages/Faq/Faq'
 import StudentProfile from './pages/StudentProfile/StudentProfile';
 import SigninSignupForm from './pages/Signup/Signup';
+import BecomeInstructor from './pages/BecomeInstructor/BecomeInstructor';
 
-
+import AdminQuery from './dashboard/AdminQuery';
 import Certificate from './pages/Certificate/Certificate';
-
+import AdminAcceptance from './dashboard/AdminAcceptance';
 import LoginForm from './pages/login/Login';
 
 import ForgotPassword from './pages/forgotpassword/ForgotPassword'
@@ -33,6 +34,8 @@ import CreateCourseLayout from './pages/CreateCoursePage.jsx/CreateCourse'
 import Headertest from './pages/Header/Headertest'
 import CourseUpload from './pages/courseUpload/courseUpload'
 
+import Dashboard from './admin/Dashboard'
+
 
 function App() {
   const [count, setCount] = useState(0);
@@ -40,13 +43,19 @@ function App() {
   const PaymentPage = React.lazy(() => import('./pages/PaymentPage/PaymentPage'))
   
   const router = createBrowserRouter([
-    {path:'/dashboard', element:<AdminDashboard/>},
+    // {path:'/dashboard', element:<AdminDashboard/>},
+    {path: '/dashboard/admin/accept' , element : <AdminAcceptance/>},
     { path: '/', element: <RootLayout/>, 
       children: [
         {path: '/', element: <Homepage/> },
         // {path: '/testing', element: <NewHeader /> },
         {path: '/ContactUs', element: <ContactUs/> },
+        // {path: '/abcd', element: <AdminQuery/> },
         {path: '/HeaderTest', element: <Headertest />},
+        {path: '/becomeInstructor', element: <BecomeInstructor />},
+        {path : '/dashboard/admin/query' , element : <AdminQuery/>},
+        {path:'/dashboard', element:<AdminDashboard/>},
+        
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/instructor',element:<Instructor/>},
         {path:'/teacher/:id', element:<Teacher/>},
@@ -54,11 +63,14 @@ function App() {
         {path: '/studenteditprofile', element: <StudentEditProfile/>},
        {path:'/studentprofile', element:<StudentProfile/>},
         {path: '/checkout', element: <PaymentPage/>},
+        // {path: '/query', element: <Query/>},
         {path: '/spotlight', element: <Spotlight/>},
         {path: '/faq', element: <Faq/>},
         {path: '/register', element: <SigninSignupForm/>},
         {path: '/certificate', element: <Certificate/>},
         {path: '/login', element: <LoginForm/>},
+        { path: '/dashboard', element: <AdminDashboard /> },
+       
         {path: '/forgot', element: <ForgotPassword/>},
         {path: '/course/:courseId', element: <CourseLayout/>, 
         children:[

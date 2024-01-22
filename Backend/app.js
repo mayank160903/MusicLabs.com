@@ -22,6 +22,7 @@ app.use(fileUpload());
 const AuthRoutes = require("./routes/AuthRoutes.js");
 const UserRoutes = require("./routes/UserRoutes.js");
 const paymentRoutes = require("./routes/PaymentRoutes.js");
+const TeacherRoutes = require('./routes/TeacherRoutes.js');
 
 const connectDb = require('./database/db.js');
 
@@ -45,7 +46,7 @@ connectDb();
 app.use('/api/v1/user', AuthRoutes)
 app.use('/api/v1/user', UserRoutes)
 app.use('/api', paymentRoutes)
-
+app.use('/api/v1/teacher', TeacherRoutes);
 
 const PORT = 8000;
 app.listen(PORT, (req, res) => {

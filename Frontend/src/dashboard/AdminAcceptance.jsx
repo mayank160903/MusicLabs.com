@@ -1,30 +1,33 @@
 import { useState } from 'react'
-import './App.css'
+
+import './Sidebar.css';
 import Header from './Header'
 import Sidebar from './Sidebar'
 import Home from './Home'
 import { Routes, Route } from 'react-router-dom';
-// import { createBrowserRouter as BrowserRouter, Route, Switch } from 'react-router-dom';
-import Query from '../pages/Query/Query';
-// import { BrowserRouter, Route, Routes } from 'react-router-dom';
-const Admin = () =>{
+import AcceptRequest from './AcceptRequest';
+
+
+
+const AdminAcceptance = () =>{
     const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
     const OpenSidebar = () => {
       setOpenSidebarToggle(!openSidebarToggle)
     }
-
+// "overflow-y-auto h-screen w-1000"
     return (
         <div className='grid-container'>
-         
-          <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
-            <Home />
-
+        
+          <Sidebar  className="sidebar" openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
+          <div  className="overflow-y-auto h-screen w-1000"> 
+         <AcceptRequest />
+            </div>
           </div>
+     
 
       )
 }
 
 
-
-export default Admin;
+export default AdminAcceptance;

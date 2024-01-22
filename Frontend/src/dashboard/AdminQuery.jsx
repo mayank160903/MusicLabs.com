@@ -7,7 +7,7 @@ import { Routes, Route } from 'react-router-dom';
 // import { createBrowserRouter as BrowserRouter, Route, Switch } from 'react-router-dom';
 import Query from '../pages/Query/Query';
 // import { BrowserRouter, Route, Routes } from 'react-router-dom';
-const Admin = () =>{
+const AdminQuery = () =>{
     const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
     const OpenSidebar = () => {
@@ -18,7 +18,7 @@ const Admin = () =>{
         <div className='grid-container'>
          
           <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
-            <Home />
+          <h1 className="text-2xl font-bold mb-4">Array Items</h1>
 
           </div>
 
@@ -26,5 +26,4 @@ const Admin = () =>{
 }
 
 
-
-export default Admin;
+export default AdminQuery;
