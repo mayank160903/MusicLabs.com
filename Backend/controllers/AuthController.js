@@ -17,7 +17,10 @@ const upload = multer({ storage: storage });
 
 exports.registerController = async (req, res) => {
   try {
+
+    console.log("register");
     const { firstName, lastName, email, password, role, resume } = req.body;
+    
     if (role === "User") {
       if (!firstName || !lastName || !email || !password) {
         return res
@@ -60,11 +63,11 @@ exports.registerController = async (req, res) => {
       if (existingTeacher) {
         return res
           .status(400)
-          .send({ success: false, message: "User already exist please login" });
+          .send({ success: false, message: "User already exists Please Login" });
       }
 
       const hashedPassword = await hashPassword(password);
-
+      console.log("hash bhi hogya")
       const teacher = await teacherSchema({
         firstName,
         lastName,
@@ -74,7 +77,6 @@ exports.registerController = async (req, res) => {
       });
 
       await teacher.save();
-
       return res
         .status(200)
         .send({ success: true, message: "Teacher registered successfully " });

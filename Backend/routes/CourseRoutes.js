@@ -3,16 +3,31 @@ const { UploadVideo } = require("../controllers/CoursesController");
 const router = express.Router();
 const Multer = require("multer");
 const bodyParser = require("body-parser");
-const storage = new Multer.memoryStorage();
+
+const storage = Multer.diskStorage({
+
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+
+  filename: (req, file, cb) => {
+    const fileExt = file.originalname.split(".").pop();
+    const filename = `${new Date().getTime()}.${fileExt}`;
+    cb(null, filename);
+  },
+});
 
 const upload = Multer({
   storage,
-});
-console.log("Nope")
+  limits: {
+    fieldNameSize: 200,
+    fileSize: 50 * 1024 * 1024,
+  }
+})
 
-router.use(bodyParser.raw({ type: "multipart/form-data" }));
+console.log("inside course route")
 
-router.post('/upload-video' ,upload.single("video"), UploadVideo);
+router.post('/upload-video' ,(req,res,next)=>{console.log("i was here"); next();}, UploadVideo);
 
 
 module.exports = router;

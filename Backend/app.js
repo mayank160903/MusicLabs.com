@@ -24,16 +24,19 @@ const paymentRoutes = require("./routes/PaymentRoutes.js");
 const courseRoutes = require("./routes/CourseRoutes.js");
 
 const connectDb = require('./database/db.js');
+const multer = require("multer");
 
 
 
 
-app.use(bodyParser.urlencoded({ extended: true },{limit: '50mb'}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
-
+app.use(bodyParser.raw())
 app.use(cors());
 
+const upload = multer({ limits: { fileSize: 50 * 1024 * 1024 } }); // 50 MB limit
+// app.use(upload.single('file'))
 
 connectDb();
 
@@ -44,7 +47,7 @@ connectDb();
 app.use('/api/v1/user', AuthRoutes)
 app.use('/api/v1/user', UserRoutes)
 app.use('/api', paymentRoutes)
-app.use('/api/upload', courseRoutes);
+app.use('/api/upload',(req,res,next)=>{console.log(req.files); next();},courseRoutes);
 
 const PORT = 8000;
 app.listen(PORT, (req, res) => {
