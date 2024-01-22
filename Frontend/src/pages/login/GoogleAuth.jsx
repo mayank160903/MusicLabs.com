@@ -28,12 +28,20 @@ export default function OAuth() {
     }
   };
   return (
-    <button
-    className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 mt-3 text-white rounded-lg px-3 py-3 font-semibold text-center"
-    type="submit"
-    onClick={handleGoogleClick}
-  >
+  //   <button
+  //   className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 mt-3 text-white rounded-lg px-3 py-1 font-semibold text-center"
+  //   type="submit"
+  //   onClick={handleGoogleClick}
+  // >
+  // Sign In with Google
+  // </button>
+
+  <button
+  className="block w-full max-w-xs mx-auto bg-red-500 hover:bg-red-700 focus:bg-red-700 mt-3 text-white rounded-lg px-1 py-1 font-semibold text-center"
+  type="submit"
+  onClick={handleGoogleClick}
+>
   Sign In with Google
-  </button>
+</button>
   );
 }

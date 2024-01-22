@@ -67,6 +67,9 @@ export default function Example() {
           <a href="/faq" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             FAQs
           </a>
+          {/* <a href="/becomeInstructor" className="text-sm p-2 font-semibold leading-6 text-slate-950">
+            BI
+          </a> */}
           <a href="/spotlight" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Spotlight
           </a>

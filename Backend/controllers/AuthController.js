@@ -3,17 +3,33 @@ const teacherSchema = require("../models/teacher.js");
 const { hashPassword, comparePassword } = require("../helper/authhelper.js");
 const multer = require("multer");
 const JWT = require("jsonwebtoken");
+const nodemailer = require('nodemailer');
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/"); // Set the destination folder for uploaded files
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname); // Set the filename
+const generateOTP = () => {
+  return Math.floor(1000 + Math.random() * 9000);
+};
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
   },
 });
 
-const upload = multer({ storage: storage });
+
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "uploads/"); // Set the destination folder for uploaded files
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, Date.now() + "-" + file.originalname); // Set the filename
+//   },
+// });
+
+// const upload = multer({ storage: storage });
+
+
 
 exports.registerController = async (req, res) => {
   try {
@@ -32,6 +48,31 @@ exports.registerController = async (req, res) => {
           .status(400)
           .send({ success: false, message: "User already exist please login" });
       }
+
+      console.log("first");
+
+      const otp = generateOTP();
+      console.log(otp);
+      console.log("second");
+      const mailOptions = {
+        from: process.env.GMAIL,
+        to: email,
+        subject: 'Your OTP for Registration',
+        text: `Your OTP is: ${otp} please confirm the signup`,
+      };
+
+      console.log("third");
+      
+      try {
+        await transporter.sendMail(mailOptions);
+        console.log("Email sent successfully");
+      } catch (emailError) {
+        console.error("Error sending email:", emailError);
+        return res.status(500).send({ success: false, message: "Error sending email" });
+      }
+
+      console.log("fourth");
+      // return res.status(600).send({message : "Till here it's working"});
 
       const hashedPassword = await hashPassword(password);
       const user = new userSchema({
@@ -88,29 +129,55 @@ exports.registerController = async (req, res) => {
 
 exports.loginController = async (req, res) => {
   try {
-    const { email, password, role } = req.body;
+    const { email, password } = req.body;
 
-    if (role === "User") {
-      const user = await userSchema.findOne({ email });
-      if (!user) {
+    
+      var user = await userSchema.findOne({ email });
+      console.log("first");
+      if (user) {
+        const check = await comparePassword(password, user.password);
+        if (!check) {
+          return res
+            .status(404)
+            .send({ success: false, message: "Your Details didn't match" });
+        }
+        const token = await JWT.sign(
+          { id: user._id, role: user.role },
+          process.env.JWT_SECRET,
+          {
+            expiresIn: "7d",
+          }
+        );
         return res
-          .status(404)
+          .status(200)
           .send({
-            success: false,
-            message: "User not registered please register first",
+            success: success,
+            message: "Sign In successful",
+            user , token
           });
       }
 
-      console.log(user);
+     
+      console.log("second");
 
-      const check = await comparePassword(password, user.password);
-      console.log(check);
-      if (!check) {
+      user = await teacherSchema.findOne({ email });
+      if (!user) {
         return res
           .status(404)
+          .send({ success: false, message: "User not registered " });
+      }
+      if(user.isApproved===false){
+        return res.status(400).send({success : false , message : "Teacher is not approved contact to admin"});
+      }
+      console.log("here 1");
+      const check = await comparePassword(password, user.password);
+      console.log("here 3");
+      if (!check) {
+        return res
+          .status(400)
           .send({ success: false, message: "Your Details didn't match" });
       }
-
+      console.log("third");
       const token = await JWT.sign(
         { id: user._id, role: user.role },
         process.env.JWT_SECRET,
@@ -118,42 +185,17 @@ exports.loginController = async (req, res) => {
           expiresIn: "7d",
         }
       );
-
-      return res
-        .status(200)
-        .send({ success: true, message: "Login Successfully ", user, token });
-    } else {
-      const teacher = await teacherSchema.findOne({ email });
-      if (!teacher) {
-        return res
-          .status(404)
-          .send({ success: false, message: "Teacher not registered " });
-      }
-      const check = await comparePassword(password, teacher.password);
-
-      if (!check) {
-        return res
-          .status(400)
-          .send({ success: false, message: "Your Details didn't match" });
-      }
-
-      const token = await JWT.sign(
-        { id: teacher._id, role: teacher.role },
-        process.env.JWT_SECRET,
-        {
-          expiresIn: "7d",
-        }
-      );
+      console.log("fourth");
       return res
         .status(200)
         .send({
           success: true,
           message: "Login Successfully ",
-          teacher,
+          user,
           token,
         });
     }
-  } catch (error) {
+   catch (error) {
     return res
       .status(500)
       .send({ success: false, message: "Error while login" });

@@ -15,7 +15,7 @@ const LoginForm = () => {
 
   const [loginData, setLoginData] = useState({
     email: '',
-    role: 'User',
+    
     password: '',
   });
 
@@ -29,30 +29,29 @@ const LoginForm = () => {
 
   const handleLogin = async () => {
     try {
-      if(loginData.role == 'admin'){
-        navigate('/dashboard')
-      }
+      
       setLoading(true)
       const response = await axios.post('http://localhost:8000/api/v1/user/login', loginData);
       setLoading(false)
-      if (response.status === 200) {
+      console.log(response.data);
+      if (response.data.success===true) {
         // Navigate to the homepage upon successful login
-        console.log(response.data);
-        const user = response.data.user
-        const token = response.data.token;
+       alert("Login Successfull");
 
-        dispatch(login({firstName : user.firstName , lastName : user.lastName , role : user.role , token : token}));
+        // dispatch(login({firstName : user.firstName , lastName : user.lastName , role : user.role , token : token}));
 
         navigate('/');
-      } else {
+      } else if(response.data.success===false) {
         // Handle other cases, e.g., display an error message
-        navigate('/')
+        // navigate('/')
+        alert("Your details didn't match");
         console.error('Login failed:', response.data.message);
       }
     } catch (error) {
-      navigate('/')
-      console.error('Error during login:', error);
+      // navigate('/')
+      // console.error('Error during login:', error);
       // Handle error
+      alert("Internal server error");
     }
   };
 
@@ -91,7 +90,7 @@ const LoginForm = () => {
                 </div>
               </div>
             </div>
-            <div className="flex -mx-3">
+            {/* <div className="flex -mx-3">
               <div className="w-full px-3 mb-5">
                 <label htmlFor="role" className="text-xs font-semibold px-1">
                   Role
@@ -110,7 +109,7 @@ const LoginForm = () => {
                   </select>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="flex -mx-3">
               <div className="w-full px-3 mb-12">
                 <label htmlFor="password" className="text-xs font-semibold px-1">
@@ -130,10 +129,10 @@ const LoginForm = () => {
                 </div>
               </div>
             </div>
-            <div className="flex -mx-3">
+            <div className="flex -mx-3 ">
               <div className="w-full px-3 mb-5 ">
                 <button
-                  className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold "
+                  className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-1 mb-10 font-semibold "
                   type="submit"
                   onClick={handleLogin}
                 >
