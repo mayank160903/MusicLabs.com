@@ -2,7 +2,6 @@
 // import "./instructor.css";
 // import { NavLink } from "react-router-dom";
 
-
 // const Instructor = () => {
 //   return (
 //     <>
@@ -77,34 +76,27 @@
 
 // export default Instructor;
 
-
-
-
-
-
-
-
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./instructor.css";
 import { NavLink } from "react-router-dom";
-import axios from 'axios';
-
-
+import axios from "axios";
 
 const Instructor = () => {
-
-  const [instructordata,setInstructorData] = useState(null);
+  const [instructordata, setInstructorData] = useState(null);
 
   const Instructor_Data = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/v1/user/instructorData", {
-        headers: {
-          // Accept: "application/json",
-          "Content-Type": "application/json" 
-        },
-        // withCredentials: true 
-      });
-  
+      const response = await axios.get(
+        "http://localhost:8000/api/v1/user/instructorData",
+        {
+          headers: {
+            // Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          // withCredentials: true
+        }
+      );
+
       const result = response.data;
       console.log(response);
       if (response.status !== 200) {
@@ -119,10 +111,9 @@ const Instructor = () => {
     }
   };
 
-useEffect(() => {
-  Instructor_Data();
-  
-}, []);
+  useEffect(() => {
+    Instructor_Data();
+  }, []);
 
   return (
     <>
@@ -156,59 +147,74 @@ useEffect(() => {
         </div>
       </div>
 
-      <div className="card-bg">
-        <div className="course-heading">OUR MASTERS OF MUSIC</div>
+      
+      <div className="box-div">
 
+
+      <div className="card-section" style={{ color: "aliceblue" }}>
+        <div className="course">OUR MASTERS OF MUSIC</div>
+
+        <div
+          className="text-center card-section2"
           
-
-         
-        <div 
-          className="text-center inst-grid grid-txt "
-          style={{ color: "aliceblue" }}
         >
-        
-          <div className="row" id="col1">
-          {instructordata && instructordata!=null &&  instructordata.map((instructor,i) => (
-            <div className="col">
-            
-              <div className="bg-white border border-gray-300 rounded-md p-4 shadow-md" style={{ width: "18rem" }}>
-                {/* <img
+          <div className="row ml-3" id="col1">
+            {instructordata &&
+              instructordata != null &&
+              instructordata.map((instructor, i) => (
+                <div className="col">
+                  <div
+                    className="bg-white border border-gray-300 rounded-md p-4 shadow-md"
+                    style={{ width: "18rem" }}
+                  >
+                    {/* <img
                   src={instructor.avatar}
                   className="card-img-top img-size"
                   alt="..."
                 /> */}
 
-                <img src="marty-inst.jpg" className="object-contain w-full h-auto rounded-t-md " alt="..."  />
+                    <img
+                      src="marty-inst.jpg"
+                      className="object-contain w-full h-auto rounded-t-md "
+                      alt="..."
+                    />
 
-                <div className="card-body">
-                  <h5 className="card-title text-black mt-3  text-xl">{instructor.firstName + " " + instructor.lastName}</h5>
-                  <p className="card-text text-black mt-2 text-base">
-                    {instructor.description}
-                  </p>
+                    <div className="card-body">
+                      <h5 className="card-title text-black mt-3  text-xl">
+                        {instructor.firstName + " " + instructor.lastName}
+                      </h5>
+                      <p className="card-text text-black mt-2 text-base">
+                        {instructor.description}
+                      </p>
+                    </div>
+                    <hr class="border-t border-black my-1 mt-2"></hr>
+                    <ul className="list-group list-group-flush text-black px-auto">
+                      {/* <li className="list-group-item">Blues, Rock</li> */}
+                      <li className="list-group-item mb-2 ">
+                        {instructor.username}
+                      </li>
+                    </ul>
+                    <hr class="border-t border-black -my-1 "></hr>
+                    <div className="text-blue-500 underline mt-3">
+                      <NavLink
+                        to={`/teacher/${instructor._id}`}
+                        className="card-link"
+                      >
+                        View Profile
+                      </NavLink>
+                    </div>
+                  </div>
                 </div>
-                <hr class="border-t border-black my-1 mt-2"></hr>
-                <ul className="list-group list-group-flush text-black px-auto">
-                  {/* <li className="list-group-item">Blues, Rock</li> */}
-                  <li className="list-group-item mb-2 ">{instructor.username}</li>
-                </ul>
-                <hr class="border-t border-black -my-1 "></hr>
-                <div className="text-blue-500 underline mt-3">
-                  <NavLink to={`/teacher/${instructor._id}`} className="card-link">
-                    View Profile
-                  </NavLink>
-                </div>
-              </div>
-            </div>
-            ))}
+              ))}
           </div>
-          
         </div>
-        
+      </div>
 
       </div>
+
+
     </>
   );
 };
 
 export default Instructor;
-
