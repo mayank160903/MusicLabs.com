@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 import Dropdown from "../../components/CoursePage/Dropdown";
 import MainContent from "../../components/CoursePage/MainContent";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { Box } from "@mui/material";
 import { AddCircleRounded, AddIcCallRounded } from "@mui/icons-material";
 // import CreateCourseDropdownDropdown from "./CreateCourseDropdown";
@@ -33,7 +33,7 @@ function CreateCourseLayout(){
     // const dispatch = useDispatch();
     // dispatch(authActions.login());
    const isLoggedin =  useSelector(state => state.auth.isLoggedin);
-
+    // const navigate = useNavi
    function addSectionHandler(){
     setCourseInfo(curr=>{
         const new_section = {name: 'Enter Name', videos: [{name: 'Enter Lesson Name', videos: 'Lesson Content', id:1}]}

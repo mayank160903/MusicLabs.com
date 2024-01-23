@@ -39,6 +39,10 @@ const LoginForm = () => {
        alert("Login Successfull");
 
         // dispatch(login({firstName : user.firstName , lastName : user.lastName , role : user.role , token : token}));
+        console.log(response.data);
+        const user = response.data.user
+        const token = response.data.token;
+        dispatch(login({firstName : user.firstName , lastName : user.lastName , role : user.role , token : token}));
 
         navigate('/');
       } else if(response.data.success===false) {

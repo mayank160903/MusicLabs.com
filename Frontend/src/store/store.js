@@ -9,10 +9,10 @@ const persistConfig = {
     storage,
   };
   
-  const persistedReducer = persistReducer(persistConfig, authReducer);
+  const authPersistedReducer = persistReducer(persistConfig, authReducer);
   
   export const store = configureStore({
-    reducer: persistedReducer,
+    reducer: {auth: authPersistedReducer},
   });
   
   export const persistor = persistStore(store);

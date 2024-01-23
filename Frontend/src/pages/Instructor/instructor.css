@@ -49,12 +49,20 @@ overflow: hidden;
 
 /* css for card */
 
-.card-bg{
+.card-section{
 background-color: #2f3256;
+
+
+}
+
+.box-div{
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 
-.course-heading{
+
+
+.course{
 color: white;
 font-weight: bolder;
 font-family: 'Quicksand', sans-serif;
@@ -64,25 +72,25 @@ margin-left: 135px;
 
 }
 
-.inst-grid{
+/* .inst-grid{
 font-family: 'Quicksand', sans-serif;
 
-}
+} */
 
-.card-prop{
-/* padding: 10px; */
+/* .card-prop{
+
 margin: 10px;
 background-color: rgba(53, 53, 53, 0.777);
-}
+} */
 
 
-#home-video{
+/* #home-video{
 
 width:480px;  
 height: 560px; 
-/* padding: 20px;  */
 
-}
+
+} */
 
 
 

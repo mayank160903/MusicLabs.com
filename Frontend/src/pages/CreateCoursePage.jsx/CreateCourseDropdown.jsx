@@ -1,8 +1,12 @@
 import { AddCircleRounded } from "@mui/icons-material";
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Checkbox, Container, TextField } from "@mui/material";
+import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import { useNavigation, useNavigate, useParams } from "react-router"
 // import styles from './CoursePage.module.css';
+
+const API_KEY = '396353668692966'
+const CLOUD_NAME = 'djcg8mvbx'
 
 function CreateCourseDropdown({currentSection, setCurrentSection, title, num, total, content, setContent}) {
 
@@ -13,7 +17,7 @@ function CreateCourseDropdown({currentSection, setCurrentSection, title, num, to
     // const [currentVideo, setCurrentVideo] = useState(params)
     const [addSection, setAddSection] = useState(false);
     const [content1,setContent1] = useState(content)
-    // dispatch(authActions.login());
+
    
 
 
@@ -45,24 +49,46 @@ function CreateCourseDropdown({currentSection, setCurrentSection, title, num, to
         setAddSection(true)
     }
 
-    const [formData, setFormData] = useState({
-        textInput: '',
-        videoInput: '',
-      });
+    const [videoName, setVideoName] = useState("");
+    const [video, setVideo] = useState(null);
     
-      const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setFormData({
-          ...formData,
-          [name]: value,
-        });
+      const handleNameChange = (event) => {
+        setVideoName(event.target.value);
       };
 
-    function addContentHandler(e){
+      const handleVideoChange = (event) => {
+        setVideo(event.target.files[0]);
+      }
+
+  async function addContentHandler(e){
         e.preventDefault();
-        console.log(formData)
-        setContent1([...content1,{name: formData.textInput, videos: formData.videoInput, id: 9}])
-        // setContent([])
+        setContent1([...content1,{name:videoName, videos: video, id: 9}])
+
+        try {
+          let response = await fetch('http://localhost:8000/api/upload/get-signature', {
+            method: 'GET',
+          });
+
+          const {signature, timestamp} = await response.json();
+
+          const form = new FormData()
+          form.append('file', video);
+          form.append('folder', 'MastersOfMusic')
+
+          const res = await fetch(
+            `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/video/upload?api_key=${API_KEY}&timestamp=${timestamp}&signature=${signature}`,
+            {
+              method: 'POST',
+              body: form,
+            }
+          )
+          
+          console.log(res)
+
+        } catch (error) {
+          console.error('Error uploading video:', error);
+        }
+        // console.log(response)
         setAddSection(false)
     }
 
@@ -110,14 +136,14 @@ function CreateCourseDropdown({currentSection, setCurrentSection, title, num, to
         </div>
         {addSection && 
             <Container maxWidth="sm" sx={{marginTop: '1rem'}}>
-      <form onSubmit={addContentHandler}>
+      <form onSubmit={(e)=>{addContentHandler(e);}}>
         <Box marginBottom={2}>
           <TextField
             fullWidth
             label="Text Input"
             name="textInput"
-            value={formData.textInput}
-            onChange={handleInputChange}
+            value={videoName}
+            onChange={handleNameChange}
           />
         </Box>
         <Box marginBottom={2}>
@@ -125,8 +151,8 @@ function CreateCourseDropdown({currentSection, setCurrentSection, title, num, to
             fullWidth
             name="videoInput"
             type="file"
-            value={formData.videoInput}
-            onChange={handleInputChange}
+            // value={video}
+            onChange={handleVideoChange}
           />
         </Box>
         <Box marginBottom={2}>

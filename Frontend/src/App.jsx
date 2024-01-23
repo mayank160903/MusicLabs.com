@@ -3,13 +3,13 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { BrowserRouter, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import RootLayout from './pages/RootLayout'
 
 import ContactUs from './pages/ContactUs/ContactUs'
 import WishlistPage from './pages/Wishlist/Wishlist'
 import Instructor from './pages/Instructor/Instructor';
-import PaymentPage from './pages/PaymentPage/PaymentPage'
+// import PaymentPage from './pages/PaymentPage/PaymentPage'
 import Homepage from './pages/Homepage/homepage'
 import Spotlight from './pages/Spotlight/Spotlight'
 import Faq from './pages/Faq/Faq'
@@ -37,6 +37,7 @@ import CourseUpload from './pages/courseUpload/courseUpload'
 import Dashboard from './admin/Dashboard'
 
 
+
 function App() {
   const [count, setCount] = useState(0);
 
@@ -59,6 +60,7 @@ function App() {
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/instructor',element:<Instructor/>},
         {path:'/teacher/:id', element:<Teacher/>},
+        {path:'/teachereditprofile',element:<TeacherEditProfile/>},
         {path:'/catalogue', element:<Catalogue />},
         {path: '/studenteditprofile', element: <StudentEditProfile/>},
        {path:'/studentprofile', element:<StudentProfile/>},
@@ -76,11 +78,11 @@ function App() {
         children:[
           {path: ':section', element: <h1>hello</h1>},
         ]},
-        
-        {path: '/createcourse/:courseid', element: <CreateCourseLayout/>},
-
-        {path: '/createcourse/:courseid/:section', element: <CreateCourseLayout/>},
         {path: '/createcourse', element: <CreateCourseLayout/>},
+
+        {path: '/createcourse/:courseid', element: <CreateCourseLayout/>},
+        {path: '/createcourse/:courseid/:section', element: <CreateCourseLayout/>},
+        
         {path: '/courseUpload', element: < CourseUpload />}
       ]
     },  
@@ -88,7 +90,7 @@ function App() {
 
   return (
     <>
-    
+
       <RouterProvider router={router}>
       </RouterProvider>
     </>
