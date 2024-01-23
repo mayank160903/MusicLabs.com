@@ -65,7 +65,7 @@ function CreateCourseDropdown({currentSection, setCurrentSection, title, num, to
         setContent1([...content1,{name:videoName, videos: video, id: 9}])
 
         try {
-          let response = await fetch('http://localhost:8000/api/upload/get-singature', {
+          let response = await fetch('http://localhost:8000/api/upload/get-signature', {
             method: 'GET',
           });
 
