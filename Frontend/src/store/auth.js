@@ -16,9 +16,8 @@ export const  authSlice = createSlice({
             state.role = action.payload.role;
             console.log(state.isLoggedin);
             console.log(state.firstName);
-            console.log(token);
-            console.log(role);
         },
+        
         logout(state){
             state.isLoggedin = false;
             state.user = null;
