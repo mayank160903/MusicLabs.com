@@ -28,17 +28,8 @@ cloudinary.config({
   }
 
 
-exports.UploadVideo = async (req,res) => {
+exports.getSignature = async (req,res) => {
      
-  // const storage = Multer.diskStorage({
-  //   filename: (req, file, cb) => {
-  //     const fileExt = file.originalname.split(".").pop();
-  //     const filename = `${new Date().getTime()}.${fileExt}`;
-  //     cb(null, filename);
-  //   },
-  // });
-
-// Server-side function used to sign an Upload Widget upload.
 
   const timestamp = Math.round((new Date).getTime()/1000);
 
