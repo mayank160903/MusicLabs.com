@@ -299,9 +299,10 @@ import Slide from './Slide';
 
 
 import './Catalogue.css';
+import { useNavigate } from 'react-router';
 
 const Catalogue = (props) => {
-
+    const navigate = useNavigate();
     const customStyle = {
         height: '800px',
         width: '1500px',

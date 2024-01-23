@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { BrowserRouter, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import RootLayout from './pages/RootLayout'
 
 import ContactUs from './pages/ContactUs/ContactUs'
@@ -33,7 +33,7 @@ import CreateCourseLayout from './pages/CreateCoursePage.jsx/CreateCourse'
 import Headertest from './pages/Header/Headertest'
 import CourseUpload from './pages/courseUpload/courseUpload'
 
-const PaymentPage = React.lazy('./pages/PaymentPage/PaymentPage')
+
 
 function App() {
   const [count, setCount] = useState(0);
@@ -66,11 +66,11 @@ function App() {
         children:[
           {path: ':section', element: <h1>hello</h1>},
         ]},
-        
-        {path: '/createcourse/:courseid', element: <CreateCourseLayout/>},
-
-        {path: '/createcourse/:courseid/:section', element: <CreateCourseLayout/>},
         {path: '/createcourse', element: <CreateCourseLayout/>},
+
+        {path: '/createcourse/:courseid', element: <CreateCourseLayout/>},
+        {path: '/createcourse/:courseid/:section', element: <CreateCourseLayout/>},
+        
         {path: '/courseUpload', element: < CourseUpload />}
       ]
     },  
@@ -78,7 +78,7 @@ function App() {
 
   return (
     <>
-    
+
       <RouterProvider router={router}>
       </RouterProvider>
     </>
