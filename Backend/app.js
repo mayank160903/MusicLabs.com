@@ -23,6 +23,7 @@ const UserRoutes = require("./routes/UserRoutes.js");
 const paymentRoutes = require("./routes/PaymentRoutes.js");
 const TeacherRoutes = require('./routes/TeacherRoutes.js');
 const courseRoutes = require("./routes/CourseRoutes.js");
+const AdminRoutes = require('./routes/AdminRoutes.js');
 
 const connectDb = require('./database/db.js');
 const multer = require("multer");
@@ -50,6 +51,8 @@ app.use('/api/v1/user', UserRoutes)
 app.use('/api', paymentRoutes)
 app.use('/api/v1/teacher', TeacherRoutes);
 app.use('/api/upload',(req,res,next)=>{console.log(req.files); next();},courseRoutes);
+
+app.use('/api/v1/admin' , AdminRoutes);
 
 const PORT = 8000;
 app.listen(PORT, (req, res) => {
