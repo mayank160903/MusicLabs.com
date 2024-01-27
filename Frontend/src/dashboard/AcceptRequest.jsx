@@ -26,7 +26,7 @@ const AcceptRequest = () => {
       const updatedData = requestData.filter(request => request._id !== id);
 
       setRequestData(updatedData);
-
+      console.log(requestData);
       console.log(`Accepted request with id: ${id}`);
     } catch (error) {
       console.error('Error accepting request:', error);
