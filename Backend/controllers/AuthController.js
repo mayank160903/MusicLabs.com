@@ -75,7 +75,7 @@ exports.registerController = async (req, res) => {
       }
 
       console.log("fourth");
-      // return res.status(600).send({message : "Till here it's working"});
+      return res.status(600).send({message : "Till here it's working"});
 
       const hashedPassword = await hashPassword(password);
       const user = new userSchema({
