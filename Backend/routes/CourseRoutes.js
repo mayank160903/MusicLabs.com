@@ -1,5 +1,5 @@
 const express = require("express");
-const { getSignature } = require("../controllers/CoursesController");
+const { getSignature, createCourse, getCourseInfo } = require("../controllers/CoursesController");
 const router = express.Router();
 const Multer = require("multer");
 const bodyParser = require("body-parser");
@@ -28,6 +28,7 @@ const upload = Multer({
 console.log("inside course route")
 
 router.get('/get-signature', getSignature);
-
+router.post('/createcourse', createCourse);
+router.get('/:courseId', getCourseInfo);
 
 module.exports = router;
