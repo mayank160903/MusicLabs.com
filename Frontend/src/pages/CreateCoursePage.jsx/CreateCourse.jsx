@@ -1,5 +1,5 @@
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import Dropdown from "../../components/CoursePage/Dropdown";
@@ -9,6 +9,7 @@ import { Box } from "@mui/material";
 import { AddCircleRounded, AddIcCallRounded } from "@mui/icons-material";
 // import CreateCourseDropdownDropdown from "./CreateCourseDropdown";
 import CreateCourseDropdown from "./CreateCourseDropdown";
+import axios from "axios";
 
 const DUMMY = {
     title: "Course Name",
@@ -29,12 +30,41 @@ function CreateCourseLayout(){
     const [value, setValue] = useState(true);
     const [currentSection, setCurrentSection] = useState("");
     const [addSection, setAddSection] = useState(false);
-    const [courseInfo, setCourseInfo] = useState(DUMMY)
-    // const dispatch = useDispatch();
-    // dispatch(authActions.login());
-   const isLoggedin =  useSelector(state => state.auth.isLoggedin);
-    // const navigate = useNavi
-   function addSectionHandler(){
+    const [courseInfo, setCourseInfo] = useState({})
+    
+    const isLoggedin =  useSelector(state => state.auth.isLoggedin);
+    
+    console.log(params.courseid)
+    
+    useEffect(()=>{
+        async function getCourseInfo(id){
+            const response = await fetch(`http://localhost:8000/api/course/${id}`,{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            const data = await response.json();
+            console.log(data)
+            setCourseInfo(data.course)
+        }
+
+        getCourseInfo(params.courseid);
+    
+    },[])
+
+
+
+   async function addSectionHandler(){
+
+    // const response = await axios.post(`http://localhost:8000/api/course/add-section`,{
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': `Bearer ${localStorage.getItem('token')}`
+    //     },
+    // })
+
     setCourseInfo(curr=>{
         const new_section = {name: 'Enter Name', videos: [{name: 'Enter Lesson Name', videos: 'Lesson Content', id:1}]}
         return {curr, sections : [...curr.sections, new_section] }
@@ -50,20 +80,21 @@ function CreateCourseLayout(){
                <Box sx={{marginTop: '1rem', padding: 2}}>
                 <div className="flex flex-col">
                     <div className="font-bold text-2xl"> Course Description </div>
-                   <div> {DUMMY.description} </div>
+                   <div> {courseInfo.description} </div>
                 </div>
                </Box>
             </div>
             <div className="absolute inset-y-0 right-0 w-[28vw] bg-cyan-300">
                 
-               { courseInfo.sections.map((section, index)=>{
+               { courseInfo?.sections?.map((section, index)=>{
                 {/* console.log(section.videos) */}
                     return(
                         <CreateCourseDropdown key={index} currentSection={currentSection} setCurrentSection={setCurrentSection} title={section.name} num={index+1} total={section.videos.length} content={section.videos} setContent={setCourseInfo} />    
                     )
                 })
             }
-            {/* {addSection &&} */}
+
+            {/* {addSection && } */}
 
 
             <div onClick={addSectionHandler}>

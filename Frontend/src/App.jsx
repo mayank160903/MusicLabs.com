@@ -4,6 +4,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 import { BrowserRouter, RouterProvider, createBrowserRouter } from 'react-router-dom'
+import 'react-toastify/dist/ReactToastify.css';
+
 import RootLayout from './pages/RootLayout'
 
 import ContactUs from './pages/ContactUs/ContactUs'
