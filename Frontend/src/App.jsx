@@ -33,8 +33,9 @@ import StudentEditProfile from './pages/StudentEditProfile/StudentEditProfile';
 import CreateCourseLayout from './pages/CreateCoursePage.jsx/CreateCourse'
 import Headertest from './pages/Header/Headertest'
 import CourseUpload from './pages/courseUpload/courseUpload'
-
+import Teachers_Dashboard from './Teacher Dashboard/Teachers_Dashboard';
 import Dashboard from './admin/Dashboard'
+import Quiz from  './pages/Quiz/Quiz';
 
 
 
@@ -53,6 +54,8 @@ function App() {
         {path: '/ContactUs', element: <ContactUs/> },
         // {path: '/abcd', element: <AdminQuery/> },
         {path: '/HeaderTest', element: <Headertest />},
+        {path: '/Teacher-Dashboard', element: <Teachers_Dashboard />},
+        {path: '/quiz', element: <Quiz />},
         {path: '/becomeInstructor', element: <BecomeInstructor />},
         {path : '/dashboard/admin/query' , element : <AdminQuery/>},
         {path:'/dashboard', element:<AdminDashboard/>},
