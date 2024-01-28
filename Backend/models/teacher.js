@@ -49,8 +49,13 @@ experience:{
 achievement:{
   type:String
 },
+avatar: {
+  type: String
+},
 
-},{ timestamps: true });
+},
+{ timestamps: true }
+);
 
 
 
