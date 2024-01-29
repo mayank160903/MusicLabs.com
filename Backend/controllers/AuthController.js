@@ -135,7 +135,7 @@ exports.loginController = async (req, res) => {
 
     
       var user = await userSchema.findOne({ email });
-      console.log("first");
+      console.log("first null");
       if (user) {
         const check = await comparePassword(password, user.password);
         if (!check) {
@@ -168,6 +168,7 @@ exports.loginController = async (req, res) => {
           .status(404)
           .send({ success: false, message: "User not registered " });
       }
+      
       if(user.isApproved===false){
         return res.status(400).send({success : false , message : "Teacher is not approved contact to admin"});
       }

@@ -50,7 +50,8 @@ app.use('/api/v1/user', AuthRoutes)
 app.use('/api/v1/user', UserRoutes)
 app.use('/api', paymentRoutes)
 app.use('/api/v1/teacher', TeacherRoutes);
-app.use('/api/upload',(req,res,next)=>{console.log(req.files); next();},courseRoutes);
+
+app.use('/api/course',courseRoutes);
 
 app.use('/api/v1/admin' , AdminRoutes);
 
