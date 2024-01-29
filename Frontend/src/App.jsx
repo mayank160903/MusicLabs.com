@@ -48,7 +48,7 @@ function App() {
   
   const router = createBrowserRouter([
     // {path:'/dashboard', element:<AdminDashboard/>},
-    {path: '/dashboard/admin/accept' , element : <AdminAcceptance/>},
+    
     { path: '/', element: <RootLayout/>, 
       children: [
         {path: '/', element: <Homepage/> },
@@ -61,7 +61,7 @@ function App() {
         {path: '/becomeInstructor', element: <BecomeInstructor />},
         {path : '/dashboard/admin/query' , element : <AdminQuery/>},
         {path:'/dashboard', element:<AdminDashboard/>},
-        
+        {path: '/dashboard/admin/accept' , element : <AdminAcceptance/>},
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/instructor',element:<Instructor/>},
         {path:'/teacher/:id', element:<Teacher/>},
