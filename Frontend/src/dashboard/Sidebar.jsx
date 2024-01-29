@@ -45,7 +45,7 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
             <li className='sidebar-list-item'>
                 <Link to='/dashboard/admin/accept' className="flex items-center">
                     <BsListCheck className='icon'/> 
-                    <span className="ml-2">Approved Teachers</span>
+                    <span className="ml-2">Approve Teachers</span>
                 </Link>
             </li>
             <li className='sidebar-list-item'>
