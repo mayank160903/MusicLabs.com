@@ -13,11 +13,11 @@ import { useTheme } from '@mui/material/styles';
 const ListOfTeachers = () => {
   const theme = useTheme();
   const [teachers, setTeachers] = useState([]);
-
+  const [searchQuery, setSearchQuery] = useState('');
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/admin/allteachers');
+        const response = await axios.get(`http://localhost:8000/api/v1/admin/teacheruniversalSearch?query=${searchQuery}`);
         setTeachers(response.data.teachers);
         console.log(teachers);
       } catch (error) {
@@ -26,16 +26,33 @@ const ListOfTeachers = () => {
     };
 
     fetchData();
-  }, []);
+  }, [searchQuery]);
 
   return (
 
 
     <>
-       <div className="flex justify-center">
-      <div className="bg-gray-200 rounded-full px-2 mt-5 mb-4">
-         <h1 className="font-bold text-4xl text-black">List of Teachers</h1>
-      </div>
+         <div className="flex justify-center">
+     
+     <h1 className="font-bold text-4xl text-white">List of Teachers</h1>
+  
+</div>
+
+<div>
+    <div className="w-full px-3 mb-5 flex justify-end">
+            
+            <div className="flex">
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                className="w-full pl-10 pr-3 py-2  ml-4 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                placeholder="Search"
+                value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+          </div>
     </div>
 
     <TableContainer component={Paper} sx={{ marginTop: theme.spacing(4), backgroundColor: '#1d2634', marginBottom: 5 }}>

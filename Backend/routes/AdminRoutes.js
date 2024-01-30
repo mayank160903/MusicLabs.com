@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-const {getAllQuery , getAllTeachers} = require('../controllers/AdminController');
+const {getAllQuery , getAllTeachers , getAllUsers} = require('../controllers/AdminController');
 
 router.get('/query' , getAllQuery);
 
-router.get('/allteachers' ,getAllTeachers );
+router.get('/teacheruniversalSearch' ,getAllTeachers );
+
+router.get('/universalSearch' , getAllUsers);
 
 
 module.exports = router;

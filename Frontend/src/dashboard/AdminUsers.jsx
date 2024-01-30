@@ -5,7 +5,7 @@ import Header from './Header'
 import Sidebar from './Sidebar'
 
 import { Routes, Route } from 'react-router-dom';
-import ListOfTeachers from './ListOfTeachers';
+import ListOfUsers from './ListOfUsers';
 
 
 
@@ -21,7 +21,7 @@ const AdminUsers = () =>{
         
           <Sidebar  className="sidebar" openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
           <div  className="overflow-y-auto h-screen w-1000"> 
-         <ListOfTeachers />
+         <ListOfUsers />
             </div>
           </div>
      
