@@ -2,6 +2,8 @@ const contactModel  = require('../models/contact.js');
 
 const courseModel = require('../models/course.js');
 
+const teacherModel = require('../models/teacher.js') 
+
 
 exports.getAllQuery = async(req , res) =>{
     try{
@@ -79,6 +81,21 @@ exports.deleteCourses = async(req , res) =>{
         return res.status(500).send({success : false , message :  "Error while deleting the courses"});
     }
 }
+
+exports.getAllTeachers = async(req , res) =>{
+
+    try{
+        const teachers = await teacherModel.find({isApproved : true});
+
+        return res.status(200).send({success : true , message : "List of Teachers" , teachers : teachers});
+
+
+    }
+    catch(error){
+        return res.status(500).send({success : false , message :  "Error while getting all the teachers"});   
+    }
+}
+
 
 
 
