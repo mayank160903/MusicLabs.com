@@ -23,11 +23,11 @@ import AdminQuery from './dashboard/AdminQuery';
 import Certificate from './pages/Certificate/Certificate';
 import AdminAcceptance from './dashboard/AdminAcceptance';
 import LoginForm from './pages/login/Login';
-
+import AdminUsers from './dashboard/AdminUsers';
 import ForgotPassword from './pages/forgotpassword/ForgotPassword'
 import CourseLayout from './pages/CoursePage/CourseLayout'
 import Teacher from './pages/TeacherProfile/TeacherProfile';
-
+import AdminTeachers from  './dashboard/AdminTeachers'; 
 import AdminDashboard from './dashboard/Admin';
 import Catalogue from './pages/Catalogue/Catalogue'
 import TeacherEditProfile from './pages/TeacherEditProfile/TeacherEditProfile';
@@ -62,6 +62,8 @@ function App() {
         {path : '/dashboard/admin/query' , element : <AdminQuery/>},
         {path:'/dashboard', element:<AdminDashboard/>},
         {path: '/dashboard/admin/accept' , element : <AdminAcceptance/>},
+        {path: '/dashboard/admin/Teachers' , element : <AdminTeachers/>},
+        {path: '/dashboard/admin/Users' , element : <AdminUsers/>},
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/instructor',element:<Instructor/>},
         {path:'/teacher/:id', element:<Teacher/>},
