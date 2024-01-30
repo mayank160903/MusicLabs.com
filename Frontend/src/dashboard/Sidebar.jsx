@@ -37,10 +37,10 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
                 </a>
             </li>
             <li className='sidebar-list-item'>
-                <a href="" className="flex items-center">
+                <Link to='/dashboard/admin/Users' className="flex items-center">
                     <BsPeopleFill className='icon'/>
                     <span className="ml-2"> Users</span>
-                </a>
+                </Link>
             </li>
             <li className='sidebar-list-item'>
                 <Link to='/dashboard/admin/accept' className="flex items-center">
@@ -49,7 +49,7 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
                 </Link>
             </li>
             <li className='sidebar-list-item'>
-                <Link to='/dashboard' className="flex items-center">
+                <Link to='/dashboard/admin/Teachers' className="flex items-center">
                     <BsListCheck className='icon'/> 
                     <span className="ml-2">Teachers</span>
                 </Link>
