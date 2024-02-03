@@ -2,6 +2,10 @@ const contactModel  = require('../models/contact.js');
 
 const courseModel = require('../models/course.js');
 
+const teacherModel = require('../models/teacher.js') 
+
+const userModel = require('../models/user.js');
+
 
 exports.getAllQuery = async(req , res) =>{
     try{
@@ -79,6 +83,62 @@ exports.deleteCourses = async(req , res) =>{
         return res.status(500).send({success : false , message :  "Error while deleting the courses"});
     }
 }
+
+exports.getAllTeachers = async(req , res) =>{
+
+    const { query } = req.query;
+
+    try {
+      let result;
+  
+      if (query) {
+        result = await teacherModel.find({
+          $or: [
+            { firstName: { $regex: query, $options: 'i' } },
+            { lastName: { $regex: query, $options: 'i' } },
+            { email: { $regex: query, $options: 'i' } },
+          ],
+        });
+      } else {
+        
+        result = await teacherModel.find({});
+      }
+  
+      return res.status(200).send({success : true , message : "List of Teachers"  , teachers : result});
+    } catch (error) {
+      console.error('Error searching users:', error);
+      return res.status(500).send({success : false , message : "Error while getting list of teachers"});
+    }
+}
+
+exports.getAllUsers = async(req , res) =>{
+
+    const { query } = req.query;
+
+    try {
+      let result;
+  
+      if (query) {
+        result = await userModel.find({
+          $or: [
+            { firstName: { $regex: query, $options: 'i' } },
+            { lastName: { $regex: query, $options: 'i' } },
+            { email: { $regex: query, $options: 'i' } },
+          ],
+        });
+      } else {
+       
+        result = await userModel.find({});
+      }
+  
+      return res.status(200).send({success : true , message : "List of Users"  , users : result});
+    } catch (error) {
+      console.error('Error searching users:', error);
+      return res.status(500).send({success : false , message : "Error while getting list of users"});
+    }
+
+}
+
 
 
 

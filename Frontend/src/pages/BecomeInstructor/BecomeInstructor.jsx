@@ -236,7 +236,7 @@ const handleRegister = async () => {
 
             {showPostGraduation && ( <div className="mb-4  flex">
            
-           <button class="bg-white  hover:bg-red-500 font-bold py-2 px-1 rounded w-30 ml-auto " onClick={handlePostGraduationClick}>
+           <button class="bg-white  hover:bg-red-500 font-bold py-2 px-3 rounded w-30 ml-auto " onClick={handlePostGraduationClick}>
                 Delete
            </button>
            
@@ -282,7 +282,7 @@ const handleRegister = async () => {
    
                {showMasters && ( <div className="mb-4  flex">
               
-              <button class="bg-white  hover:bg-red-500 font-bold py-2 px-1 rounded w-30 ml-auto " onClick={handleMastersClick}>
+              <button class="bg-white  hover:bg-red-500 font-bold py-2 px-3 rounded w-30 ml-auto " onClick={handleMastersClick}>
                    Delete
               </button>
               
@@ -329,7 +329,7 @@ const handleRegister = async () => {
    
                {showExperience && ( <div className="mb-4  flex">
               
-              <button class="bg-white  hover:bg-red-500 font-bold py-2 px-1 rounded w-30 ml-auto " onClick={handleExperienceClick}>
+              <button class="bg-white  hover:bg-red-500 font-bold py-2 px-3 rounded w-30 ml-auto " onClick={handleExperienceClick}>
                    Delete
               </button>
               
@@ -378,7 +378,7 @@ const handleRegister = async () => {
    
                {showAchievement && ( <div className="mb-4  flex">
               
-              <button class="bg-white  hover:bg-red-500 font-bold py-2 px-1 rounded w-30 ml-auto " onClick={handleAchievementClick}>
+              <button class="bg-white  hover:bg-red-500 font-bold py-2 px-3 rounded w-30 ml-auto " onClick={handleAchievementClick}>
                    Delete
               </button>
               
