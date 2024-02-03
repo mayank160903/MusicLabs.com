@@ -1,10 +1,10 @@
 
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import Dropdown from "../../components/CoursePage/Dropdown";
 import MainContent from "../../components/CoursePage/MainContent";
-import { useNavigate, useParams } from "react-router";
+import {useParams } from "react-router";
 import { Box } from "@mui/material";
 import { AddCircleRounded, AddIcCallRounded } from "@mui/icons-material";
 // import CreateCourseDropdownDropdown from "./CreateCourseDropdown";
