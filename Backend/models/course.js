@@ -36,7 +36,8 @@ const courseSchema = new mongoose.Schema({
     
     sections : [{
         type : mongoose.Types.ObjectId,
-       ref:'Sections',
+        ref:'sections',
+
     //    required:[true , 'Sections are required'], 
     }],
 

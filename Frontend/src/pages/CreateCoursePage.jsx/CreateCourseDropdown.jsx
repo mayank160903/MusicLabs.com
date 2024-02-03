@@ -8,7 +8,7 @@ import { useNavigation, useNavigate, useParams } from "react-router"
 const API_KEY = '396353668692966'
 const CLOUD_NAME = 'djcg8mvbx'
 
-function CreateCourseDropdown({currentSection, setCurrentSection, title, num, total, content, setContent}) {
+function CreateCourseDropdown({id, currentSection, setCurrentSection, title, num, total, content, setContent, setCurrentVideo}) {
 
     console.log('rerender')
     
@@ -28,16 +28,16 @@ function CreateCourseDropdown({currentSection, setCurrentSection, title, num, to
     const [finished, setFinished] = useState(0);
 
     function clickHandler(){
-        console.log(title)
-        if(currentSection != title){
-            setCurrentSection(title)
+        // console.log(title)
+        if(currentSection != id){
+            setCurrentSection(id)
             return ;
         } else
         setCurrentSection("")
     }
 
     function contentChangeHandler(id){
-        navigate(`${id}`)
+        setCurrentVideo(id)
     }
 
     function videoWatchedHandler(id, e){
@@ -65,11 +65,9 @@ function CreateCourseDropdown({currentSection, setCurrentSection, title, num, to
         setContent1([...content1,{name:videoName, videos: video, id: 9}])
 
         try {
-          let response = await fetch('http://localhost:8000/api/upload/get-signature', {
-            method: 'GET',
-          });
+          let response = await axios.get('http://localhost:8000/api/course/get-signature');
 
-          const {signature, timestamp} = await response.json();
+          const {signature, timestamp} =  response.data;
 
           const form = new FormData()
           form.append('file', video);
@@ -82,8 +80,12 @@ function CreateCourseDropdown({currentSection, setCurrentSection, title, num, to
               body: form,
             }
           )
-          
-          console.log(res)
+          let body = await res.json();
+        
+          axios.post('http://localhost:8000/api/course/addcontent', {courseId: params.courseid, sectionId: currentSection, videoUrl: body.url, videoName: videoName}, {
+            headers: {
+              'Content-Type': 'application/json'
+            }})
 
         } catch (error) {
           console.error('Error uploading video:', error);
@@ -95,7 +97,7 @@ function CreateCourseDropdown({currentSection, setCurrentSection, title, num, to
     return (
 
         <Fragment>
-        <Accordion expanded={currentSection == title ? true : false} sx={{marginTop: '1rem'}}onChange={clickHandler} className="& .MuiPaper-root mt-0 mb-0">
+        <Accordion expanded={currentSection == id ? true : false} sx={{marginTop: '1rem'}}onChange={clickHandler} className="& .MuiPaper-root mt-0 mb-0">
         <AccordionSummary sx={{borderBottom: '2px solid rgba(0, 0, 0, .25)',  maxHeight: '64px', minHeight: '64px', '&:hover': {backgroundColor: 'rgba(0, 0, 0, .125)'}}}
         className="shadow-md"
             expandIcon={<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>}
@@ -106,7 +108,7 @@ function CreateCourseDropdown({currentSection, setCurrentSection, title, num, to
                 <div></div>
                     <div className="flex flex-col">
                         <div className="font-weight-bold">{`Section ${num}: ${title}`}</div>
-                        {`${finished} / ${total}`} | {`${ Math.round(finished/total * 100)}%`}
+                        {total !== 0 ? `${finished} / ${total} | ${Math.round((finished / total) * 100)}%` : '0 / 0'}
                     </div>
                 </div>
         </AccordionSummary>
@@ -116,7 +118,7 @@ function CreateCourseDropdown({currentSection, setCurrentSection, title, num, to
                 <AccordionDetails key={index} className={`border-b-2  border-b-slate-300  cursor-pointer pl-2 
                 ${lesson.id == params.section ? " bg-slate-200": ""} `}
                 sx={{'&:hover': {backgroundColor: 'rgba(0, 0, 0, .125)', "& .MuiAccordionDetails-root": "pl-2"}} }
-                 onClick={()=>{contentChangeHandler(lesson.id)}}>
+                 onClick={()=>{contentChangeHandler(lesson)}}>
                     <div className={`flex flex-row`} >
                         <div><Checkbox onClick={(e)=>{videoWatchedHandler(lesson.id,e)}} value={true}/></div>
                         <div className="font-weight-bold my-auto pb-1">{`Lesson ${index+1}: ${lesson.name}`}</div>
