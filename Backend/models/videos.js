@@ -5,9 +5,9 @@ const videoSchema = new mongoose.Schema({
         type: String,
         required : [true , 'section name is required'],
     },
-    videos :{
-        data : Buffer,
-        contentType : String,
+    url :{
+        type: String,
+        required: [true, 'video is required'],
     },
     seen:{
         type : Boolean,

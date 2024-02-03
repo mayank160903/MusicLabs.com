@@ -33,7 +33,7 @@ const TeacherHeader = () => {
                 </div>
               </li>
               <li><a href="/spotlight">SPOTLIGHT</a></li>
-              <li><a href="/wishlist">UPLOAD COURSE</a></li>
+              <li><a href="/courseupload">CREATE COURSE</a></li>
               <li><a href="/instructor">OUR INSTRUCTORS</a></li>
               <li><a href="/faq">FAQs</a></li>
               <li><a href="/contactus">CONTACT US</a></li>

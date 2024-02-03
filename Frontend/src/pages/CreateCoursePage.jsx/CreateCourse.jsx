@@ -27,12 +27,12 @@ const DUMMY = {
 function CreateCourseLayout(){
 
     const params = useParams();
-    const [value, setValue] = useState(true);
     const [currentSection, setCurrentSection] = useState("");
+    const [currentTitle, setCurrentTitle] = useState("");
     const [addSection, setAddSection] = useState(false);
-    const [courseInfo, setCourseInfo] = useState({})
+    const [courseInfo, setCourseInfo] = useState({sections:[]})
     
-    const isLoggedin =  useSelector(state => state.auth.isLoggedin);
+    const [currentVideo, setCurrentVideo] = useState(null);
     
     console.log(params.courseid)
     
@@ -46,27 +46,39 @@ function CreateCourseLayout(){
                 }
             })
             const data = await response.json();
-            console.log(data)
             setCourseInfo(data.course)
+            setCurrentVideo(data.course.sections[0]?.videos[0])
+            setCurrentSection(data.course.sections[0]?._id)
         }
 
         getCourseInfo(params.courseid);
     
     },[])
 
+    useEffect(()=>{
+        setCurrentTitle(courseInfo?.sections?.find(section=>section._id === currentSection)?.name)
+    },[currentSection])
+
 
 
    async function addSectionHandler(){
 
-    // const response = await axios.post(`http://localhost:8000/api/course/add-section`,{
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Authorization': `Bearer ${localStorage.getItem('token')}`
-    //     },
-    // })
+    const formData = {
+        courseId: params.courseid,
+        sectionName: 'Enter Name'
+    }
+    
+    const response = await axios.post(`http://localhost:8000/api/course/addsection`, formData,{
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+    })
+    console.log(response)
+    setAddSection(true);
 
-    setCourseInfo(curr=>{
-        const new_section = {name: 'Enter Name', videos: [{name: 'Enter Lesson Name', videos: 'Lesson Content', id:1}]}
+    setCourseInfo(curr=> {
+        const new_section = {name: 'Enter Name', videos: []}
         return {curr, sections : [...curr.sections, new_section] }
     })
 
@@ -76,11 +88,11 @@ function CreateCourseLayout(){
         <div className="relative h-auto flex pb-6">
         <div className="flex flex-col">
             <div className="w-[72vw] h-fit">
-               <MainContent currentVideo={params.section} currentSection={currentSection} content={courseInfo}/>
+               <MainContent currentVideo={currentVideo} currentSection={currentTitle} content={courseInfo}/>
                <Box sx={{marginTop: '1rem', padding: 2}}>
                 <div className="flex flex-col">
                     <div className="font-bold text-2xl"> Course Description </div>
-                   <div> {courseInfo.description} </div>
+                   <div> {courseInfo?.description} </div>
                 </div>
                </Box>
             </div>
@@ -89,13 +101,10 @@ function CreateCourseLayout(){
                { courseInfo?.sections?.map((section, index)=>{
                 {/* console.log(section.videos) */}
                     return(
-                        <CreateCourseDropdown key={index} currentSection={currentSection} setCurrentSection={setCurrentSection} title={section.name} num={index+1} total={section.videos.length} content={section.videos} setContent={setCourseInfo} />    
+                        <CreateCourseDropdown key={section._id} id={section._id} currentSection={currentSection} setCurrentSection={setCurrentSection} title={section.name} num={index+1} total={section.videos?.length} content={section?.videos} setContent={setCourseInfo} setCurrentVideo={setCurrentVideo}  />    
                     )
                 })
             }
-
-            {/* {addSection && } */}
-
 
             <div onClick={addSectionHandler}>
             <div className="flex flex-col mt-4 cursor-pointer">
