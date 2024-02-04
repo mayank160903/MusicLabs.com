@@ -196,3 +196,17 @@ exports.addVideoContent = async (req,res) => {
         return res.status(500).send({success: false, message: "Error while adding video"});
     }
 }
+
+exports.deleteVideoContent = async (req,res) => {
+  try {
+    const {videoId} = req.body;
+    const video = await videoSchema.findByIdAndDelete(videoId);
+    if(!video){
+      return res.status(404).send({success: false, message: "Video not found"});
+    }
+    return res.status(200).send({success: true, message: "Video deleted successfully"});
+  } catch (e){
+    console.log(e)
+    return res.status(500).send({success: false, message: "Error while deleting video"});
+  }
+}

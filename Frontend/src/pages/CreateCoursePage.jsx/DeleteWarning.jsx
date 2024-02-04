@@ -15,7 +15,7 @@ const style = {
 
 function DeleteWarning({open,setOpen, action}) {
 
-    const handleOpen = () => setOpen(true);
+
     const handleClose = () => setOpen(false);
   
 
