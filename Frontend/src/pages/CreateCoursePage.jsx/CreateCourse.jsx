@@ -34,7 +34,6 @@ function CreateCourseLayout(){
     
     const [currentVideo, setCurrentVideo] = useState(null);
     
-    console.log(params.courseid)
     
     useEffect(()=>{
         async function getCourseInfo(id){
@@ -74,12 +73,11 @@ function CreateCourseLayout(){
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
     })
-    console.log(response)
+
     setAddSection(true);
 
     setCourseInfo(curr=> {
-        const new_section = {name: 'Enter Name', videos: []}
-        return {curr, sections : [...curr.sections, new_section] }
+        return {curr, sections : [...curr.sections, response.data.section] }
     })
 
    }
@@ -96,7 +94,7 @@ function CreateCourseLayout(){
                 </div>
                </Box>
             </div>
-            <div className="absolute inset-y-0 right-0 w-[28vw] bg-cyan-300">
+            <div className="absolute inset-y-0 right-0 w-[28vw] bg-cyan-300 overflow-y-auto">
                 
                { courseInfo?.sections?.map((section, index)=>{
                 {/* console.log(section.videos) */}
