@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { AddCircleRounded } from "@mui/icons-material";
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Checkbox, Container, Modal, TextField } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button,Container, TextField } from "@mui/material";
 import axios from "axios";
 import { Fragment, useState } from "react";
 import { useParams } from "react-router"
@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import LinearWithValueLabel from "./LinearProgressNumbered";
 import {  EditIcon,  Trash2, XCircle } from "lucide-react";
 import DeleteWarning from "./DeleteWarning";
+import CreateLesson from "./CreateLesson";
 
 const API_KEY = '396353668692966'
 const CLOUD_NAME = 'djcg8mvbx'
@@ -102,10 +103,7 @@ function CreateCourseDropdown({id, currentSection, setCurrentSection, title, num
     }
 
     
-    function videoWatchedHandler(id, e){
-        setFinished((curr)=>(curr+1))
-        // console.log(e)
-    }
+
 
     const [videoName, setVideoName] = useState("");
     const [video, setVideo] = useState(null);
@@ -190,7 +188,7 @@ function CreateCourseDropdown({id, currentSection, setCurrentSection, title, num
             <div className="flex">
                 <div></div>
                     <div className="flex flex-col">
-                        <div className="font-weight-bold">{`Section ${num}:`} { !editSection ? title :       
+                        <div className="font-weight-bold">{`Section ${num}  :  `} { !editSection ? title :       
                         <TextField id={`edit-input-${id}`} 
                                    variant="filled" 
                                    sx={{maxHeight:'12px', marginLeft: '1rem', maxWidth: '10rem', '& .MuiInputBase-input': {fontSize: '1.1rem', paddingTop: 0, paddingBottom: 0}}} 
@@ -203,7 +201,7 @@ function CreateCourseDropdown({id, currentSection, setCurrentSection, title, num
 
                         {total !== 0 ? `${finished} / ${total}` : '0 / 0'}
                     </div>
-                    {/* <div className="align-self-center justify-self-end"><EditIcon/></div> */}
+
                 </div>
                 <div className="ml-auto flex" >
                 <div className="align-self-center mr-2" onClick={()=>{setEditSection(curr => !curr)}}>
@@ -218,16 +216,7 @@ function CreateCourseDropdown({id, currentSection, setCurrentSection, title, num
         
         {content?.map((lesson, index)=>{
             return (
-                <AccordionDetails key={index} className={`border-b-2  border-b-slate-300  cursor-pointer pl-2 
-                ${lesson.id == params.section ? " bg-slate-200": ""} `}
-                sx={{'&:hover': {backgroundColor: 'rgba(0, 0, 0, .125)', "& .MuiAccordionDetails-root": "pl-2"}} }
-                 onClick={()=>{contentChangeHandler(lesson)}}>
-                    <div className={`flex flex-row`} >
-                        <div><Checkbox onClick={(e)=>{videoWatchedHandler(lesson.id,e)}} value={true}/></div>
-                        <div className="font-weight-bold my-auto pb-1">{`Lesson ${index+1}: ${lesson.name}`}</div>
-                       
-                    </div>
-                </AccordionDetails>
+              <CreateLesson index={index} contentChangeHandler={contentChangeHandler} lesson={lesson} key={lesson._id} />     
             )
         })}
 
