@@ -28,13 +28,6 @@
   }
   
 
-  
-
-input[type=text] {
-  font-family: "Lato", sans-serif;
-}
-
-
 .courseInfo{
     margin: 1.2rem 0;
     text-overflow: ellipsis;
@@ -138,24 +131,17 @@ button {
   color : black;
 }
 
-input[type=text] {
-  height: 40px;
-}
-
-button {
-  cursor: pointer;
-  width: 100px;
-  background: none;
-  border: 2px solid #9966cc;
-  border-radius: 4px;
-  color: #9966cc;
-  height: 40px;
-  font-family: "Lato", sans-serif;
-  
-}
 
 .apply{
     transform:  1s;
+    cursor: pointer;
+    width: 100px;
+    background: none;
+    border: 2px solid #9966cc;
+    border-radius: 4px;
+    color: #9966cc;
+    height: 40px;
+    font-family: "Lato", sans-serif;  
 
 }
 

@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState } from 'react'
+
 import './App.css'
 
-import { BrowserRouter, RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
 
 import RootLayout from './pages/RootLayout'
@@ -11,7 +10,7 @@ import RootLayout from './pages/RootLayout'
 import ContactUs from './pages/ContactUs/ContactUs'
 import WishlistPage from './pages/Wishlist/Wishlist'
 import Instructor from './pages/Instructor/Instructor';
-// import PaymentPage from './pages/PaymentPage/PaymentPage'
+import PaymentPage from './pages/PaymentPage/PaymentPage';
 import Homepage from './pages/Homepage/homepage'
 import Spotlight from './pages/Spotlight/Spotlight'
 import Faq from './pages/Faq/Faq'
@@ -44,7 +43,7 @@ import Quiz from  './pages/Quiz/Quiz';
 function App() {
   const [count, setCount] = useState(0);
 
-  const PaymentPage = React.lazy(() => import('./pages/PaymentPage/PaymentPage'))
+  // const PaymentPage = React.lazy(() => import('./pages/PaymentPage/PaymentPage'))
   
   const router = createBrowserRouter([
     // {path:'/dashboard', element:<AdminDashboard/>},

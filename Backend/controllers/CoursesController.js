@@ -134,11 +134,43 @@ exports.addSection = async (req,res) => {
         const section = await sectionSchema.create({name: sectionName, videos: []});
         course.sections.push(section);
         await course.save();
-        return res.status(200).send({success: true, message: "Section added successfully", course});
+        return res.status(200).send({success: true, message: "Section added successfully", section});
     } catch (error){
         return res.status(500).send({success: false, message: "Error while adding section"});
     }
 }
+
+exports.editSectionHandler = async (req,res) => {
+  try {
+    const {sectionId, newName} = req.body;
+    const section = await sectionSchema.findById(sectionId);
+    if(!section){
+      return res.status(404).send({success: false, message: "Section not found"});
+    }
+    section.name = newName;
+    await section.save();
+    return res.status(200).send({success: true, message: "Section updated successfully", section});
+  } catch (e) {
+    console.log(e)
+    return res.status(500).send({success: false, message: "Error while updating section"});
+  }
+}
+
+exports.deleteSectionHandler = async (req,res) => {
+  try {
+    const {sectionId} = req.body;
+    const section = await sectionSchema.findByIdAndDelete(sectionId);
+    if(!section){
+      return res.status(404).send({success: false, message: "Section not found"});
+    }
+    return res.status(200).send({success: true, message: "Section deleted successfully"});
+  } catch (e){
+    console.log(e)
+    return res.status(500).send({success: false, message: "Error while deleting section"});
+  }
+}
+
+
 
 exports.addVideoContent = async (req,res) => {
     try{
@@ -158,7 +190,7 @@ exports.addVideoContent = async (req,res) => {
         
         await section.save();
         console.log(section)
-        return res.status(200).send({success: true, message: "Video added successfully", section});
+        return res.status(200).send({success: true, message: "Video added successfully", vid});
     } catch (error){
         console.log(error)
         return res.status(500).send({success: false, message: "Error while adding video"});
