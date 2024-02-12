@@ -216,7 +216,7 @@ function CreateCourseDropdown({id, currentSection, setCurrentSection, title, num
         
         {content?.map((lesson, index)=>{
             return (
-              <CreateLesson index={index} contentChangeHandler={contentChangeHandler} lesson={lesson} key={lesson._id} />     
+              <CreateLesson index={index} contentChangeHandler={contentChangeHandler} lesson={lesson} currentSection={currentSection} key={lesson._id} content={content} setContent={setContent} />     
             )
         })}
 
