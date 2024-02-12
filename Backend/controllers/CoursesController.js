@@ -210,3 +210,21 @@ exports.deleteVideoContent = async (req,res) => {
     return res.status(500).send({success: false, message: "Error while deleting video"});
   }
 }
+
+exports.editVideoTitleHandler = async (req,res) => {
+  try {
+    const {lessonId, newName} = req.body;
+    const video = await videoSchema.findById(lessonId);
+    if(!video){
+      return res.status(404).send({success: false, message: "Video not found"});
+    }
+    video.name = newName;
+    await video.save();
+    return res.status(200).send({success: true, message: "Video updated successfully", video});
+  } catch (e) {
+    console.log(e)
+    return res.status(500).send({success: false, message: "Error while updating video"});
+  }
+
+
+}
