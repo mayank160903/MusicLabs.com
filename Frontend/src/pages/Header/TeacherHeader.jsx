@@ -3,6 +3,7 @@ import './Header.css';
 import logo2 from '../../images/logo2.jpg';
 import guitaricon from '../../images/guitariconnav.png';
 import profileicon from '../../images/profile-icon.png';
+import { Link } from 'react-router-dom';
 
 const TeacherHeader = () => {
   return (
@@ -33,10 +34,10 @@ const TeacherHeader = () => {
                 </div>
               </li>
               <li><a href="/spotlight">SPOTLIGHT</a></li>
-              <li><a href="/wishlist">UPLOAD COURSE</a></li>
-              <li><a href="/instructor">OUR INSTRUCTORS</a></li>
-              <li><a href="/faq">FAQs</a></li>
-              <li><a href="/contactus">CONTACT US</a></li>
+              <li><a href="/courseupload">CREATE COURSE</a></li>
+              <li><Link to="/instructor">OUR INSTRUCTORS</Link></li>
+              <li><Link to="/faq">FAQs</Link></li>
+              <li><Link to="/contactus">CONTACT US</Link></li>
               <li><a href="/catalogue">CATALOGUE</a></li>
               <li><a href="/">HOME</a></li>
               <li><a href="/"><img src={guitaricon} className="icon" width="64" height="64" alt="Guitar Icon" /></a></li>

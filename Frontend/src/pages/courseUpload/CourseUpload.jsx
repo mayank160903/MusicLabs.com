@@ -1,27 +1,66 @@
 import React from 'react'
 import sidepic from '../../images/signup-pic.jpg';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 
 const CourseUpload = () => {
+
+    const navigate = useNavigate();
+    const teacher  = useSelector((state) => state.auth);
+
+    async function submitFormHandler(e){
+        e.preventDefault();
+        console.log(e.target.coursename.value);
+        const formData = new FormData();
+        
+        formData.append('title',e.target.coursename.value);
+        formData.append('description',e.target.coursedesc.value);
+        formData.append('instructor',e.target.instructor.value);
+        formData.append('teacherId', teacher.id);
+        formData.append('category',e.target.category.value);
+        formData.append('price',e.target.price.value);
+        console.log(formData);
+
+        const response = await axios.post('http://localhost:8000/api/course/createcourse',formData);
+
+        if(response.status  === 200){
+          toast.success("Course Uploaded Successfully");
+          navigate(`/createcourse/${response.data.course._id}`);
+        }
+
+
+
+
+    }
+
+
+
+
+
+
+
   return (
     <div className="flex flex-row bg-purple-100 ">
         <div className="basis-1/3">
 
     </div >
     <div className='p-4 m-4 basis-1/3'>
-        <form className="w-full max-w-lg bg-purple-50 border-black border-double border-3 rounded-xl p-3">
+        <form className="w-full max-w-lg bg-purple-50 border-black border-double border-3 rounded-xl p-3" onSubmit={(e)=>submitFormHandler(e)}>
   <div className="flex flex-wrap -mx-3 mb-6">
     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
+      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name" >
         Course Name
       </label>
-      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane" />
+      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Jane" name="coursename"/>
       <p className="text-red-500 text-xs italic">Please fill out this field.</p>
     </div>
     <div className="w-full md:w-1/2 px-3">
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
+      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name" >
         Course Description
       </label>
-      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe" />
+      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe" name="coursedesc"/>
     </div>
   </div>
   <div className="flex flex-wrap -mx-3 mb-6">
@@ -35,17 +74,17 @@ const CourseUpload = () => {
   </div>
   <div className="flex flex-wrap -mx-3 mb-2">
     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-city">
+      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-city" >
       Instructor Name
       </label>
-      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Albuquerque" />
+      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Albuquerque" name="instructor" defaultValue={teacher.firstName} />
     </div>
     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-state">
         Category
       </label>
       <div className="relative">
-        <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+        <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state"  name="category">
           <option>Beginner</option>
           <option>Rock</option>
           <option>Metal</option>
@@ -64,8 +103,11 @@ const CourseUpload = () => {
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-zip">
         Set Price
       </label>
-      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="" />
+      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="" name='price' />
     </div>
+  </div>
+    <div className='flex justify-end'>
+  <button type='submit' className='bg-purple-700 border-r-4 p-3'>Submit</button>
   </div>
 </form>
       

@@ -68,7 +68,7 @@ const Homepage = () => {
           </div>
           <div className="w-1/2 justify-self-center">   
         <div className="video_box">
-          <VideoApp />
+          {/* <VideoApp /> */}
           {/* <video
             poster="images/logo.jpg"
             id="home-video"

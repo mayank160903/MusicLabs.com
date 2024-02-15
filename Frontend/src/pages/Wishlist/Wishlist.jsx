@@ -59,6 +59,8 @@ function WishlistPage(){
    const [mode,setMode] = useState("wish");
    const dispatch = useDispatch();
 
+   const firstName = useSelector(state=> state.auth.firstName)
+
   //  const dispatch = useDispatch();
    const navigate = useNavigate();
 
@@ -70,7 +72,9 @@ function WishlistPage(){
     }
 
     function getCertificate(){
+      
       navigate("/certificate")
+    
     }
 
 
@@ -106,7 +110,7 @@ function WishlistPage(){
                                     
                                 </div></div>
                                 
-                              <h5 className="proftitle2 align-items-end ml-8" >Welcome, (username)</h5>
+                              <h5 className="proftitle2 align-items-end ml-8" >Welcome, {firstName}</h5>
                             </div>
                             <ul className="list-group list-group-flush" style={{fontSize: '16px'}}>
                               <li className="list-group-item atb" style={{borderBottom: '2px solid grey', backgroundColor: '#181a1b'}}><Link to = "/studentprofile" color="#C0BAB2">Your Profile</Link></li>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import VideoPlayer from 'react-video-js-player';
 import cover from '../../images/carl-pic.jpg';
-import videoTag from '../../Videos/jamplay_vid.mp4';
+// import videoTag from '../../Videos/jamplay_vid.mp4';
 
 class VideoApp extends Component {
 	player = {}

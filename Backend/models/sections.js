@@ -5,10 +5,15 @@ const sectionSchema = new mongoose.Schema({
         type: String,
         required : [true , 'section name is required'],
     },
+    // number:{
+    //     type: Number,
+    //     required: [true, 'section number is required'],
+    // },
+
     videos :[
         {
             type : mongoose.Types.ObjectId,
-            ref: 'Videos',
+            ref: 'video',
 
         }
     ]

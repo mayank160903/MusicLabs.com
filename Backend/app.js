@@ -3,6 +3,7 @@ const userSchema = require("./models/user.js");
 const contactSchema = require("./models/contact.js");
 const teacherSchema = require(__dirname + "/models/teacher.js");
 const coursesSchema = require(__dirname + "/models/course.js");
+const sectionSchema = require(__dirname + "/models/sections.js");
 // const userRoute = require('./routes/UserRoutes.js');
 const bodyParser = require("body-parser");
 const dotenv = require('dotenv');
@@ -14,7 +15,6 @@ dotenv.config();
 const express = require('express');
 
 
-
 const app = express();
 
 app.use(fileUpload());
@@ -22,19 +22,24 @@ app.use(fileUpload());
 const AuthRoutes = require("./routes/AuthRoutes.js");
 const UserRoutes = require("./routes/UserRoutes.js");
 const paymentRoutes = require("./routes/PaymentRoutes.js");
+const TeacherRoutes = require('./routes/TeacherRoutes.js');
+const courseRoutes = require("./routes/CourseRoutes.js");
+const AdminRoutes = require('./routes/AdminRoutes.js');
 
 const connectDb = require('./database/db.js');
+const multer = require("multer");
 
 
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }))
-
 app.use(express.json());
-
+app.use(bodyParser.raw())
 app.use(cors());
 
+const upload = multer({ limits: { fileSize: 50 * 1024 * 1024 } }); // 50 MB limit
+// app.use(upload.single('file'))
 
 connectDb();
 
@@ -45,7 +50,11 @@ connectDb();
 app.use('/api/v1/user', AuthRoutes)
 app.use('/api/v1/user', UserRoutes)
 app.use('/api', paymentRoutes)
+app.use('/api/v1/teacher', TeacherRoutes);
 
+app.use('/api/course',courseRoutes);
+
+app.use('/api/v1/admin' , AdminRoutes);
 
 const PORT = 8000;
 app.listen(PORT, (req, res) => {
