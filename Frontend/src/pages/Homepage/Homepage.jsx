@@ -11,6 +11,8 @@ import course8 from '../../images/legendstyles.jpg'
 import course9 from '../../images/guitartechnique.jpg'
 import HomeHead from "../Home-Head/HomeHead";
 import VideoBox from "../../components/Video-box/VideoBox";
+// import VideoApp from '../Videoplayer/VideoApp'
+import VideoApp from "../Videoplayer/VideoApp";
 // import homevideo from '../../images/intro_carl.mp4';
 
 const Homepage = () => {
@@ -32,7 +34,7 @@ const Homepage = () => {
         <VideoBox />
 
         <div className="flex flex-nowrap body-bg justify-items-stretch content-center">
-          <div className="w-1/2 justify-self-center"> 
+          <div className="w-1/2"> 
           <div className="our-team-home">
           <h1 className="our-team-header-home">OUR TEAM</h1>
           <p className="our-team-content-home">
@@ -66,13 +68,14 @@ const Homepage = () => {
           </div>
           <div className="w-1/2 justify-self-center">   
         <div className="video_box">
-          <video
+          <VideoApp />
+          {/* <video
             poster="images/logo.jpg"
             id="home-video"
             src=""
             type="video/mp4"
             controls
-          ></video>
+          ></video> */}
         </div>
         </div>
         </div>
