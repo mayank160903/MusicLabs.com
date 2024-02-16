@@ -2,7 +2,7 @@ import { Fragment, useEffect} from "react";
 import {Outlet} from "react-router-dom"
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
-import Headertest from './Header/Headertest';
+import DefaultHeader from './Header/DefaultHeader';
 import TeacherHeader from "./Header/TeacherHeader";
 
 import { ToastContainer } from "react-toastify";
@@ -25,7 +25,7 @@ function RootLayout(){
 
             <ToastContainer />
             {/* <Header/> */}
-            {user.role == 'teacher' ? <TeacherHeader/> : <Headertest/>}
+            {user.role == 'teacher' ? <TeacherHeader/> : <DefaultHeader/>}
             {/* <Headertest /> */}
             <Outlet/>
             <Footer/>

@@ -32,7 +32,8 @@ import Catalogue from './pages/Catalogue/Catalogue'
 import TeacherEditProfile from './pages/TeacherEditProfile/TeacherEditProfile';
 import StudentEditProfile from './pages/StudentEditProfile/StudentEditProfile';
 import CreateCourseLayout from './pages/CreateCoursePage.jsx/CreateCourse'
-import Headertest from './pages/Header/Headertest'
+// import Headertest from './pages/Header/Headertest'
+import DefaultHeader from './pages/Header/DefaultHeader';
 import CourseUpload from './pages/courseUpload/courseUpload'
 import Teachers_Dashboard from './Teacher Dashboard/Teachers_Dashboard';
 import Dashboard from './admin/Dashboard'
@@ -54,7 +55,7 @@ function App() {
         // {path: '/testing', element: <NewHeader /> },
         {path: '/ContactUs', element: <ContactUs/> },
         // {path: '/abcd', element: <AdminQuery/> },
-        {path: '/HeaderTest', element: <Headertest />},
+        {path: '/DefaultHeader', element: <DefaultHeader />},
         {path: '/Teacher-Dashboard', element: <Teachers_Dashboard />},
         {path: '/quiz', element: <Quiz />},
         {path: '/becomeInstructor', element: <BecomeInstructor />},
