@@ -42,7 +42,7 @@ const LoginForm = () => {
         console.log(response.data);
         const user = response.data.user
         const token = response.data.token;
-        dispatch(login({firstName : user.firstName , lastName : user.lastName , role : user.role , token : token}));
+        dispatch(login({firstName : user.firstName , lastName : user.lastName , role : user.role , token : token, email : user.email, id : user._id}));
 
         navigate('/');
       } else if(response.data.success===false) {

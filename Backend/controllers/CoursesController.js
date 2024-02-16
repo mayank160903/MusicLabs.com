@@ -1,4 +1,8 @@
 const teacherSchema = require('../models/teacher.js');
+const coursesSchema = require('../models/course.js');
+const categorySchema = require('../models/category.js');
+const sectionSchema = require('../models/sections.js');
+const videoSchema = require('../models/videos.js');
 
 const cloudinary = require("cloudinary").v2;
 const Multer = require("multer");
@@ -60,4 +64,167 @@ exports.getSignature = async (req,res) => {
 //     res.send({message: "Video Uploaded"})
 
 // })
+}
+
+exports.getCourseInfo = async (req,res) => {
+    try{
+        const {courseId} = req.params;
+        
+        const course = await coursesSchema.findById(courseId).populate({path: "sections",
+        populate: {path: "videos"}
+      })
+        
+
+        console.log(course);
+        
+        if(!course){
+            return res.status(404).send({success: false, message: "Course not found"});
+        }
+        return res.status(200).send({success: true, message: "Course fetched successfully", course});
+    } catch (error){
+        console.log(error);
+        return res.status(500).send({success: false, message: "Error while fetching course"});
+    }
+}
+
+exports.createCourse = async (req,res) => {
+    try{
+      console.log("inside create course");
+      console.log(req.body)
+        const {title, description, price, category, instructor, teacherId} = req.body;
+        
+        const teacher = await teacherSchema.findById(teacherId);
+        if(!teacher){
+            return res.status(404).send({success: false, message: "Teacher not found"});
+        }
+        const categoryId = await categorySchema.findOne({name: category})
+        // const categoryId = await categorySchema.find({name: category});
+        console.log("yeh krlo pehle");
+        console.log(categoryId);
+        console.log(categoryId._id)
+        console.log(typeof(categoryId._id));
+
+        const course = await coursesSchema.create({
+            title : title,
+            description: description,
+            price: price,
+            category: categoryId._id,
+            teacher: teacherId,
+            sections: []
+        });
+        console.log(course)
+        return res.status(200).send({success: true, message: "Course created successfully", course});
+    } catch (error){
+      console.log(error)
+        return res.status(500).send({success: false, message: "Error while creating course"});
+    }
+
+}
+
+exports.addSection = async (req,res) => {
+    try{
+        const {courseId, sectionName} = req.body;
+        console.log(courseId);
+        const course = await coursesSchema.findById(courseId);
+  
+        if(!course){
+            return res.status(404).send({success: false, message: "Course not found"});
+        }
+        
+        const section = await sectionSchema.create({name: sectionName, videos: []});
+        course.sections.push(section);
+        await course.save();
+        return res.status(200).send({success: true, message: "Section added successfully", section});
+    } catch (error){
+        return res.status(500).send({success: false, message: "Error while adding section"});
+    }
+}
+
+exports.editSectionHandler = async (req,res) => {
+  try {
+    const {sectionId, newName} = req.body;
+    const section = await sectionSchema.findById(sectionId);
+    if(!section){
+      return res.status(404).send({success: false, message: "Section not found"});
+    }
+    section.name = newName;
+    await section.save();
+    return res.status(200).send({success: true, message: "Section updated successfully", section});
+  } catch (e) {
+    console.log(e)
+    return res.status(500).send({success: false, message: "Error while updating section"});
+  }
+}
+
+exports.deleteSectionHandler = async (req,res) => {
+  try {
+    const {sectionId} = req.body;
+    const section = await sectionSchema.findByIdAndDelete(sectionId);
+    if(!section){
+      return res.status(404).send({success: false, message: "Section not found"});
+    }
+    return res.status(200).send({success: true, message: "Section deleted successfully"});
+  } catch (e){
+    console.log(e)
+    return res.status(500).send({success: false, message: "Error while deleting section"});
+  }
+}
+
+
+
+exports.addVideoContent = async (req,res) => {
+    try{
+        const {sectionId, videoName, videoUrl} = req.body;
+
+        const [section, vid] = await Promise.all([
+          sectionSchema.findById(sectionId),
+          videoSchema.create({name: videoName, url: videoUrl})
+      ]);
+      
+        
+        if(!section){
+            return res.status(404).send({success: false, message: "Section not found"});
+        }
+
+        section.videos.push(vid);
+        
+        await section.save();
+        console.log(section)
+        return res.status(200).send({success: true, message: "Video added successfully", vid});
+    } catch (error){
+        console.log(error)
+        return res.status(500).send({success: false, message: "Error while adding video"});
+    }
+}
+
+exports.deleteVideoContent = async (req,res) => {
+  try {
+    const {videoId} = req.body;
+    const video = await videoSchema.findByIdAndDelete(videoId);
+    if(!video){
+      return res.status(404).send({success: false, message: "Video not found"});
+    }
+    return res.status(200).send({success: true, message: "Video deleted successfully"});
+  } catch (e){
+    console.log(e)
+    return res.status(500).send({success: false, message: "Error while deleting video"});
+  }
+}
+
+exports.editVideoTitleHandler = async (req,res) => {
+  try {
+    const {lessonId, newName} = req.body;
+    const video = await videoSchema.findById(lessonId);
+    if(!video){
+      return res.status(404).send({success: false, message: "Video not found"});
+    }
+    video.name = newName;
+    await video.save();
+    return res.status(200).send({success: true, message: "Video updated successfully", video});
+  } catch (e) {
+    console.log(e)
+    return res.status(500).send({success: false, message: "Error while updating video"});
+  }
+
+
 }
