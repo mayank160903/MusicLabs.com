@@ -5,7 +5,7 @@ import
  from 'react-icons/bs'
  import { Link } from "react-router-dom";
 
-function Sidebar({openSidebarToggle, OpenSidebar}) {
+function Teacher_Sidebar({openSidebarToggle, OpenSidebar}) {
     // to='/dashboard/admin/query'
   return (
     <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive": ""}>
@@ -37,19 +37,19 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
                 </a>
             </li>
             <li className='sidebar-list-item'>
-                <Link to='/dashboard/admin/Users' className="flex items-center">
+                <a href="" className="flex items-center">
                     <BsPeopleFill className='icon'/>
                     <span className="ml-2"> Users</span>
-                </Link>
+                </a>
             </li>
             <li className='sidebar-list-item'>
                 <Link to='/dashboard/admin/accept' className="flex items-center">
                     <BsListCheck className='icon'/> 
-                    <span className="ml-2">Approve Teachers</span>
+                    <span className="ml-2">Approved Teachers</span>
                 </Link>
             </li>
             <li className='sidebar-list-item'>
-                <Link to='/dashboard/admin/Teachers' className="flex items-center">
+                <Link to='/dashboard' className="flex items-center">
                     <BsListCheck className='icon'/> 
                     <span className="ml-2">Teachers</span>
                 </Link>
@@ -71,4 +71,4 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
   )
 }
 
-export default Sidebar
+export default Teacher_Sidebar

@@ -26,7 +26,7 @@ const AcceptRequest = () => {
       const updatedData = requestData.filter(request => request._id !== id);
 
       setRequestData(updatedData);
-
+      console.log(requestData);
       console.log(`Accepted request with id: ${id}`);
     } catch (error) {
       console.error('Error accepting request:', error);
@@ -48,21 +48,46 @@ const AcceptRequest = () => {
     }
   };
 
+  // mb-4   flex flex-col items-center
+
 
   return (
     <>
-      <h1>Accept Request</h1>
-      <div className="mt-4">
-        {/* <div className="overflow-y-auto h-screen"> */}
+     <div className="flex justify-center">
+  <div className="bg-gray-200 rounded-full px-2 mt-5 mb-4">
+    <h1 className="font-bold text-4xl text-black">Teachers Request</h1>
+  </div>
+</div>
+      <div className=" mt-4">
+       
         {requestData.map((request) => (
-          <div key={request.id} className="mb-4 p-4 border rounded">
-            <p>{request.firstName}</p>
-            <p>{request.lastName}</p>
-            <p>{request.email}</p>
-            <p>{request.master}</p>
-            <p>{request.experience}</p>
-            <p>{request.achievement}</p>
-            <div className="mt-2">
+          <div key={request._id} className="mb-4 mx-auto py-4 px-2 max-w-md bg-gray-200 rounded-lg shadow-md transition-transform hover:scale-105">
+              <div className="flex justify-center">
+              <p className="text-black text-xl"><strong>Name :</strong> &nbsp;  </p> 
+                <p className="text-black text-xl">{request.firstName} &nbsp;   {request.lastName}</p>
+            
+            </div>
+            <div className="flex justify-center mt-3">
+              <p className="text-black text-xl"><strong>Email :</strong> &nbsp;  </p> 
+                <p className="text-black text-xl">{request.email}</p>
+            
+            </div>
+            <div className="flex justify-center mt-3">
+              <p className="text-black text-xl"><strong>Master :</strong> &nbsp;  </p> 
+                <p className="text-black text-xl">{request.master}</p>
+            
+            </div>
+            <div className="flex justify-center mt-3">
+              <p className="text-black text-xl"><strong>Highlights :</strong> &nbsp;  </p> 
+                <p className="text-black text-xl">{request.achievement}</p>
+            
+            </div>
+            <div className="flex justify-center mt-3">
+              <p className="text-black text-xl"><strong>Experience :</strong> &nbsp;  </p> 
+                <p className="text-black text-xl">{request.experience}</p>
+            
+            </div>
+            <div className="mt-3 flex justify-center">
               <button
                 onClick={() => handleAccept(request._id)}
                 className="bg-green-500 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded mr-2"
@@ -76,9 +101,12 @@ const AcceptRequest = () => {
                 Ignore
               </button>
             </div>
+            
+            
+           
           </div>
         ))}
-        {/* </div> */}
+        
       </div>
     </>
   );

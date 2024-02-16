@@ -3,9 +3,9 @@ import { useState } from 'react'
 import './Sidebar.css';
 import Header from './Header'
 import Sidebar from './Sidebar'
-import Home from './Home'
+
 import { Routes, Route } from 'react-router-dom';
-import Query from './Query';
+import ListOfTeachers from './ListOfTeachers';
 
 
 
@@ -15,13 +15,13 @@ const AdminAcceptance = () =>{
     const OpenSidebar = () => {
       setOpenSidebarToggle(!openSidebarToggle)
     }
-// "overflow-y-auto h-screen w-1000"
+
     return (
         <div className='grid-container'>
         
           <Sidebar  className="sidebar" openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
           <div  className="overflow-y-auto h-screen w-1000"> 
-          <Query />
+         <ListOfTeachers />
             </div>
           </div>
      
