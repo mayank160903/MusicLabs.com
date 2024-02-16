@@ -4,6 +4,7 @@ const router = app.Router();
 
 const {InstructorDataController} = require('../controllers/InstructorController.js');
 const { getTeacherAndCourses } = require('../controllers/TeacherProfileController.js');
+const {updateTeacherProfile} = require('../controllers/TeacherEditProfileController.js');
 
 
 router.get('/wishlist')
@@ -14,8 +15,9 @@ router.get("/checkout/:coursename")
 router.get("/remove/:course")
 // router.get()
 
-router.get('/instructorData', InstructorDataController)
+router.get('/instructorData', InstructorDataController);
 router.get('/teacher/:id', getTeacherAndCourses);
+router.put('/teachereditprofile/:id', updateTeacherProfile);
 
   
 

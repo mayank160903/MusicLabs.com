@@ -56,8 +56,7 @@ const Teacher = () => {
 
               <img
                 className="circle_image"
-                // src={profileImage}
-                src={teacherData.avatar ? teacherData.avatar : profileImage}
+                src={teacherData && teacherData.avatar ? teacherData.avatar.url : profileImage}
                 alt="Teacher Profile"
               />
             </div>
@@ -88,7 +87,7 @@ const Teacher = () => {
               <br />
               <br />
               <div className="btn-main mx-20">
-                <NavLink to="/teachereditprofile">
+                <NavLink to={`/teachereditprofile/${teacherData._id}`}>
                   <button className="btn-button">Edit Profile</button>
                 </NavLink>
                 <br />

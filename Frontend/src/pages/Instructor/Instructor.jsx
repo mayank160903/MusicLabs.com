@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 
 const Instructor = () => {
-  const [instructordata, setInstructorData] = useState(null);
+  const [instructordata, setInstructorData] = useState("");
 
   const Instructor_Data = async () => {
     try {
@@ -87,15 +87,8 @@ const Instructor = () => {
                     className="bg-white border border-gray-300 rounded-md p-4 shadow-md"
                     style={{ width: "18rem" }}
                   >
-                    {/* <img
-                  src={instructor.avatar}
-                  className="card-img-top img-size"
-                  alt="..."
-                /> */}
-
                     <img
-                      // src="marty-inst.jpg"
-                      src={instructordata.avatar ? instructordata.avatar : "marty-inst.jpg"}
+                      src={instructordata && instructordata.avatar ? instructordata.avatar.url : "marty-inst.jpg"}
                       className="object-contain w-full h-auto rounded-t-md "
                       alt="..."
                     />

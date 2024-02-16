@@ -50,12 +50,16 @@ achievement:{
   type:String
 },
 avatar: {
-  type: String
+  url: { type: String },
+  public_id: { type: String },
 },
 
+createdAt: {
+  type: Date,
+  default: Date.now,
 },
-{ timestamps: true }
-);
+
+});
 
 
 
