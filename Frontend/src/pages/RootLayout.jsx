@@ -2,11 +2,13 @@ import { Fragment, useEffect} from "react";
 import {Outlet} from "react-router-dom"
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
-import Headertest from './Header/Headertest';
-import TeacherHeader from "./Header/TeacherHeader";
+import DefaultHeader from './Header/DefaultHeader';
+import TeacherHeader from "./Header/TeacherHeaderTest";
 
 import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
+import TeacherHeaderTest from "./Header/TeacherHeaderTest";
+import StudentHeaderTest from "./Header/StudentHeaderTest";
 // import { useSelector } from "react-redux/es/hooks/useSelector";
 // import HeaderBar from "../components/Header";
 // import SideBar from "../components/Sidebar";
@@ -21,11 +23,12 @@ function RootLayout(){
     return(
     
     <Fragment>  
-
+            
 
             <ToastContainer />
             {/* <Header/> */}
-            {user.role == 'teacher' ? <TeacherHeader/> : <Headertest/>}
+            {user.role == 'teacher' ? <TeacherHeaderTest/> : (user.role == 'User' ? <StudentHeaderTest/> :<DefaultHeader/>)}
+            
             {/* <Headertest /> */}
             <Outlet/>
             <Footer/>
