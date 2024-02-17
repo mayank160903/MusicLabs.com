@@ -1,7 +1,6 @@
 import { Fragment } from "react";
 import './ContactUs.css'
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
+
 
 function ContactUs(){
     return(

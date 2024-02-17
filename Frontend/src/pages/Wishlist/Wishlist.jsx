@@ -1,11 +1,10 @@
 import { Fragment, startTransition, useState } from "react"
-import Header from "../Header/Header";
+
 // import { useDispatch } from '@reduxjs/toolkit'
 import {useNavigate} from 'react-router'
 
 import './Wishlist.css'
 import { Celebration, Delete } from "@mui/icons-material";
-import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { courseActions } from "../../store/courses";
