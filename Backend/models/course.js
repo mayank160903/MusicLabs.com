@@ -44,6 +44,11 @@ const courseSchema = new mongoose.Schema({
     ratings :{
         type : Number,
         default : 0,
+    },
+
+    purchases : {
+        type : Number,
+        default : 0,
     }
     ,
     quizes :[
