@@ -31,7 +31,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function TeacherHeaderTest() {
+export default function StudentHeaderTest() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (

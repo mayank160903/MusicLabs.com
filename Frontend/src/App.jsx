@@ -38,6 +38,7 @@ import CourseUpload from './pages/courseUpload/courseUpload'
 import Teachers_Dashboard from './Teacher Dashboard/Teachers_Dashboard';
 import Dashboard from './admin/Dashboard'
 import Quiz from  './pages/Quiz/Quiz';
+import CourseDescription from './pages/CourseDescription/CourseDescription';
 
 
 
@@ -81,15 +82,13 @@ function App() {
         { path: '/dashboard', element: <AdminDashboard /> },
        
         {path: '/forgot', element: <ForgotPassword/>},
-        {path: '/course/:courseId', element: <CourseLayout/>, 
-        children:[
-          {path: ':section', element: <h1>hello</h1>},
-        ]},
+        {path: '/coursedescription/:courseId', element: <CourseDescription/>},
+        {path: '/course/:courseId', element: <CourseLayout/>},
         {path: '/createcourse', element: <CreateCourseLayout/>},
 
         {path: '/createcourse/:courseid', element: <CreateCourseLayout/>},
         {path: '/createcourse/:courseid/:section', element: <CreateCourseLayout/>},
-        
+      
         {path: '/courseUpload', element: < CourseUpload />}
       ]
     },  

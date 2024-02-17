@@ -54,28 +54,28 @@ exports.registerController = async (req, res) => {
 
       console.log("first");
 
-      const otp = generateOTP();
-      console.log(otp);
-      console.log("second");
-      const mailOptions = {
-        from: process.env.GMAIL,
-        to: email,
-        subject: 'Your OTP for Registration',
-        text: `Your OTP is: ${otp} please confirm the signup`,
-      };
+      // const otp = generateOTP();
+      // console.log(otp);
+      // console.log("second");
+      // const mailOptions = {
+      //   from: process.env.GMAIL,
+      //   to: email,
+      //   subject: 'Your OTP for Registration',
+      //   text: `Your OTP is: ${otp} please confirm the signup`,
+      // };
 
       console.log("third");
       
-      try {
-        await transporter.sendMail(mailOptions);
-        console.log("Email sent successfully");
-      } catch (emailError) {
-        console.error("Error sending email:", emailError);
-        return res.status(500).send({ success: false, message: "Error sending email" });
-      }
+      // try {
+      //   await transporter.sendMail(mailOptions);
+      //   console.log("Email sent successfully");
+      // } catch (emailError) {
+      //   console.error("Error sending email:", emailError);
+      //   return res.status(500).send({ success: false, message: "Error sending email" });
+      // }
 
       console.log("fourth");
-      return res.status(600).send({message : "Till here it's working"});
+      // return res.status(600).send({message : "Till here it's working"});
 
       const hashedPassword = await hashPassword(password);
       const user = new userSchema({
@@ -133,16 +133,16 @@ exports.loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    
       var user = await userSchema.findOne({ email });
-      console.log("first null");
+      console.log(user);
       if (user) {
         const check = await comparePassword(password, user.password);
         if (!check) {
           return res
-            .status(404)
+            .status(501)
             .send({ success: false, message: "Your Details didn't match" });
         }
+        console.log("Oh No")
         const token = await JWT.sign(
           { id: user._id, role: user.role },
           process.env.JWT_SECRET,
@@ -153,7 +153,7 @@ exports.loginController = async (req, res) => {
         return res
           .status(200)
           .send({
-            success: success,
+            success: true,
             message: "Sign In successful",
             user , token
           });
@@ -172,9 +172,9 @@ exports.loginController = async (req, res) => {
       if(user.isApproved===false){
         return res.status(400).send({success : false , message : "Teacher is not approved contact to admin"});
       }
-      console.log("here 1");
+
       const check = await comparePassword(password, user.password);
-      console.log("here 3");
+      
       if (!check) {
         return res
           .status(400)
@@ -199,6 +199,7 @@ exports.loginController = async (req, res) => {
         });
     }
    catch (error) {
+    console.log(error)
     return res
       .status(500)
       .send({ success: false, message: "Error while login" });

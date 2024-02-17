@@ -1,4 +1,4 @@
-import { Fragment, startTransition, useState } from "react"
+import { Fragment, startTransition, useEffect, useState } from "react"
 
 // import { useDispatch } from '@reduxjs/toolkit'
 import {useNavigate} from 'react-router'
@@ -58,7 +58,8 @@ function WishlistPage(){
    const [mode,setMode] = useState("wish");
    const dispatch = useDispatch();
 
-   const firstName = useSelector(state=> state.auth.firstName)
+   const user = useSelector(state=> state.auth.user)
+
 
   //  const dispatch = useDispatch();
    const navigate = useNavigate();
@@ -69,6 +70,21 @@ function WishlistPage(){
        navigate("/checkout")
       })
     }
+
+    useEffect(()=>{
+      // dispatch(courseActions.fetchCourses())
+      async function fetchWishlist(){
+        const req = await fetch('http://localhost:8000/user/wishlist', {userId: user._id},
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.token}`
+          }
+      })
+    }
+    fetchWishlist();
+   } ,[])
 
     function getCertificate(){
       
@@ -109,7 +125,7 @@ function WishlistPage(){
                                     
                                 </div></div>
                                 
-                              <h5 className="proftitle2 align-items-end ml-8" >Welcome, {firstName}</h5>
+                              <h5 className="proftitle2 align-items-end ml-8" >Welcome, {user?.firstName}</h5>
                             </div>
                             <ul className="list-group list-group-flush" style={{fontSize: '16px'}}>
                               <li className="list-group-item atb" style={{borderBottom: '2px solid grey', backgroundColor: '#181a1b'}}><Link to = "/studentprofile" color="#C0BAB2">Your Profile</Link></li>
