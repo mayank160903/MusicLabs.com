@@ -1,3 +1,4 @@
+const contactSchema = require('../models/contact.js');
 const userSchema = require('../models/user.js');
 
 exports.AddToWishlist = async (req,res) => {
@@ -67,7 +68,26 @@ exports.getWishlist = async (req,res) => {
     }
 }
 
+exports.createQuery = async (req,res) => {
+    const {firstName, lastName, email, message} = req.body;
+    
+    if(!firstName || !email || !message){
+        return res.status(400).json({error: "Please fill all the fields"});
+    }
 
+    try {
+        const query = await contactSchema.create({
+            firstName,
+            lastName,
+            email,
+            message
+        })
+        res.status(200).json({message: "Query Submitted Successfully"});
+    } catch (e) {
+        console.error("error: " + e.message);
+        res.status(500).json({ error: e.message });
+    }
+}
 // exports.YourCourses = async (req,res) => {
 //     const {userId} = req.body;
 
