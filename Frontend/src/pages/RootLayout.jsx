@@ -27,10 +27,15 @@ function RootLayout(){
 
             <ToastContainer />
             {/* <Header/> */}
+            <div className="relative z-[10]">
             {user.role == 'teacher' ? <TeacherHeaderTest/> : (user.role == 'User' ? <StudentHeaderTest/> :<DefaultHeader/>)}
-            
+            </div>
             {/* <Headertest /> */}
+            
+            <div className="relative z-[5]">    
             <Outlet/>
+            </div>
+
             <Footer/>
       
     </Fragment> 

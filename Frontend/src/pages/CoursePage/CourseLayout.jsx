@@ -1,5 +1,5 @@
 
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Dropdown from "../../components/CoursePage/Dropdown";
@@ -88,37 +88,65 @@ const DUMMY = {
 function CourseLayout(){
 
     const params = useParams();
-    const [value, setValue] = useState(true);
-    const [currentSection, setCurrentSection] = useState(DUMMY.sections[0].name);
+    const isLoggedin =  useSelector(state => state.auth.isLoggedin);
+
+    const [currentSection, setCurrentSection] = useState(null);
+    const [currentVideo, setCurrentVideo] = useState(null);
+    const [courseInfo,setCourseInfo] = useState(null);
+    const [initialLoading, setInitialLoading] = useState(true);
     // const dispatch = useDispatch();
     // dispatch(authActions.login());
-   const isLoggedin =  useSelector(state => state.auth.isLoggedin);
-   const [video, setVideo] = useState(1);
     
+
+    useEffect(()=>{
+      async function getCourseInfo(id){
+          const response = await fetch(`http://localhost:8000/api/course/${params.courseId}`,{
+              method: 'GET',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${localStorage.getItem('token')}`
+              }
+          })
+          const data = await response.json();
+          setCourseInfo(data.course)
+          setCurrentVideo(data.course.sections[0]?.videos[0])
+          setCurrentSection(data.course.sections[0]?._id)
+          setInitialLoading(false)
+        }
+
+      getCourseInfo(params.courseid);
+  
+  },[])
+
     return (
+      !initialLoading && (
         <div className="relative h-auto flex pb-6">
+        
         <div className="flex flex-col">
             <div className="w-[76vw] h-fit">
-               <MainContent currentVideo={params.section} currentSection={currentSection} content={DUMMY} video={video}/>
+               <MainContent currentVideo={currentVideo} currentSection={currentVideo?.title} content={courseInfo} video={currentVideo}/>
                <Box sx={{marginTop: '1rem', padding: 2}}>
                 <div className="flex flex-col">
                     <div className="font-bold text-2xl mb-4"> Course Description </div>
-                   <div> {DUMMY.description} </div>
+                   <div> {courseInfo.description} </div>
                 </div>
                </Box>
             </div>
-            <div className="absolute inset-y-0 overflow-auto scroll-y right-0 mt-12 w-[24vw] bg-slate-800">
+            <div className="absolute inset-y-0 overflow-auto scroll-y right-0 mt-2 w-[24vw] bg-neutral-200">
             
-             { DUMMY.sections.map((section, index)=>{
+             { courseInfo.sections.map((section, index)=>{
                 console.log(section.videos)
                     return(
-                        <Dropdown key={index} currentSection={currentSection} setCurrentSection={setCurrentSection} title={section.name} num={index+1} total={section.videos.length}  content={section?.videos} setVideo={setVideo}/>    
+                        <Dropdown key={section._id} id={section._id} num={index+1} currentSection={currentSection} setCurrentSection={setCurrentSection} title={section.name}  content={section?.videos} setVideo={setCurrentVideo}/>   
                     )
                 })
             }
             </div>
         </div>
+
         </div>
+      )
+      
     )
 }
 

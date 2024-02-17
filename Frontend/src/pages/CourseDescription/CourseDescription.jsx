@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
+import {addToWl } from '../../store/auth';
 
-import {Link, useParams} from 'react-router-dom'; // Import the useParams hook from React Router
+import {Link, useNavigate, useParams} from 'react-router-dom'; // Import the useParams hook from React Router
 import styles from './CourseDescription.module.css'; // Import CSS Modules
 
 import playButton from './images/play-button.png'; // Import the play button image
@@ -13,10 +14,9 @@ import highFive from './images/high-five.png';
 import hours from './images/24-hours.png';
 import checkmark from './images/checkmark.png'
 import certificate from './images/certificate.png';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { Button } from '@mui/material';
-// import tv from './images/tv.png'; // Import the TV icon image
+import { toast } from 'react-toastify';
 
 function capitalizeFirstLetter(string) {
   if(string){
@@ -28,9 +28,26 @@ const CourseDetails = () => {
 
     const [course, setCourse] = useState(null);
     const params = useParams();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.auth);
+    const [isWishlisted, setIsWishlisted] = useState(false);
+    const [isPurchased, setIsPurchased] = useState(false);
 
-    const user = useSelector(state => state.auth.user);
 
+    useEffect(() => {
+      if(user.wishlist.find(course => course._id === params.courseId)){
+        setIsWishlisted(true);
+      }
+      if(user.courses.find(course => course.course._id === params.courseId)){
+        setIsPurchased(true);
+      }
+      if(user.isLoggedin == false){
+        setIsPurchased(false);
+        setIsWishlisted(false);
+      }
+    },[user.wishlist, user.courses, user.isLoggedin])
+    
     useEffect(() => {
     async function getCourseInfo() {
         const res = await axios.get(`http://localhost:8000/api/course/description/${params.courseId}`);
@@ -40,19 +57,52 @@ const CourseDetails = () => {
           setCourse(res.data.course)
         }
         }
-
         getCourseInfo();
     },[])
 
     async function addToWishlist(){
+      if(user.isLoggedin == false){
+        toast.info('Please Login to add to wishlist');
+        navigate('/login');
+        return ;
+      }
+      if(isPurchased){
+        toast.info('Already Bought')
+        return ;
+      }
+      if(isWishlisted){
+        toast.info('Already in Wishlist');
+        return ;
+      }
+      try {
+        const req = await axios.post('http://localhost:8000/api/v1/user/add-to-wl', {
+          userId: user.id,
+          courseId: params.courseId
+        }, {
+          headers: {
+            'x-auth-token': user.token,
+            'Content-Type': 'application/json'
+          }
 
-      const formData = {user: user._id, course: params.courseId}
-      const res = await axios.post('http://localhost:8000/api/add-to-wishlist', {
-      
-      })
+        })
 
+        if(req.status === 200){
+          toast.success('Added to Wishlist');
+          dispatch(addToWl(course));
+        }}
+         catch (e){
+          console.log(e);
+          toast.error('Failed to add to wishlist');
+        }
 
+    }
 
+    function purchaseCourseHandler(){
+      if(isPurchased){
+        navigate(`/course/${params.courseId}`)
+      } else {
+        navigate(`/checkout/${params.courseId}`)
+      }
     }
 
   return (
@@ -109,11 +159,11 @@ const CourseDetails = () => {
                         {course?.description}
                         </p>
                         <div className="d-flex justify-content-between">
-                         <button className={styles.cardButton}>
-                          Buy This Course
+                         <button className={styles.cardButton} style={isPurchased ? {backgroundColor: 'green'} : {}} onClick={purchaseCourseHandler}>
+                          {isPurchased ? "Go To Course" : "Buy This Course"}
                          </button>
-                         <button className={styles.cardButton}>
-                          Add To Wishlist
+                         <button className={styles.cardButton}  style={isWishlisted ? {backgroundColor: 'green'} : {}} onClick={addToWishlist}>
+                          {(isWishlisted) ? "Already in Wishlist" : "Add to Wishlist"}
                          </button>
                           {/* <a href={`/checkout/${course?._id}`} className="btn btn-dark">
                             Buy This Course

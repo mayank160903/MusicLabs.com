@@ -48,6 +48,7 @@ p{
 
 .cardButton{
   padding: 6px 12px 6px 12px;
+  width: 48%;
   border-width: 0.83px;
   border-radius: 0.375rem;
   background-color: #212529;

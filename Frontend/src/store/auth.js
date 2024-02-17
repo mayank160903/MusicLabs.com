@@ -5,7 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const  authSlice = createSlice({
     name:'auth',
-    initialState: {isLoggedin: false, firstName: null, lastName : null , role: null, token: null},
+    initialState: {isLoggedin: false, firstName: null, lastName : null , role: null, token: null, wishlist: null, courses: null},
 
     reducers:{
         login(state, action){
@@ -16,8 +16,9 @@ export const  authSlice = createSlice({
             state.email = action.payload.email;
             state.token = action.payload.token;
             state.role = action.payload.role;
-            console.log(state.isLoggedin);
-            console.log(state.firstName);
+            state.wishlist = action.payload.wishlist;
+            state.courses = action.payload.courses;
+ 
         },
         
         logout(state){
@@ -27,10 +28,20 @@ export const  authSlice = createSlice({
             state.user = null;
             state.role = null;
             state.token = null;
+            state.wishlist = null;
+            state.courses = null;
+        },
+
+        removeFromWl(state, action){
+            state.wishlist = state.wishlist.filter((course) => course._id !== action.payload); 
+        },
+
+        addToWl(state, action){
+            state.wishlist.push(action.payload);
         }
     }
 })
 
-export const {login , logout} = authSlice.actions;
+export const {login , logout, removeFromWl, addToWl} = authSlice.actions;
 
 export default authSlice.reducer;

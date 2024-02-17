@@ -72,7 +72,7 @@ function App() {
         {path:'/catalogue', element:<Catalogue />},
         {path: '/studenteditprofile', element: <StudentEditProfile/>},
        {path:'/studentprofile', element:<StudentProfile/>},
-        {path: '/checkout', element: <PaymentPage/>},
+        {path: '/checkout/:id', element: <PaymentPage/>},
         // {path: '/query', element: <Query/>},
         {path: '/spotlight', element: <Spotlight/>},
         {path: '/faq', element: <Faq/>},
@@ -83,9 +83,10 @@ function App() {
        
         {path: '/forgot', element: <ForgotPassword/>},
         {path: '/coursedescription/:courseId', element: <CourseDescription/>},
+        
         {path: '/course/:courseId', element: <CourseLayout/>},
-        {path: '/createcourse', element: <CreateCourseLayout/>},
 
+        {path: '/createcourse', element: <CreateCourseLayout/>},
         {path: '/createcourse/:courseid', element: <CreateCourseLayout/>},
         {path: '/createcourse/:courseid/:section', element: <CreateCourseLayout/>},
       

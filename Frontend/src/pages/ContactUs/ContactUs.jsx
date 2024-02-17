@@ -150,7 +150,7 @@ function ContactUs(){
                             </div>
 
                             <button className="btn btn-primary send-button bg-[#4D84E2] hover:bg-[#3E6AB5]" id="submit" onClick={(e)=>{submitQuery(e)}}>
-                            <span className="send-text">SEND</span>
+                            <span className="send-text">{!loader ? "SEND" : "SENDING..."}</span>
 
                             </button>
 

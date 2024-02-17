@@ -133,8 +133,20 @@ exports.loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-      var user = await userSchema.findOne({ email });
+      var user = await userSchema.findOne({ email }).populate([{path: 'wishlist', populate: {
+        path: 'teacher',
+        model: 'teachers',
+        select: '-password -email -courses -isApproved -role -createdAt -updatedAt -__v'
+      }},
+      { path: 'courses', populate: {
+        path: 'course' , populate: {
+        path: 'teacher',
+        model: 'teachers',
+        select: '-password -email -courses -isApproved -role -createdAt -updatedAt -__v'
+        }
+      }}]);
       console.log(user);
+
       if (user) {
         const check = await comparePassword(password, user.password);
         if (!check) {
@@ -142,7 +154,7 @@ exports.loginController = async (req, res) => {
             .status(501)
             .send({ success: false, message: "Your Details didn't match" });
         }
-        console.log("Oh No")
+       
         const token = await JWT.sign(
           { id: user._id, role: user.role },
           process.env.JWT_SECRET,
