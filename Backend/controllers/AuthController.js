@@ -133,18 +133,23 @@ exports.loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-      var user = await userSchema.findOne({ email }).populate([{path: 'wishlist', populate: {
+      let user = await userSchema.findOne({ email }).populate([{path: 'wishlist', populate: {
         path: 'teacher',
         model: 'teachers',
         select: '-password -email -courses -isApproved -role -createdAt -updatedAt -__v'
       }},
       { path: 'courses', populate: {
-        path: 'course' , populate: {
+        path: 'course' , populate: [{
         path: 'teacher',
         model: 'teachers',
         select: '-password -email -courses -isApproved -role -createdAt -updatedAt -__v'
-        }
-      }}]);
+        },{
+          path: 'sections',
+          model: 'sections'
+        }]
+      }
+    
+    }]);
       console.log(user);
 
       if (user) {

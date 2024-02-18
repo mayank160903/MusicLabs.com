@@ -103,6 +103,7 @@ exports.getCourseInfo = async (req,res) => {
     }
 }
 
+
 exports.createCourse = async (req,res) => {
     try{
       console.log("inside create course");

@@ -38,10 +38,16 @@ export const  authSlice = createSlice({
 
         addToWl(state, action){
             state.wishlist.push(action.payload);
+        },
+
+        purchaseCourse(state, action){
+            console.log(action.payload)
+            state.wishlist = state.wishlist.filter((course) => course._id !== action.payload._id);
+            state.courses.push(action.payload);
         }
     }
 })
 
-export const {login , logout, removeFromWl, addToWl} = authSlice.actions;
+export const {login , logout, removeFromWl, addToWl, purchaseCourse} = authSlice.actions;
 
 export default authSlice.reducer;

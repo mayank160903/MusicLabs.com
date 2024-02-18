@@ -9,8 +9,10 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-import authActions, { removeFromWl } from "../../store/auth";
+import { logout, removeFromWl } from "../../store/auth";
 import axios from "axios";
+import CourseCard from "../../components/UserDashboard/CourseCard";
+import LoadingSign from "../../components/UserDashboard/LoadingSign";
 
 
 function capitalizeFirstLetter(string) {
@@ -24,11 +26,38 @@ function capitalizeFirstLetter(string) {
 
 function WishlistPage(){
 
-   const courses = useSelector((state)=>state.course)
+  //  const courses = useSelector((state)=>state.course)
    const [mode,setMode] = useState("wish");
+   const [coursesLoading, setCoursesLoading] = useState(true);
+   const [courses,setCourses] = useState(null)
    const dispatch = useDispatch();
 
    const user = useSelector(state=> state.auth)
+
+   useEffect(()=>{
+    async function getCourseInfo(){
+
+      try {
+        const req = await axios.get(`http://localhost:8000/api/v1/user/your-courses/${user?.id}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.token}`
+          }
+        })
+
+        if(req.status == 200){
+          console.log(req.data)
+          setCourses(req.data.courses)
+          setCoursesLoading(false)
+        }
+      } catch (e){
+        console.log(e)
+      }
+    }
+
+    getCourseInfo();
+      
+   },[])
 
 
    const navigate = useNavigate();
@@ -40,20 +69,7 @@ function WishlistPage(){
       })
     }
 
-  //   useEffect(()=>{
-  //     // dispatch(courseActions.fetchCourses())
-  //     async function fetchWishlist(){
-  //       const req = await fetch('http://localhost:8000/user/wishlist', {userId: user._id},
-  //       {
-  //         method: 'GET',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           'Authorization': `Bearer ${user.token}`
-  //         }
-  //     })
-  //   }
-  //   fetchWishlist();
-  //  } ,[])
+    
 
     async function removeFromWishListHandler(course){
       
@@ -75,15 +91,21 @@ function WishlistPage(){
       toast.error("Error removing course from wishlist")
     }
   
-  }
-
-
-    function getCertificate(){
-      
-      navigate("/certificate")
-    
     }
 
+
+    async function getCourseProgress(){
+      const data = {'userId':user.id}
+      const response = await axios.post(`http://localhost:8000/api/v1/user/course/get-all-progress`, data , 
+       { headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+      }
+    )
+    }
+
+ 
 
     return(
     <Fragment>
@@ -106,7 +128,7 @@ function WishlistPage(){
     <div>
         <div className="maincontainer">
             <div className="wishmain d-flex ">
-                <div className="d-none d-xl-block mb-5">
+                <div className="d-none d-lg-block mb-5">
                     <div className="">
                         <div className="card" style={{width: '18rem', backgroundColor: '#181a1b', padding: '0rem', marginTop: '1rem'}}>
                             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACoCAMAAABt9SM9AAAAA1BMVEUAlv+tY//LAAAAR0lEQVR4nO3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO8GxYgAAb0jQ/cAAAAASUVORK5CYII=" className="card-img-top" alt="..."/>
@@ -127,7 +149,7 @@ function WishlistPage(){
 
                               <li className="list-group-item atb" style={{borderBottom: '2px solid grey',  backgroundColor: '#181a1b'}}><Link to = "/">Home</Link></li>
                               
-                              <li className="atb list-group-item" style={{borderBottom: '2px solid grey',  backgroundColor: '#181a1b'}}><a href = "/logout" id = "logoutbtn" className = "logout-button">Log Out</a></li>
+                              <li className="atb list-group-item" style={{borderBottom: '2px solid grey',  backgroundColor: '#181a1b'}}><a id = "logoutbtn" className = "logout-button" onClick={()=>{dispatch(logout())}}>Log Out</a></li>
                             </ul>
 
                             
@@ -163,7 +185,7 @@ function WishlistPage(){
                                   </div>
 
                                   <div className="teacher">
-                                    <a>By {wishitem.teacher[0].firstName}</a>
+                                    <a>By {capitalizeFirstLetter(wishitem.teacher[0].firstName)}</a>
                                   </div>
 
                                   <div className="rating">
@@ -185,14 +207,11 @@ function WishlistPage(){
 
                                 <div className="rightitembar">
                                   
-                                    {/* <form id="del" onsubmit="return deleteHandler()">
-                                    <input type="hidden" name="del-item"></input>
-                                  */}
+                                    
                                     <div style={{paddingLeft: '5.2rem'}} className="del-icon" 
                                     onClick={()=>{removeFromWishListHandler(wishitem)}}>
                                       <Delete sx={{color: 'grey', fontSize: 28}} className=""></Delete>
                                       </div>
-                                    {/* </form> */}
                                     
                                     
                                     <button className="buy-now h-[48px]" onClick={()=>{purchaseCourseHandler(wishitem)}}>Buy Now</button>
@@ -202,49 +221,13 @@ function WishlistPage(){
                             })
                             
                             ):(
-                              user.courses.map(course => {
-                                return (<div className ="wishblock" key = {course._id} >
-                                <div className ="imgcontainer">
-                                    <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3OUVLiBoBsr179pMOm4QFjoZoMuKA7UG7eg&usqp=CAU"  className = "course-img img-fluid"
-                                    width="230px"/>
-                                
-                         
-                                </div>
-
-                                <div className="wishitemleft d-flex flex-column">
-                                  <div className ="title2">
-                                    <Link to = {`/coursedescription/${course.course._id}`} className = "courselink">{course.course.title} </Link>
-                                  </div>
-
-                                  <div className="teacher">
-                                    <a>By {capitalizeFirstLetter(course.course.teacher[0].firstName)}</a>
-                                  </div>
-
-                                  <div className="rating">
-                                    <div className="rate pt-1">
-                                        <label htmlFor="star5">5 stars</label>
-                                        <label htmlFor="star4">4 stars</label>
-                                        <label htmlFor="star3">3 stars</label>
-                                        <label htmlFor="star2">2 stars</label>
-                                        <label htmlFor="star1">1 star</label>
-                                        
-                                      </div>
-                                      
-                                  </div>
-
-                                  <div className="price">
-                                    <div><p></p></div>
-                                  </div>
-                                </div>
-
-                                <div className="rightitembar">
-                                {course.completed == true && <Celebration onClick={getCertificate}sx={{marginLeft: '3rem', cursor:'pointer'}}/>}                                                           
-                                  <button className="buy-now pb-2" onClick={()=>{navigate(`/course/${course.course._id}`)}}>
-                                    Go To Course</button>
-                                </div>
-                            </div>)
+                              !coursesLoading ? 
+                              (courses.map(course => {
+                                return <CourseCard key={course.course._id} course={course.course} progress={course.progress}/>
                               })
-
+                              ) : (
+                                <LoadingSign/>
+                              )
 
                             )}
                             </div> 
@@ -256,7 +239,6 @@ function WishlistPage(){
               </div>
             </div>  
          </div>
-         {/* <Footer /> */}
       </Fragment>
           
         )

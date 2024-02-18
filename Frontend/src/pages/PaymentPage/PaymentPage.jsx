@@ -5,30 +5,15 @@ import styles from './PaymentPage.module.css'
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { purchaseCourse } from "../../store/auth";
 
 
-const HOLDER_COURSE = 
-    {
-        title: "Tabla Tabla",
-        teacher: "John Doe",
-        price: "150",
-        description: "This is a course about tabla",
-        _id: '3',
-        imageUrl: "https://masterofmusic.onrender.com/images/fam-solos.jpg"
-    }
-
-    function capitalizeFirstLetter(string) {
+    function capitalizeFirstLetter(string) {``
       if(string){
         return string.charAt(0).toUpperCase() + string.slice(1);
       }
     }
-
-
-
-
-
-
 
 function PaymentPage(){
 
@@ -36,6 +21,7 @@ function PaymentPage(){
     const user = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const params = useParams();
+    const dispatch = useDispatch();
     
     const piiche = () => {
       navigate(-1)
@@ -95,6 +81,8 @@ function PaymentPage(){
     }) 
 
       if(res.status == 200){
+        console.log(course)
+        dispatch(purchaseCourse(course))
         navigate('/')
         toast.success("Payment Successful")
       }

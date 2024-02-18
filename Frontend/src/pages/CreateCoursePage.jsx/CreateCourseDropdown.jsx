@@ -118,7 +118,11 @@ function CreateCourseDropdown({id, currentSection, setCurrentSection, title, num
 
   async function addContentHandler(e){
         e.preventDefault();
+        if(!videoName){
+          toast.error("Add Video Title")
+          return ;
 
+        }
         try {
           setUploading(true);
           let response = await axios.get('http://localhost:8000/api/course/get-signature');
@@ -235,10 +239,11 @@ function CreateCourseDropdown({id, currentSection, setCurrentSection, title, num
         <Box marginBottom={2}>
           <TextField
             fullWidth
-            label="Text Input"
+            label="Video Title"
             name="textInput"
             value={videoName}
             onChange={handleNameChange}
+            required
           />
         </Box>
         <Box marginBottom={2}>

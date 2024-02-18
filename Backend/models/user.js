@@ -32,8 +32,14 @@ const userSchema = new Schema({
       },
       progress : [
         {
-          type: mongoose.ObjectId,
-          ref: "progress"
+          videoId : {
+            type : mongoose.ObjectId,
+            ref : "videos"
+          },
+          watched : {
+            type : Boolean,
+            default : false
+          }
         }  
       ]
     }
