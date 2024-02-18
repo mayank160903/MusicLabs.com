@@ -33,8 +33,8 @@ const multer = require("multer");
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json());
+// app.use(express.urlencoded({ extended: true }))
+// app.use(express.json());
 app.use(bodyParser.raw())
 app.use(cors());
 

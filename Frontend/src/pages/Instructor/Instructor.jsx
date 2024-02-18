@@ -12,7 +12,7 @@ const Instructor = () => {
         "http://localhost:8000/api/v1/user/instructorData",
         {
           headers: {
-            // Accept: "application/json",
+            
             "Content-Type": "application/json",
           },
           // withCredentials: true
@@ -85,21 +85,25 @@ const Instructor = () => {
                 <div className="col">
                   <div
                     className="bg-white border border-gray-300 rounded-md p-4 shadow-md"
-                    style={{ width: "18rem" }}
+                    style={{ width: "18rem", height:"22rem" }}
                   >
+                    <div  >
+
                     <img
-                      src={instructordata && instructordata.avatar ? instructordata.avatar.url : "marty-inst.jpg"}
+                      src={instructor && instructor.avatar ? instructor.avatar.url : "marty-inst.jpg"}
                       className="object-contain w-full h-auto rounded-t-md "
                       alt="..."
                     />
+
+                    </div>
 
                     <div className="card-body">
                       <h5 className="card-title text-black mt-3  text-xl">
                         {instructor.firstName + " " + instructor.lastName}
                       </h5>
-                      <p className="card-text text-black mt-2 text-base">
+                      {/* <p className="card-text text-black mt-2 text-base">
                         {instructor.description}
-                      </p>
+                      </p> */}
                     </div>
                     <hr class="border-t border-black my-1 mt-2"></hr>
                     <ul className="list-group list-group-flush text-black px-auto">
