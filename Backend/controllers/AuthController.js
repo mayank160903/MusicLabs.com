@@ -5,17 +5,17 @@ const multer = require("multer");
 const JWT = require("jsonwebtoken");
 const nodemailer = require('nodemailer');
 
-const generateOTP = () => {
-  return Math.floor(1000 + Math.random() * 9000);
-};
+// const generateOTP = () => {
+//   return Math.floor(1000 + Math.random() * 9000);
+// };
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.PASSWORD,
-  },
-});
+// const transporter = nodemailer.createTransport({
+//   service: 'gmail',
+//   auth: {
+//     user: process.env.EMAIL,
+//     pass: process.env.PASSWORD,
+//   },
+// });
 
 
 // const storage = multer.diskStorage({
@@ -74,7 +74,7 @@ exports.registerController = async (req, res) => {
       //   return res.status(500).send({ success: false, message: "Error sending email" });
       // }
 
-      console.log("fourth");
+
       // return res.status(600).send({message : "Till here it's working"});
 
       const hashedPassword = await hashPassword(password);
