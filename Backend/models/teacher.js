@@ -49,8 +49,17 @@ experience:{
 achievement:{
   type:String
 },
+avatar: {
+  url: { type: String },
+  public_id: { type: String },
+},
 
-},{ timestamps: true });
+createdAt: {
+  type: Date,
+  default: Date.now,
+},
+
+});
 
 
 

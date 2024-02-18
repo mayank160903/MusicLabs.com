@@ -1,9 +1,11 @@
 // import exp from "constants";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 import styles from './PaymentPage.module.css'
 import axios from "axios";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 
 const HOLDER_COURSE = 
@@ -16,6 +18,13 @@ const HOLDER_COURSE =
         imageUrl: "https://masterofmusic.onrender.com/images/fam-solos.jpg"
     }
 
+    function capitalizeFirstLetter(string) {
+      if(string){
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+    }
+
+
 
 
 
@@ -23,8 +32,10 @@ const HOLDER_COURSE =
 
 function PaymentPage(){
 
-    const [course,setCourse] = useState(HOLDER_COURSE);
+    const [course,setCourse] = useState(null);
+    const user = useSelector((state) => state.auth);
     const navigate = useNavigate();
+    const params = useParams();
     
     const piiche = () => {
       navigate(-1)
@@ -37,6 +48,22 @@ function PaymentPage(){
       const copyToClip = (phoneNumber) => {
         // Implement the copyToClip function here
       };
+
+      useEffect(()=>{
+        async function getCourseInfo(){
+          try{
+            
+            const response = await axios.get(`http://localhost:8000/api/course/description/${params.id}`);
+            setCourse(response.data.course);
+
+          }catch(error){
+            console.error("Error fetching course info:", error);
+          }
+        }
+
+        getCourseInfo();
+
+      },[])
 
   
   const [orderId, setOrderId] = useState("");
@@ -52,24 +79,44 @@ function PaymentPage(){
     }
   };
 
+  async function purchaseHandler(response){
+    
+    const formData = {
+      userId : user.id,
+      courseId : params.id
+    }
+
+    try {
+          const res = await axios.post(`http://localhost:8000/api/v1/user/purchase`, formData, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.token}`
+      }
+    }) 
+
+      if(res.status == 200){
+        navigate('/')
+        toast.success("Payment Successful")
+      }
+
+    } catch (error) {
+      console.error("Error in placing order:", error);  
+      toast.error("Error In Purchase")
+    }
+  }
+
   const displayRazorpay = async () => {
     const options = {
       key: "rzp_test_CFaCcyskyo1gnl",
-      amount: 150 * 100, // Amount in paise (Example: 50000 paise = ₹500)
+      amount: course?.price * 100, // Amount in paise (Example: 50000 paise = ₹500)
       currency: "INR",
       name: "Masters Of Music",
-      description: course.title,
+      description: course?.title,
       order_id: orderId,
-      handler: function (response) {
-        // alert(response.razorpay_payment_id);
-        // alert(response.razorpay_order_id);
-        // alert(response.razorpay_signature);o
-        navigate('/')
-        alert("Payment successful")
-      },
+      handler: purchaseHandler,
       prefill: {
-        name: "Harshit",
-        email: "harshitc@gmail.com",
+        name: user.firstName + " " + user.lastName,
+        email: user.email,
         contact: "8076784892",
       },
       theme: {
@@ -98,24 +145,24 @@ function PaymentPage(){
           </div>
           <div className={styles.bagProduct}> {/* Combine multiple class names */}
             <div className={styles.courseImg}>
-              <img src={course.imageUrl} className={styles.img1} alt="Course" />
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3OUVLiBoBsr179pMOm4QFjoZoMuKA7UG7eg&usqp=CAU" className={styles.img1} alt="Course" />
             </div>
             <div className={styles.description}>
               <p className={styles.productCode + ' ' + styles.small} style={{ color: 'black' }}>
-                Product code: {course._id}
+                Product code: {course?._id}
               </p>
-              <h1 className={styles.course_title} style={{ color: 'black' }}>{course.title}</h1>
-              <p className={styles.teacher} style={{ color: 'black' }}>By {course.teacher}</p> {/* Make sure 'course.teacher' is an array */}
-              <p className={styles.courseInfo} style={{ color: 'black' }}>{course.description}</p>
+              <p className={styles.course_title} style={{ color: 'black' }}>{course?.title}</p>
+              <p className={styles.teacher} style={{ color: 'black' }}>By {capitalizeFirstLetter(course?.teacher[0].firstName) + " "+capitalizeFirstLetter(course?.teacher[0].lastName)}</p> {/* Make sure 'course.teacher' is an array */}
+              <p className={styles.courseInfo} style={{ color: 'black' }}>{course?.description.slice(0,110)+"....."}</p>
             </div>
           </div>
           <div className={styles.bagTotal}>
             <div className={styles.total}>
               <h3>Price:</h3>
-              <h3>${course.price}</h3>
+              <h3>${course?.price}</h3>
             </div>
             <div style={{ margin: '1rem 0' }} id="abracadbra">
-              <input type="checkbox" name="promo-check" id="mycheck" />
+              <input type="checkbox" name="promo-check" id="mycheck"  />
               <label htmlFor="promo-check" className="ml-3">I have a promo code</label>
             </div>
             {/* <div className={styles.promoWarning} id="warn1">
@@ -135,8 +182,9 @@ function PaymentPage(){
                 type="text"
                 name="promo-checkbox"
                 id="promo"
+                className="w-[75%]"
                 placeholder="Enter your promo code here"
-                style ={{border :  '2px solid black' }}
+                style ={{border :  '1px solid purple' }}
               />
               <button className={styles.apply} onClick={confrm}>Apply</button>
             </div>

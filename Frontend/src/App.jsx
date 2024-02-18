@@ -32,11 +32,13 @@ import Catalogue from './pages/Catalogue/Catalogue'
 import TeacherEditProfile from './pages/TeacherEditProfile/TeacherEditProfile';
 import StudentEditProfile from './pages/StudentEditProfile/StudentEditProfile';
 import CreateCourseLayout from './pages/CreateCoursePage.jsx/CreateCourse'
-import Headertest from './pages/Header/Headertest'
+// import Headertest from './pages/Header/Headertest'
+import DefaultHeader from './pages/Header/DefaultHeader';
 import CourseUpload from './pages/courseUpload/courseUpload'
 import Teachers_Dashboard from './Teacher Dashboard/Teachers_Dashboard';
 import Dashboard from './admin/Dashboard'
 import Quiz from  './pages/Quiz/Quiz';
+import CourseDescription from './pages/CourseDescription/CourseDescription';
 
 
 
@@ -54,7 +56,7 @@ function App() {
         // {path: '/testing', element: <NewHeader /> },
         {path: '/ContactUs', element: <ContactUs/> },
         // {path: '/abcd', element: <AdminQuery/> },
-        {path: '/HeaderTest', element: <Headertest />},
+        {path: '/DefaultHeader', element: <DefaultHeader />},
         {path: '/Teacher-Dashboard', element: <Teachers_Dashboard />},
         {path: '/quiz', element: <Quiz />},
         {path: '/becomeInstructor', element: <BecomeInstructor />},
@@ -66,11 +68,11 @@ function App() {
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/instructor',element:<Instructor/>},
         {path:'/teacher/:id', element:<Teacher/>},
-        {path:'/teachereditprofile',element:<TeacherEditProfile/>},
+        {path:'/teachereditprofile/:id',element:<TeacherEditProfile/>},
         {path:'/catalogue', element:<Catalogue />},
         {path: '/studenteditprofile', element: <StudentEditProfile/>},
        {path:'/studentprofile', element:<StudentProfile/>},
-        {path: '/checkout', element: <PaymentPage/>},
+        {path: '/checkout/:id', element: <PaymentPage/>},
         // {path: '/query', element: <Query/>},
         {path: '/spotlight', element: <Spotlight/>},
         {path: '/faq', element: <Faq/>},
@@ -80,15 +82,14 @@ function App() {
         { path: '/dashboard', element: <AdminDashboard /> },
        
         {path: '/forgot', element: <ForgotPassword/>},
-        {path: '/course/:courseId', element: <CourseLayout/>, 
-        children:[
-          {path: ':section', element: <h1>hello</h1>},
-        ]},
-        {path: '/createcourse', element: <CreateCourseLayout/>},
+        {path: '/coursedescription/:courseId', element: <CourseDescription/>},
+        
+        {path: '/course/:courseId', element: <CourseLayout/>},
 
+        {path: '/createcourse', element: <CreateCourseLayout/>},
         {path: '/createcourse/:courseid', element: <CreateCourseLayout/>},
         {path: '/createcourse/:courseid/:section', element: <CreateCourseLayout/>},
-        
+      
         {path: '/courseUpload', element: < CourseUpload />}
       ]
     },  

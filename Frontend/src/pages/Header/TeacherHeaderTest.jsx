@@ -13,6 +13,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import ProfileDropdown from '../../components/ProfileDropdown/ProfileDropdown';
 
 const products = [
   { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
@@ -30,11 +31,11 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function TeacherHeaderTest() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="bg-slate-50 p-2.5">
+    <header className="bg-slate-50 px-3">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8 sticky top-0" aria-label="Global">
         <div className="flex lg:flex-1 space-x-1">
           <Link to="/" className="-m-1.5 p-1.5">
@@ -59,28 +60,31 @@ export default function Example() {
           <Link to="/catalogue" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Catalogue
           </Link>
+          <Link to="/dashboard" className="text-sm p-2 font-semibold leading-6 text-slate-950">
+            Dash Board
+          </Link>
+          <Link to="/courseUpload" className="text-sm p-2 font-semibold leading-6 text-slate-950">
+            Create Course
+          </Link>
           <Link to="/ContactUs" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Contact Us
           </Link>
           <Link to="/instructor" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Our Instructors
           </Link>
-          <Link to="/faq" className="text-sm p-2 font-semibold leading-6 text-slate-950">
-            FAQs
-          </Link>
           <Link to="/spotlight" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Spotlight
           </Link>
-          <Link to="/wishlist" className="text-sm p-2 font-semibold leading-6 text-slate-950">
+          
+          {/* <Link to="/wishlist" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             <img src={cartlogo} alt="" />
           </Link>
-          <Link to="/login" className="text-sm bg-black p-2 px-3 font-semibold leading-6 border-solid border-2 border-slate-950 text-slate-50">
-            Log In
-          </Link>
-          <Link to="/register" className="text-sm bg-slate-50 px-2 p-2 font-semibold leading-6 border-solid border-2 border-slate-950 text-slate-950">
-            Sign Up
-          </Link>
+          */}
         </Popover.Group>
+        <div className="text-sm p-3 font-semibold leading-6 text-slate-950">
+            <ProfileDropdown />
+          </div>
+        
         {/* <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link to="/" className="text-sm font-semibold leading-6 text-gray-900">
             Log in <span aria-hidden="true">&rarr;</span>

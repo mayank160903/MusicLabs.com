@@ -42,12 +42,18 @@ const LoginForm = () => {
         console.log(response.data);
         const user = response.data.user
         const token = response.data.token;
-        dispatch(login({firstName : user.firstName , lastName : user.lastName , role : user.role , token : token, email : user.email, id : user._id}));
+        dispatch(login({firstName : user.firstName , 
+                        lastName : user.lastName , 
+                        role : user.role , 
+                        token : token, 
+                        email : user.email, 
+                        id : user._id,
+                        wishlist : user.wishlist,
+                        courses : user.courses}));
 
         navigate('/');
       } else if(response.data.success===false) {
-        // Handle other cases, e.g., display an error message
-        // navigate('/')
+  
         alert("Your details didn't match");
         console.error('Login failed:', response.data.message);
       }

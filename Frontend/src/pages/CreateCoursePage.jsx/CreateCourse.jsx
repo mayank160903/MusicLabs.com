@@ -73,10 +73,10 @@ function CreateCourseLayout(){
         <div className="flex flex-col">
             <div className="w-[72vw] h-fit">
                <MainContent currentVideo={currentVideo} currentSection={currentTitle} content={courseInfo}/>
-               <Box sx={{marginTop: '1rem', padding: 2}}>
+               <Box sx={{marginTop: '0.2rem',marginLeft:'1rem', padding: 4}}>
                 <div className="flex flex-col">
-                    <div className="font-bold text-2xl"> Course Description </div>
-                   <div> {courseInfo?.description} </div>
+                    <div className="font-bold text-2xl mt-4"> Course Description </div>
+                   <div className="mt-4"> {courseInfo?.description} </div>
                 </div>
                </Box>
             </div>

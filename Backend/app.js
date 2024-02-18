@@ -53,7 +53,6 @@ app.use('/api', paymentRoutes)
 app.use('/api/v1/teacher', TeacherRoutes);
 
 app.use('/api/course',courseRoutes);
-
 app.use('/api/v1/admin' , AdminRoutes);
 
 const PORT = 8000;

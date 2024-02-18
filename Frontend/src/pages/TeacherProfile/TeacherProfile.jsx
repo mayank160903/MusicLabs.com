@@ -1,40 +1,46 @@
-
-
 import React, { useState,useEffect } from "react";
 import "./teacherProfile.css";
-import Image from "react-bootstrap/Image";
 import { NavLink } from "react-router-dom";
 import PlaceIcon from "@mui/icons-material/Place";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import EmailIcon from "@mui/icons-material/Email";
 import { useParams } from "react-router";
 import profileImage from "./teacher_Profile_image copy.png"
+import axios from 'axios';
 
 
 const Teacher = () => {
   const { id } = useParams("");
+
   const [teacherData, setTeacherData] = useState("");
-  const [coursesData, setCoursesData] = useState("");
+  const [coursesData, setCoursesData] = useState([]);
 
   const getData = async () => {
-    const res = await fetch(`/teacher/${id}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-    const data = await res.json();
+    try {
+      const response = await axios.get(`http://localhost:8000/api/v1/user/teacher/${id}`, {
+        headers: {  
+          "Content-Type": "application/json",
+        },   
+      });
+      console.log("Response status:", response.status);
+  
+      if (response.status !== 200) {
+        console.error("Error response:", response);
+        throw new Error("No data available");
+      }
+  
+      const data = response.data;
 
-    if (res.status != 201) {
-      alert("No data available");
-    } else {
+      console.log("____________________________")
+      console.log("Fetched data:", data);
       setTeacherData(data.teacher);
       setCoursesData(data.courses);
+    } catch (error) {
+      console.error("Fetch error:", error.message);
+      alert("Error fetching data");
     }
   };
-
+  
   useEffect(() => {
     getData();
   }, [id]);
@@ -42,7 +48,6 @@ const Teacher = () => {
   return (
     <>
       
-
       <div className="body_container">
         <div className="container">
           <div className="row circle_img">
@@ -51,7 +56,7 @@ const Teacher = () => {
 
               <img
                 className="circle_image"
-                src={profileImage}
+                src={teacherData && teacherData.avatar ? teacherData.avatar.url : profileImage}
                 alt="Teacher Profile"
               />
             </div>
@@ -60,29 +65,29 @@ const Teacher = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-5 ">
-              <h1 className="text-white mx-20">FullName</h1>
-              <div className="text-white mx-20">Username</div>
+              <div className="text-white mx-20">{teacherData.firstName + " " + teacherData.lastName}</div>
+              <div className="text-white mx-20 mt-5">{teacherData.username}</div>
               <br />
               <br />
               <span className="text-white mx-20">
-                <PlaceIcon /> Location : California, USA
+                <PlaceIcon /> Location : {teacherData.location}
               </span>
               <br />
               <br />
               <span className="text-white mx-20">
-                <CalendarMonthIcon /> Joining Of Year : 3 march 2002
+                <CalendarMonthIcon /> Joining Of Year : {teacherData.createdAt}
               </span>
               <br />
               <br />
               <span className="text-white mx-20">
-                <EmailIcon /> Email : Email
+                <EmailIcon /> Email : {teacherData.email}
               </span>
               <br />
               <br />
               <br />
               <br />
               <div className="btn-main mx-20">
-                <NavLink to="/teachereditprofile">
+                <NavLink to={`/teachereditprofile/${teacherData._id}`}>
                   <button className="btn-button">Edit Profile</button>
                 </NavLink>
                 <br />
@@ -143,11 +148,11 @@ const Teacher = () => {
         <br />
         <br />
 
-        <div class="upload-heading d-flex justify-content-center align-items-center">
+        <div class="upload-heading d-flex justify-content-center align-items-center ml-6">
           <h1>UPLOADED COURSES</h1>
         </div>
 
-        <div className="container ">
+        {/* <div className="container ">
           <div className="row card_container justify-content-center" id="col1">
             <div className="col-md-5">
               <a href="#">
@@ -160,11 +165,54 @@ const Teacher = () => {
               <p className="text-white offset-3">Acoustic Blues</p>
             </div>
           </div>
-        </div>
+        </div> */}
+
+        {coursesData.length > 0 && (
+          <div className="container">
+            <div className="row card_container justify-content-center" id="col1">
+              {coursesData.map((course, index) => (
+                <div key={index} className="col-md-5">
+                  <a href="#">
+                    <img
+                      src={course.imageUrl}
+                      style={{ width: "360px", height: "180px" }}
+                      className="grid-element"
+                      alt={course.title}
+                    />
+                  </a>
+                  <p className="text-white offset-3">{course.title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
       </div>
     </>
   );
 };
 
 export default Teacher;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
