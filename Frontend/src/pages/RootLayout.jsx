@@ -1,5 +1,5 @@
-import { Fragment, useEffect} from "react";
-import {Outlet} from "react-router-dom"
+import { Fragment, useEffect, useState} from "react";
+import {Outlet, useLocation} from "react-router-dom"
 import Footer from "./Footer/Footer";
 import DefaultHeader from './Header/DefaultHeader';
 // import TeacherHeaderTest from "./Header/TeacherHeaderTest";
@@ -19,7 +19,16 @@ import StudentHeaderTest from "./Header/StudentHeaderTest";
 function RootLayout(){
     
     const user = useSelector(state => state.auth);
+    const location = useLocation();
+    const [showHeader,setShowHeader] = useState(true);
 
+    useEffect(()=>{
+        if(location.pathname.split('/')[1] == 'checkout'){
+            setShowHeader(false)
+        } else {
+            setShowHeader(true)
+        }
+    },[location])
     return(
     
     <Fragment>  
@@ -28,7 +37,7 @@ function RootLayout(){
             <ToastContainer />
             {/* <Header/> */}
             <div className="relative z-[10]">
-            {user.role == 'teacher' ? <TeacherHeaderTest/> : (user.role == 'User' ? <StudentHeaderTest/> :<DefaultHeader/>)}
+          {showHeader ? (user.role == 'teacher' ? <TeacherHeaderTest/> : (user.role == 'User' ? <StudentHeaderTest/> :<DefaultHeader/>)) : ""}
             </div>
             {/* <Headertest /> */}
             
@@ -36,7 +45,7 @@ function RootLayout(){
             <Outlet/>
             </div>
 
-            <Footer/>
+           {showHeader ? <Footer/> : '' }
       
     </Fragment> 
     
