@@ -1,9 +1,50 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import './ContactUs.css'
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
+import { toast } from "react-toastify";
+import axios from "axios";
+
 
 function ContactUs(){
+
+    const [firstName,setFirstName] = useState('');
+    const [lastName,setLastName] = useState('');
+    const [email,setEmail] = useState('');
+    const [message,setMessage] = useState('');
+
+    const [loader,setLoader] = useState(false);
+
+    async function submitQuery(e){
+        e.preventDefault();
+            if(firstName === "" || email === "" || message === ""){
+                toast.error('Please Fill All The Required Fields')
+                return ;
+            }
+            try {
+                setLoader(true);
+                const req = await axios.post('http://localhost:8000/api/v1/user/contactus', {
+                    firstName,
+                    lastName,
+                    email,
+                    message
+                })
+                setLoader(false);
+                if(req.status === 200){
+                    toast.success('Query Submitted Successfully')
+                    setFirstName("");
+                    setLastName("");
+                    setEmail("");
+                    setMessage(""); 
+                }
+
+            } catch (e){
+                console.log(e)
+                setLoader(false);
+                toast.error('Something Went Wrong, Please Try Again')
+            }
+            
+    }
+
+
     return(
         <Fragment>
             {/* <Header /> */}
@@ -17,11 +58,11 @@ function ContactUs(){
                     <div className="formblock col font-extralight">
                         <div className="fhv">
                         <span className="formheader">
-                            <h1 style={{ fontSize: '24px' }}>Get in Touch With Us</h1>
+                            <h1 style={{ fontSize: '32px',color: 'black', paddingLeft: 0 }}>Get in Touch With Us</h1>
                         </span>
                         </div>
 
-                        <div className="mt-5 container-fluid-wrapper">
+                        <div className="mt-4 ml-4 container-fluid-wrapper">
                         <div className="">
                             <div className="form-col-container row row-cols-2">
 
@@ -60,36 +101,56 @@ function ContactUs(){
 
 
                     </div>
-                    <div className="formb2 mt-5">
+                    <div className="formb2 mt-4">
                         <div className="contact-wrapper">
-                        <form id="contact-form" type="submit" action="/connect" className ="form-horizontal" role="form"
-                            method="POST">
+                        <form id="contact-form"  className ="form-horizontal" role="form">
 
-                            <div className="form-group row justify-content-between " style={{width:'100%'}}>
-                            <div className="col-sm-6 " style={{paddingRight: '0px' , paddingLeft: '12px'}}>
-                                <input type="text" className="form-control" id="name" placeholder="FIRST NAME" name="fname"
-                                value="" required style={{ width: '180px' , backgroundColor: 'white' }}/>
+                            <div className="form-group row  justify-content-between ml-0 mr-0" style={{width:'100%'}}>
+                            <div className="col-sm-6  pl-0 pr-0 md:pr-2">
+                                <input type="text" className="form-control text-black" 
+                                id="name" 
+                                placeholder="FIRST NAME*" 
+                                name="fname"
+                                value={firstName} 
+                                onChange={(e)=>{setFirstName(e.target.value);}}
+                                required 
+                                style={{ width: '100%' , backgroundColor: 'white' }}/>
                             </div>
 
-                            <div className="col-sm-6" style={{paddingLeft: '45px', paddingRight: '0px'}}>
-                                <input type="text" className="form-control" id="name2" placeholder="LAST NAME" name="lname" value="" style={{ width: '180px' , backgroundColor: 'white' }}
-                                required/>
+                            <div className="col-sm-6 pr-0  pl-0 md:pl-2">
+                                <input type="text" className="form-control" id="name2" placeholder="LAST NAME" 
+                                value={lastName} 
+                                onChange={(e)=>{setLastName(e.target.value);}}
+                                name="lname"  
+                                style={{ width: '100%' , backgroundColor: 'white' }}/>
                             </div>
 
                             </div>
 
                             <div className="form-group">
                             <div className="col-sm-12">
-                                <input type="email" className="form-control " id="email" placeholder="EMAIL" name="email" value="" style = {{backgroundColor: 'white'}}
+                                <input type="email" className="form-control" 
+                                id="email" 
+                                placeholder="EMAIL*" 
+                                name="email" 
+                                value={email}
+                                onChange={(e)=>{setEmail(e.target.value)}} 
+                                style = {{backgroundColor: 'white'}}
                                 required/>
                             </div>
                             </div>
-                            <div className="col-sm-12">
-                            <textarea className="form-control " rows="10" placeholder="MESSAGE" name="message"  style = {{backgroundColor: 'white'}} required></textarea>
+                                <div className="col-sm-12">
+                                    <textarea className="form-control" 
+                                    rows="10" 
+                                    placeholder="MESSAGE*" 
+                                    name="message"  
+                                    style = {{backgroundColor: 'white'}} required
+                                    value={message}
+                                    onChange={(e)=>{setMessage(e.target.value)}} />
                             </div>
 
-                            <button className="btn btn-primary send-button" id="submit" type="submit" value="SEND">
-                            <span className="send-text">SEND</span>
+                            <button className="btn btn-primary send-button bg-[#4D84E2] hover:bg-[#3E6AB5]" id="submit" onClick={(e)=>{submitQuery(e)}}>
+                            <span className="send-text">{!loader ? "SEND" : "SENDING..."}</span>
 
                             </button>
 

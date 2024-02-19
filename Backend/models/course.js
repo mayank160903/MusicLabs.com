@@ -41,7 +41,17 @@ const courseSchema = new mongoose.Schema({
     //    required:[true , 'Sections are required'], 
     }],
 
+    totalVideos : {
+        type : Number,
+        default : 0,
+    },
+
     ratings :{
+        type : Number,
+        default : 0,
+    },
+
+    purchases : {
         type : Number,
         default : 0,
     }
@@ -53,7 +63,6 @@ const courseSchema = new mongoose.Schema({
         }
     ]
     
-
 
     
 },

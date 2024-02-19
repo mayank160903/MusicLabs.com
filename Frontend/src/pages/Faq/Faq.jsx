@@ -1,7 +1,6 @@
 import React from 'react';
 import './Faq.css';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
+
 
 const FAQComponent = () => {
     return (

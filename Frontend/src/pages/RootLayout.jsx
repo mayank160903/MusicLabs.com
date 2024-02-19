@@ -1,12 +1,14 @@
-import { Fragment, useEffect} from "react";
-import {Outlet} from "react-router-dom"
-import Header from "./Header/Header";
+import { Fragment, useEffect, useState} from "react";
+import {Outlet, useLocation} from "react-router-dom"
 import Footer from "./Footer/Footer";
-import Headertest from './Header/Headertest';
-import TeacherHeader from "./Header/TeacherHeader";
+import DefaultHeader from './Header/DefaultHeader';
+// import TeacherHeaderTest from "./Header/TeacherHeaderTest";
+import TeacherHeader from "./Header/TeacherHeaderTest";
 
 import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
+import TeacherHeaderTest from "./Header/TeacherHeaderTest";
+import StudentHeaderTest from "./Header/StudentHeaderTest";
 // import { useSelector } from "react-redux/es/hooks/useSelector";
 // import HeaderBar from "../components/Header";
 // import SideBar from "../components/Sidebar";
@@ -17,18 +19,33 @@ import { useSelector } from "react-redux";
 function RootLayout(){
     
     const user = useSelector(state => state.auth);
+    const location = useLocation();
+    const [showHeader,setShowHeader] = useState(true);
 
+    useEffect(()=>{
+        if(location.pathname.split('/')[1] == 'checkout'){
+            setShowHeader(false)
+        } else {
+            setShowHeader(true)
+        }
+    },[location])
     return(
     
     <Fragment>  
-
+            
 
             <ToastContainer />
             {/* <Header/> */}
-            {user.role == 'teacher' ? <TeacherHeader/> : <Headertest/>}
+            <div className="relative z-[10]">
+          {showHeader ? (user.role == 'teacher' ? <TeacherHeaderTest/> : (user.role == 'User' ? <StudentHeaderTest/> :<DefaultHeader/>)) : ""}
+            </div>
             {/* <Headertest /> */}
+            
+            <div className="relative z-[5]">    
             <Outlet/>
-            <Footer/>
+            </div>
+
+           {showHeader ? <Footer/> : '' }
       
     </Fragment> 
     

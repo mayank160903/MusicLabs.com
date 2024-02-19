@@ -66,6 +66,22 @@ exports.getSignature = async (req,res) => {
 // })
 }
 
+exports.getCourseDescription = async (req,res) => {
+  try{
+    const {courseId} = req.params;
+    const course = await coursesSchema.findById(courseId).populate([{path :'category'},{path: 'teacher', 
+    select: '-password' },{path: 'sections'}]);
+    if(!course){
+      return res.status(404).send({success: false, message: "Course not found"});
+    }
+    return res.status(200).send({success: true, message: "Course fetched successfully", course});
+  } catch(e){
+    console.log(e);
+    return res.status(500).send({success: false, message: "Error while fetching course"});
+  }
+
+}
+
 exports.getCourseInfo = async (req,res) => {
     try{
         const {courseId} = req.params;
@@ -86,6 +102,7 @@ exports.getCourseInfo = async (req,res) => {
         return res.status(500).send({success: false, message: "Error while fetching course"});
     }
 }
+
 
 exports.createCourse = async (req,res) => {
     try{
