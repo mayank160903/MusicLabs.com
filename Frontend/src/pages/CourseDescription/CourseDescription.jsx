@@ -36,10 +36,16 @@ const CourseDetails = () => {
 
 
     useEffect(() => {
+      if(user.isLoggedin == false){
+        setIsPurchased(false);
+        setIsWishlisted(false);
+        return ;
+      }
       if(user.wishlist.find(course => course._id === params.courseId)){
         setIsWishlisted(true);
       }
-      if(user.courses.find(course => course.course._id === params.courseId)){
+      console.log(user.courses)
+      if(user?.courses?.find(course => course?.course?._id === params.courseId)){
         setIsPurchased(true);
       }
       if(user.isLoggedin == false){

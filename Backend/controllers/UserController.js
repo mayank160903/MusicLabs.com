@@ -3,6 +3,7 @@ const contactSchema = require('../models/contact.js');
 const userSchema = require('../models/user.js');
 const courseSchema = require('../models/course.js')
 const videoSchema = require('../models/videos.js');
+const purchaseSchema = require('../models/purchase.js')
 const user = require('../models/user.js');
 
 exports.AddToWishlist = async (req,res) => {
@@ -125,10 +126,19 @@ exports.purchaseCourse = async (req,res) => {
             user.courses.push({course: courseId, progress: []});
             course.purchases += 1;
 
+            let new_purchase = purchaseSchema.create({
+                userId : userId,
+                courseId : courseId,
+                teachers : course.teacher 
+            })
+
             let course_update = course.save();
             let user_update = user.save();
-            await Promise.all([course_update, user_update]);
+            
+            await Promise.all([course_update, user_update, new_purchase]);
             res.status(200).json({message: "Course purchased successfully", course: courseId});
+        
+        
         } else {
             res.status(400).json({error: "Course already purchased, Refund Initilized"});
         }
