@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { purchaseCourse } from "../../store/auth";
+import { CircularProgress, Skeleton } from "@mui/material";
 
 
     function capitalizeFirstLetter(string) {``
@@ -18,6 +19,9 @@ import { purchaseCourse } from "../../store/auth";
 function PaymentPage(){
 
     const [course,setCourse] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [paymentLoading, setPaymentLoading] = useState(false);
+
     const user = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const params = useParams();
@@ -40,21 +44,23 @@ function PaymentPage(){
           try{
             
             const response = await axios.get(`http://localhost:8000/api/course/description/${params.id}`);
+            
             setCourse(response.data.course);
-
+            setLoading(false)
           }catch(error){
             console.error("Error fetching course info:", error);
           }
         }
 
         getCourseInfo();
-
+        // setLoading(false)
       },[])
 
   
   const [orderId, setOrderId] = useState("");
 
   const createOrder = async () => {
+    setPaymentLoading(true);
     try {
       const response = await axios.post(
         "http://localhost:8000/api/create-order"
@@ -72,6 +78,7 @@ function PaymentPage(){
       courseId : params.id
     }
 
+    setPaymentLoading(false);
     try {
           const res = await axios.post(`http://localhost:8000/api/v1/user/purchase`, formData, {
           headers: {
@@ -133,21 +140,33 @@ function PaymentPage(){
           </div>
           <div className={styles.bagProduct}> {/* Combine multiple class names */}
             <div className={styles.courseImg}>
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3OUVLiBoBsr179pMOm4QFjoZoMuKA7UG7eg&usqp=CAU" className={styles.img1} alt="Course" />
+            {!loading ? (
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3OUVLiBoBsr179pMOm4QFjoZoMuKA7UG7eg&usqp=CAU" className={styles.img1} alt="Course" /> ) : (<Skeleton animation="wave" variant="rectangular" width={'14rem'} height={"76%"} sx={{marginLeft: '1rem', marginTop: '1.4rem'}}/>)
+            }
             </div>
             <div className={styles.description}>
               <p className={styles.productCode + ' ' + styles.small} style={{ color: 'black' }}>
-                Product code: {course?._id}
+                {!loading ? (`Product code: ${course?._id}`) : <Skeleton animation="wave" variant="text" sx={{width:'80%', fontSize: '0.8rem', borderRadius: 0}}/>}
               </p>
-              <p className={styles.course_title} style={{ color: 'black' }}>{course?.title}</p>
-              <p className={styles.teacher} style={{ color: 'black' }}>By {capitalizeFirstLetter(course?.teacher[0].firstName) + " "+capitalizeFirstLetter(course?.teacher[0].lastName)}</p> {/* Make sure 'course.teacher' is an array */}
-              <p className={styles.courseInfo} style={{ color: 'black' }}>{course?.description.slice(0,110)+"....."}</p>
+              <p className={styles.course_title} style={{ color: 'black' }}>{!loading ? course?.title : 
+                                                              <Skeleton animation="wave" variant="text" sx={{width:'100%', fontSize: '1.5rem', borderRadius: 0}}/>}</p>
+              <p className={styles.teacher}>{!loading ? ("By" + " " +capitalizeFirstLetter(course?.teacher[0].firstName) + " "+capitalizeFirstLetter(course?.teacher[0].lastName)) :  <Skeleton animation="wave" variant="text" width={200}
+                                                                      sx={{width:'100%', fontSize: '1rem', borderRadius: 0}}/> }</p>
+
+              <p className={styles.courseInfo}>{!loading ? (course?.description.slice(0,110)+".....") : 
+                                                            <Fragment><Skeleton animation="wave" variant="text" width="392px"
+                                                              sx={{fontSize: 20, borderRadius: 0, marginLeft: "0rem", marginRight: '20px'}}/>
+                                                              <Skeleton animation="wave" variant="text" width="392px"
+                                                              sx={{fontSize: 20, borderRadius: 0, marginLeft: "0rem", marginRight: '20px'}}/>
+                                                              <Skeleton animation="wave" variant="text" width="302px"
+                                                              sx={{fontSize: 20, borderRadius: 0, marginLeft: "0rem", marginRight: '20px'}}/>                                                              </Fragment>}</p>
             </div>
           </div>
           <div className={styles.bagTotal}>
             <div className={styles.total}>
               <h3>Price:</h3>
-              <h3>${course?.price}</h3>
+              <h3>{!loading ? course?.price : 
+              <Skeleton animation="wave" width={'6rem'} variant="text" sx={{fontSize:'1.6rem', borderRadius: 0}}/>}</h3>
             </div>
             <div style={{ margin: '1rem 0' }} id="abracadbra">
               <input type="checkbox" name="promo-check" id="mycheck"  />
@@ -178,7 +197,7 @@ function PaymentPage(){
             </div>
             
               <button className={styles.checkbtn} type="submit" id="chkout" style={{backgroundColor: '#9966cc'}} onClick={handlePayment}>
-                <div className="uppercase">Proceed to Checkout</div>
+                <div className="uppercase">{!paymentLoading ? "Proceed to Checkout" : <CircularProgress color="inherit"/>}</div>
               </button>
             {/* </form> */}
           </div>

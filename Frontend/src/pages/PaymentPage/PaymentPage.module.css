@@ -23,6 +23,7 @@
 .course_title {
     font-size: 1.6rem;
     font-weight: 700;
+    padding-right: 12px;
     white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -31,6 +32,7 @@
 
 .courseInfo{
     margin: 1.6rem 0;
+    color: black;
     text-overflow: ellipsis;
     /* max-height: 5rem; */
 }
@@ -87,6 +89,7 @@
 }
 
 .teacher{
+    color: black;
     font-size: 14px;
     opacity: 0.7;
     font-style: italic;
@@ -121,6 +124,7 @@ button {
 .productCode{
     font-size: 0.8rem;
     margin-bottom: 0.1rem;
+    padding-right: 1rem;
     color: 'black';
    
   }
