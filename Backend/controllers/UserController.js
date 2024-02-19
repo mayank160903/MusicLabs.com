@@ -11,24 +11,24 @@ exports.AddToWishlist = async (req,res) => {
     const {userId, courseId} = req.body;
     console.log(userId)
     try {
-        const user = await userSchema.findOne({'_id' : userId});
+        const user = await userSchema.findById(userId);
         console.log(user)
 
         if(!user){
-            res.status(404).json({error: "User not found"});
+          return  res.status(404).json({error: "User not found"});
         }
 
         if(!user.wishlist.includes(courseId)){
             user.wishlist.push(courseId);
             // const course = await courseSchema.findOne(courseId).populate;
             await user.save();
-            res.status(200).json({message: "Course added to wishlist", course: courseId});
+           return  res.status(200).json({message: "Course added to wishlist", course: courseId});
     } else {
-        res.status(400).json({error: "Course already in wishlist"});
+        return res.status(400).json({error: "Course already in wishlist"});
         }
     } catch (e) {
         console.error("error: " + e.message);
-        res.status(500).json({ error: e.message });
+        return res.status(500).json({ error: e.message });
     }   
 }
 
@@ -66,13 +66,13 @@ exports.getWishlist = async (req,res) => {
         const user = await userSchema.findOne(userId).populate('wishlist','-sections');
         console.log(user);
         if(!user){
-            res.status(404).json({error: "User not found"});
+           return res.status(404).json({error: "User not found"});
         }
         
-        res.status(200).json({wishlist: user.wishlist});
+      return  res.status(200).json({wishlist: user.wishlist});
     } catch (e) {
         console.error("error: " + e.message);
-        res.status(500).json({ error: e.message });
+       return res.status(500).json({ error: e.message });
     }
 }
 
@@ -136,15 +136,15 @@ exports.purchaseCourse = async (req,res) => {
             let user_update = user.save();
             
             await Promise.all([course_update, user_update, new_purchase]);
-            res.status(200).json({message: "Course purchased successfully", course: courseId});
+            return res.status(200).json({message: "Course purchased successfully", course: courseId});
         
         
         } else {
-            res.status(400).json({error: "Course already purchased, Refund Initilized"});
+            return res.status(400).json({error: "Course already purchased, Refund Initilized"});
         }
     } catch (e) {
         console.error("error: " + e.message);
-        res.status(500).json({ error: e.message });
+        return res.status(500).json({ error: e.message });
     }
 }
 
@@ -162,7 +162,7 @@ exports.createQuery = async (req,res) => {
             email,
             message
         })
-        res.status(200).json({message: "Query Submitted Successfully"});
+        return res.status(200).json({message: "Query Submitted Successfully"});
     } catch (e) {
         console.error("error: " + e.message);
         res.status(500).json({ error: e.message });

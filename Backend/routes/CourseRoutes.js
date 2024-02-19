@@ -1,5 +1,5 @@
 const express = require("express");
-const { getSignature, createCourse, getCourseInfo, addSection, addVideoContent, editSectionHandler, deleteSectionHandler, deleteVideoContent, editVideoTitleHandler, getCourseDescription } = require("../controllers/CoursesController");
+const { getSignature, createCourse, getCourseInfo, addSection, addVideoContent, editSectionHandler, deleteSectionHandler, deleteVideoContent, editVideoTitleHandler, getCourseDescription, addComment, getComments } = require("../controllers/CoursesController");
 const router = express.Router();
 const Multer = require("multer");
 const bodyParser = require("body-parser");
@@ -27,10 +27,14 @@ const upload = Multer({
 
 console.log("inside course route")
 
+
 router.get('/get-signature', getSignature);
+
 
 router.post('/createcourse', createCourse);
 
+router.post('/add-comment', addComment);
+router.post('/get-comments', getComments)
 
 router.post('/addcontent', addVideoContent);
 router.post('/deletevideo', deleteVideoContent);

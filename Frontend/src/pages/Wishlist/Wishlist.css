@@ -110,8 +110,9 @@
         color: rgb(192, 186, 178);
         display: flex;
         align-self: center;
+        justify-self: center;
         padding: 3rem;
-        margin-top: 3rem;
+        margin-top: 10%;
     
     }
     .teacher{

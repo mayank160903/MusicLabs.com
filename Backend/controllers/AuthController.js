@@ -36,7 +36,7 @@ exports.registerController = async (req, res) => {
 
     console.log("register");
     const { firstName, lastName, email, password, role, resume } = req.body;
-    
+    console.log(firstName, lastName, email, password, role)
     if (role === "User") {
       if (!firstName || !lastName || !email || !password) {
         return res
@@ -132,7 +132,7 @@ exports.registerController = async (req, res) => {
 exports.loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+    console.log(email)
       let user = await userSchema.findOne({ email }).populate([{path: 'wishlist', populate: {
         path: 'teacher',
         model: 'teachers',
