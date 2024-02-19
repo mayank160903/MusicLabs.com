@@ -9,6 +9,8 @@ const teacherSchema = new Schema({
   
   firstName: {type: String,required: true},
   lastName:{type: String,required: true},
+
+  username:{type:String},
  
   email: { type: String, required: true },
   
@@ -35,6 +37,13 @@ location:{
 isApproved :{
   type : Boolean,
   default : false,
+},
+
+description : {
+  type : String
+},
+education :{
+  type : String
 },
 
 postGraduation:{

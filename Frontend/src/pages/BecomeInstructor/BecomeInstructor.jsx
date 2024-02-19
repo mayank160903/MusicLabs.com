@@ -206,7 +206,7 @@ const handleRegister = async () => {
         
 
 
-            </div>
+          </div>
 
             )}
 

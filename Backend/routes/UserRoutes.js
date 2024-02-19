@@ -1,5 +1,11 @@
+const express = require("express");
 const app = require("express");
 const router = app.Router();
+
+
+
+
+
 
 
 const {InstructorDataController} = require('../controllers/InstructorController.js');
@@ -23,9 +29,44 @@ router.post("/contactus", createQuery)
 
 router.get('/instructorData', InstructorDataController);
 router.get('/teacher/:id', getTeacherAndCourses);
-router.put('/teachereditprofile/:id', updateTeacherProfile);
 
-  
+
+
+
+
+// cloudinary.config({
+//     cloud_name: process.env.CLOUDNAME,
+//     api_key: process.env.APIKEY,
+//     api_secret: process.env.APISECRET
+// });
+
+
+// // img storage path
+// const imgconfig = multer.diskStorage({
+//     destination:(req,file,callback)=>{
+//         callback(null,"./uploads")
+//     },
+//     filename:(req,file,callback)=>{
+//         callback(null,`image-${Date.now()}.${file.originalname}`)
+//     }
+// });
+
+// // img filter
+// const isImage = (req,file,callback)=>{
+//     if(file.mimetype.startsWith("image")){
+//         callback(null,true)
+//     }else{
+//         callback(new Error("only images is allow"))
+//     }
+// }
+
+// const upload = multer({
+//     storage:imgconfig,
+//     fileFilter:isImage
+// })
+
+router.put('/teachereditprofile/:id',updateTeacherProfile);
+
 
 
 module.exports = router;
