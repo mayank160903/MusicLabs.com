@@ -1,43 +1,24 @@
 const userSchema = require("../models/user.js");
 const teacherSchema = require("../models/teacher.js");
+const adminSchema = require('../models/admin.js');
 const { hashPassword, comparePassword } = require("../helper/authhelper.js");
 const multer = require("multer");
 const JWT = require("jsonwebtoken");
 const nodemailer = require('nodemailer');
 
-// const generateOTP = () => {
-//   return Math.floor(1000 + Math.random() * 9000);
-// };
-
-// const transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: process.env.EMAIL,
-//     pass: process.env.PASSWORD,
-//   },
-// });
 
 
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "uploads/"); // Set the destination folder for uploaded files
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, Date.now() + "-" + file.originalname); // Set the filename
-//   },
-// });
 
-// const upload = multer({ storage: storage });
 
 
 
 exports.registerController = async (req, res) => {
   try {
 
-    console.log("register");
-    const { firstName, lastName, email, password, role, resume } = req.body;
+   
+    const { firstName, lastName, email, password  } = req.body;
+    console.log("here is coming");
     
-    if (role === "User") {
       if (!firstName || !lastName || !email || !password) {
         return res
           .status(409)
@@ -51,77 +32,31 @@ exports.registerController = async (req, res) => {
           .status(400)
           .send({ success: false, message: "User already exist please login" });
       }
-
       console.log("first");
+      const existingTeacher = await teacherSchema.findOne({email : email});
+      if (existingTeacher) {
+        return res
+          .status(400)
+          .send({ success: false, message: "User already exist please login" });
+      }
 
-      // const otp = generateOTP();
-      // console.log(otp);
-      // console.log("second");
-      // const mailOptions = {
-      //   from: process.env.GMAIL,
-      //   to: email,
-      //   subject: 'Your OTP for Registration',
-      //   text: `Your OTP is: ${otp} please confirm the signup`,
-      // };
-
-      console.log("third");
+      console.log("second");
       
-      // try {
-      //   await transporter.sendMail(mailOptions);
-      //   console.log("Email sent successfully");
-      // } catch (emailError) {
-      //   console.error("Error sending email:", emailError);
-      //   return res.status(500).send({ success: false, message: "Error sending email" });
-      // }
-
-
-      // return res.status(600).send({message : "Till here it's working"});
-
       const hashedPassword = await hashPassword(password);
       const user = new userSchema({
         firstName,
         lastName,
         email,
         password: hashedPassword,
-        role,
+        
       });
       await user.save();
-
+      console.log("third");
       return res
         .status(200)
         .send({ success: true, message: "User Registered Successfully", user });
-    } else {
-      if (!firstName || !lastName || !email || !password) {
-        return res
-          .status(409)
-          .send({ success: false, message: "Please fill all the details " });
-      }
 
-      const existingTeacher = await teacherSchema.findOne({ email: email });
-
-      console.log("here further is coming");
-
-      if (existingTeacher) {
-        return res
-          .status(400)
-          .send({ success: false, message: "User already exists Please Login" });
-      }
-
-      const hashedPassword = await hashPassword(password);
-      console.log("hash bhi hogya")
-      const teacher = await teacherSchema({
-        firstName,
-        lastName,
-        email,
-        password: hashedPassword,
-        role,
-      });
-
-      await teacher.save();
-      return res
-        .status(200)
-        .send({ success: true, message: "Teacher registered successfully " });
-    }
+ 
   } catch (error) {
     return res
       .status(500)
@@ -181,9 +116,41 @@ exports.loginController = async (req, res) => {
 
       user = await teacherSchema.findOne({ email });
       if (!user) {
-        return res
+
+        user = await adminSchema.findOne({email });
+
+
+        if(!user){
+          return res
           .status(404)
           .send({ success: false, message: "User not registered " });
+        }
+        const check = await comparePassword(password, user.password);
+      
+      if (!check) {
+        return res
+          .status(400)
+          .send({ success: false, message: "Your Details didn't match" });
+      }
+      const token = await JWT.sign(
+        { id: user._id, role: "Admin" },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "7d",
+        }
+      );
+
+      return res
+        .status(200)
+        .send({
+          success: true,
+          message: "Login Successfully ",
+          user,
+          token,
+        });
+
+
+
       }
       
       if(user.isApproved===false){
@@ -256,59 +223,107 @@ exports.googleController = async (req, res) => {
     }
 
     return;
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).send({success : false , message : "Internal server error"});
+  }
 };
+
+// exports.forgotPassword = async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+   
+//       const user = await userSchema.find({ email });
+
+//       if (!user) {
+//         const teacher = await teacherSchema.find({email});
+//         if(!teacher){
+//           return res
+//           .status(404)
+//           .send({
+//             success: false,
+//             message: "User not found with this email id",
+//           });
+//         }
+
+//         const hashedPassword = await hashPassword(password);
+//         await teacherSchema.findByIdUpdate(
+//           user._id,
+//           { password: hashedPassword },
+//           { new: true }
+//         );
+//         return res
+//         .status(201)
+//         .send({ success: true, message: "Password updated successfully", teacher });
+        
+        
+//       }
+//       const hashedPassword = await hashPassword(password);
+//       await userSchema.findByIdUpdate(
+//         user._id,
+//         { password: hashedPassword },
+//         { new: true }
+//       );
+
+//       return res
+//         .status(201)
+//         .send({ success: true, message: "User updated successfully", user });
+//     } 
+//    catch (error) {
+//     return res
+//       .status(500)
+//       .send({ success: false, message: "Error while updating the password" });
+//   }
+// }
 
 exports.forgotPassword = async (req, res) => {
   try {
-    const { email, password, role } = req.body;
-    if (role === "User") {
-      const user = await userSchema.find({ email });
-      if (!user) {
-        return res
-          .status(404)
-          .send({
-            success: false,
-            message: "User not found with this email id",
-          });
-      }
-      const hashedPassword = await hashPassword(password);
-      await userSchema.findByIdUpdate(
-        user._id,
-        { password: hashedPassword },
-        { new: true }
-      );
-
-      return res
-        .status(201)
-        .send({ success: true, message: "User updated successfully", user });
-    } else {
-      const teacher = await teacherSchema.find({ email });
+    console.log("here it comes");
+    const { email, password } = req.body;
+    
+    let user = await userSchema.findOne({ email });
+    if (!user) {
+      let teacher = await teacherSchema.findOne({ email });
       if (!teacher) {
-        return res
-          .status(404)
-          .send({
-            success: false,
-            message: "User not found with this email id",
-          });
+        return res.status(404).send({
+          success: false,
+          message: "User not found with this email id",
+        });
       }
       const hashedPassword = await hashPassword(password);
-      await teacherSchema.findByIdAndUpdate(
-        user._id,
+      teacher = await teacherSchema.findByIdAndUpdate(
+        teacher._id,
         { password: hashedPassword },
         { new: true }
       );
-
-      return res
-        .status(201)
-        .send({ success: true, message: "User updated successfully", user });
+      return res.status(201).send({
+        success: true,
+        message: "Password updated successfully",
+        teacher,
+      });
     }
+
+    console.log("first");
+    const hashedPassword = await hashPassword(password);
+    user = await userSchema.findByIdAndUpdate(
+      user._id,
+      { password: hashedPassword },
+      { new: true }
+    );
+
+
+      console.log("second");
+    return res.status(201).send({
+      success: true,
+      message: "Password updated successfully",
+      user,
+    });
   } catch (error) {
-    return res
-      .status(500)
-      .send({ success: false, message: "Error while updating the password" });
+    return res.status(500).send({
+      success: false,
+      message: "Error while updating the password",
+    });
   }
-};
+}
 
 exports.updateProfile = async (req, res) => {
   try {

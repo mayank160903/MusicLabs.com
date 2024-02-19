@@ -1,35 +1,36 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify'; // Import toast from toastify-js
+// import { toast, ToastContainer } from 'react-toastify'; // Import toast from toastify-js
 import './Signup.css';
-import 'react-toastify/dist/ReactToastify.css';
+// import 'react-toastify/dist/ReactToastify.css';
 import signup from '../../images/signup1.jpg';
-import { Input } from '@mui/base';
-
+// import { Input } from '@mui/base';
+import { toast } from 'react-toastify';
 const RegistrationForm = () => {
 
 const navigate = useNavigate(); // Initialize useNavigate
 
+// toast.info('Please Login to add to wishlist');
 const [formData, setFormData] = useState({
   firstName: '',
   lastName: '',
   email: '',
-  role: 'User',
+  confirmPassword: '',
   password: '',
-  resume: null,
+  
 });
 
 
-const handleResumeChange = (e) => {
-  const file = e.target.files[0];
+// const handleResumeChange = (e) => {
+//   const file = e.target.files[0];
 
-  // Update only the 'resume' field in the formData state
-  setFormData((prevData) => ({
-    ...prevData,
-    resume: file,
-  }));
-};
+//   // Update only the 'resume' field in the formData state
+//   setFormData((prevData) => ({
+//     ...prevData,
+//     resume: file,
+//   }));
+// };
 const handleChange = (e) => {
   const { name, value } = e.target;
   setFormData((prevData) => ({
@@ -48,29 +49,34 @@ const handleRegister = async () => {
     formData.password.length < 6
   ) {
     console.log("here comes");
-    alert('Please fill in all fields and ensure the password is at least 6 characters.');
+    
+    toast.info('Please fill in all fields and ensure the password is at least 6 characters.');
     return;
+  }
+  if(formData.confirmPassword!==formData.password){
+    toast.info("Password not match with confirm Password");
+    return ;
   }
 
   try {
     console.log("Here is coming");
     console.log(formData);
     const response = await axios.post('http://localhost:8000/api/v1/user/register', formData);
-    console.log(response.message);
+    console.log(response.data);
     
-    if (response.status === 200) {
-      alert('Registration successful!');
-      navigate('/login'); // Use navigate to redirect to the login page
+    if (response.data.message === "User Registered Successfully") {
+      toast.info('User registered successfully');
+      navigate('/login'); 
     }
-    else if(response.status === 400){
-      alert('User is already registered please login');
+    else if(response.data.message === "User already exist please login"){
+      toast.info('User already exist please login');
     }
      else {
-      alert('Registration failed. Please try again.');
+      toast.info('Internal server error');
     }
   } catch (error) {
     console.error('Error during registration:', error);
-    alert('An error occurred during registration. Please try again.');
+    toast.info('An error occurred during registration');
   }
 };
 
@@ -142,46 +148,7 @@ const handleRegister = async () => {
                 </div>
               </div>
             </div>
-            <div className="flex -mx-3">
-              <div className="w-full px-3 mb-5">
-                <label htmlFor="role" className="text-xs font-semibold px-1">
-                  Role
-                </label>
-                <div className="flex">
-                  
-                  <select
-                    id="role"
-                    name="role"
-                    onChange={handleChange}
-                    className="w-full pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                  >
-                    <option value="User">User</option>
-                    <option value="teacher">Teacher</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            {formData.role === 'teacher' && (
-        <div className="flex -mx-3">
-          <div className="w-full px-3 mb-5">
-            <label htmlFor="adminData" className="text-xs font-semibold px-1">
-              Resume
-            </label>
-            <div className="flex">
-              
-              <input
-                type="file"
-                id="adminData"
-                accept="image/*"
-                name="resume"
-                className="w-full pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                placeholder="Select your Resume"
-                onChange={handleResumeChange}
-              />
-            </div>
-          </div>
-        </div>
-      )}
+           
             <div className="flex -mx-3">
               <div className="w-full px-3 mb-12">
                 <label htmlFor="password" className="text-xs font-semibold px-1">
@@ -201,6 +168,24 @@ const handleRegister = async () => {
               </div>
             </div>
             <div className="flex -mx-3">
+              <div className="w-full px-3 mb-12">
+                <label htmlFor="password" className="text-xs font-semibold px-1">
+                 Confirm Password
+                </label>
+                <div className="flex">
+                  
+                  <input
+                    type="password"
+                    id="password"
+                    name="confirmPassword"
+                    className="w-full pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                    placeholder="******"
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="flex -mx-3">
               <div className="w-full px-3 mb-5">
                 <button
                   className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
@@ -210,6 +195,12 @@ const handleRegister = async () => {
                   REGISTER NOW
                 </button>
               </div>
+            </div>
+            <div className="font-bold text-red-400 text-xl">
+                Register as a <a href='/becomeInstructor'>Instructor</a>
+            </div>
+            <div className="font-bold text-blue-400 mt-3">
+                Already Register <a href='/login'>Sign in</a>
             </div>
           </div>
         </div>

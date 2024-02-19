@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify'; // Import toast from toastify-js
+
 // import './Signup.css';
 import 'react-toastify/dist/ReactToastify.css';
 import signup from '../../images/signup1.jpg';
 import { Input } from '@mui/base';
+import { toast } from 'react-toastify';
 
 const BecomeInstructor = () => {
 
@@ -72,30 +73,30 @@ const handleRegister = async () => {
     formData.password === '' ||
     formData.password.length < 6
   ) {
-    console.log("here comes");
-    alert('Please fill in all fields and ensure the password is at least 6 characters.');
+    
+    toast.info('Please fill all the details');
     return;
   }
 
   try {
-    console.log("Here is coming");
+   
     console.log(formData);
     const response = await axios.post('http://localhost:8000/api/v1/teacher/register', formData);
-    console.log(response.message);
+    
     
     if (response.data.success === true) {
-      alert('Registration successful!');
-      navigate('/login'); // Use navigate to redirect to the login page
+      toast.info('Please fill all the details');
+      navigate('/'); // Use navigate to redirect to the login page
     }
     else if(response.data.success === false){
-      alert('User is already registered please login');
+      toast.info('Teacher already exist with this email');
     }
      else {
-      alert('Registration failed. Please try again.');
+      toast.info('Internal server error');
     }
   } catch (error) {
     console.error('Error during registration:', error);
-    alert('An error occurred during registration. Please try again.');
+    toast.info('An error occurred');
   }
 };
 
@@ -398,6 +399,9 @@ const handleRegister = async () => {
             </button>
           </div>
         </div>
+        <div className="font-bold text-blue-400 mt-3">
+                Sign up as a <a href='/register'>User</a>
+            </div>
       </div>
     </div>
   </div>
