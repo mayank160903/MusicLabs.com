@@ -13,11 +13,6 @@ const commentSchema = new Schema({
         required : [true , 'For Comment userId is required'],
 
     },
-
-
-
-    
-
 })
 
 module.exports = mongoose.model('comment', commentSchema);
