@@ -72,7 +72,7 @@ const Homepage = () => {
       </div>
 
       <div className="course-heading">SOME OF OUR COURSES</div>
-      <div className="container text-center" style={{ color: "aliceblue" }}>
+      <div className="container text-center1" style={{ color: "aliceblue" }}>
         <div className="row" id="col1">
           <div className="col">
             <a href="/beginnercoursedesc">

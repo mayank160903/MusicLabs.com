@@ -1,12 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import "./studentProfile.css";
 import Image from "react-bootstrap/Image";
 import PlaceIcon from "@mui/icons-material/Place";
 import EmailIcon from "@mui/icons-material/Email";
 import { Link, NavLink } from "react-router-dom";
 import profileImage from "./teacher_Profile_image copy.png"
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { useEffect } from "react";
 
 const Student = () => {
+  const user = useSelector(state => state.auth)
+  const [courses, setCourses] = useState([]);
+  const [coursesLoading, setCoursesLoading] = useState(true);
+
+  useEffect(()=>{
+    async function getCourseInfo(){
+      if(!user?.isLoggedin){
+        return ;
+      }
+      try {
+        const req = await axios.get(`http://localhost:8000/api/v1/user/your-courses/${user?.id}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.token}`
+          }
+        })
+
+        if(req.status == 200){
+          console.log(req.data)
+          setCourses(req.data.courses)
+          setCoursesLoading(false)
+        }
+      } catch (e){
+        console.log(e)
+      }
+    }
+
+    getCourseInfo();
+      
+   },[])
+
+
   return (
     <>
       {/* <div className="header_container">
@@ -106,23 +141,32 @@ const Student = () => {
           </div>
         </div>
 
-        <div class="upload-heading d-flex justify-content-center align-items-center">
-          <h1>YOUR PURCHASE COURSE</h1>
+        <div className="upload-heading d-flex justify-content-center align-items-center">
+          <h1>YOUR PURCHASED COURSE</h1>
         </div>
-        <div className="container ">
+        <div className="flex flex-row">
+        {!coursesLoading ? ( courses.map((course, index) => {
+        return ( <div className="container" key={course.course._id}>
+          
           <div className="row card_container justify-content-center" id="col1">
-            <div className="col-md-5">
-              <NavLink href="#">
+            <div className="col-md-12">
+              <Link to={`/coursedescription/${course.course._id}`}>
                 <img
                   src="/beginnerpic.jpg"
                   style={{ width: "360px", height: "180px" }}
                   className="grid-element "
-                />
-              </NavLink>
-              <p className="text-white offset-3">Acoustic Blues</p>
+                >
+
+                </img>
+              </Link>
+              <p className="text-black text-center">{course.course.title}</p>
             </div>
           </div>
+        </div>)}
+        )) : ("Loading")
+        }
         </div>
+
       </div>
     </>
   );

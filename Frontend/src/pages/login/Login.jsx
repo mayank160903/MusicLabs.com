@@ -7,6 +7,7 @@ import { login } from '../../store/auth';
 import signup from '../../images/signup1.jpg';
 import { useDispatch } from 'react-redux';
 import OAuth from './GoogleAuth';
+import { toast } from 'react-toastify';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -30,32 +31,42 @@ const LoginForm = () => {
   const handleLogin = async () => {
     try {
       
+      if(loginData.email==='' || loginData.password===''){
+        toast.info('Please fill all the details');
+        return ;
+      }
       setLoading(true)
       const response = await axios.post('http://localhost:8000/api/v1/user/login', loginData);
       setLoading(false)
       console.log(response.data);
       if (response.data.success===true) {
-        // Navigate to the homepage upon successful login
-       alert("Login Successfull");
+        
+        toast.info('Login Successful');
 
         // dispatch(login({firstName : user.firstName , lastName : user.lastName , role : user.role , token : token}));
         console.log(response.data);
         const user = response.data.user
         const token = response.data.token;
-        dispatch(login({firstName : user.firstName , lastName : user.lastName , role : user.role , token : token, email : user.email, id : user._id}));
+        dispatch(login({firstName : user.firstName , 
+                        lastName : user.lastName , 
+                        role : user.role , 
+                        token : token, 
+                        email : user.email, 
+                        id : user._id,
+                        wishlist : user.wishlist,
+                        courses : user.courses}));
 
         navigate('/');
       } else if(response.data.success===false) {
-        // Handle other cases, e.g., display an error message
-        // navigate('/')
-        alert("Your details didn't match");
+  
+        toast.info("Your details didn't match");
         console.error('Login failed:', response.data.message);
       }
     } catch (error) {
       // navigate('/')
       // console.error('Error during login:', error);
       // Handle error
-      alert("Internal server error");
+      toast.info('Internal Server error');
     }
   };
 
@@ -145,6 +156,12 @@ const LoginForm = () => {
                 </button>
                   <OAuth />
               </div>
+            </div>
+            <div className="font-bold text-blue-400 mt-3">
+                Don't have account <a href='/register'>Sign up</a>
+            </div>
+            <div className="font-bold text-blue-400 mt-3">
+                 <a href='/forgot'>forgot Password</a>
             </div>
           </div>
         </div>

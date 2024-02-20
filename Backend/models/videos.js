@@ -8,12 +8,7 @@ const videoSchema = new mongoose.Schema({
     url :{
         type: String,
         required: [true, 'video is required'],
-    },
-    seen:{
-        type : Boolean,
-        default : false
     }
-
 });
 
 module.exports = mongoose.model('video' , videoSchema);

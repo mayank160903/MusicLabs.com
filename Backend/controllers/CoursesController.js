@@ -3,7 +3,7 @@ const coursesSchema = require('../models/course.js');
 const categorySchema = require('../models/category.js');
 const sectionSchema = require('../models/sections.js');
 const videoSchema = require('../models/videos.js');
-
+const commentSchema = require('../models/comment.js')
 const cloudinary = require("cloudinary").v2;
 const Multer = require("multer");
 const bodyParser = require("body-parser");
@@ -101,6 +101,38 @@ exports.getCourseInfo = async (req,res) => {
         console.log(error);
         return res.status(500).send({success: false, message: "Error while fetching course"});
     }
+}
+
+exports.addComment = async (req,res) => {
+  try{
+    const {courseId, comment, userId} = req.body;
+    const course = await coursesSchema.findById(courseId);
+    if(!course){
+      return res.status(404).send({success: false, message: "Course not found"});
+    }
+    
+    const newComment = await commentSchema.create({comment, userId, courseId});
+    return res.status(200).send({success: true, message: "Comment added successfully"});
+
+  } catch (error){
+    console.log(error);
+    return res.status(500).send({success: false, message: "Error while adding comment"});
+  }
+}
+
+exports.getComments = async (req,res) => {
+  
+  try{
+    const {courseId} = req.body;
+    const comments = await commentSchema.find({courseId}).populate({
+      path: "userId",
+      select: "-password -email -wishlist" 
+  });
+    return res.status(200).send({success: true, message: "Comments fetched successfully", comments});
+  } catch (error){
+    console.log(error);
+    return res.status(500).send({success: false, message: "Error while fetching comments"});
+  }
 }
 
 exports.createCourse = async (req,res) => {

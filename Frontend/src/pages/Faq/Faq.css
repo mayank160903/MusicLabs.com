@@ -1,8 +1,10 @@
 .faq{
-    background-color: black;
+    background-color: whitesmoke;
     margin: 0px;
+    color: black;
     padding: 20px 200px 30px 200px;
 }
+
 p{
     color: white;
     font-size: 20px;
@@ -12,9 +14,7 @@ h1{
     color: white;
     font-family: 'Quicksand', sans-serif;
 }
-big{
-    font-size: 30px;
-}
+
 u{
     color: red;
     cursor: pointer;

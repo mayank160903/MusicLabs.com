@@ -58,7 +58,8 @@
     margin: 0px;
     padding: 0px;
 
-    background-color: #000000;
+    /* background-color: #000000; */
+    background-color: #ffffff;
     background-attachment: fixed;
     background-size: cover;
 
@@ -86,7 +87,7 @@
 }
 
 .btn-button{
-    color: black;
+    color: white;
     height: 50px;
     width: 150px;
    /* color: white; */

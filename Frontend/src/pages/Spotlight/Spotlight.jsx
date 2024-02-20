@@ -1,14 +1,12 @@
-import React from 'react';
+
 import './Spotlight.css';
 import spotlightimg from '../../images/spotlight.jpg';
-import TeacherHeaderTest from '../Header/TeacherHeaderTest';
-import StudentHeaderTest from '../Header/StudentHeaderTest';
 
 const MyComponent = () => {
     return (
         <div style={{ backgroundColor: 'black' }}>
-            <StudentHeaderTest />
-            <TeacherHeaderTest />
+            {/* <StudentHeaderTest />
+            <TeacherHeaderTest /> */}
             <div className="description">
                 <div className="title-text">
                     <h1 className="our-team-header">STUDENT<div style={{ color: 'aqua' }}>SPOTLIGHT</div></h1>

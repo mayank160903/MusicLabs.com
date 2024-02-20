@@ -38,6 +38,7 @@ import CourseUpload from './pages/courseUpload/courseUpload'
 import Teachers_Dashboard from './Teacher Dashboard/Teachers_Dashboard';
 import Dashboard from './admin/Dashboard'
 import Quiz from  './pages/Quiz/Quiz';
+import TeacherDashboard from "./pages/TeacherDashboard/TeacherDashboard";
 import CourseDescription from './pages/CourseDescription/CourseDescription';
 
 
@@ -66,13 +67,14 @@ function App() {
         {path: '/dashboard/admin/Teachers' , element : <AdminTeachers/>},
         {path: '/dashboard/admin/Users' , element : <AdminUsers/>},
         {path: '/wishlist', element: <WishlistPage/>},
+        {path: '/teacher/dashboard', element: <TeacherDashboard/>},
         {path: '/instructor',element:<Instructor/>},
         {path:'/teacher/:id', element:<Teacher/>},
         {path:'/teachereditprofile/:id',element:<TeacherEditProfile/>},
         {path:'/catalogue', element:<Catalogue />},
         {path: '/studenteditprofile', element: <StudentEditProfile/>},
        {path:'/studentprofile', element:<StudentProfile/>},
-        {path: '/checkout', element: <PaymentPage/>},
+        {path: '/checkout/:id', element: <PaymentPage/>},
         // {path: '/query', element: <Query/>},
         {path: '/spotlight', element: <Spotlight/>},
         {path: '/faq', element: <Faq/>},
@@ -83,9 +85,10 @@ function App() {
        
         {path: '/forgot', element: <ForgotPassword/>},
         {path: '/coursedescription/:courseId', element: <CourseDescription/>},
+        
         {path: '/course/:courseId', element: <CourseLayout/>},
-        {path: '/createcourse', element: <CreateCourseLayout/>},
 
+        {path: '/createcourse', element: <CreateCourseLayout/>},
         {path: '/createcourse/:courseid', element: <CreateCourseLayout/>},
         {path: '/createcourse/:courseid/:section', element: <CreateCourseLayout/>},
       

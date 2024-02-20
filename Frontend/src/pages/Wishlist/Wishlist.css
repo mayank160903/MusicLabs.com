@@ -37,9 +37,10 @@
     
     .rightpanel{
         width: 76%;
-        min-width: 820px;
+        min-width: 584px;
         background-color: #0f0707;
         border: none;
+        margin: 0 auto;
     }
     
     .spaceline{
@@ -109,8 +110,9 @@
         color: rgb(192, 186, 178);
         display: flex;
         align-self: center;
+        justify-self: center;
         padding: 3rem;
-        margin-top: 3rem;
+        margin-top: 10%;
     
     }
     .teacher{
@@ -206,7 +208,7 @@
         position: relative;
         display: inline-block;
         align-items: flex-end;
-        padding-bottom: 4px;
+        padding-bottom: 12px;
         margin-top: auto;
       }
     
@@ -232,12 +234,12 @@
         font-size: 16px;
     }
     
-    
+/*     
     .buy-now{
          position: relative;
          display: inline-block;
          
-    }
+    } */
     
     
     .add-to-cart {
