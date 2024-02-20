@@ -94,16 +94,16 @@ function WishlistPage(){
     }
 
 
-    async function getCourseProgress(){
-      const data = {'userId':user.id}
-      const response = await axios.post(`http://localhost:8000/api/v1/user/course/get-all-progress`, data , 
-       { headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
-      }
-    )
-    }
+    // async function getCourseProgress(){
+    //   const data = {'userId':user.id}
+    //   const response = await axios.post(`http://localhost:8000/api/v1/user/course/get-all-progress`, data , 
+    //    { headers: {
+    //       'Content-Type': 'application/json',
+    //       'Authorization': `Bearer ${localStorage.getItem('token')}`
+    //   }
+    //   }
+    // )
+    // }
 
  
 

@@ -675,9 +675,9 @@ const CourseDetails = () => {
                       </form>
 
                       <div>
-                        {courseComments?.map((comment)=>{
+                        {courseComments && courseComments?.map((comment)=>{
                           return (<div key={comment._id} className='text-slate-950 border-2 p-2 mt-2 border-violet-900 rounded-xl'>
-                          <div className='ml-5'>
+                          <div className='ml-5 '>
                           {comment.comment}
                           </div>
                           </div>)
