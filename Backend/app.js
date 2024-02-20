@@ -1,3 +1,16 @@
+const bodyParser = require("body-parser");
+const dotenv = require('dotenv');
+const cors  = require('cors');
+const fileUpload = require('express-fileupload');
+const path = require('path');
+const morgan=require('morgan')
+let rfs=require('rotating-file-stream');
+
+
+
+
+const express = require('express');
+
 
 const userSchema = require("./models/user.js");
 const contactSchema = require("./models/contact.js");
@@ -5,18 +18,18 @@ const teacherSchema = require(__dirname + "/models/teacher.js");
 const coursesSchema = require(__dirname + "/models/course.js");
 const sectionSchema = require(__dirname + "/models/sections.js");
 // const userRoute = require('./routes/UserRoutes.js');
-const bodyParser = require("body-parser");
-const dotenv = require('dotenv');
-const cors  = require('cors');
-const fileUpload = require('express-fileupload');
 
-dotenv.config();
+// const helmet=require('helmet');
 
-const express = require('express');
+// app.use(helmet())
 
 
 const app = express();
+let accessLogStream=rfs.createStream("access.log",{interval:'1d',path:path.join(__dirname,'log')})
+app.use(morgan('combined',{stream:accessLogStream}))
 
+
+dotenv.config();
 app.use(fileUpload());
 
 const AuthRoutes = require("./routes/AuthRoutes.js");
