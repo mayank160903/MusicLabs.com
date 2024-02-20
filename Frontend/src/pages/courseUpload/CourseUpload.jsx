@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
+import ImageUpload from '../../components/ImageUpload/ImageUpload';
 
 const CourseUpload = () => {
 
@@ -21,6 +22,7 @@ const CourseUpload = () => {
         formData.append('teacherId', teacher.id);
         formData.append('category',e.target.category.value);
         formData.append('price',e.target.price.value);
+        formData.append('Cover Photo', e.target.cover.value);
         console.log(formData);
 
         const response = await axios.post('http://localhost:8000/api/course/createcourse',formData);
@@ -104,6 +106,9 @@ const CourseUpload = () => {
         Set Price
       </label>
       <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" placeholder="" name='price' />
+    </div>
+    <div>
+      <ImageUpload center name="cover" id="image" onInput={submitFormHandler} />
     </div>
   </div>
     <div className='flex justify-end'>

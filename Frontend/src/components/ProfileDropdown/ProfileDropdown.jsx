@@ -13,7 +13,7 @@ const Dropdown = () => {
   };
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block z-50">
       {/* Dropdown toggle button */}
       <button
         onClick={toggleDropdown}
@@ -40,7 +40,7 @@ const Dropdown = () => {
       {isOpen && (
         <div
           onClick={closeDropdown}
-          className="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
+          className="absolute right-0 z-1000 w-56 py-2 mt-2  origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800 overflow-hidden"
         >
 
 <Link to="/teacher/:id" class="flex items-center p-1 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
