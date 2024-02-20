@@ -63,7 +63,7 @@ export default function StudentHeaderTest() {
           <Link to="/dashboard" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Our Instructors
           </Link>
-          <Link to="/courseUpload" className="text-sm p-2 font-semibold leading-6 text-slate-950">
+          <Link to="/faq" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             FAQs
           </Link>
           <Link to="/ContactUs" className="text-sm p-2 font-semibold leading-6 text-slate-950">
