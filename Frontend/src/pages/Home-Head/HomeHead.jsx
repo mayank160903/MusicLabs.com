@@ -15,17 +15,15 @@ const links = [
   
   export default function HomeHead() {
     return (
-      <div className="   bg-gray-900 py-24 sm:py-32 w-100 bg-[url('bg')] "    style={{backgroundImage:bg}} >
-        {/* <img style={{opacity: 0.45}}
+      <div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32">
+        <img style={{opacity: 0.45}}
           src={bg}
           alt=""
-          
-          className=" inset-0 z-10  h-full w-full object-cover object-right md:object-center"
-        /> */}
+          className="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center"
+        />
         <div
-          className=" sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
-          
-       
+          className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
+          aria-hidden="true"
         >
           <div
             className="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff55f1] to-[#a40882] opacity-20"
