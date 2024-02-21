@@ -64,6 +64,24 @@ exports.registerController = async (req, res) => {
       }
   }
 
+  exports.getSingleTeacher = async(req , res) =>{
+
+    try{
+      const id = req.params.id;
+      console.log(id);
+      const teacher = await teacherSchema.findById(id);
+
+
+      return res.status(200).send({success : true , message : "teacher details" , teacher});
+
+    }
+    catch(error){
+
+        return res.status(500).send({success : false , message : "Internal server error"});
+    }
+
+  }
+
   exports.updateRequest = async (req, res) => {
     try {
       const  id  = req.params.id; // Assuming the teacher ID is passed as a parameter in the request

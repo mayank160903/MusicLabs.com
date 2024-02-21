@@ -7,6 +7,8 @@ import
 
 function Sidebar({openSidebarToggle, OpenSidebar}) {
     // to='/dashboard/admin/query'
+
+    //dashboard/admincourses
   return (
     <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive": ""}>
         <div className='sidebar-title'>
@@ -25,10 +27,10 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
                 </a>
             </li>
             <li className='sidebar-list-item'>
-                <a href="" className="flex items-center">
+                <Link  to='/dashboard/admincourses' className="flex items-center">
                     <BsFillArchiveFill className='icon'/>
                      <span className="ml-2"> Courses </span>
-                </a>
+                </Link>
             </li>
             <li className='sidebar-list-item'>
                 <a href="" className="flex items-center">
