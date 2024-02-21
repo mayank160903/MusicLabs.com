@@ -169,6 +169,7 @@ exports.createCourse = async (req,res) => {
 
 }
 
+
 exports.addSection = async (req,res) => {
     try{
         const {courseId, sectionName} = req.body;
@@ -274,5 +275,22 @@ exports.editVideoTitleHandler = async (req,res) => {
     return res.status(500).send({success: false, message: "Error while updating video"});
   }
 
+
+}
+
+
+exports.getCourse = async(req , res) =>{
+  try{
+    const id = req.params.id;
+    const cid = id.slice(1);
+   
+    const course = await coursesSchema.findById(cid);
+    
+    return res.status(200).send({success : true , message : "Course Details" , course});
+
+  }
+  catch(error){
+      return res.status(500).send({success : false , message : "Internal server error" });
+  }
 
 }

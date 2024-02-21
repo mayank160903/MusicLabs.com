@@ -1,5 +1,5 @@
 const express = require("express");
-const { getSignature, createCourse, getCourseInfo, addSection, addVideoContent, editSectionHandler, deleteSectionHandler, deleteVideoContent, editVideoTitleHandler, getCourseDescription, addComment, getComments } = require("../controllers/CoursesController");
+const { getSignature, createCourse, getCourseInfo, addSection, addVideoContent, editSectionHandler, deleteSectionHandler, deleteVideoContent, editVideoTitleHandler, getCourseDescription, addComment, getComments , getCourse } = require("../controllers/CoursesController");
 const router = express.Router();
 const Multer = require("multer");
 const bodyParser = require("body-parser");
@@ -45,5 +45,7 @@ router.post('/deletesection', deleteSectionHandler);
 
 router.get('/description/:courseId', getCourseDescription)
 router.get('/:courseId', getCourseInfo);
+
+router.get('/singlecourse/:id', getCourse);
 
 module.exports = router;
