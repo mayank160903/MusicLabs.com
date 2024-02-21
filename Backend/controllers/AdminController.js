@@ -1,145 +1,174 @@
-const contactModel  = require('../models/contact.js');
+const contactModel = require("../models/contact.js");
 
-const courseModel = require('../models/course.js');
+const courseModel = require("../models/course.js");
 
-const teacherModel = require('../models/teacher.js') 
+const teacherModel = require("../models/teacher.js");
 
-const userModel = require('../models/user.js');
+const userModel = require("../models/user.js");
 
+exports.getAllQuery = async (req, res) => {
+  try {
+    const query = await contactModel.find({});
 
-exports.getAllQuery = async(req , res) =>{
-    try{
-        const query = await contactModel.find({});
+    return res
+      .status(201)
+      .send({ success: true, message: "All queryies", query });
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ success: false, message: "Error while querying" });
+  }
+};
 
-        return res.status(201).send({success : true , message : "All queryies" , query});
+exports.createQuery = async (req, res) => {
+  try {
+    const { firstName, lastName, email, message } = req.body;
 
-    }catch(error){
-
-        return res.status(500).send({success : false , message : "Error while querying"});
+    if (!firstName || !lastName || !email || !password || !message) {
+      return res
+        .status(409)
+        .send({ success: false, message: " Please fill all the details" });
     }
-}
+    const contact = await new contactModel({
+      firstName,
+      lastName,
+      email,
+      message,
+    }).save();
 
-exports.createQuery = async(req , res) =>{
-    try{
-        const {firstName , lastName , email , message } = req.body;
+    return res
+      .status(201)
+      .send({ success: true, message: "Query created Successfully", contact });
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ success: false, message: "Error while creating query" });
+  }
+};
 
-        if(!firstName || !lastName || !email || !password || !message){
-            return res.status(409).send({success : false , message : " Please fill all the details"});
+exports.deleteController = async (req, res) => {
+  try {
+    const id = req.param.id;
+    const qid = id.slice(1);
+    const query = await contactModel.findByIdAndDelete(id);
 
-        }
-        const contact = await new contactModel({firstName , lastName , email , message}).save();
+    return res
+      .status(201)
+      .send({ success: true, message: "Query deleted successfully " });
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ success: false, message: "Error while deleting query" });
+  }
+};
 
-        return res.status(201).send({success : true ,message : "Query created Successfully" , contact});
+exports.getAllCourses = async (req, res) => {
+  try {
+    const courses = await courseModel.find({});
 
-    }
-    catch(error){
+    return res
+      .status(201)
+      .send({ success: true, message: "All courses", courses });
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ success: false, message: "Error while getting all courses" });
+  }
+};
 
-        return res.status(500).send({success : false , message : "Error while creating query"});
-    }
+exports.deleteCourses = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const cid = id.slice(1);
 
-}
+    const course = await courseModel.findByIdAndDelete(cid);
 
-exports.deleteController = async(req , res) =>{
-    try{
-        const id = req.param.id;
-        const qid = id.slice(1);
-        const query = await contactModel.findByIdAndDelete(id);
+    return res
+      .status(201)
+      .send({ success: true, message: "Course Deleted Successfully", course });
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ success: false, message: "Error while deleting the courses" });
+  }
+};
 
-        return res.status(201).send({success : true , message : "Query deleted successfully "})
+exports.getAllTeachers = async (req, res) => {
+  const { query } = req.query;
 
+  try {
+    let result;
 
-    }
-    catch(error){
-        return res.status(500).send({success : false , message : "Error while deleting query"});
-    }
-
-}
-
-exports.getAllCourses = async(req , res) =>{
-    try{
-        const courses = await courseModel.find({});
-
-        return  res.status(201).send({success : true , message : "All courses" , courses});
-    }
-    catch(error){
-        return res.status(500).send({success : false , message : "Error while getting all courses"});
-    }
-
-}
-
-
-exports.deleteCourses = async(req , res) =>{
-
-    try{
-        const id = req.params.id;
-        const cid = id.slice(1);
-
-        const course = await courseModel.findByIdAndDelete(cid);
-
-        return res.status(201).send({success : true , message : "Course Deleted Successfully" , course});
-    }
-    catch(error){
-
-        return res.status(500).send({success : false , message :  "Error while deleting the courses"});
-    }
-}
-
-exports.getAllTeachers = async(req , res) =>{
-
-    const { query } = req.query;
-
-    try {
-      let result;
-  
-      if (query) {
-        result = await teacherModel.find({
-          $or: [
-            { firstName: { $regex: query, $options: 'i' } },
-            { lastName: { $regex: query, $options: 'i' } },
-            { email: { $regex: query, $options: 'i' } },
-          ],
-        });
-      } else {
-        
-        result = await teacherModel.find({});
-      }
-  
-      return res.status(200).send({success : true , message : "List of Teachers"  , teachers : result});
-    } catch (error) {
-      console.error('Error searching users:', error);
-      return res.status(500).send({success : false , message : "Error while getting list of teachers"});
-    }
-}
-
-exports.getAllUsers = async(req , res) =>{
-
-    const { query } = req.query;
-
-    try {
-      let result;
-  
-      if (query) {
-        result = await userModel.find({
-          $or: [
-            { firstName: { $regex: query, $options: 'i' } },
-            { lastName: { $regex: query, $options: 'i' } },
-            { email: { $regex: query, $options: 'i' } },
-          ],
-        });
-      } else {
-       
-        result = await userModel.find({});
-      }
-  
-      return res.status(200).send({success : true , message : "List of Users"  , users : result});
-    } catch (error) {
-      console.error('Error searching users:', error);
-      return res.status(500).send({success : false , message : "Error while getting list of users"});
+    if (query) {
+      result = await teacherModel.find({
+        $or: [
+          { firstName: { $regex: query, $options: "i" } },
+          { lastName: { $regex: query, $options: "i" } },
+          { email: { $regex: query, $options: "i" } },
+        ],
+      });
+    } else {
+      result = await teacherModel.find({});
     }
 
-}
+    return res
+      .status(200)
+      .send({ success: true, message: "List of Teachers", teachers: result });
+  } catch (error) {
+    console.error("Error searching users:", error);
+    return res
+      .status(500)
+      .send({
+        success: false,
+        message: "Error while getting list of teachers",
+      });
+  }
+};
 
+exports.getAllUsers = async (req, res) => {
+  const { query } = req.query;
 
+  try {
+    let result;
 
+    if (query) {
+      result = await userModel.find({
+        $or: [
+          { firstName: { $regex: query, $options: "i" } },
+          { lastName: { $regex: query, $options: "i" } },
+          { email: { $regex: query, $options: "i" } },
+        ],
+      });
+    } else {
+      result = await userModel.find({});
+    }
 
+    return res
+      .status(200)
+      .send({ success: true, message: "List of Users", users: result });
+  } catch (error) {
+    console.error("Error searching users:", error);
+    return res
+      .status(500)
+      .send({ success: false, message: "Error while getting list of users" });
+  }
+};
 
+exports.getAllCourses = async (req, res) => {
+  try {
+    console.log("comes");
+    const courses = await courseModel
+      .find({})
+      // .populate("teachers", "firstName")
+      // .populate("categorys", "name");
+    // console.log(courses);
+    console.log("comes here");
+    return res
+      .status(200)
+      .send({ success: true, message: "List of courses", courses });  
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ success: false, message: "Internal server error " });
+  }
+};
