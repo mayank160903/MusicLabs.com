@@ -17,7 +17,7 @@ import Faq from './pages/Faq/Faq'
 import StudentProfile from './pages/StudentProfile/StudentProfile';
 import SigninSignupForm from './pages/Signup/Signup';
 import BecomeInstructor from './pages/BecomeInstructor/BecomeInstructor';
-
+import AdminCourses from './dashboard/AdminCourses';
 import AdminQuery from './dashboard/AdminQuery';
 import Certificate from './pages/Certificate/Certificate';
 import AdminAcceptance from './dashboard/AdminAcceptance';
@@ -39,8 +39,8 @@ import Teachers_Dashboard from './Teacher Dashboard/Teachers_Dashboard';
 import Dashboard from './admin/Dashboard'
 import Quiz from  './pages/Quiz/Quiz';
 import TeacherDashboard from "./pages/TeacherDashboard/TeacherDashboard";
-import CourseDescription from './pages/CourseDescription/CourseDescription';
-
+import CourseDescription from './pages/CourseDescription/CourseDescription'
+import SingleCourse from  './dashboard/SingleCourse'; 
 
 
 function App() {
@@ -64,6 +64,7 @@ function App() {
         {path : '/dashboard/admin/query' , element : <AdminQuery/>},
         {path:'/dashboard', element:<AdminDashboard/>},
         {path: '/dashboard/admin/accept' , element : <AdminAcceptance/>},
+        {path: '/dashboard/admincourses' , element : <AdminCourses/>},
         {path: '/dashboard/admin/Teachers' , element : <AdminTeachers/>},
         {path: '/dashboard/admin/Users' , element : <AdminUsers/>},
         {path: '/wishlist', element: <WishlistPage/>},
@@ -87,7 +88,7 @@ function App() {
         {path: '/coursedescription/:courseId', element: <CourseDescription/>},
         
         {path: '/course/:courseId', element: <CourseLayout/>},
-
+        {path: '/dashboard/admincourses/admin/courses/:courseId' ,  element: <SingleCourse /> },
         {path: '/createcourse', element: <CreateCourseLayout/>},
         {path: '/createcourse/:courseid', element: <CreateCourseLayout/>},
         {path: '/createcourse/:courseid/:section', element: <CreateCourseLayout/>},
