@@ -19,12 +19,13 @@ const coursesSchema = require(__dirname + "/models/course.js");
 const sectionSchema = require(__dirname + "/models/sections.js");
 // const userRoute = require('./routes/UserRoutes.js');
 
-// const helmet=require('helmet');
 
+// const helmet=require('helmet');
 // app.use(helmet())
 
 
 const app = express();
+
 let accessLogStream=rfs.createStream("access.log",{interval:'1d',path:path.join(__dirname,'log')})
 app.use(morgan('combined',{stream:accessLogStream}))
 
