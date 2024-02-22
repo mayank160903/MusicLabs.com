@@ -6,7 +6,7 @@ import webFont from "webfontloader";
 import { Divider } from '@mui/material';
 import { NavLink } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
-
+import course1 from "../../images/beginnerpic.jpg";
 const responsive = {
     desktop: {
         breakpoint: { max: 3000, min: 1024 },
@@ -73,20 +73,20 @@ const Slide = ({ title, products }) => {
                 {
                     products.map((e) => {
                         return (
-                            <NavLink to={`/getproductsone/${e.id}`}>
+                            <NavLink to={`/coursedescription/${e._id}`}>
                                 <div className="products_items">
                                     <div className="product_img">
-                                        <img className='h-50 w-150' src={e.url} alt="product" />
+                                        <img className='h-50 w-150' src={course1} alt="product" />
                                     </div>
-                                    <p className="products_name">{e.description}</p>
-                                    <p className="products_offer" style={{ color: "#  007185" }}>{e.producttitle}</p>
+                                    <p className="products_name">{e.description.length > 20 ? `${e.description.slice(0, 20)}...` : e.description}</p>
+                                    <p className="products_offer" style={{ color: "#  007185" }}>{e.title}</p>
 
                                     <div className="detailsBlock-2">
                                         <Rating {...options} />
                                         <span>(500)</span>
                                     </div>
                                     <div className="detailsBlock-3">
-                                        <h1>₹$400</h1>
+                                        <h1>₹${e.price}</h1>
                                     </div>
                                     
 

@@ -6,14 +6,38 @@ import c3 from '../../images/carousel-3.jpg';
 import anatomy from '../../images/song-lesson-pic.png';
 import products from './productdata';
 import Slide from './Slide';
+import axios from 'axios';
+
 
 import './Catalogue.css';
+import react, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router';
 import CataMonial from '../../components/CataMonial/CataMonial';
 import SearchEngine from '../../components/Search/SearchEngine';
 
 const Catalogue = (props) => {
     const navigate = useNavigate();
+
+    const [courses, setCourses] = useState([]);
+    useEffect(() => {
+      const fetchCourses = async () => {
+        try {
+          const response = await axios.get(
+            "http://localhost:8000/api/v1/admin/allcourses"
+          );
+          setCourses(response.data.courses);
+          // console.log("courseslength")
+          console.log(courses.length);
+          console.log(courses);
+        } catch (error) {
+          console.error("Error fetching courses:", error);
+        }
+      };
+  
+      fetchCourses();
+    }, []);
+
+
     const customStyle = {
         height: '800px',
         width: '1500px',
@@ -73,11 +97,11 @@ const Catalogue = (props) => {
                     </nav>
                     
                     <div className='home_section p-2 mr-3 bg-fuchsia-200'>
-                      <Slide title="MUSIC THEORY" products={products}/>
+                      <Slide title="MUSIC THEORY" products={courses}/>
 
-                      <Slide title="MUSIC THEORY" products={products}/>
+                      <Slide title="MUSIC THEORY" products={courses}/>
 
-                      <Slide title="MUSIC THEORY" products={products}/>
+                      <Slide title="MUSIC THEORY" products={courses}/>
                     </div>
                     <hr />
                     <div className="bg-fuchsia-200">
