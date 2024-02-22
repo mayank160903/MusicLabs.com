@@ -49,6 +49,9 @@ exports.registerController = async (req, res) => {
   };
 
 
+  
+
+
   exports.listOfTeachers = async(req , res) =>{
       try{
           const teachers = await teacherSchema.find({isApproved : false});
@@ -68,9 +71,10 @@ exports.registerController = async (req, res) => {
 
     try{
       const id = req.params.id;
-      console.log(id);
+      // console.log(id);
+      // console.log(typeof id);
       const teacher = await teacherSchema.findById(id);
-
+      console.log(teacher);
 
       return res.status(200).send({success : true , message : "teacher details" , teacher});
 
