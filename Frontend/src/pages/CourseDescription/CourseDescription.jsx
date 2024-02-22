@@ -57,15 +57,15 @@ const CourseDetails = () => {
  
 
     useEffect(() => {
-      if(user.isLoggedin == false){
+      if(user?.isLoggedin == false){
         setIsPurchased(false);
         setIsWishlisted(false);
         return ;
       }
-      if(user.wishlist.find(course => course._id === params.courseId)){
+      if(user?.wishlist?.find(course => course._id === params.courseId)){
         setIsWishlisted(true);
       }
-      console.log(user.courses)
+      console.log(user?.courses)
       if(user?.courses?.find(course => course?.course?._id === params.courseId)){
         setIsPurchased(true);
       }
@@ -73,7 +73,7 @@ const CourseDetails = () => {
         setIsPurchased(false);
         setIsWishlisted(false);
       }
-    },[user.wishlist, user.courses, user.isLoggedin])
+    },[user?.wishlist, user?.courses, user?.isLoggedin])
     
     useEffect(() => {
       async function getCourseInfo() {
@@ -115,7 +115,7 @@ const CourseDetails = () => {
 
 
     async function addToWishlist(){
-      if(user.isLoggedin == false){
+      if(user?.isLoggedin == false){
         toast.info('Please Login to add to wishlist');
         navigate('/login');
         return ;
@@ -130,12 +130,12 @@ const CourseDetails = () => {
       }
       try {
         const req = await axios.post('http://localhost:8000/api/v1/user/add-to-wl', {
-          userId: user.id,
+          userId: user?.id,
           courseId: params.courseId
         }, {
           headers: {
-            'x-auth-token': user.token,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': user.token,
           }
 
         })
@@ -152,6 +152,11 @@ const CourseDetails = () => {
     }
 
     function purchaseCourseHandler(){
+      if(!user?.isLoggedin){
+        toast.error("Please Login to Buy Course")
+        navigate('/login')
+        return ;
+      }
       if(isPurchased){
         navigate(`/course/${params.courseId}`)
       } else {
@@ -169,7 +174,7 @@ const CourseDetails = () => {
         const request = await axios.post('http://localhost:8000/api/course/add-comment', {
           courseId: params.courseId,
           comment: comment,
-          userId: user.id
+          userId: user?.id
         })
 
         if(request.status === 200){

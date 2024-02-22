@@ -130,19 +130,21 @@ exports.deleteController = async (req, res) => {
   }
 };
 
-exports.getAllCourses = async (req, res) => {
-  try {
-    const courses = await courseModel.find({});
+// exports.getAllCourses = async (req, res) => {
+//   try {
+//     const courses = await courseModel.find({});
 
-    return res
-      .status(201)
-      .send({ success: true, message: "All courses", courses });
-  } catch (error) {
-    return res
-      .status(500)
-      .send({ success: false, message: "Error while getting all courses" });
-  }
-};
+//     console.log(courses);
+//     consol.log(courses.length);
+//     return res
+//       .status(201)
+//       .send({ success: true, message: "All courses", courses });
+//   } catch (error) {
+//     return res
+//       .status(500)
+//       .send({ success: false, message: "Error while getting all courses" });
+//   }
+// };
 
 exports.deleteCourses = async (req, res) => {
   try {
@@ -231,6 +233,8 @@ exports.getAllCourses = async (req, res) => {
       // .populate("categorys", "name");
     // console.log(courses);
     console.log("comes here");
+    console.log(courses);
+    console.log(courses.length)
     return res
       .status(200)
       .send({ success: true, message: "List of courses", courses });  

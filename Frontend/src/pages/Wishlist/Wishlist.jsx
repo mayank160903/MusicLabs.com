@@ -41,7 +41,7 @@ function WishlistPage(){
         const req = await axios.get(`http://localhost:8000/api/v1/user/your-courses/${user?.id}`, {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${user.token}`
+            'Authorization': user?.token
           }
         })
 
@@ -78,7 +78,7 @@ function WishlistPage(){
         {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${user.token}`
+            'Authorization': `${user.token}`
       }}) 
 
       if(req.status === 200){
@@ -255,15 +255,15 @@ function WishlistPage(){
                           <div className="" id="wishlist-count">
                             {" "}
                             {mode === "wish"
-                              ? `Your Wishlist (${user.wishlist.length})`
-                              : `Your Courses (${user.courses.length})`}
+                              ? `Your Wishlist (${user?.wishlist?.length})`
+                              : `Your Courses (${user?.courses?.length})`}
                           </div>
                         </div>
 
                         <div className="overflow-auto max-h-[70vh]">
                           {mode === "wish" ? (
-                            user.wishlist.length != 0 ? (
-                              user.wishlist.map((wishitem) => {
+                            user?.wishlist.length != 0 ? (
+                              user?.wishlist.map((wishitem) => {
                                 return (
                                   <div
                                     key={wishitem._id}

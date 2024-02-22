@@ -12,36 +12,30 @@ const {InstructorDataController} = require('../controllers/InstructorController.
 const { AddToWishlist, RemoveWishlist, getWishlist, createQuery, purchaseCourse, updateCourseProgress, getCourseProgress, getYourCourses } = require("../controllers/USerController.js");
 const { getTeacherAndCourses } = require('../controllers/TeacherProfileController.js');
 const {updateTeacherProfile} = require('../controllers/TeacherEditProfileController.js');
-const {dashboardTeacherProfile} = require('../controllers/DashboardTeacherProfileController.js');
+const {dashboardTeacherProfile} = require('../controllers/DashboardTeacherProfileController.js')
 const {updateStudentProfile, getStudent} = require('../controllers/StudentEditProfileController');
 
+const { requireSignIn } = require("../middleware/authmiddleware.js");
 
 
 router.get('/wishlist', getWishlist)
-router.get('/your-courses/:id', getYourCourses);
+router.get('/your-courses/:id',requireSignIn, getYourCourses);
 
-router.post('/course/progress', updateCourseProgress)
-router.post('/course/get-progress', getCourseProgress)
-router.post('/course/get-all-progress')
+router.post("/add-to-wl", requireSignIn, AddToWishlist)
+router.post("/remove-wishlist", requireSignIn, RemoveWishlist)
+router.post("/purchase", requireSignIn, purchaseCourse)
 
-router.post("/add-to-wl", AddToWishlist)
-router.post("/remove-wishlist", RemoveWishlist)
 
-router.post("/purchase", purchaseCourse)
-router.post("/contactus", createQuery)
-
+router.post("/contactus",createQuery)
 router.get('/instructorData', InstructorDataController);
 router.get('/teacher/:id', getTeacherAndCourses);
 
 
 
+router.post('/course/progress', updateCourseProgress)
+router.post('/course/get-progress', getCourseProgress)
+router.post('/course/get-all-progress')
 
-
-// cloudinary.config({
-//     cloud_name: process.env.CLOUDNAME,
-//     api_key: process.env.APIKEY,
-//     api_secret: process.env.APISECRET
-// });
 
 
 // // img storage path
@@ -63,10 +57,6 @@ router.get('/teacher/:id', getTeacherAndCourses);
 //     }
 // }
 
-// const upload = multer({
-//     storage:imgconfig,
-//     fileFilter:isImage
-// })
 
 router.put('/teachereditprofile/:id',updateTeacherProfile);
 

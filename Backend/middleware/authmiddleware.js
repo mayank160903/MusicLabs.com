@@ -1,19 +1,25 @@
 
-import JWT from 'jsonwebtoken';
-import userModel from '../models/userModel.js';
+const JWT = require('jsonwebtoken');
+const userModel =  require('../models/user.js');
 
-export const requireSignIn = async(req , res , next) =>{
+exports.requireSignIn = async(req , res , next) =>{
     try{
+        console.log(req.headers)
         const decode = JWT.verify(req.headers.authorization , process.env.JWT_SECRET);
         req.user = decode;
         next();
     }
     catch(error){
+        res.status(401).send({
+            success: false,
+            error, 
+            message: 'Unauthorized Access',
+        })
         console.log(error);
     }
 }
 
-export const isAdmin = async (req , res , next) =>{
+exports.isAdmin = async (req , res , next) =>{
     try{
         const user = await userModel.findById(req.user._id);
         if(user.role!=="Admin"){
