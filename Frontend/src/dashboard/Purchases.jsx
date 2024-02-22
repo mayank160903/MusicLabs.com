@@ -9,31 +9,44 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Button from "@mui/material/Button";
 import { useTheme } from "@mui/material/styles";
+import BasicBars from './Chart';
+import BasicLineChart from './LineCharts';
+import { LineChart } from "recharts";
 
 const Purchases = () => {
   const theme = useTheme();
   const [teachers, setTeachers] = useState([]);
+  const [purchaseData , setPurchaseData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8000/api/v1/admin/teacheruniversalSearch?query=${searchQuery}`
-        );
-        setTeachers(response.data.teachers);
-        console.log(teachers);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+    
+    const fetchPurchaseData = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:8000/api/v1/admin/getpurchases`
+          );
+        
+        setPurchaseData(response.data.purchases);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
 
-    fetchData();
+      fetchPurchaseData();
+    
   }, [searchQuery]);
+   // {purchase.courseId.title}
 
   return (
     <>
-      <h1>This is purchases page</h1>
+      <div className="flex justify-center">
+        <h1 className="font-bold text-4xl text-white">Sales </h1>
+      </div>
 
+    <div className="display flex">
+        <BasicBars />
+        <BasicLineChart />
+    </div>
       <TableContainer
         component={Paper}
         sx={{
@@ -48,83 +61,45 @@ const Purchases = () => {
               <TableCell
                 sx={{ fontSize: "5xl", fontWeight: "bolder", color: "white" }}
               >
-                Name
+                Student Name
               </TableCell>
               <TableCell
                 sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
               >
-                Email
+                Course Name
               </TableCell>
               <TableCell
                 sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
               >
-                Master's
+                Teacher Name
               </TableCell>
               <TableCell
                 sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
               >
-                Experience
+                Date
               </TableCell>
-              <TableCell
-                sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
-              >
-                View Profile
-              </TableCell>
-              <TableCell
-                sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
-              >
-                Actions
-              </TableCell>
+            
             </TableRow>
           </TableHead>
           <TableBody>
-            {teachers.map((teacher) => (
-              <TableRow key={teacher._id}>
-                {/* <TableCell sx={{ color: 'white' }}>{teacher.firstName}&nbsp;{teacher.lastName}</TableCell> */}
+            {purchaseData.map((purchase) => (
+              <TableRow key={purchase._id}>
+                
                 <TableCell sx={{ color: "white" }}>
-                  {teacher.fullname
-                    ? teacher.fullname
-                    : `${teacher.firstName} ${teacher.lastName}`}
+                 {purchase.userId.firstName} &nbsp; {purchase.userId.lastName}
                 </TableCell>
-                <TableCell sx={{ color: "white" }}>{teacher.email}</TableCell>
-                {/* <TableCell sx={{ color: 'white' }}>{teacher.master}</TableCell> */}
+                
+                <TableCell sx={{ color: "white" }}> {purchase.courseId ? purchase.courseId.title : 'Learn Piano'}</TableCell>
+                
                 <TableCell sx={{ color: "white" }}>
-                  {teacher.master ? teacher.master : "Not done"}
+                  {purchase.teachers[0].firstName} &nbsp; {purchase.teachers[0].lastName}
                 </TableCell>
-                {/* <TableCell sx={{ color: 'white' }}>{teacher.experience}</TableCell> */}
+                
+                
                 <TableCell sx={{ color: "white" }}>
-                  {teacher.experience ? teacher.experience : "Not experience"}
+                {purchase.updatedAt.substring(0, 10)}
                 </TableCell>
-                <TableCell>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    sx={{
-                      "&:hover": {
-                        color: "white",
-                        backgroundColor: "#3b82f6",
-                      },
-                    }}
-                    onClick={() => handleViewProfile(teacher._id)}
-                  >
-                    View Profile
-                  </Button>
-                </TableCell>
-                <TableCell>
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    sx={{
-                      "&:hover": {
-                        color: "white",
-                        backgroundColor: "#ef4444",
-                      },
-                    }}
-                    onClick={() => handleViewProfile(teacher._id)}
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
+                
               </TableRow>
             ))}
           </TableBody>
