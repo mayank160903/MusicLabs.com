@@ -37,7 +37,7 @@ function RootLayout(){
             <ToastContainer />
             {/* <Header/> */}
             <div className="relative z-[10]">
-          {showHeader ? (user.role == 'teacher' ? <TeacherHeaderTest/> : (user.role == 'User' ? <StudentHeaderTest/> :<DefaultHeader/>)) : ""}
+          {showHeader ? (user.role == 'Teacher' ? <TeacherHeaderTest/> : (user.role == 'User' ? <StudentHeaderTest/> :<DefaultHeader/>)) : ""}
             </div>
             {/* <Headertest /> */}
             

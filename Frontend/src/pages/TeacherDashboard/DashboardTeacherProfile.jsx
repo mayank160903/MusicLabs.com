@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./teacherProfile.css";
+import "./dashboardteacher.css";
 import { NavLink } from "react-router-dom";
 import PlaceIcon from "@mui/icons-material/Place";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -7,9 +7,13 @@ import EmailIcon from "@mui/icons-material/Email";
 import { useParams } from "react-router";
 import profileImage from "./teacher_Profile_image copy.png";
 import axios from "axios";
+import Slidebar from "./Sidebar";
+import { useSelector } from 'react-redux';
 
-const Teacher = () => {
+const DashboardTeacherProfile = () => {
   const { id } = useParams("");
+
+  const teacher  = useSelector((state) => state.auth);
 
   const [teacherData, setTeacherData] = useState("");
   const [coursesData, setCoursesData] = useState([]);
@@ -17,12 +21,14 @@ const Teacher = () => {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/user/teacher/${id}`,
+        `http://localhost:8000/api/v1/user/dashboardteacherprofile/${id}`,
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
+
+        
       );
       console.log("Response status:", response.status);
 
@@ -49,7 +55,13 @@ const Teacher = () => {
 
   return (
     <>
-      <div className="body_container">
+
+      <div className="dashboarddiv">
+
+
+      <Slidebar teacher={teacher}/>
+
+      <div className="body_container dashboardContainer">
         <div className="container" style={{ marginBottom: "100px" }}>
           <div className="row circle_img">
             <div className="col-10 circle_img_col d-flex align-items-start justify-content-center">
@@ -227,8 +239,8 @@ const Teacher = () => {
         <br />
         <br />
 
-        <div class="upload-heading d-flex justify-content-center align-items-center ml-6">
-          <h1>UPLOADED COURSES</h1>
+        <div class="upload-heading d-flex justify-content-center align-items-center ml-6 text-black">
+          <h1 style={{color:"black"}}>UPLOADED COURSES</h1>
         </div>
 
         {coursesData.length > 0 && (
@@ -254,8 +266,13 @@ const Teacher = () => {
           </div>
         )}
       </div>
+
+      </div>
+
+
+
     </>
   );
 };
 
-export default Teacher;
+export default DashboardTeacherProfile;

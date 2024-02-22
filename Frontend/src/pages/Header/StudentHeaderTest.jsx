@@ -60,7 +60,7 @@ export default function StudentHeaderTest() {
           <Link to="/catalogue" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Catalogue
           </Link>
-          <Link to="/dashboard" className="text-sm p-2 font-semibold leading-6 text-slate-950">
+          <Link to="/instructor" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Our Instructors
           </Link>
           <Link to="/faq" className="text-sm p-2 font-semibold leading-6 text-slate-950">

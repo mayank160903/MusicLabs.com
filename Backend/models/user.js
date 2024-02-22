@@ -7,8 +7,11 @@ const userSchema = new Schema({
   
   
     firstName: { type: String, required: true},
+
     lastName : { type :String , required: true},
+    username: {type:String},
     email: { type: String, required: true },
+    location:{type:String},
     phone: { type: String },
     password: { type: String, required: true },
     
@@ -17,6 +20,15 @@ const userSchema = new Schema({
       default : 'User',
       required : true
     },
+
+    avatar: {
+      url: { type: String },
+      public_id: { type: String },
+    },
+    specialization:{type:String},
+    bio:{type:String},
+    genres:{type:String},
+    upcomingperformance:{type:String},
 
     wishlist: [
         {

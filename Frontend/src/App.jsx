@@ -40,6 +40,9 @@ import Dashboard from './admin/Dashboard'
 import Quiz from  './pages/Quiz/Quiz';
 import TeacherDashboard from "./pages/TeacherDashboard/TeacherDashboard";
 import CourseDescription from './pages/CourseDescription/CourseDescription';
+import StudentList from './pages/TeacherDashboard/StudentList';
+import DashboardTeacherProfile from './pages/TeacherDashboard/DashboardTeacherProfile';
+import StudentReview from './pages/TeacherDashboard/StudentReview';
 
 
 
@@ -68,11 +71,15 @@ function App() {
         {path: '/dashboard/admin/Users' , element : <AdminUsers/>},
         {path: '/wishlist', element: <WishlistPage/>},
         {path: '/teacher/dashboard', element: <TeacherDashboard/>},
+        {path: '/teacher/studentlist/:id', element:<StudentList/>},
+        {path: '/teacher/reviews', element:<StudentReview/>},
+        {path: '/dashboardteacherprofile/:id', element:<DashboardTeacherProfile/>},
+        {path:'/dashboardteacheruploadcourses/:id',element:<CourseUpload/>},
         {path: '/instructor',element:<Instructor/>},
         {path:'/teacher/:id', element:<Teacher/>},
         {path:'/teachereditprofile/:id',element:<TeacherEditProfile/>},
         {path:'/catalogue', element:<Catalogue />},
-        {path: '/studenteditprofile', element: <StudentEditProfile/>},
+        {path: '/studenteditprofile/:id', element: <StudentEditProfile/>},
        {path:'/studentprofile', element:<StudentProfile/>},
         {path: '/checkout/:id', element: <PaymentPage/>},
         // {path: '/query', element: <Query/>},
