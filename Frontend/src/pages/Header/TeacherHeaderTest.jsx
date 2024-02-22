@@ -14,6 +14,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
 import ProfileDropdown from '../../components/ProfileDropdown/ProfileDropdown';
+import { useSelector } from 'react-redux';
 
 const products = [
   { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
@@ -32,6 +33,8 @@ function classNames(...classes) {
 }
 
 export default function TeacherHeaderTest() {
+
+  const user = useSelector(state => state.auth)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -60,7 +63,7 @@ export default function TeacherHeaderTest() {
           <Link to="/catalogue" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Catalogue
           </Link>
-          <Link to="/dashboard" className="text-sm p-2 font-semibold leading-6 text-slate-950">
+          <Link to={`/teacher/dashboard`} className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Dash Board
           </Link>
           <Link to="/courseUpload" className="text-sm p-2 font-semibold leading-6 text-slate-950">
