@@ -36,7 +36,7 @@ export default function Example() {
   return (
     <header className="bg-slate-50 px-3 p-3 relative">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8 sticky top-0" aria-label="Global">
-        <div className="flex lg:flex-1 space-x-1">
+        <div className="flex lg:flex-1 space-x-1 mr-8">
           <Link to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <img className="h-15 pb-2 pr-10 w-auto" src={logo} alt="" />
@@ -71,9 +71,7 @@ export default function Example() {
           <Link to="/spotlight" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Spotlight
           </Link>
-          <Link to="/wishlist" className="text-sm p-2 font-semibold leading-6 text-slate-950">
-            <img src={cartlogo} alt="" />
-          </Link>
+          
           <Link to="/login" className="text-sm bg-black p-2 px-3 font-semibold leading-6 border-solid border-2 border-slate-950 text-slate-50">
             Log In
           </Link>
