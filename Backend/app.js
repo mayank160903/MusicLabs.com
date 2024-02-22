@@ -27,7 +27,7 @@ const sectionSchema = require(__dirname + "/models/sections.js");
 const app = express();
 
 let accessLogStream=rfs.createStream("access.log",{interval:'1d',path:path.join(__dirname,'log')})
-app.use(morgan('combined',{stream:accessLogStream}))
+app.use(morgan(':date[iso] :method :url :status :response-time ms', { stream: accessLogStream}));
 
 app.use('/images',express.static(__dirname+'/images'));
 
