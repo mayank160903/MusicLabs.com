@@ -12,6 +12,7 @@ const Courses = () => {
           "http://localhost:8000/api/v1/admin/allcourses"
         );
         setCourses(response.data.courses);
+        console.log("here");
         console.log(courses);
       } catch (error) {
         console.error("Error fetching courses:", error);
