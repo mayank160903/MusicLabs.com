@@ -1,11 +1,19 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../store/auth';
+
+
+function capitalizeFirstLetter(string) {
+  if(string){
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+}
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
+  const user = useSelector(state => state.auth)
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -18,13 +26,13 @@ const Dropdown = () => {
     dispatch(logout());
   }
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block z-50">
       {/* Dropdown toggle button */}
       <button
         onClick={toggleDropdown}
         className="relative z-10 flex items-center p-2 text-sm text-gray-600 bg-white border border-transparent rounded-md focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:text-white dark:bg-gray-800 focus:outline-none"
       >
-        <span className="mx-1">Jane Doe</span>
+        <span className="mx-1">{capitalizeFirstLetter(user?.firstName) + " " + capitalizeFirstLetter(user?.lastName)}</span>
         <svg
           className="w-5 h-5 mx-1"
           viewBox="0 0 24 24"
@@ -45,14 +53,14 @@ const Dropdown = () => {
       {isOpen && (
         <div
           onClick={closeDropdown}
-          className="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
+          className="absolute right-0 z-1000 w-56 py-2 mt-2  origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800 overflow-hidden"
         >
 
-<Link to="/teacher/:id" class="flex items-center p-1 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
-            <img class="flex-shrink-0 object-cover mx-2 rounded-full w-11 h-11" src="https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8d29tYW4lMjBibHVlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=face&w=500&q=200" alt="jane avatar" />
+<Link to={user?.role?.toLowerCase() == "teacher" ? `/teacher/${user?.id}` : `/studentprofile/${user.id}`} class="flex items-center p-1 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+            <img className="flex-shrink-0 object-cover mx-2 rounded-full w-11 h-11" src="https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8d29tYW4lMjBibHVlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=face&w=500&q=200" alt="jane avatar" />
             <div class="mx-1">
-                <h1 class="text-sm font-semibold text-gray-700 dark:text-gray-200">Jane Doe</h1>
-                <p class="text-sm text-gray-500 dark:text-gray-400">janedoe@exampl.com</p>
+                <h1 class="text-sm font-semibold text-gray-700 dark:text-gray-200">{capitalizeFirstLetter(user?.firstName)}</h1>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{user?.email}</p>
             </div>
         </Link>
         <hr class=" dark:border-gray-700 " />

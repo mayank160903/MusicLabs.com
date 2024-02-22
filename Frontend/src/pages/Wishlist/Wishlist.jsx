@@ -109,7 +109,8 @@ function WishlistPage(){
 
     return (
       <Fragment>
-        <div className="toast-container position-fixed top-0 end-0 p-3">
+        <div className="bg-white">
+        <div className="bg-white toast-container position-fixed top-0 end-0 p-3">
           <div
             className="toast"
             role="alert"
@@ -371,6 +372,7 @@ function WishlistPage(){
               </div>
             </div>
           </div>
+        </div>
         </div>
       </Fragment>
     );

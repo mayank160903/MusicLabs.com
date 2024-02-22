@@ -19,18 +19,20 @@ const coursesSchema = require(__dirname + "/models/course.js");
 const sectionSchema = require(__dirname + "/models/sections.js");
 // const userRoute = require('./routes/UserRoutes.js');
 
-// const helmet=require('helmet');
 
+// const helmet=require('helmet');
 // app.use(helmet())
 
 
 const app = express();
+
 let accessLogStream=rfs.createStream("access.log",{interval:'1d',path:path.join(__dirname,'log')})
-app.use(morgan('combined',{stream:accessLogStream}))
+app.use(morgan(':date[iso] :method :url :status :response-time ms', { stream: accessLogStream}));
+
+app.use('/images',express.static(__dirname+'/images'));
 
 
 dotenv.config();
-app.use(fileUpload());
 
 const AuthRoutes = require("./routes/AuthRoutes.js");
 const UserRoutes = require("./routes/UserRoutes.js");
@@ -48,6 +50,7 @@ const multer = require("multer");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
+
 app.use(bodyParser.raw())
 app.use(cors());
 

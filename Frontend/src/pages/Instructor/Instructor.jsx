@@ -3,6 +3,7 @@ import "./instructor.css";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
+
 const Instructor = () => {
   const [instructordata, setInstructorData] = useState("");
 
@@ -35,17 +36,12 @@ const Instructor = () => {
   }, []);
 
   return (
-    <>
-      <div className="container-fluid">
+    <div className="bg-fuchsia-200">
+
+      <div className="container-fluid bg-white">
         <div className="row">
           <div className="col-xs-12 banner_img">
             <div className="our-team">
-              <h1 className="our-team-header">
-                LEARN FROM THE
-                <div className="text-animation" style={{ color: "aqua" }}>
-                  BEST GUITAR INSTRUCTORS
-                </div>
-              </h1>
               <p className="our-team-content">
                 If you’re gonna take guitar lessons, why not learn from the
                 best? At Masters Of Music, you can learn
@@ -92,7 +88,7 @@ const Instructor = () => {
                         />
                       </div>
 
-                      <div className="card-body">
+                      <div className="card-body ">
                         <h5 className="card-title text-black mt-3  text-xl">
                           {instructor.firstName + " " + instructor.lastName}
                         </h5>
@@ -123,7 +119,7 @@ const Instructor = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -38,7 +38,7 @@ const StudentList = () => {
         throw new Error("No data available");
       }
 
-      setStudents(response.data);
+      setStudents(response.data.students);
       console.log("Response data:", response.data);
     } catch (error) {
       console.error("Fetch error:", error.message);

@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap'); */
 
 
 
 
-.body-bg {
+/* .body-bg {
     background-color: rgba(190, 159, 199, 0.433);
 
 }
@@ -18,59 +18,59 @@
 
 .centertext-content {
 
-    /* display: flex; */
+    display: flex;
     padding-top: 20px;
     text-align: center;
-    /* margin-right: 50px; */
+    margin-right: 50px;
     color: rgb(144, 204, 241);
     font-family: 'Bruno Ace', cursive;
     font-size: 35px;
-}
+} */
 
 .video_box{
     /* display: flex;
     justify-content: center; */
 }
 
-.centersubtext {
+/* .centersubtext {
     text-shadow: -1px 1px 0 #2928281d,
         1px 1px 0 #2928281d,
         1px -1px 0 #2928281d,
         -1px -1px 0 #2928281d;
     text-align: center;
-    /* margin-right: 25px; */
+    margin-right: 25px;
     color: rgb(208, 59, 59);
-    /* margin-left: 150px; */
+    margin-left: 150px;
     padding: 15px;
     font-family: 'Bruno Ace', cursive;
     font-size: 30px;
 
-}
+} */
 
-.home-login-button {
+/* .home-login-button {
     background-color: #035bc8;
     color: rgb(0, 0, 0);
     border-radius: 30px;
     margin-right: 20px;
     font-size: 11px;
-    /* padding: 5px; */
+    padding: 5px;
     font-family: 'Righteous', cursive;
     font-weight: bold;
     font-family: 'Varela Round', sans-serif;
     transition: .3s ease;
     cursor: pointer;
-}
+} */
 
 .home-login-button:hover {
-    transform:scale(1.17);
+    /* transform:scale(1.17);
     font-size: 12px;
-    background-color: #01ffeac5;
+    background-color: #01ffeac5; */
     /* font-size: 16px; */
 
 }
 
 .button-content{
-    font-family: 'Varela Round', sans-serif;
+    /* font-family: 'Varela Round', sans-serif; */
     /* padding: 15px; */
 }
 
@@ -80,14 +80,14 @@
 }
 
 .centerStyle {
-    display: block;
-    margin-left: auto;
+    /* display: block;
+    margin-left: auto; */
     /* margin-right: auto; */
     /* width: 50%; */
 }
 
 
-
+/* 
 .video-part-home{
     background-color: rgba(190, 159, 199, 0.433);
     display: flex;
@@ -100,12 +100,12 @@
 
      width:480px;  
      height: 560px; 
-     /* padding: 20px;  */
+     padding: 20px; 
  
 }
 
 .our-team-home{
-    /* font-size: 100px; */
+    font-size: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -113,9 +113,9 @@
     margin-top: 150px;
     font-family: 'Quicksand', sans-serif;
     padding: 20px;
-}
+} */
 
-
+/* 
 
 .our-team-header-home{
     font-size: 50px;
@@ -148,13 +148,13 @@
 
 #guitar-icon-nav:hover {
     background: none;
-}
+} */
 
 
 #col1{
     /* padding: 30px; */
 }
-
+/* 
 .grid-element{
    margin: auto;
     transition: .3s ease;
@@ -170,17 +170,17 @@
 
 
 .more-courses{
-    /* padding-right: 10px; */
-    /* margin-right: 10px; */
+    padding-right: 10px;
+    margin-right: 10px;
     background-color: rgba(190, 159, 199, 0.433);
     padding-bottom: 20px;
     text-align: center;
     font-family: 'Quicksand', sans-serif;
     color: white;
     font-size: 15px;
-}
+} */
 
-.text{
+/* .text{
     display: inline-block;
 }
 
@@ -229,23 +229,23 @@
 }
 
 .pre-footer-bg{
-    /* background-image: url(../../images/prefooter.jpeg); */
+    background-image: url(../../images/prefooter.jpeg);
     background-color: rgba(190, 159, 199, 0.433);
 
     background-repeat: no-repeat;
-    /* margin-bottom: 20px; */
-}
+    margin-bottom: 20px;
+} */
 
-.pre-footer{
+/* .pre-footer{
     padding: 10px;
     font-size: 25px;
     text-align: center;
     color: rgb(0, 0, 0);
     font-family: 'Special Elite', cursive;
-}
+} */
 
 
-
+/* 
 * {
     margin: 0;
     padding: 0;
@@ -258,10 +258,10 @@ footer {
     line-height: 1.5;
     font-family: 'Poppins', sans-serif;
 }
+ */
 
 
-
-.another {
+/* .another {
     max-width: 1170px;
     margin: auto;
 }
@@ -274,4 +274,4 @@ footer {
 ul {
     list-style: none;
 }
-
+ */

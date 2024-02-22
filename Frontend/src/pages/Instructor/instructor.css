@@ -18,9 +18,6 @@ overflow: hidden;
 
 }
 
-.banner_img:hover {
-  transform: scale(1.05) translateZ(-50px); /* Adjust the distance the image moves */
-}
 
 .our-team{
   
@@ -49,21 +46,10 @@ overflow: hidden;
 
 /* css for card */
 
-.card-section{
-background-color: #2f3256;
-
-
-}
-
-.box-div{
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-
 
 
 .course{
-color: white;
+color: black;
 font-weight: bolder;
 font-family: 'Quicksand', sans-serif;
 font-size: 30px;

@@ -14,6 +14,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
 import ProfileDropdown from '../../components/ProfileDropdown/ProfileDropdown';
+import { useSelector } from 'react-redux';
 
 const products = [
   { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
@@ -32,11 +33,14 @@ function classNames(...classes) {
 }
 
 export default function TeacherHeaderTest() {
+
+  const user = useSelector(state => state.auth)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="bg-slate-50 px-3">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8 sticky top-0" aria-label="Global">
+
+    <header className="bg-white px-3 relative">
+      <nav className=" mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8 sticky top-0" aria-label="Global">
         <div className="flex lg:flex-1 space-x-1">
           <Link to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
@@ -60,7 +64,7 @@ export default function TeacherHeaderTest() {
           <Link to="/catalogue" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Catalogue
           </Link>
-          <Link to="/dashboard" className="text-sm p-2 font-semibold leading-6 text-slate-950">
+          <Link to={`/teacher/dashboard`} className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Dash Board
           </Link>
           <Link to="/courseUpload" className="text-sm p-2 font-semibold leading-6 text-slate-950">
@@ -82,7 +86,7 @@ export default function TeacherHeaderTest() {
           */}
         </Popover.Group>
         <div className="text-sm p-3 font-semibold leading-6 text-slate-950">
-            <ProfileDropdown />
+            <ProfileDropdown className='z-10' />
           </div>
         
         {/* <div className="hidden lg:flex lg:flex-1 lg:justify-end">

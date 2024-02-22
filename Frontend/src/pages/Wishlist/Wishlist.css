@@ -5,7 +5,7 @@
     padding: 0;
     color: rgb(211, 207, 202);
     font-size: 14px;
-    background-color: #0f0707;;
+    background-color: #ffffff;;
     line-height: 1.4;
     border-color: #736b5e;
     }
@@ -38,13 +38,13 @@
     .rightpanel{
         width: 76%;
         min-width: 584px;
-        background-color: #0f0707;
+        background-color: #ffffff;
         border: none;
         margin: 0 auto;
     }
     
     .spaceline{
-        background-color: #0f0707;
+        background-color: #ffffff;
         width: 2%;
     }
     .leftmenu{
@@ -53,7 +53,7 @@
     }
     
     .blackblock{
-        background-color: #0f0707;
+        background-color: #ffffff;
         height: fit-content;
     }
     .rhead{
@@ -63,7 +63,7 @@
     font-weight: 500;
     border-radius: 0.6rem;
     border: 2px solid #e0e0e0;
-    background-color: #181a1b;
+    background-color: #ffffff;
     margin-bottom: 1.6rem;
     text-align: left;
     }

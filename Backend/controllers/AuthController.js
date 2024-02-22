@@ -33,6 +33,7 @@ exports.registerController = async (req, res) => {
           .send({ success: false, message: "User already exist please login" });
       }
       console.log("first");
+      
       const existingTeacher = await teacherSchema.findOne({email : email});
       if (existingTeacher) {
         return res
@@ -118,13 +119,12 @@ exports.loginController = async (req, res) => {
       if (!user) {
 
         user = await adminSchema.findOne({email });
-
-
         if(!user){
           return res
           .status(404)
           .send({ success: false, message: "User not registered " });
         }
+
         const check = await comparePassword(password, user.password);
       
       if (!check) {

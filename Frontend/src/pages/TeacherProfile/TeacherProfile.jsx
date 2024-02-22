@@ -98,7 +98,7 @@ const Teacher = () => {
                   <button className="btn-button">Edit Profile</button>
                 </NavLink>
                 <br />
-                <NavLink to="#">
+                <NavLink to="/courseupload">
                   <button className="btn-button right_to_left_offset">
                     Upload Courses
                   </button>

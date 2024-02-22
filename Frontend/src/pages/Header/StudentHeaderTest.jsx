@@ -81,7 +81,7 @@ export default function StudentHeaderTest() {
          
         </Popover.Group>
         <div className="text-sm p-3 font-semibold leading-6 text-slate-950">
-            <ProfileDropdown />
+            <ProfileDropdown  className='z-10'/>
           </div>
         
         {/* <div className="hidden lg:flex lg:flex-1 lg:justify-end">
