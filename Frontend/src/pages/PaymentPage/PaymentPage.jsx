@@ -141,7 +141,7 @@ function PaymentPage(){
           <div className={styles.bagProduct}> {/* Combine multiple class names */}
             <div className={styles.courseImg}>
             {!loading ? (
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3OUVLiBoBsr179pMOm4QFjoZoMuKA7UG7eg&usqp=CAU" className={styles.img1} alt="Course" /> ) : (<Skeleton animation="wave" variant="rectangular" width={'14rem'} height={"76%"} sx={{marginLeft: '1rem', marginTop: '1.4rem'}}/>)
+              <img src={course?.imageUrl} className={styles.img1} alt="Course" /> ) : (<Skeleton animation="wave" variant="rectangular" width={'14rem'} height={"76%"} sx={{marginLeft: '1rem', marginTop: '1.4rem'}}/>)
             }
             </div>
             <div className={styles.description}>

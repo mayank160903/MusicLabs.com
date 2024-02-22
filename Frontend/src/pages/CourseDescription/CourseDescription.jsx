@@ -314,7 +314,7 @@ const CourseDetails = () => {
                       }}
                     >
                       <img
-                        src="https://worshiptutorials.com/wp-content/uploads/2015/11/Beginner-Guitar-Course.jpg"
+                        src={course?.imageUrl}
                         className="card-img-top"
                         alt="Card image cap"
                       />
@@ -342,7 +342,7 @@ const CourseDetails = () => {
                           style={{ color: "black" }}
                         >
                           {!loading ? (
-                            course?.description
+                            course?.description.slice(0,200)+"..."
                           ) : (
                             <Fragment>
                               <Skeleton

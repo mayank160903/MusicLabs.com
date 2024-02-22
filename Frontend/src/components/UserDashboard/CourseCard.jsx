@@ -42,7 +42,7 @@ function CourseCard({course,progress}){
     return (
         <div className ="wishblock" key = {course._id} >
         <div className ="imgcontainer">
-            <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3OUVLiBoBsr179pMOm4QFjoZoMuKA7UG7eg&usqp=CAU"  className = "course-img img-fluid"
+            <img src = {course.imageUrl}
             width="230px"/>
             <div>
             <LinearProgress variant="determinate" value={(progressValue/totalVideos)* 100} />

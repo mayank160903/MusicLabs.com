@@ -272,7 +272,7 @@ function WishlistPage(){
                                   >
                                     <div className="imgcontainer">
                                       <img
-                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3OUVLiBoBsr179pMOm4QFjoZoMuKA7UG7eg&usqp=CAU"
+                                        src={wishitem.imageUrl}
                                         className="course-img img-fluid"
                                         width="230px"
                                       />
