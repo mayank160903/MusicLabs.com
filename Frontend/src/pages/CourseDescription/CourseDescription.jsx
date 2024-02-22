@@ -62,7 +62,7 @@ const CourseDetails = () => {
         setIsWishlisted(false);
         return ;
       }
-      if(user?.wishlist.find(course => course._id === params.courseId)){
+      if(user?.wishlist?.find(course => course._id === params.courseId)){
         setIsWishlisted(true);
       }
       console.log(user?.courses)
@@ -73,7 +73,7 @@ const CourseDetails = () => {
         setIsPurchased(false);
         setIsWishlisted(false);
       }
-    },[user.wishlist, user.courses, user.isLoggedin])
+    },[user?.wishlist, user?.courses, user?.isLoggedin])
     
     useEffect(() => {
       async function getCourseInfo() {
