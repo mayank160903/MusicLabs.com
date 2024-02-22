@@ -76,7 +76,7 @@ const Slide = ({ title, products }) => {
                             <NavLink to={`/coursedescription/${e._id}`}>
                                 <div className="products_items">
                                     <div className="product_img">
-                                        <img className='h-50 w-150' src={course1} alt="product" />
+                                        <img className='h-50 w-150' src={e.imageUrl} alt="product" />
                                     </div>
                                     <p className="products_name">{e.description.length > 20 ? `${e.description.slice(0, 20)}...` : e.description}</p>
                                     <p className="products_offer" style={{ color: "#  007185" }}>{e.title}</p>
