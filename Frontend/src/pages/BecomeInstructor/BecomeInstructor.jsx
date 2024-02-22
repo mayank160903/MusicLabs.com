@@ -73,7 +73,7 @@ const handleRegister = async () => {
     formData.password === '' ||
     formData.password.length < 6
   ) {
-    
+    // Your Request is pending to admin
     toast.info('Please fill all the details');
     return;
   }
@@ -85,7 +85,7 @@ const handleRegister = async () => {
     
     
     if (response.data.success === true) {
-      toast.info('Please fill all the details');
+      toast.info('Your Request is pending to admin');
       navigate('/'); // Use navigate to redirect to the login page
     }
     else if(response.data.success === false){

@@ -162,6 +162,7 @@ const Catalogue = (props) => {
                       <li>
                         <button
                           type="button"
+                          onClick={openSearchHandler}
                           className="inline-flex w-full px-4 py-2 text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
                           Beginner
@@ -170,6 +171,7 @@ const Catalogue = (props) => {
                       <li>
                         <button
                           type="button"
+                          onClick={openSearchHandler}
                           className="inline-flex w-full px-4 py-2 text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
                           Rock
@@ -178,6 +180,7 @@ const Catalogue = (props) => {
                       <li>
                         <button
                           type="button"
+                          onClick={openSearchHandler}
                           className="inline-flex w-full px-4 py-2 text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
                           Metal
@@ -186,6 +189,7 @@ const Catalogue = (props) => {
                       <li>
                         <button
                           type="button"
+                          onClick={openSearchHandler}
                           className="inline-flex w-full px-4 py-2 text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
                           Blues
@@ -194,6 +198,7 @@ const Catalogue = (props) => {
                       <li>
                         <button
                           type="button"
+                          onClick={openSearchHandler}
                           className="inline-flex w-full px-4 py-2 text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
                           Acoustic
@@ -202,6 +207,7 @@ const Catalogue = (props) => {
                       <li>
                         <button
                           type="button"
+                          onClick={openSearchHandler}
                           className="inline-flex w-full px-4 py-2 text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
                           Music Theory
@@ -210,6 +216,7 @@ const Catalogue = (props) => {
                       <li>
                         <button
                           type="button"
+                          onClick={openSearchHandler}
                           className="inline-flex w-full px-4 py-2 text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
                           Guitar Tone
@@ -218,6 +225,7 @@ const Catalogue = (props) => {
                       <li>
                         <button
                           type="button"
+                          onClick={openSearchHandler}
                           className="inline-flex w-full px-4 py-2 text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
                           Legendary Artists
@@ -226,6 +234,7 @@ const Catalogue = (props) => {
                       <li>
                         <button
                           type="button"
+                          onClick={openSearchHandler}
                           className="inline-flex w-full px-4 py-2 text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
                           Guitar Technique
@@ -236,7 +245,7 @@ const Catalogue = (props) => {
                 </div>
 
                 <div className="relative w-full">
-                  {/* <input type="search" id="search-dropdown" className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search Here" required /> */}
+                  
                   <input
                     type="search"
                     id="search-dropdown"
@@ -275,11 +284,20 @@ const Catalogue = (props) => {
       </nav>
 
       <div className="home_section p-2 mr-3 bg-fuchsia-200">
-        <Slide title="MUSIC THEORY" products={courses} />
+       
 
-        <Slide title="MUSIC THEORY" products={courses} />
-
-        <Slide title="MUSIC THEORY" products={courses} />
+        {courses.length > 0 ? (
+    Array.from({ length: Math.ceil(courses.length / 6) }).map((_, index) => (
+      <Slide
+        key={index}
+        title="MUSIC THEORY"
+        products={courses.slice(index * 6, (index + 1) * 6)}
+      />
+    ))
+  ) : (
+    
+    <p>Loading courses...</p>
+  )}
       </div>
       <hr />
       <div className="bg-fuchsia-200">
