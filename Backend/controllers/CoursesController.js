@@ -136,21 +136,23 @@ exports.getComments = async (req,res) => {
 }
 
 exports.createCourse = async (req,res) => {
+
     try{
       console.log("inside create course");
       console.log(req.body)
         const {title, description, price, category, instructor, teacherId} = req.body;
+        // console.log(req.files)
+        console.log(req.file.filename)
+        const image = req.file.filename
+        console.log(image);
         
         const teacher = await teacherSchema.findById(teacherId);
         if(!teacher){
             return res.status(404).send({success: false, message: "Teacher not found"});
         }
         const categoryId = await categorySchema.findOne({name: category})
-        // const categoryId = await categorySchema.find({name: category});
         console.log("yeh krlo pehle");
-        console.log(categoryId);
-        console.log(categoryId._id)
-        console.log(typeof(categoryId._id));
+        // console.log(categoryId);
 
         const course = await coursesSchema.create({
             title : title,
@@ -158,8 +160,10 @@ exports.createCourse = async (req,res) => {
             price: price,
             category: categoryId._id,
             teacher: teacherId,
+            imageUrl: `http://localhost:8000/images/${req.file.filename}`,
             sections: []
         });
+
         console.log(course)
         return res.status(200).send({success: true, message: "Course created successfully", course});
     } catch (error){

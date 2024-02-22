@@ -69,7 +69,10 @@ function CreateCourseLayout(){
    }
     
     return (
+
         <div className="relative h-auto flex pb-6">
+        
+        {/* <img src={courseInfo.imageUrl}/> */}
         <div className="flex flex-col">
             <div className="w-[72vw] h-fit">
                <MainContent currentVideo={currentVideo} currentSection={currentTitle} content={courseInfo}/>

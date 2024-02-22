@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import sidepic from '../../images/signup-pic.jpg';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
@@ -10,6 +10,8 @@ const CourseUpload = () => {
 
     const navigate = useNavigate();
     const teacher  = useSelector((state) => state.auth);
+    const [file, setFile]  = useState();
+    const [loading,setLoading] = useState(false);
 
     async function submitFormHandler(e){
         e.preventDefault();
@@ -22,19 +24,24 @@ const CourseUpload = () => {
         formData.append('teacherId', teacher.id);
         formData.append('category',e.target.category.value);
         formData.append('price',e.target.price.value);
-        formData.append('Cover Photo', e.target.cover.value);
+        formData.append('image', file);
+        
+
         console.log(formData);
+        setLoading(true)
+        const response = await axios.post('http://localhost:8000/api/course/createcourse',formData,{
+          headers:{
+            'Content-Type': 'multipart/form-data'
+          }
+        });
 
-        const response = await axios.post('http://localhost:8000/api/course/createcourse',formData);
-
+        console.log(response)
         if(response.status  === 200){
           toast.success("Course Uploaded Successfully");
           navigate(`/createcourse/${response.data.course._id}`);
         }
 
-
-
-
+        setLoading(false)
     }
 
 
@@ -106,9 +113,9 @@ const CourseUpload = () => {
         <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" type="text" defaultValue="500" name='price' />
       </div>
       <div className='flex justify-center align-middle w-[100%] mt-2'>
-      <div className=''>
-        <ImageUpload center name="cover" id="image" onInput={submitFormHandler} />
-        </div>
+          <div className='form-control'>
+          <ImageUpload center name="file" id="image" file={file} setFile={setFile} />
+          </div>
       </div>
     </div>
       <div className='flex justify-end'>

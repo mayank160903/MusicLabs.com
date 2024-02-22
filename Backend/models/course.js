@@ -24,9 +24,8 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required : [true , "Description is required"],
     },
-    photo :{
-        data : Buffer,
-        contentType: String,
+    imageUrl :{
+        type : String,
     },
     
     price: {
