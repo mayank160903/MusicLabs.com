@@ -8,6 +8,8 @@ const userModel = require("../models/user.js");
 
 const categoryModel = require('../models/category.js');
 
+const purchaseModel = require('../models/purchase.js');
+
 exports.getAllQuery = async (req, res) => {
   try {
     const query = await contactModel.find({});
@@ -32,6 +34,32 @@ exports.createCategory = async (req, res) => {
       return res.status(500).json({ success: false, message: "Error creating category" });
   }
 };
+
+exports.getPurchases = async(req , res) =>{
+  try {
+    const purchases = await purchaseModel.find({})
+      .populate({
+        path: 'userId',
+        select: 'firstName lastName'
+      })
+      .populate({
+        path: 'teachers',
+        select: 'firstName lastName'
+      })
+      .populate({
+        path: 'courseId',
+        select: 'title'
+      });
+     
+
+    return res.status(200).json({ success: true, message: "All purchases with populated fields", purchases });
+  } catch (error) {
+    console.error("Error fetching purchases:", error);
+    return res.status(500).json({ success: false, message: "Error fetching purchases" });
+  }
+
+
+}
 
 exports.createQuery = async (req, res) => {
   try {
