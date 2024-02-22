@@ -47,6 +47,7 @@ const LoginForm = () => {
         console.log(response.data);
         const user = response.data.user
         const token = response.data.token;
+        console.log(user)
         dispatch(login({firstName : user.firstName , 
                         lastName : user.lastName , 
                         role : user.role , 
@@ -57,6 +58,7 @@ const LoginForm = () => {
                         courses : user.courses}));
 
         navigate('/');
+        toast.success("Login Successfully")
       } else if(response.data.success===false) {
   
         toast.info("Your details didn't match");
