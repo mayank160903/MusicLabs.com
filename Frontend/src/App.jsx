@@ -41,6 +41,8 @@ import Quiz from  './pages/Quiz/Quiz';
 import TeacherDashboard from "./pages/TeacherDashboard/TeacherDashboard";
 import CourseDescription from './pages/CourseDescription/CourseDescription'
 import SingleCourse from  './dashboard/SingleCourse'; 
+import AdminCategory from './dashboard/AdminCategory';
+import AdminPurchases from './dashboard/AdminPurchases';
 
 
 function App() {
@@ -65,6 +67,8 @@ function App() {
         {path:'/dashboard', element:<AdminDashboard/>},
         {path: '/dashboard/admin/accept' , element : <AdminAcceptance/>},
         {path: '/dashboard/admincourses' , element : <AdminCourses/>},
+        {path: '/dashboard/admincategory' , element : <AdminCategory/>},
+        {path: '/dashboard/adminpurchases' , element : <AdminPurchases/>},
         {path: '/dashboard/admin/Teachers' , element : <AdminTeachers/>},
         {path: '/dashboard/admin/Users' , element : <AdminUsers/>},
         {path: '/wishlist', element: <WishlistPage/>},

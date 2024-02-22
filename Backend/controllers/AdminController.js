@@ -6,6 +6,8 @@ const teacherModel = require("../models/teacher.js");
 
 const userModel = require("../models/user.js");
 
+const categoryModel = require('../models/category.js');
+
 exports.getAllQuery = async (req, res) => {
   try {
     const query = await contactModel.find({});
@@ -17,6 +19,17 @@ exports.getAllQuery = async (req, res) => {
     return res
       .status(500)
       .send({ success: false, message: "Error while querying" });
+  }
+};
+
+exports.createCategory = async (req, res) => {
+  const { name } = req.body;
+  try {
+      const newCategory = await categoryModel.create({ name });
+      return res.status(201).json({ success: true, message: "Category created successfully", category: newCategory });
+  } catch (error) {
+      console.error("Error creating category:", error);
+      return res.status(500).json({ success: false, message: "Error creating category" });
   }
 };
 
@@ -43,6 +56,33 @@ exports.createQuery = async (req, res) => {
     return res
       .status(500)
       .send({ success: false, message: "Error while creating query" });
+  }
+};
+
+exports.getAllCategories = async (req, res) => {
+  try {
+    const categories = await categoryModel.find({});
+    return res.status(200).json({ success: true, message: "All categories", categories });
+  } catch (error) {
+    console.error("Error while querying categories:", error);
+    return res.status(500).json({ success: false, message: "Error while querying categories" });
+  }
+};
+
+exports.deleteCategory = async (req, res) => {
+  const categoryId = req.params.id;
+  try {
+   
+    console.log(categoryId);
+    const deletedCategory = await categoryModel.findByIdAndDelete(categoryId);
+   
+
+
+    
+    return res.status(200).json({ success: true, message: "Category deleted successfully" });
+  } catch (error) {
+    
+    return res.status(500).json({ success: false, message: "Error deleting category" });
   }
 };
 
