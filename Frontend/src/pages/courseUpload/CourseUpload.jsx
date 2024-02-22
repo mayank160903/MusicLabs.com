@@ -5,6 +5,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import ImageUpload from '../../components/ImageUpload/ImageUpload';
+import background from '../../images/createCourseBg.jpg';
+
 
 const CourseUpload = () => {
 
@@ -44,7 +46,7 @@ const CourseUpload = () => {
 
 
   return (
-    <div className="flex flex-row bg-purple-100 ">
+    <div className="flex flex-row bg-purple-100 " style={{ backgroundImage: `url(${background})` , backgroundRepeat: "no-repeat"}}>
         <div className="basis-1/3">
 
     </div >

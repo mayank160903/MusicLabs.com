@@ -4,18 +4,8 @@ import c1 from '../../images/carousel-1.jpg';
 import c2 from '../../images/carousel-2.jpg';
 import c3 from '../../images/carousel-3.jpg';
 import anatomy from '../../images/song-lesson-pic.png';
-import seemore from '../../images/seemore.png';
-import andy from '../../images/mt-andy.jpg';
-import musictheory from '../../images/musictheorypic.jpg';
-import carl from '../../images/carl-pic.jpg';
-import marty from '../../images/marty-pic.jpg';
-import justin from '../../images/justin-pic.jpg';
-import metal from '../../images/ez-metal.jpg';
 import products from './productdata';
 import Slide from './Slide';
-// import { Divider } from '@mui/material';
-// import catavid from '../../images/jamplay_vid.mp4';
-
 
 import './Catalogue.css';
 import { useNavigate } from 'react-router';

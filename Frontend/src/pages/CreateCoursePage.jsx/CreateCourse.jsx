@@ -5,7 +5,6 @@ import MainContent from "../../components/CoursePage/MainContent";
 import {useParams } from "react-router";
 import { Box } from "@mui/material";
 import { AddCircleRounded } from "@mui/icons-material";
-
 import CreateCourseDropdown from "./CreateCourseDropdown";
 import axios from "axios";
 
@@ -69,8 +68,8 @@ function CreateCourseLayout(){
    }
     
     return (
-        <div className="relative h-auto flex pb-6">
-        <div className="flex flex-col">
+        <div className="relative h-auto flex pb-6" >
+        <div className="flex flex-col" >
             <div className="w-[72vw] h-fit">
                <MainContent currentVideo={currentVideo} currentSection={currentTitle} content={courseInfo}/>
                <Box sx={{marginTop: '0.2rem',marginLeft:'1rem', padding: 4}}>
