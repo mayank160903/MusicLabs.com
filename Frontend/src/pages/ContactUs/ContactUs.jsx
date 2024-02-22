@@ -3,6 +3,7 @@ import './ContactUs.css'
 import { toast } from "react-toastify";
 import axios from "axios";
 import background from '../../images/contactUsBg.jpg';
+import { useSelector } from "react-redux";
 
 
 function ContactUs(){
@@ -14,7 +15,11 @@ function ContactUs(){
 
     const [loader,setLoader] = useState(false);
 
+    
+    const user = useSelector(state => state.auth)
+
     async function submitQuery(e){
+
         e.preventDefault();
             if(firstName === "" || email === "" || message === ""){
                 toast.error('Please Fill All The Required Fields')
@@ -27,6 +32,11 @@ function ContactUs(){
                     lastName,
                     email,
                     message
+                },{
+                    headers : {
+                        "Content-Type" : "application/json", 
+                        'Authorization': `${user?.token}`,
+                    }
                 })
                 setLoader(false);
                 if(req.status === 200){

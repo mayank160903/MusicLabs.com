@@ -23,7 +23,7 @@ const Student = () => {
         const req = await axios.get(`http://localhost:8000/api/v1/user/your-courses/${user?.id}`, {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${user.token}`
+            'Authorization': user?.token
           }
         })
 

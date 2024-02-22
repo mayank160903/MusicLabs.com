@@ -83,7 +83,7 @@ function PaymentPage(){
           const res = await axios.post(`http://localhost:8000/api/v1/user/purchase`, formData, {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${user.token}`
+            'Authorization': `${user.token}`
       }
     }) 
 

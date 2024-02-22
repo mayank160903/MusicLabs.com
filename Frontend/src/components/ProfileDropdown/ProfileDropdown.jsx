@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../store/auth';
 
 
@@ -14,6 +14,7 @@ const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth)
+  const navigate = useNavigate();
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -24,6 +25,7 @@ const Dropdown = () => {
 
   function signOutHandler(){
     dispatch(logout());
+    navigate('/')
   }
   return (
     <div className="relative inline-block z-50">
@@ -100,15 +102,15 @@ const Dropdown = () => {
         Help
     </span>
 </Link>
-<Link to="/" class="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+<div className="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer" onClick={signOutHandler}>
     <svg class="w-5 h-5 mx-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M19 21H10C8.89543 21 8 20.1046 8 19V15H10V19H19V5H10V9H8V5C8 3.89543 8.89543 3 10 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21ZM12 16V13H3V11H12V8L17 12L12 16Z" fill="currentColor"></path>
     </svg>
 
-    <span className="mx-1" onClick={signOutHandler}>
+    <span className="mx-1" >
         Sign Out
     </span>
-</Link>
+</div>
       
           {/* Dropdown content */}
           {/* ... (rest of your dropdown content) */}

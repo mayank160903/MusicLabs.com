@@ -28,7 +28,6 @@ const app = express();
 
 let accessLogStream=rfs.createStream("access.log",{interval:'1d',path:path.join(__dirname,'log')})
 app.use(morgan(':date[iso] :method :url :status :response-time ms', { stream: accessLogStream}));
-
 app.use('/images',express.static(__dirname+'/images'));
 
 
@@ -40,7 +39,6 @@ const paymentRoutes = require("./routes/PaymentRoutes.js");
 const TeacherRoutes = require('./routes/TeacherRoutes.js');
 const courseRoutes = require("./routes/CourseRoutes.js");
 const AdminRoutes = require('./routes/AdminRoutes.js');
-
 const connectDb = require('./database/db.js');
 const multer = require("multer");
 
