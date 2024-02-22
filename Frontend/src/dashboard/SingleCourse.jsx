@@ -4,8 +4,10 @@ import { useParams } from "react-router-dom";
 import course1 from "../images/beginnerpic.jpg";
 const SingleCourse = () => {
   const { courseId } = useParams();
-  console.log(courseId);
+  
   const [courseData, setCourseData] = useState({});
+  const [teacherData, setTeacherData] = useState({});
+  const [comments, setComments] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -14,8 +16,18 @@ const SingleCourse = () => {
         );
 
         setCourseData(response.data.course);
-        console.log(response.data.course);
-        console.log(courseData);
+        
+        const teacherResponse = await axios.get(
+          `http://localhost:8000/api/v1/teacher/getTeacher/${response.data.course.teacher}`
+        );
+
+        setTeacherData(teacherResponse.data.teacher);
+        const commentsResponse = await axios.get(
+          `http://localhost:8000/api/comments/${courseId}`
+        );
+
+        setComments(commentsResponse.data.comments);
+        console.log(teacherData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -36,22 +48,39 @@ const SingleCourse = () => {
             <p>{courseData.title}</p>
           </div> */}
           <div className="flex mx-3 items-start align-items-center">
-            <h1 className="mr-2 font-bold text-3xl">Title &nbsp; :</h1>
-            <p className="font-thin">{courseData.title}</p>
+            <h1 className="mr-2 font-bold text-2xl text-gray">Title  :</h1>
+            <p className="font-thin mt-3">{courseData.title}</p>
         </div>
 
-          <div className="flex mx-3 items-start align-items-center">
-            <h1 className="mr-2">Description :</h1>
-            <p>{courseData.description}</p>
+          <div className="flex mx-1 items-start align-items-center">
+            <h1 className="mr-2 font-bold text-2xl text-gray">Description :</h1>
+            <p className="font-thin mt-3">{courseData.description}</p>
           </div>
           <div className="flex mx-3 items-start align-items-center">
-            <h1 className="mr-2">Price :</h1>
-            <p>{courseData.price}</p>
+            <h1 className="mr-2 font-bold text-2xl text-gray">Price :</h1>
+            <p className="font-thin mt-3">{courseData.price}</p>
           </div>
+          {/* <div className="flex mx-3 items-start align-items-center">
+            <h1 className="mr-2 font-bold text-2xl text-gray">Students Purchase :</h1>
+            <p className="font-thin">{courseData.purchases}</p>
+          </div> */}
+
+          <div class="flex mx-3 items-center"> 
+    <h1 class="mr-2 font-bold text-2xl text-gray">Students Purchase :</h1>
+    <p class="font-thin mt-3">{courseData.purchases}</p> 
+</div>
+          {/* <div className="flex mx-3 items-start align-items-center">
+            <h1 className="mr-2 font-bold text-2xl text-gray">Teacher : </h1>
+            <p className="font-thin mt-3">{teacherData.firstName } &nbsp; {teacherData.lastName}</p>
+          </div> */}
           <div className="flex mx-3 items-start align-items-center">
-            <h1 className="mr-2">Students Purchase :</h1>
-            <p>{courseData.purchases}</p>
-          </div>
+    <h1 className="mr-2 font-bold text-2xl text-gray">Teacher : </h1>
+    {teacherData.fullname ? (
+        <p className="font-thin mt-3">{teacherData.fullname}</p>
+    ) : (
+        <p className="font-thin mt-3">{teacherData.firstName} &nbsp; {teacherData.lastName}</p>
+    )}
+</div>
         </div>
       </div>
     </>

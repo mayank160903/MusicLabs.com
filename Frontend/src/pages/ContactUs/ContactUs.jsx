@@ -59,7 +59,7 @@ function ContactUs(){
     return(
         <Fragment>
             {/* <Header /> */}
-        <div className="wholepage contact-bg" style={{ backgroundImage: `url(${background})` , backgroundRepeat: "no-repeat"}}>
+        <div className="wholepage bg-white" style={{ backgroundImage: `url(${background})` , backgroundRepeat: "no-repeat"}}>
         <div className="container-wrapper contact-bg">            
             <div className="container-fluid">
                 <div className="mainformcont">

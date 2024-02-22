@@ -15,8 +15,8 @@
     font-size: 20px;
     padding-top: 25px;
     padding-bottom: 5px;
-    color: rgba(211, 211, 214, 0.856);
-    font-family: 'Bruno Ace', cursive;
+    color: black;
+    
 }
 
 .info{
@@ -35,15 +35,15 @@
     font-size: 30px;
     padding-top: 25px;
     padding-bottom: 5px;
-    color: rgba(211, 211, 214, 0.856);
-    font-family: 'Bruno Ace', cursive;
+    color: black;
+    
 }
 
 .about-info{
     padding-left: 10px;
    font-size: large;
     margin: auto;
-    color: rgba(211, 211, 214, 0.856);
+    color: black;
     width: 70%;
     font-family: 'Quicksand', sans-serif;
 }
@@ -52,8 +52,8 @@
     margin-left: -20px;
     text-align: center;
     font-size: 28px;
-    color: rgba(211, 211, 214, 0.856);
-    font-family: 'Bruno Ace', cursive;
+    color: black;
+    
 }
 
 .list-item{
@@ -63,12 +63,12 @@
 
 
 .video_box{
-    /* background-color: black; */
+    /* background-color: black;; */
     margin-top: 40px;
 }
 .description{
     margin-bottom: 15px;
-    background-color: #4c535dc2;
+    background-color: #d178dbc2;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -91,13 +91,13 @@
 
 .our-team-header{
     font-size: 50px;
-    color: white;
+    color: rgb(0, 0, 0);
     font-weight: bolder;
 }
 
 .our-team-content{
     font-family: 'Quicksand', sans-serif;
     font-weight: lighter;
-    color: white;
+    color: black;
     font-size: 18px;
 }

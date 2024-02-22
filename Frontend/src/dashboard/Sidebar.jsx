@@ -20,11 +20,11 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
 
         <ul className='sidebar-list'>
             <li className='sidebar-list-item'>
-                <a href="" className="flex items-center">
+                <Link to='/dashboard/adminpurchases' className="flex items-center">
                     {/* <BsGrid1X2Fill className='icon'/> Dashboard */}
                     <BsGrid1X2Fill className='icon'  />
-                    <span className="ml-2">Dashboard</span>
-                </a>
+                    <span className="ml-2">Purchases</span>
+                </Link>
             </li>
             <li className='sidebar-list-item'>
                 <Link  to='/dashboard/admincourses' className="flex items-center">
@@ -33,10 +33,10 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
                 </Link>
             </li>
             <li className='sidebar-list-item'>
-                <a href="" className="flex items-center">
+                <Link to='/dashboard/admincategory' className="flex items-center">
                     <BsFillGrid3X3GapFill className='icon'/>
                      <span className="ml-2">Categories</span>
-                </a>
+                </Link>
             </li>
             <li className='sidebar-list-item'>
                 <Link to='/dashboard/admin/Users' className="flex items-center">
@@ -62,12 +62,12 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
                     <span className="ml-2">Queries</span>
                 </Link>
             </li>
-            <li className='sidebar-list-item'>
+            {/* <li className='sidebar-list-item'>
                 <a href="" className="flex items-center">
                     <BsFillGearFill className='icon'/> 
                     <span className="ml-2"> Settings</span>
                 </a>
-            </li>
+            </li> */}
         </ul>
     </aside>
   )
