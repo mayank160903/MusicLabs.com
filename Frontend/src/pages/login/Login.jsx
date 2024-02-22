@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
 import { login } from '../../store/auth';
-
+import { Link } from 'react-router-dom';
 import signup from '../../images/signup1.jpg';
 import { useDispatch } from 'react-redux';
 import OAuth from './GoogleAuth';
@@ -160,7 +160,7 @@ const LoginForm = () => {
               </div>
             </div>
             <div className="font-bold text-blue-400 mt-3">
-                Don't have account <a href='/register'>Sign up</a>
+                Don't have account <Link to='/register'>Sign up</Link>
             </div>
             <div className="font-bold text-blue-400 mt-3">
                  <Link to='/forgot'>forgot Password</Link>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import { toast, ToastContainer } from 'react-toastify'; // Import toast from toastify-js
 import './Signup.css';
 // import 'react-toastify/dist/ReactToastify.css';
@@ -203,10 +204,10 @@ const handleRegister = async () => {
               </div>
             </div>
             <div className="font-bold text-red-400 text-xl">
-                Register as a <a href='/becomeInstructor'>Instructor</a>
+                Register as a <Link to='/becomeInstructor'>Instructor</Link>
             </div>
             <div className="font-bold text-blue-400 mt-3">
-                Already Register <a href='/login'>Sign in</a>
+                Already Register <Link to='/login'>Sign in</Link>
             </div>
           </div>
         </div>

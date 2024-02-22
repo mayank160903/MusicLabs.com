@@ -21,5 +21,10 @@ router.get('/getpurchases' , getPurchases);
 
 router.get('/custom' , getDetails)
 
+router.use((req, res, next) => {
+    console.log('Time:', Date.now())
+    next()
+  })
+
 
 module.exports = router;
