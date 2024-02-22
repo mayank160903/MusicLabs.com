@@ -44,8 +44,8 @@ const ImageUpload = ({file, setFile, id}) => {
 }
 
   return (
-    // <div className="form-control">
-    <Fragment>
+    <div className="bg-fuchsia-200">
+    <Fragment >
       <input
         id={id}
         ref={filePickerRef}
@@ -54,7 +54,7 @@ const ImageUpload = ({file, setFile, id}) => {
         accept=".jpg, .png, .jpeg"
         onChange={pickedHanler}
       />
-      <div className={`image-upload center`}>
+      <div className={`image-upload center bg-fuchsia-200 `}>
         <div className="image-upload__preview mb-4">
           {previewUrl && <img src={previewUrl} alt="Preview" />}
           {!previewUrl && <p className="text-center">Please Pick Cover Image</p>}
@@ -67,6 +67,7 @@ const ImageUpload = ({file, setFile, id}) => {
       </div>
       {/* {!isValid && <p>Please pick an image</p>} */}
       </Fragment>
+      </div>
     
   );
 };

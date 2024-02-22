@@ -34,7 +34,7 @@ export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="bg-slate-50 px-3">
+    <header className="bg-slate-50 px-3 p-3 relative">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-2 lg:px-8 sticky top-0" aria-label="Global">
         <div className="flex lg:flex-1 space-x-1">
           <Link to="/" className="-m-1.5 p-1.5">
