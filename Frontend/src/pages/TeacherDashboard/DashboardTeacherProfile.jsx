@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./dashboardteacher.css";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import PlaceIcon from "@mui/icons-material/Place";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import EmailIcon from "@mui/icons-material/Email";
@@ -251,14 +251,14 @@ const DashboardTeacherProfile = () => {
             >
               {coursesData.map((course, index) => (
                 <div key={index} className="col-md-5">
-                  <a href="#">
+                  <Link to={`/coursedescription/${course._id}`}>
                     <img
                       src={course.imageUrl}
                       style={{ width: "360px", height: "180px" }}
                       className="grid-element"
                       alt={course.title}
                     />
-                  </a>
+                  </Link>
                   <p className="text-black offset-3">{course.title}</p>
                 </div>
               ))}
