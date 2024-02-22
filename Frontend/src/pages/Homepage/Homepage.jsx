@@ -1,5 +1,4 @@
 import React from "react";
-import "./homestyle.css";
 import HomeHead from "../Home-Head/HomeHead";
 import Testimonial from "../../components/Testimonial/Testimonial";
 import Grid from "../../components/Grid/Grid";
