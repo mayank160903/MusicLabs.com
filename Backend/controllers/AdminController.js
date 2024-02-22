@@ -226,15 +226,28 @@ exports.getAllUsers = async (req, res) => {
 
 exports.getAllCourses = async (req, res) => {
   try {
-    console.log("comes");
-    const courses = await courseModel
-      .find({})
-      // .populate("teachers", "firstName")
-      // .populate("categorys", "name");
+    const searchQuery = req.query.search;
+    console.log(searchQuery);
+    // const courses = await courseModel
+    //   .find({})
+      
+    // console.log("comes here");
     // console.log(courses);
-    console.log("comes here");
-    console.log(courses);
-    console.log(courses.length)
+    // console.log(courses.length)
+    // console.log("comes here");
+    let courses;
+    if (searchQuery) {
+      
+      courses = await courseModel.find({
+        $or: [
+          { title: { $regex: searchQuery, $options: "i" } },
+          { description: { $regex: searchQuery, $options: "i" } }
+        ]
+      });
+    } else {
+     
+      courses = await courseModel.find({});
+    }
     return res
       .status(200)
       .send({ success: true, message: "List of courses", courses });  

@@ -13,8 +13,9 @@ import PeopleIcon from "@material-ui/icons/People";
 import RateReviewIcon from "@material-ui/icons/RateReview";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 
-const Sidebar = () => {
+const Sidebar = ({teacher}) => {
   return (
     <div className="sidebar bg-white flex flex-col py-16 ">
       <Link className=" ml-5  " to="/">
@@ -33,18 +34,21 @@ const Sidebar = () => {
           <DashboardIcon
             className="text-gray-500 hover:text-tomato"
             style={{ color: "gray" }}
-          />{" "}
+          />
           Dashboard
         </p>
       </Link>
-      <Link>
+
+
+
+      {/* <Link>
         <TreeView
           defaultCollapseIcon={<ExpandMoreIcon style={{ color: "gray" }} />}
           defaultExpandIcon={<ImportExportIcon style={{ color: "gray" }} />}
           style={{ color: "gray" }}
         >
           <TreeItem nodeId="1" label="Courses" style={{ color: "gray" }}>
-            <Link to="#">
+            <Link to={`/dashboardteacherproductlist/${teacher.id}`}>
               <TreeItem
                 nodeId="2"
                 label="All"
@@ -63,27 +67,38 @@ const Sidebar = () => {
             </Link>
           </TreeItem>
         </TreeView>
+      </Link> */}
+
+
+      
+      <Link to={`/dashboardteacheruploadcourses/${teacher.id}`}>
+        <p style={{ color: "gray" }}>
+          <DriveFolderUploadIcon style={{ color: "gray" }} />
+          <span>UploadCourses</span>
+        </p>
       </Link>
 
-      <Link>
+
+
+      <Link to={`/dashboardteacherprofile/${teacher.id}`}>
         <p style={{ color: "gray" }}>
           <AccountBoxIcon style={{ color: "gray" }} />
           <span>Profile</span>
         </p>
       </Link>
 
-      <Link to="#">
+      <Link to={`/teachereditprofile/${teacher.id}`}>
         <p style={{ color: "gray" }}>
           <BorderColorIcon style={{ color: "gray" }} />
           <span>EditProfile</span>
         </p>
       </Link>
-      <Link to="#">
+      <Link to={`/teacher/studentlist/${teacher.id}`}>
         <p style={{ color: "gray" }}>
           <PeopleIcon style={{ color: "gray" }} /> Students
         </p>
       </Link>
-      <Link to="#">
+      <Link to="/teacher/reviews">
         <p style={{ color: "gray" }}>
           <RateReviewIcon style={{ color: "gray" }} />
           Reviews

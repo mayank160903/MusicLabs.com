@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
-import "./teacherProfile.css";
-import { NavLink } from "react-router-dom";
+import "./dashboardteacher.css";
+import { Link, NavLink } from "react-router-dom";
 import PlaceIcon from "@mui/icons-material/Place";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import EmailIcon from "@mui/icons-material/Email";
 import { useParams } from "react-router";
 import profileImage from "./teacher_Profile_image copy.png";
 import axios from "axios";
+import Slidebar from "./Sidebar";
+import { useSelector } from 'react-redux';
 
-const Teacher = () => {
+const DashboardTeacherProfile = () => {
   const { id } = useParams("");
+
+  const teacher  = useSelector((state) => state.auth);
 
   const [teacherData, setTeacherData] = useState("");
   const [coursesData, setCoursesData] = useState([]);
@@ -17,12 +21,14 @@ const Teacher = () => {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/user/teacher/${id}`,
+        `http://localhost:8000/api/v1/user/dashboardteacherprofile/${id}`,
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
+
+        
       );
       console.log("Response status:", response.status);
 
@@ -49,7 +55,13 @@ const Teacher = () => {
 
   return (
     <>
-      <div className="body_container">
+
+      <div className="dashboarddiv">
+
+
+      <Slidebar teacher={teacher}/>
+
+      <div className="body_container dashboardContainer">
         <div className="container" style={{ marginBottom: "100px" }}>
           <div className="row circle_img">
             <div className="col-10 circle_img_col d-flex align-items-start justify-content-center">
@@ -98,7 +110,7 @@ const Teacher = () => {
                   <button className="btn-button">Edit Profile</button>
                 </NavLink>
                 <br />
-                <NavLink to="/courseupload">
+                <NavLink to="#">
                   <button className="btn-button right_to_left_offset">
                     Upload Courses
                   </button>
@@ -227,7 +239,7 @@ const Teacher = () => {
         <br />
         <br />
 
-        <div class="upload-heading d-flex justify-content-center align-items-center ml-6">
+        <div class="upload-heading d-flex justify-content-center align-items-center ml-6 text-black">
           <h1 style={{color:"black"}}>UPLOADED COURSES</h1>
         </div>
 
@@ -239,14 +251,14 @@ const Teacher = () => {
             >
               {coursesData.map((course, index) => (
                 <div key={index} className="col-md-5">
-                  <a href="#">
+                  <Link to={`/coursedescription/${course._id}`}>
                     <img
                       src={course.imageUrl}
                       style={{ width: "360px", height: "180px" }}
                       className="grid-element"
                       alt={course.title}
                     />
-                  </a>
+                  </Link>
                   <p className="text-black offset-3">{course.title}</p>
                 </div>
               ))}
@@ -254,8 +266,13 @@ const Teacher = () => {
           </div>
         )}
       </div>
+
+      </div>
+
+
+
     </>
   );
 };
 
-export default Teacher;
+export default DashboardTeacherProfile;

@@ -133,4 +133,4 @@ const CourseUpload = () => {
   )
 }
 
-export default CourseUpload
+export default CourseUpload;

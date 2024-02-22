@@ -1,5 +1,5 @@
 const cloudinary = require('cloudinary').v2; 
-const teacherSchema = require('../models/teacher'); 
+const userSchema = require('../models/user'); 
 
 cloudinary.config({
     cloud_name: process.env.CLOUDNAME,
@@ -7,29 +7,29 @@ cloudinary.config({
     api_secret: process.env.APISECRET
 });
 
-exports.updateTeacherProfile = async (req, res) => {
+exports.updateStudentProfile = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const newTeacherData = {
+        const newStudentData = {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             username: req.body.username,
             email: req.body.email,
             location: req.body.location,
-            description: req.body.description,
-            education: req.body.education,
-            experience: req.body.experience,
-            achievement: req.body.achievement,
+            specialization: req.body.specialization,
+            bio: req.body.bio,
+            genres: req.body.genres,
+            upcomingperformance: req.body.upcomingperformance,
         };
 
         if (req.body.avatar) {
-            const teacher = await teacherSchema.findById(id);
+            const student = await userSchema.findById(id);
             // if (teacher.avatar && teacher.avatar.public_id) {
             //     await cloudinary.uploader.destroy(teacher.avatar.public_id);
             // }
 
-            if (teacher && teacher.avatar && teacher.avatar.public_id) {
+            if (student && student.avatar && student.avatar.public_id) {
                 await cloudinary.uploader.destroy(teacher.avatar.public_id);
             }
 
@@ -39,15 +39,15 @@ exports.updateTeacherProfile = async (req, res) => {
                 crop: "scale",
             });
 
-            newTeacherData.avatar = {
+            newStudentData.avatar = {
                 public_id: myCloud.public_id,
                 url: myCloud.secure_url,
             };
         } else {
-            newTeacherData.avatar = null;
+            newStudentData.avatar = null;
         }
 
-        const updatedTeacher = await teacherSchema.findByIdAndUpdate(id, newTeacherData, {
+        const updatedStudent = await userSchema.findByIdAndUpdate(id, newStudentData, {
             new: true,
             runValidators: true,
             useFindAndModify: false,
@@ -55,11 +55,31 @@ exports.updateTeacherProfile = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            data: updatedTeacher
+            data: updatedStudent
         });
 
     } catch (error) {
-        console.error("Error updating teacher profile:", error);
+        console.error("Error updating student profile:", error);
         res.status(400).json({ error: error.message });
+    }
+};
+
+
+exports.getStudent = async(req,res) => {
+    const { id } = req.params;
+
+    try {
+      
+      const student = await userSchema.findById(id);
+      // console.log("contollerteacher", teacher);
+  
+      if (!student) {
+        return res.status(404).json({ error: 'Student not found' });
+      }
+
+      res.status(200).json({ student });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
 };

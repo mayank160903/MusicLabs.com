@@ -12,6 +12,9 @@ const {InstructorDataController} = require('../controllers/InstructorController.
 const { AddToWishlist, RemoveWishlist, getWishlist, createQuery, purchaseCourse, updateCourseProgress, getCourseProgress, getYourCourses } = require("../controllers/USerController.js");
 const { getTeacherAndCourses } = require('../controllers/TeacherProfileController.js');
 const {updateTeacherProfile} = require('../controllers/TeacherEditProfileController.js');
+const {dashboardTeacherProfile} = require('../controllers/DashboardTeacherProfileController.js')
+const {updateStudentProfile, getStudent} = require('../controllers/StudentEditProfileController');
+
 const { requireSignIn } = require("../middleware/authmiddleware.js");
 
 
@@ -57,6 +60,10 @@ router.post('/course/get-all-progress')
 
 router.put('/teachereditprofile/:id',updateTeacherProfile);
 
+router.get('/dashboardteacherprofile/:id', dashboardTeacherProfile);
 
+router.put('/studenteditprofile/:id',updateStudentProfile);
+
+router.get('/studentprofile/:id', getStudent);
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const mongoose = require('mongoosee');
+const mongoose = require('mongoose');
 
 
 const orderSchema = new mongoose.Schema({
