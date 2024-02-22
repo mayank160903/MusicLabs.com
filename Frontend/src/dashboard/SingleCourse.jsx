@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import course1 from "../images/beginnerpic.jpg";
 const SingleCourse = () => {
   const { courseId } = useParams();
-  console.log(courseId);
+  
   const [courseData, setCourseData] = useState({});
   useEffect(() => {
     const fetchData = async () => {
@@ -36,21 +36,21 @@ const SingleCourse = () => {
             <p>{courseData.title}</p>
           </div> */}
           <div className="flex mx-3 items-start align-items-center">
-            <h1 className="mr-2 font-bold text-3xl">Title &nbsp; :</h1>
+            <h1 className="mr-2 font-bold text-3xl text-gray">Title &nbsp; :</h1>
             <p className="font-thin">{courseData.title}</p>
         </div>
 
           <div className="flex mx-3 items-start align-items-center">
-            <h1 className="mr-2">Description :</h1>
-            <p>{courseData.description}</p>
+            <h1 className="mr-2 font-bold text-3xl text-gray">Description :</h1>
+            <p className="font-thin">{courseData.description}</p>
           </div>
           <div className="flex mx-3 items-start align-items-center">
-            <h1 className="mr-2">Price :</h1>
-            <p>{courseData.price}</p>
+            <h1 className="mr-2 font-bold text-3xl text-gray">Price :</h1>
+            <p className="font-thin">{courseData.price}</p>
           </div>
           <div className="flex mx-3 items-start align-items-center">
-            <h1 className="mr-2">Students Purchase :</h1>
-            <p>{courseData.purchases}</p>
+            <h1 className="mr-2 font-bold text-3xl text-gray">Students Purchase :</h1>
+            <p className="font-thin">{courseData.purchases}</p>
           </div>
         </div>
       </div>
