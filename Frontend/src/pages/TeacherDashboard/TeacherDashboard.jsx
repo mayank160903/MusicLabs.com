@@ -11,9 +11,7 @@ import axios from "axios";
 
 const TeacherDashboard = () => {
 
-
   const teacher  = useSelector((state) => state.auth);
-
   const teacherId = teacher.id;
 
   const [noofstudents,setNoOfStudents] = useState({numberOfStudents:0});
@@ -37,9 +35,6 @@ const TeacherDashboard = () => {
         console.error("Error response:", response);
         throw new Error("No data available");
       }
-
-
-
       setNoOfStudents(response.data);
       console.log("Response data:", response.data);
     } catch (error) {
@@ -149,8 +144,6 @@ const TeacherDashboard = () => {
     ],
   };
 
-  
-
   return (
 
     <div className="dashboard">
@@ -163,7 +156,6 @@ const TeacherDashboard = () => {
         <div className="dashboardSummary">
           <div>
             <p>
-              {/* Total Amount <br /> ₹79 */}
               {teacher.firstName + " " + teacher.lastName}
             </p>
           </div>
@@ -190,9 +182,6 @@ const TeacherDashboard = () => {
         <div className="doughnutChart">
           <Doughnut data={doughnutState} />
         </div>
-
-        
-
       </div>
     </div>
   );

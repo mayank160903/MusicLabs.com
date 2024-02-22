@@ -17,7 +17,7 @@ const Student = () => {
 
   const [courses, setCourses] = useState([]);
   const [coursesLoading, setCoursesLoading] = useState(true);
-  const [student, setStudent] = useState('');
+  const [student, setStudent] = useState(user);
 
 
 
@@ -185,7 +185,7 @@ const Student = () => {
             <div className="col-md-12">
               <Link to={`/coursedescription/${course.course._id}`}>
                 <img
-                  src="/beginnerpic.jpg"
+                  src={course.course.imageUrl}
                   style={{ width: "360px", height: "180px" }}
                   className="grid-element "
                 >

@@ -5,6 +5,7 @@ const userSchema = require('../models/user');
 const purchaseSchema = require('../models/purchase');
 const categorySchema = require('../models/category');
 const orderSchema = require('../models/order');
+const commentSchema = require('../models/comment');
 
 
 exports.dashboardTeacherProfile = async (req, res) => {
@@ -130,20 +131,28 @@ exports.totalEarnedMoney = async(req,res) => {
     const { id } = req.params;
     try{
         const courses = await courseSchema.find({ teacher: id });
-        const courseIds = courses.map(course => course._id);
-        const orders = await orderSchema.find({ 'courses': { $in: courseIds } });
+        // const courseIds = courses.map(course => course._id);
+        // const orders = await orderSchema.find({ 'courses': { $in: courseIds } });
         let totalSellingPrice = 0;
+        console.log(courses);
 
-        for (const order of orders) {
-            for (const courseId of order.courses) {
-              if (courseIds.includes(courseId)) {
-                const course = courses.find(course => course._id.equals(courseId));
-                if (course) {
-                  totalSellingPrice += parseFloat(course.price);
-                }
-              }
-            }
+        for(let i =0; i<courses.length; i++){
+          totalSellingPrice += courses[i].purchases*(courses[i].price);
         }
+        // courses.map((course)=>{
+        //   totalSellingPrice += course.purchases*course.price
+        //   return course
+        // })
+        // for (const order of orders) {
+        //     for (const courseId of order.courses) {
+        //       if (courseIds.includes(courseId)) {
+        //         const course = courses.find(course => course._id.equals(courseId));
+        //         if (course) {
+        //           totalSellingPrice += parseFloat(course.price);
+        //         }
+        //       }
+        //     }
+        // }
 
         res.status(200).json({ success: true, totalSellingPrice });
 
@@ -151,4 +160,31 @@ exports.totalEarnedMoney = async(req,res) => {
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
+};
+
+
+exports.studentComment = async(req,res) => {
+  const { id } = req.params;
+
+  try{
+
+    const courses = await courseSchema.find({ teacher: id });
+    if (!courses.length) {
+      return res.status(404).json({ message: 'No courses found for this teacher' });
+    }
+
+    const courseIds = courses.map(course => course._id);
+
+    const comments = await commentSchema.find({ courseId: { $in: courseIds } })
+                                      .populate('userId')
+                                      .exec();
+
+    
+
+    res.status(200).json({ success: true, comments });
+
+  }catch(error){
+    console.error('Error fetching comments:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 };

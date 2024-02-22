@@ -228,7 +228,7 @@ const Teacher = () => {
         <br />
 
         <div class="upload-heading d-flex justify-content-center align-items-center ml-6">
-          <h1>UPLOADED COURSES</h1>
+          <h1 style={{color:"black"}}>UPLOADED COURSES</h1>
         </div>
 
         {coursesData.length > 0 && (

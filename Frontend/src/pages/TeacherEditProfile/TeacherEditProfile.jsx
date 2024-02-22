@@ -5,9 +5,11 @@ import {useNavigate} from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import axios from "axios";
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 const TeacherEditProfile = () => {
 
+  const teacher  = useSelector((state) => state.auth);
 
     const [firstName,setFirstName] = useState("");
     const [lastName,setLastName] = useState("");
@@ -66,11 +68,14 @@ const TeacherEditProfile = () => {
             console.log("yaha tak code chala hai")
 
           if(response.status == 200){
-            // navigate()
+             navigate('/teacher/dashboard');
             toast.success("Your Profile Updated is Successfully");
           }else{
             alert("error");
           }
+
+
+
       }catch(error){
         console.error("Request error:", error);
         alert("An error occurred while sending the request.");
