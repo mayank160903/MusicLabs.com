@@ -74,6 +74,6 @@ router.get('/dashboardteacherprofile/:id', dashboardTeacherProfile);
 
 router.put('/studenteditprofile/:id',updateStudentProfile);
 
-router.get('/studenteditprofile/:id', getStudent);
+router.get('/studentprofile/:id', getStudent);
 
 module.exports = router;

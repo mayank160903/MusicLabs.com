@@ -5,7 +5,6 @@ exports.registerController = async (req, res) => {
     try {
       console.log("here it comes");
       const {
-       
         firstName,
         lastName,
         email,
