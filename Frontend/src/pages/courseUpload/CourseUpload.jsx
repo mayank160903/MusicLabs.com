@@ -5,6 +5,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import ImageUpload from '../../components/ImageUpload/ImageUpload';
+import background from '../../images/createCourseBg.jpg';
+
 
 const CourseUpload = () => {
 

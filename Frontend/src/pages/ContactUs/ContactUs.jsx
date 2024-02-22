@@ -2,6 +2,7 @@ import { Fragment, useState } from "react";
 import './ContactUs.css'
 import { toast } from "react-toastify";
 import axios from "axios";
+import background from '../../images/contactUsBg.jpg';
 
 
 function ContactUs(){
@@ -48,7 +49,7 @@ function ContactUs(){
     return(
         <Fragment>
             {/* <Header /> */}
-        <div className="wholepage contact-bg">
+        <div className="wholepage contact-bg" style={{ backgroundImage: `url(${background})` , backgroundRepeat: "no-repeat"}}>
         <div className="container-wrapper contact-bg">            
             <div className="container-fluid">
                 <div className="mainformcont">

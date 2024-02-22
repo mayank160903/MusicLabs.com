@@ -5,7 +5,6 @@ import MainContent from "../../components/CoursePage/MainContent";
 import {useParams } from "react-router";
 import { Box } from "@mui/material";
 import { AddCircleRounded } from "@mui/icons-material";
-
 import CreateCourseDropdown from "./CreateCourseDropdown";
 import axios from "axios";
 
