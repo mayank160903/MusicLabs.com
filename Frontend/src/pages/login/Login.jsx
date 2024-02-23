@@ -56,8 +56,12 @@ const LoginForm = () => {
                         id : user._id,
                         wishlist : user.wishlist,
                         courses : user.courses}));
-
-        navigate('/');
+          if(user.role==="Admin"){
+            navigate('/dashboard');
+          }
+        else{
+          navigate('/');
+        }
         toast.success("Login Successfully")
       } else if(response.data.success===false) {
   

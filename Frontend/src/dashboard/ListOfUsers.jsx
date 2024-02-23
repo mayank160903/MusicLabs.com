@@ -9,12 +9,13 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Button from "@mui/material/Button";
 import { useTheme } from "@mui/material/styles";
-
+import { useNavigate } from 'react-router-dom';
 const ListOfTeachers = () => {
   const theme = useTheme();
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,6 +31,16 @@ const ListOfTeachers = () => {
 
     fetchData();
   }, [searchQuery]);
+
+  const handleViewProfile = (userId) => {
+    
+    
+   
+    navigate(`/studenteditprofile/${userId}`);
+  };
+
+
+  // navigate(`/studenteditprofile/${userId}`);
 
   return (
     <>

@@ -75,8 +75,9 @@ const handleRegister = async () => {
       toast.info('User registered successfully');
       navigate('/login'); 
     }
-    else if(response.data.success === "User already exist please login"){
+    else if(response.data.message == "User already exist please login"){
       toast.info('User already exist please login');
+      return ;
     }
      else {
       toast.info('An error occurred during registration');
