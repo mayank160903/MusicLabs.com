@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import { toast, ToastContainer } from 'react-toastify'; // Import toast from toastify-js
 import './Signup.css';
 // import 'react-toastify/dist/ReactToastify.css';
@@ -41,16 +42,18 @@ const handleChange = (e) => {
 
 const handleRegister = async () => {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const passwordPattern = /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d)(?=.*[a-zA-Z]).{6,}$/;
   if (
     formData.firstName === '' ||
     formData.lastName === '' ||
     !emailPattern.test(formData.email) ||
     formData.password === '' ||
-    formData.password.length < 6
+    formData.password.length < 6 ||
+    !passwordPattern.test(formData.password)
   ) {
     console.log("here comes");
     
-    toast.info('Please fill in all fields and ensure the password is at least 6 characters.');
+    toast.info('Please fill in all fields, ensure the password is at least 6 characters, and contains at least one special character, one number, and one alphabet character.');
     return;
   }
   if(formData.confirmPassword!==formData.password){
@@ -58,21 +61,26 @@ const handleRegister = async () => {
     return ;
   }
 
+
   try {
     console.log("Here is coming");
     console.log(formData);
     const response = await axios.post('http://localhost:8000/api/v1/user/register', formData);
     console.log(response.data);
-    
+    const check = "User already exist please login"
+    console.log(typeof response.data.messages);
+    console.log(typeof check);
+    // const check = false;
     if (response.data.message === "User Registered Successfully") {
       toast.info('User registered successfully');
       navigate('/login'); 
     }
-    else if(response.data.message === "User already exist please login"){
+    else if(response.data.message == "User already exist please login"){
       toast.info('User already exist please login');
+      return ;
     }
      else {
-      toast.info('Internal server error');
+      toast.info('An error occurred during registration');
     }
   } catch (error) {
     console.error('Error during registration:', error);
@@ -197,10 +205,10 @@ const handleRegister = async () => {
               </div>
             </div>
             <div className="font-bold text-red-400 text-xl">
-                Register as a <a href='/becomeInstructor'>Instructor</a>
+                Register as a <Link to='/becomeInstructor'>Instructor</Link>
             </div>
             <div className="font-bold text-blue-400 mt-3">
-                Already Register <a href='/login'>Sign in</a>
+                Already Register <Link to='/login'>Sign in</Link>
             </div>
           </div>
         </div>

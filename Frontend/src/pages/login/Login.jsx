@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
 import { login } from '../../store/auth';
-
+import { Link } from 'react-router-dom';
 import signup from '../../images/signup1.jpg';
 import { useDispatch } from 'react-redux';
 import OAuth from './GoogleAuth';
@@ -41,7 +41,7 @@ const LoginForm = () => {
       console.log(response.data);
       if (response.data.success===true) {
         
-        toast.info('Login Successful');
+        // toast.info('Login Successful');
 
         // dispatch(login({firstName : user.firstName , lastName : user.lastName , role : user.role , token : token}));
         console.log(response.data);
@@ -56,8 +56,12 @@ const LoginForm = () => {
                         id : user._id,
                         wishlist : user.wishlist,
                         courses : user.courses}));
-
-        navigate('/');
+          if(user.role==="Admin"){
+            navigate('/dashboard');
+          }
+        else{
+          navigate('/');
+        }
         toast.success("Login Successfully")
       } else if(response.data.success===false) {
   
@@ -160,10 +164,10 @@ const LoginForm = () => {
               </div>
             </div>
             <div className="font-bold text-blue-400 mt-3">
-                Don't have account <a href='/register'>Sign up</a>
+                Don't have account <Link to='/register'>Sign up</Link>
             </div>
             <div className="font-bold text-blue-400 mt-3">
-                 <a href='/forgot'>forgot Password</a>
+                 <Link to='/forgot'>forgot Password</Link>
             </div>
           </div>
         </div>
