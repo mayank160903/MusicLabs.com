@@ -72,7 +72,7 @@ export default function StudentHeaderTest() {
           <Link to="/spotlight" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             Spotlight
           </Link>
-          <Link to="/spotlight" className="text-sm p-2 font-semibold leading-6 text-slate-950">
+          <Link to="/wishlist" className="text-sm p-2 font-semibold leading-6 text-slate-950">
             My Learning
           </Link>
           <Link to="/wishlist" className="text-sm p-2 font-semibold leading-6 text-slate-950">

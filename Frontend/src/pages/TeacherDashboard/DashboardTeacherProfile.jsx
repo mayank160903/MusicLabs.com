@@ -251,7 +251,7 @@ const DashboardTeacherProfile = () => {
             >
               {coursesData.map((course, index) => (
                 <div key={index} className="col-md-5">
-                  <Link to={`/coursedescription/${course._id}`}>
+                  <Link to={`/createcourse/${course._id}`}>
                     <img
                       src={course.imageUrl}
                       style={{ width: "360px", height: "180px" }}
