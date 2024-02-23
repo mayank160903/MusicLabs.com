@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import signup from '../../images/signup1.jpg';
 import { Input } from '@mui/base';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const BecomeInstructor = () => {
 
@@ -400,7 +401,7 @@ const handleRegister = async () => {
           </div>
         </div>
         <div className="font-bold text-blue-400 mt-3">
-                Sign up as a <a href='/register'>User</a>
+                Sign up as a <Link to='/register'>User</Link>
             </div>
       </div>
     </div>
