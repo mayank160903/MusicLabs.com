@@ -24,6 +24,31 @@ exports.getAllQuery = async (req, res) => {
   }
 };
 
+exports.getDetails = async(req , res) =>{
+
+  try {
+    const courseCount = await courseModel.countDocuments();
+    const contactCount = await contactModel.countDocuments();
+    const categoryCount = await categoryModel.countDocuments();
+    const userCount = await userModel.countDocuments();
+
+    return res.status(200).json({
+      success: true,
+      courseCount,
+      contactCount,
+      categoryCount,
+      userCount
+    });
+  } catch (error) {
+    console.error("Error fetching details:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Error fetching details"
+    });
+  }
+
+}
+
 exports.createCategory = async (req, res) => {
   const { name } = req.body;
   try {

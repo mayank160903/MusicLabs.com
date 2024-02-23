@@ -47,6 +47,11 @@ const Purchases = () => {
         <BasicBars />
         <BasicLineChart />
     </div>
+
+
+    <div className="flex justify-center">
+        <h1 className="font-bold text-4xl text-white">Transaction History </h1>
+      </div>
       <TableContainer
         component={Paper}
         sx={{
