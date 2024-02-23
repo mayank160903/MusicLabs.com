@@ -150,6 +150,7 @@ function WishlistPage(){
                         <img
                           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACoCAMAAABt9SM9AAAAA1BMVEUAlv+tY//LAAAAR0lEQVR4nO3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO8GxYgAAb0jQ/cAAAAASUVORK5CYII="
                           className="card-img-top"
+
                           alt="..."
                         />
                         <div
@@ -252,7 +253,7 @@ function WishlistPage(){
                     <div className="rightcont">
                       <div className="rightmain d-flex flex-column">
                         <div className="rhead">
-                          <div className="" id="wishlist-count">
+                          <div className="font-black" id="wishlist-count">
                             {" "}
                             {mode === "wish"
                               ? `Your Wishlist (${user?.wishlist?.length})`
@@ -273,8 +274,10 @@ function WishlistPage(){
                                     <div className="imgcontainer">
                                       <img
                                         src={wishitem.imageUrl}
+
                                         className="course-img img-fluid"
                                         width="230px"
+                                        style={{height: "138px"}}
                                       />
                                     </div>
 

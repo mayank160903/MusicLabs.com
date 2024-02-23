@@ -43,7 +43,10 @@ function CourseCard({course,progress}){
         <div className ="wishblock" key = {course._id} >
         <div className ="imgcontainer">
             <img src = {course.imageUrl}
-            width="230px"/>
+            width="230px"
+            height="100px"
+            style={{height: "138px"}}
+            />
             <div>
             <LinearProgress variant="determinate" value={(progressValue/totalVideos)* 100} />
             </div>
