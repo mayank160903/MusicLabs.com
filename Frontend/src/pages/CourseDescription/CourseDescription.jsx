@@ -75,6 +75,25 @@ const CourseDetails = () => {
       }
     },[user?.wishlist, user?.courses, user?.isLoggedin])
     
+    async function getCourseComments() {
+      try {
+        const res = await axios.post(
+          "http://localhost:8000/api/course/get-comments",
+          {
+            courseId: params.courseId,
+          }
+        );
+
+        if (res.status === 200) {
+          console.log(res.data.comments);
+          setCourseComments(res.data.comments);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+
     useEffect(() => {
       async function getCourseInfo() {
         try {
@@ -91,23 +110,6 @@ const CourseDetails = () => {
         }
       }
 
-      async function getCourseComments() {
-        try {
-          const res = await axios.post(
-            "http://localhost:8000/api/course/get-comments",
-            {
-              courseId: params.courseId,
-            }
-          );
-
-          if (res.status === 200) {
-            console.log(res.data.comments);
-            setCourseComments(res.data.comments);
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      }
 
       getCourseInfo();
       getCourseComments();
@@ -178,6 +180,7 @@ const CourseDetails = () => {
         })
 
         if(request.status === 200){
+          getCourseComments();
           toast.success('Comment Added');
           setComment('');
         }

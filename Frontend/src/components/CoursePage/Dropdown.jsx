@@ -45,7 +45,7 @@ function Dropdown({currentSection, setCurrentSection, id, title, num, content, s
         setProgress({...progress, [id]: {...progress[id], watched: !progress[id]?.watched}})
         const formData = new FormData();
         formData.append("userId",user.id);
-        formData.append("videoId",id);
+        formData.append("videoId", id);
         formData.append("courseId", params.courseId)
 
         try {
