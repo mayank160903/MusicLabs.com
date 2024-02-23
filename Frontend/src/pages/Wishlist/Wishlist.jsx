@@ -263,7 +263,7 @@ function WishlistPage(){
 
                         <div className="overflow-auto max-h-[70vh]">
                           {mode === "wish" ? (
-                            user?.wishlist.length != 0 ? (
+                            user?.wishlist?.length != 0 ? (
                               user?.wishlist.map((wishitem) => {
                                 return (
                                   <div
@@ -273,7 +273,7 @@ function WishlistPage(){
                                   >
                                     <div className="imgcontainer">
                                       <img
-                                        src={wishitem.imageUrl}
+                                        src={wishitem?.imageUrl}
 
                                         className="course-img img-fluid"
                                         width="230px"
@@ -284,10 +284,10 @@ function WishlistPage(){
                                     <div className="wishitemleft d-flex flex-column">
                                       <div className="title2">
                                         <Link
-                                          to={`/coursedescription/${wishitem._id}`}
+                                          to={`/coursedescription/${wishitem?._id}`}
                                           className="courselink"
                                         >
-                                          {wishitem.title}
+                                          {wishitem?.title}
                                         </Link>
                                       </div>
 
@@ -295,7 +295,7 @@ function WishlistPage(){
                                         <a>
                                           By{" "}
                                           {capitalizeFirstLetter(
-                                            wishitem.teacher[0].firstName
+                                            wishitem?.teacher[0].firstName
                                           )}
                                         </a>
                                       </div>
@@ -312,7 +312,7 @@ function WishlistPage(){
 
                                       <div className="price">
                                         <div>
-                                          <p>$ {wishitem.price}</p>
+                                          <p>$ {wishitem?.price}</p>
                                         </div>
                                       </div>
                                     </div>
@@ -353,9 +353,9 @@ function WishlistPage(){
                               courses.map((course) => {
                                 return (
                                   <CourseCard
-                                    key={course.course._id}
-                                    course={course.course}
-                                    progress={course.progress}
+                                    key={course?.course._id}
+                                    course={course?.course}
+                                    progress={course?.progress}
                                   />
                                 );
                               })

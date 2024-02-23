@@ -54,11 +54,11 @@ function CourseCard({course,progress}){
 
         <div className="wishitemleft d-flex flex-column">
           <div className ="title2">
-            <Link to = {`/coursedescription/${course._id}`} className = "courselink">{course.title} </Link>
+            <Link to = {`/coursedescription/${course?._id}`} className = "courselink">{course.title} </Link>
           </div>
 
           <div className="teacher">
-            <a>By {capitalizeFirstLetter(course.teacher[0].firstName)}</a>
+            <a>By {capitalizeFirstLetter(course?.teacher[0]?.firstName)}</a>
           </div>
 
           <div className="rating">
