@@ -1,5 +1,5 @@
 import React from 'react'
-// import intro_carl from "../../Videos/intro_carl.mp4"
+import intro_carl from "../../Videos/jamplay_vid.mp4"
 import Button from '../Buttons/Button'
 import testBg from '../../images/testimonialBg.png'
 
@@ -9,7 +9,7 @@ function Testimonial() {
       <section className="bg-white dark:bg-gray-900">
     <div className="container px-6 py-10 mx-auto">
         <div className="lg:-mx-6 lg:flex lg:items-center">
-            <video controls={true} className="object-cover object-center lg:w-1/2 lg:mx-6 w-full h-50 rounded-lg lg:h-[36rem]" src="" alt="" ></video>
+            <video controls={true} className="object-cover object-center lg:w-1/2 lg:mx-6 w-full h-50 rounded-lg lg:h-[36rem]" src={intro_carl} alt="" ></video>
             {/* <img className="object-cover object-center lg:w-1/2 lg:mx-6 w-full h-96 rounded-lg lg:h-[36rem]" src="https://images.unsplash.com/photo-1499470932971-a90681ce8530?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="" /> */}
             
             <div className="mt-8 ml-10 lg:w-1/2 lg:px-6 lg:mt-0">

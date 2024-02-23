@@ -66,7 +66,7 @@ function Home() {
                     <h3>Courses</h3>
                     <BsFillArchiveFill className='card_icon'/>
                 </div>
-                <h1>300</h1>
+                <h1 className='text-black'>300</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
