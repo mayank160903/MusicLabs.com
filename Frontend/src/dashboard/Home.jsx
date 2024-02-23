@@ -1,12 +1,35 @@
-import React from 'react'
+import React  , {useState , useEffect} from 'react'
 import 
 { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill}
  from 'react-icons/bs'
  import 
  { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } 
  from 'recharts';
+ import axios from 'axios';
 
 function Home() {
+  const [courses, setCourses] = useState();
+  const [categories, setCategories] = useState();
+  const [queries, setQueries] = useState();
+  const [users, setUsers] = useState();
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            
+            const coursesResponse = await axios.get('http://localhost:8000/api/v1/admin/custom');
+            setCourses(coursesResponse.data.courseCount);
+            setCategories(coursesResponse.data.categoryCount);
+            setQueries(coursesResponse.data.contactCount);
+            setUsers(coursesResponse.data.userCount);
+            
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    fetchData();
+}, []);
+
 
     const data = [
         {
@@ -66,28 +89,28 @@ function Home() {
                     <h3>Courses</h3>
                     <BsFillArchiveFill className='card_icon'/>
                 </div>
-                <h1>300</h1>
+                <h1 className="text-black">{courses}</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
                     <h3>CATEGORIES</h3>
                     <BsFillGrid3X3GapFill className='card_icon'/>
                 </div>
-                <h1>12</h1>
+                <h1>{categories}</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
                     <h3>Users</h3>
                     <BsPeopleFill className='card_icon'/>
                 </div>
-                <h1>33</h1>
+                <h1>{users}</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
                     <h3>Queries</h3>
                     <BsFillBellFill className='card_icon'/>
                 </div>
-                <h1>42</h1>
+                <h1>{queries}</h1>
             </div>
         </div>
 

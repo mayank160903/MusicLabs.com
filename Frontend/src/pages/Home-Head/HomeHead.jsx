@@ -1,4 +1,7 @@
 import bg from '../../images/homebg2.jpg';
+import React  , {useState , useEffect} from 'react'
+
+import axios from 'axios';
 
 const links = [
     { name: 'All Courses', href: '/catalogue' },
@@ -6,14 +9,39 @@ const links = [
     { name: 'About Us', href: '/aboutus' },
 
   ]
-  const stats = [
-    { name: 'Students', value: '40' },
-    { name: 'Instructors', value: '4' },
-    { name: 'Courses', value: '40' },
-    { name: 'Reviews', value: '35' },
-  ]
+ 
   
   export default function HomeHead() {
+
+
+    const [courses, setCourses] = useState();
+  const [categories, setCategories] = useState();
+  const [queries, setQueries] = useState();
+  const [users, setUsers] = useState();
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            
+            const coursesResponse = await axios.get('http://localhost:8000/api/v1/admin/custom');
+            setCourses(coursesResponse.data.courseCount);
+            setCategories(coursesResponse.data.categoryCount);
+            setQueries(coursesResponse.data.contactCount);
+            setUsers(coursesResponse.data.userCount);
+            
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    fetchData();
+}, []);
+
+const stats = [
+  { name: 'Students', value: users },
+  { name: 'Instructors', value: '36' },
+  { name: 'Courses', value: courses },
+  { name: 'Reviews', value: '35' },
+]
     return (
       <div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32">
         <img style={{opacity: 0.45}}

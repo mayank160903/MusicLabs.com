@@ -3,6 +3,7 @@ import signup from '../../images/signup1.jpg';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const [forgotData, setForgotData] = useState({
@@ -126,7 +127,7 @@ const ForgotPassword = () => {
                 Don't have account <a href='/register'>Sign up</a>
             </div>
             <div className="font-bold text-blue-400 mt-3">
-                 <a href='/login'>Sign in</a>
+                 <Link to='/login'>Sign in</Link>
             </div>
           </div>
         </div>
