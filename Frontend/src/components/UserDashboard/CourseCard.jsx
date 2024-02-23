@@ -43,7 +43,10 @@ function CourseCard({course,progress}){
         <div className ="wishblock" key = {course._id} >
         <div className ="imgcontainer">
             <img src = {course.imageUrl}
-            width="230px"/>
+            width="230px"
+            height="100px"
+            style={{height: "138px"}}
+            />
             <div>
             <LinearProgress variant="determinate" value={(progressValue/totalVideos)* 100} />
             </div>
@@ -51,11 +54,11 @@ function CourseCard({course,progress}){
 
         <div className="wishitemleft d-flex flex-column">
           <div className ="title2">
-            <Link to = {`/coursedescription/${course._id}`} className = "courselink">{course.title} </Link>
+            <Link to = {`/coursedescription/${course?._id}`} className = "courselink">{course.title} </Link>
           </div>
 
           <div className="teacher">
-            <a>By {capitalizeFirstLetter(course.teacher[0].firstName)}</a>
+            <a>By {capitalizeFirstLetter(course?.teacher[0]?.firstName)}</a>
           </div>
 
           <div className="rating">
