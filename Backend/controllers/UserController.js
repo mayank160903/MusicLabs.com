@@ -210,9 +210,9 @@ exports.getAllCourseProgress = async (req,res) => {
 exports.updateCourseProgress  = async (req,res) => {
     
     const {userId,courseId, videoId} = req.body;
-
+    console.log(userId, courseId, videoId)
     if(!userId || !courseId || !videoId){
-        return res.status(400).json({error: "Please fill all the fields"});
+        return res.status(404).json({error: "Please fill all the fields"});
     }
 
     try {

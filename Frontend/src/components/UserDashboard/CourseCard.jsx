@@ -26,23 +26,24 @@ function CourseCard({course,progress}){
 
     let k= 0;
     for(let i = 0; i<progress.length; i++){
-        if(progress[i].watched){
+        if(progress[i]?.watched){
             k++;
         }
     }
 
     let vids = 0;
-    for(let j = 0; j<course.sections.length; j++){
-        vids += course.sections[j].videos.length;
+    for(let j = 0; j<course?.sections.length; j++){
+        vids += course?.sections[j].videos.length;
     }
       
     const [progressValue, setProgressValue] = useState(k);
     const [totalVideos, setTotalVideos] = useState(vids)
     
     return (
-        <div className ="wishblock" key = {course._id} >
+      course &&
+        (<div className ="wishblock" key = {course._id} >
         <div className ="imgcontainer">
-            <img src = {course.imageUrl}
+            <img src = {course?.imageUrl}
             width="230px"
             height="100px"
             style={{height: "138px"}}
@@ -84,6 +85,7 @@ function CourseCard({course,progress}){
             Go To Course</button>
         </div>
     </div>
+        )
     )
 }
 

@@ -315,7 +315,7 @@ function WishlistPage(){
                                           <p>$ {wishitem?.price}</p>
                                         </div>
                                       </div>
-                                    </div>
+                                    </div>F
 
                                     <div className="rightitembar">
                                       <div
@@ -352,11 +352,12 @@ function WishlistPage(){
                             courses.length != 0 ? (
                               courses.map((course) => {
                                 return (
+                                  course && ( 
                                   <CourseCard
-                                    key={course?.course._id}
+                                    key={course?.course?._id}
                                     course={course?.course}
                                     progress={course?.progress}
-                                  />
+                                  />)
                                 );
                               })
                             ) : (

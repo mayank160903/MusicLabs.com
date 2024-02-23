@@ -47,9 +47,14 @@ function Dropdown({currentSection, setCurrentSection, id, title, num, content, s
         formData.append("userId",user.id);
         formData.append("videoId", id);
         formData.append("courseId", params.courseId)
-
+        const data1 = {
+            userId : user.id,
+            videoId : id,
+            courseId : params.courseId
+        }
+        console.log(formData)
         try {
-            const res = await axios.post("http://localhost:8000/api/v1/user/course/progress", formData)
+            const res = await axios.post("http://localhost:8000/api/v1/user/course/progress", data1)
             console.log(res)
 
         } catch (e) {
