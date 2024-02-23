@@ -41,7 +41,7 @@ const LoginForm = () => {
       console.log(response.data);
       if (response.data.success===true) {
         
-        toast.info('Login Successful');
+        // toast.info('Login Successful');
 
         // dispatch(login({firstName : user.firstName , lastName : user.lastName , role : user.role , token : token}));
         console.log(response.data);
@@ -163,7 +163,7 @@ const LoginForm = () => {
                 Don't have account <a href='/register'>Sign up</a>
             </div>
             <div className="font-bold text-blue-400 mt-3">
-                 <a href='/forgot'>forgot Password</a>
+                 <Link to='/forgot'>forgot Password</Link>
             </div>
           </div>
         </div>
