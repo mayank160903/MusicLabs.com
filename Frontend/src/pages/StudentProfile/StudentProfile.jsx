@@ -76,38 +76,13 @@ const Student = () => {
 
   return (
     <>
-      {/* <div className="header_container">
-        <div className="row">
-          <div className="col-12">
-            {/* <div className="upper-head">
-              <div className="top-logo">
-                <img
-                  className="bg"
-                  src="header_image.jpeg"
-                  alt=" image_Description"
-                />
-              </div>
-
-              <div className="title-text">
-                <h1 className="title">MASTER OF MUSICS</h1>
-                <p className="preheader-text">
-                  Master your music skills with the best music lessons!
-                </p>
-              </div>
-            </div> */}
-          {/* </div> */}
-        {/* </div> */}
-      {/* </div> */}
+     
 
       <div className="body_container">
         <div className="container">
           <div className="row circle_img">
             <div className="col-10 circle_img_col d-flex align-items-start justify-content-center">
-              {/* <Image
-                className="circle_image"
-                src="/teacher_Profile_image.png"
-              /> */}
-
+             
               <img
                 className="circle_image"
                 src={
@@ -168,7 +143,7 @@ const Student = () => {
               </div>
               
                 <div className="content text-black text-2xl">Concert at City Hall - 05/15/2023</div>
-                {/* <div className="content text-black text-2xl">Jazz Festival - 07/20/2023</div> */}
+                
               
             </div>
           </div>

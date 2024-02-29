@@ -1,4 +1,4 @@
-// import exp from "constants";
+
 import { Fragment, useEffect, useState } from "react";
 
 import styles from './PaymentPage.module.css'
@@ -32,11 +32,11 @@ function PaymentPage(){
       };
     
       const confrm = () => {
-        // Implement the confrm function here
+       
       };
     
       const copyToClip = (phoneNumber) => {
-        // Implement the copyToClip function here
+        
       };
 
       useEffect(()=>{
@@ -103,7 +103,7 @@ function PaymentPage(){
   const displayRazorpay = async () => {
     const options = {
       key: "rzp_test_CFaCcyskyo1gnl",
-      amount: course?.price * 100, // Amount in paise (Example: 50000 paise = ₹500)
+      amount: course?.price * 100, 
       currency: "INR",
       name: "Masters Of Music",
       description: course?.title,
@@ -130,7 +130,7 @@ function PaymentPage(){
     return(
         <Fragment>
     <div className={styles.checkoutbody}>
-      <div className={styles.centerWrapper}> {/* Use CSS Modules for class names */}
+      <div className={styles.centerWrapper}> 
         <div className={styles.content}>
           <div className={styles.topBar}>
             <div onClick={piiche} className="cursor-pointer">
@@ -138,7 +138,7 @@ function PaymentPage(){
               <span className={styles.bb} >Go Back</span>
             </div>
           </div>
-          <div className={styles.bagProduct}> {/* Combine multiple class names */}
+          <div className={styles.bagProduct}> 
             <div className={styles.courseImg}>
             {!loading ? (
               <img src={course?.imageUrl} className={styles.img1} alt="Course" /> ) : (<Skeleton animation="wave" variant="rectangular" width={'14rem'} height={"76%"} sx={{marginLeft: '1rem', marginTop: '1.4rem'}}/>)
@@ -172,18 +172,7 @@ function PaymentPage(){
               <input type="checkbox" name="promo-check" id="mycheck"  />
               <label htmlFor="promo-check" className="ml-3">I have a promo code</label>
             </div>
-            {/* <div className={styles.promoWarning} id="warn1">
-              <p className={styles.warn1}>Please Enter a Promo Code!</p>
-            </div>
-            <div className={styles.promoWarning} id="warn2">
-              <p className={styles.warn1}>Promo Code Should be AlphaNumeric and at least 6 characters long!</p>
-            </div>
-            <div className={styles.promoWarning} id="warn3">
-              <p className={styles.warn1}>Invalid Promo Code!</p>
-            </div>
-            <div className={styles.promoWarning + ' ' + styles.good90} style={{ color: '#22ad3a' }}>
-              <p className={styles.warn1}>Promo Code Applied</p>
-            </div> */}
+           
             <div className={styles.promoCode} id="promo_input">
               <input
                 type="text"
@@ -199,23 +188,19 @@ function PaymentPage(){
               <button className={styles.checkbtn} type="submit" id="chkout" style={{backgroundColor: '#9966cc'}} onClick={handlePayment}>
                 <div className="uppercase">{!paymentLoading ? "Proceed to Checkout" : <CircularProgress color="inherit"/>}</div>
               </button>
-            {/* </form> */}
+            
           </div>
           <div style={{ textAlign: 'center', marginBottom: '2rem', marginTop: '0.7rem'}}>
             <abbr title="Click To Copy Phone Number" style={{ textDecoration: 'none' }} id="ccpy">
-              <p className={styles.hlp} onClick={() => copyToClip('8076779704')} style={{color : 'black' }}>
-                Need help? Call +91 8076779704
+              <p className={styles.hlp} onClick={() => copyToClip('9569808170')} style={{color : 'black' }}>
+                Need help? Call +91 9569808170
               </p>
             </abbr>
           </div>
         </div>
       </div>
       <div className={styles.bg}></div>
-      {/* <div className={styles.popContainer}>
-        <div className={styles.popover1} id="rem123">
-          <div style={{ textAlign: 'center' }}>Copied To Clipboard!</div>
-        </div>
-      </div> */}
+      
     </div>
 
         </Fragment>
