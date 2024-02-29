@@ -20,7 +20,7 @@ exports.AddToWishlist = async (req,res) => {
 
         if(!user.wishlist.includes(courseId)){
             user.wishlist.push(courseId);
-            // const course = await courseSchema.findOne(courseId).populate;
+            
             await user.save();
            return  res.status(200).json({message: "Course added to wishlist", course: courseId});
     } else {

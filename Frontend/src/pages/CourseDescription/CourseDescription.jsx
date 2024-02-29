@@ -385,15 +385,7 @@ const CourseDetails = () => {
                               ? "Already in Wishlist"
                               : "Add To Wishlist"}
                           </button>
-                          {/* <a href={`/checkout/${course?._id}`} className="btn btn-dark">
-                            Buy This Course
-                          </a>
-                          <a
-                            onClick={() => AddToWishlist(course?._id)}
-                            className="btn btn-dark text-base "
-                            id="wlbutton">
-                            Add to Wishlist
-                          </a> */}
+                         
                         </div>
                       </div>
                     </div>
@@ -593,12 +585,7 @@ const CourseDetails = () => {
                               Access to a well tuned Guitar.
                             </li>
 
-                            {/* <li>
-                              <span className={`${styles.greentick} mt-0`}>
-                                <img src={checkmark} alt="" />
-                              </span>
-                              A Burning Passion to Learn.
-                            </li> */}
+                            
                           </ul>
                         </div>
                       </div>

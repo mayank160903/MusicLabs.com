@@ -44,7 +44,7 @@ const StudentEditProfile = () => {
 
     const addTeacherData = async() =>{
       const formData = new FormData();
-      // formData.append("photo",file);
+     
       formData.set("avatar", avatar);
       formData.set("firstName",firstName);
       formData.set("lastName",lastName);
@@ -66,7 +66,7 @@ const StudentEditProfile = () => {
         console.log(formData);
           const response = await axios.put(`http://localhost:8000/api/v1/user/studenteditprofile/${id}`,formData, config);
 
-            console.log("yaha tak code chala hai")
+           
 
           if(response.status == 200){
             navigate('/studentprofile');

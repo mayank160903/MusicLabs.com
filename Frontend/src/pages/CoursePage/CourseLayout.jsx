@@ -20,8 +20,7 @@ function CourseLayout(){
     const [courseInfo,setCourseInfo] = useState(null);
     const [initialLoading, setInitialLoading] = useState(true);
     const [progress, setProgress] = useState({'1': {id:1}});
-    // const dispatch = useDispatch();
-    // dispatch(authActions.login());
+    
     
     useEffect(()=>{
       async function getCourseProgress(){
@@ -88,7 +87,7 @@ function CourseLayout(){
             <div className="absolute inset-y-0 overflow-auto scroll-y right-0 mt-2 w-[24vw] bg-neutral-200">
             
              { courseInfo.sections.map((section, index)=>{
-                {/* console.log(section.videos) */}
+                
                     return(
                         <Dropdown key={section._id} id={section._id} num={index+1} currentSection={currentSection} 
                         setCurrentSection={setCurrentSection} title={section.name} progress={progress} setProgress={setProgress}
