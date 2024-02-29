@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import {addToWl } from '../../store/auth';
 
-import {Link, useNavigate, useParams} from 'react-router-dom'; // Import the useParams hook from React Router
-import styles from './CourseDescription.module.css'; // Import CSS Modules
+import {Link, useNavigate, useParams} from 'react-router-dom'; 
+import styles from './CourseDescription.module.css'; 
 
-import playButton from './images/play-button.png'; // Import the play button image
-import courseContentIcon from './images/course-content-icon.png'; // Import the course content icon image
-import martyPic from './images/marty-pic.jpg'; // Import the Marty image
+import playButton from './images/play-button.png'; 
+import courseContentIcon from './images/course-content-icon.png'; 
+import martyPic from './images/marty-pic.jpg'; 
 import tv from './images/tv.png';
 import subtitles from './images/subtitles.png';
 import highFive from './images/high-five.png';
@@ -19,22 +19,15 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Button, Input, InputAdornment, Skeleton, TextField } from '@mui/material';
 
-// import { CircleUser } from 'lucide-react'
-// import {makeStyles} from '@mui/styles'
+
 
 function capitalizeFirstLetter(string) {
   if(string){
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     '& .MuiTextField-root': {
-//       margin: theme.spacing(1),
-//       width: '25ch',
-//     },
-//   },
-// }));
+
+
 
 const CourseDetails = () => {
 
@@ -48,7 +41,7 @@ const CourseDetails = () => {
     const [isPurchased, setIsPurchased] = useState(false);
 
     const [comment, setComment] = useState('');
-    const [courseComments, setCourseComments] = useState(false);
+    const [courseComments, setCourseComments] = useState([]);
 
   const handleChange = (event) => {
     setComment(event.target.value);

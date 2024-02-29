@@ -41,9 +41,7 @@ const LoginForm = () => {
       console.log(response.data);
       if (response.data.success===true) {
         
-        // toast.info('Login Successful');
-
-        // dispatch(login({firstName : user.firstName , lastName : user.lastName , role : user.role , token : token}));
+       
         console.log(response.data);
         const user = response.data.user
         const token = response.data.token;
@@ -56,12 +54,9 @@ const LoginForm = () => {
                         id : user._id,
                         wishlist : user.wishlist,
                         courses : user.courses}));
-          if(user.role==="Admin"){
-            navigate('/dashboard');
-          }
-        else{
+       
           navigate('/');
-        }
+        
         toast.success("Login Successfully")
       } else if(response.data.success===false) {
   
