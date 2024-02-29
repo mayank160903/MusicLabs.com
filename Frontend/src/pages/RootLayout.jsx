@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
 import TeacherHeaderTest from "./Header/TeacherHeaderTest";
 import StudentHeaderTest from "./Header/StudentHeaderTest";
+import AdminHeader from './Header/AdminHeader';
 // import { useSelector } from "react-redux/es/hooks/useSelector";
 // import HeaderBar from "../components/Header";
 // import SideBar from "../components/Sidebar";
@@ -37,7 +38,12 @@ function RootLayout(){
             <ToastContainer />
             {/* <Header/> */}
             <div className="relative z-[10]">
-          {showHeader ? (user?.role?.toLowerCase() == 'teacher' ? <TeacherHeaderTest/> : (user?.role?.toLowerCase() == 'user' ? <StudentHeaderTest/> :<DefaultHeader/>)) : ""}
+          {/* {showHeader ? (user?.role?.toLowerCase() == 'teacher' ? <TeacherHeaderTest/> : (user?.role?.toLowerCase() == 'user' ? <StudentHeaderTest/> :<DefaultHeader/>)) : ""} */}
+          {showHeader ? (
+    user?.role?.toLowerCase() === 'teacher' ? <TeacherHeaderTest/> :
+    user?.role?.toLowerCase() === 'user' ? <StudentHeaderTest/> :
+    user?.role?.toLowerCase() === 'admin' ? <AdminHeader/> : <DefaultHeader/>
+) : ""}
             </div>
             {/* <Headertest /> */}
             

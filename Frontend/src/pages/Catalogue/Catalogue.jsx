@@ -28,9 +28,7 @@ const Catalogue = (props) => {
           `http://localhost:8000/api/v1/admin/allcourses?search=${searchInput}`
         );
         setCourses(response.data.courses);
-        // console.log("courseslength")
-        console.log(courses.length);
-        console.log(courses);
+      
       } catch (error) {
         console.error("Error fetching courses:", error);
       }
