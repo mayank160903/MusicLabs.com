@@ -17,9 +17,6 @@ const ratingSchema = new mongoose.Schema({
         required : [true , 'Rating is required'],
 
     }
-    
-
-
 })
 
 module.exports = mongoose.model('rating' , ratingSchema);

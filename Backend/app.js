@@ -58,6 +58,10 @@ const upload = multer({ limits: { fileSize: 50 * 1024 * 1024 } }); // 50 MB limi
 connectDb();
 
 
+app.use((req,res,next)=>{
+  console.log(req)
+  next();
+})
 
 
 
@@ -65,14 +69,15 @@ app.use('/api/v1/user', AuthRoutes)
 app.use('/api/v1/user', UserRoutes)
 app.use('/api', paymentRoutes)
 app.use('/api/v1/teacher', TeacherRoutes);
-
-app.use('/api/course',courseRoutes);
+app.use('/api/course', courseRoutes);
 app.use('/api/v1/admin' , AdminRoutes);
+
 
 const PORT = 8000;
 app.listen(PORT, (req, res) => {
     console.log(`server is listening on PORT number ${PORT}`);
 })
+
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;

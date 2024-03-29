@@ -42,6 +42,11 @@ const userSchema = new Schema({
         type: mongoose.ObjectId,
         ref: "courses"
       },
+      lastVideo : {
+        type : mongoose.ObjectId,
+        ref : "videos"
+      },
+      
       progress : [
         {
           videoId : {

@@ -41,6 +41,7 @@ function CreateCourseLayout(){
     
     },[])
 
+
     useEffect(()=>{
         setCurrentTitle(courseInfo?.sections?.find(section=>section._id === currentSection)?.name)
     },[currentSection])
