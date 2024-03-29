@@ -36,7 +36,7 @@ function Dropdown({currentSection, setCurrentSection, id, title, num, content, s
         } else
         setCurrentSection("")
     }
-    // console.log(progress[content[0]._id])
+    
     function videoChangeHandler(lesson){
         setVideo(lesson)
     }

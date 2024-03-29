@@ -17,11 +17,7 @@ const contactSchema = require("./models/contact.js");
 const teacherSchema = require(__dirname + "/models/teacher.js");
 const coursesSchema = require(__dirname + "/models/course.js");
 const sectionSchema = require(__dirname + "/models/sections.js");
-// const userRoute = require('./routes/UserRoutes.js');
 
-
-// const helmet=require('helmet');
-// app.use(helmet())
 
 
 const app = express();
