@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { purchaseCourse } from "../../store/auth";
 import { CircularProgress, Skeleton } from "@mui/material";
+import { backendUrl } from "../../url";
 
 
     function capitalizeFirstLetter(string) {``
@@ -43,7 +44,7 @@ function PaymentPage(){
         async function getCourseInfo(){
           try{
             
-            const response = await axios.get(`http://localhost:8000/api/course/description/${params.id}`);
+            const response = await axios.get(`${backendUrl}/api/course/description/${params.id}`);
             
             setCourse(response.data.course);
             setLoading(false)
@@ -63,7 +64,7 @@ function PaymentPage(){
     setPaymentLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/create-order"
+        `${backendUrl}/api/create-order`
       );
       setOrderId(response.data.id);
     } catch (error) {
@@ -80,7 +81,7 @@ function PaymentPage(){
 
     setPaymentLoading(false);
     try {
-          const res = await axios.post(`http://localhost:8000/api/v1/user/purchase`, formData, {
+          const res = await axios.post(`${backendUrl}/api/v1/user/purchase`, formData, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `${user.token}`

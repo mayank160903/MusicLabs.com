@@ -9,6 +9,7 @@ import LinearWithValueLabel from "./LinearProgressNumbered";
 import {  EditIcon,  Trash2, XCircle } from "lucide-react";
 import DeleteWarning from "./DeleteWarning";
 import CreateLesson from "./CreateLesson";
+import { backendUrl } from "../../url";
 
 const API_KEY = '396353668692966'
 const CLOUD_NAME = 'djcg8mvbx'
@@ -44,7 +45,7 @@ function CreateCourseDropdown({id, currentSection, setCurrentSection, title, num
         if(e.key === 'Enter'){
             setEditedTitle(e.target.value)
             try {
-            const req = await axios.post('http://localhost:8000/api/course/editsection', {sectionId: id, newName: e.target.value}, {
+            const req = await axios.post(`${backendUrl}/api/course/editsection`, {sectionId: id, newName: e.target.value}, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
@@ -77,7 +78,7 @@ function CreateCourseDropdown({id, currentSection, setCurrentSection, title, num
     async function deleteSectionHandler(){
 
         try {
-            const req = await axios.post('http://localhost:8000/api/course/deletesection', {sectionId: id}, {
+            const req = await axios.post(`${backendUrl}/api/course/deletesection`, {sectionId: id}, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
@@ -125,7 +126,7 @@ function CreateCourseDropdown({id, currentSection, setCurrentSection, title, num
         }
         try {
           setUploading(true);
-          let response = await axios.get('http://localhost:8000/api/course/get-signature');
+          let response = await axios.get(`${backendUrl}/api/course/get-signature`);
 
           const {signature, timestamp} =  response.data;
 
@@ -149,7 +150,7 @@ function CreateCourseDropdown({id, currentSection, setCurrentSection, title, num
 
           
         
-          let video_res = await axios.post('http://localhost:8000/api/course/addcontent', {courseId: params.courseid, sectionId: currentSection, videoUrl: res.data.url, videoName: videoName}, {
+          let video_res = await axios.post(`${backendUrl}/api/course/addcontent`, {courseId: params.courseid, sectionId: currentSection, videoUrl: res.data.url, videoName: videoName}, {
             headers: {
               'Content-Type': 'application/json'
             }})

@@ -1,22 +1,30 @@
 const express = require("express");
-const { getSignature, createCourse, getCourseInfo, addSection, addVideoContent, editSectionHandler, deleteSectionHandler, deleteVideoContent, editVideoTitleHandler, getCourseDescription, addComment, getComments , getCourse } = require("../controllers/CoursesController");
+const { getSignature, createCourse, getCourseInfo, addSection, addVideoContent, editSectionHandler, deleteSectionHandler, deleteVideoContent, editVideoTitleHandler, getCourseDescription,getRatings, addComment, getComments , getCourse, rateCourse } = require("../controllers/CoursesController");
 const router = express.Router();
 const Multer = require("multer");
 const bodyParser = require("body-parser");
 const multer = require("multer");
+const { requireSignIn } = require("../middleware/authmiddleware");
+const cloudinary = require("cloudinary").v2;
+const {CloudinaryStorage} = require("multer-storage-cloudinary");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './images'); // uploads folder where files will be stored
-  },
-  filename: function (req, file, cb) {
-    const fileExt = file.originalname.split(".").pop();
-    const filename = `${new Date().getTime()}.${fileExt}`;
-    cb(null, filename);
-  }
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
 });
 
-// file.fieldname + '-' +  + path.extname
+
+// Configure Multer to use Cloudinary as storage
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'cover', // optional, destination folder in Cloudinary
+    allowed_formats: ['jpg', 'jpeg', 'png'], // optional, allowed formats
+    // other configuration options
+  },
+})
 
 // file.fieldname + '-' + Date.now() + path.extname
 
@@ -31,7 +39,8 @@ router.get('/get-signature', getSignature);
 
 
 router.post('/createcourse',(req,res,next)=>{console.log(req.files); next();},upload.single('image'), createCourse);
-
+router.post('/ratecourse',requireSignIn, rateCourse)
+router.get('/getCourseRating/:id', getRatings)
 router.post('/add-comment', addComment);
 router.post('/get-comments', getComments)
 

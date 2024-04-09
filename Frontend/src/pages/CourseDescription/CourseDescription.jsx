@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import {addToWl } from '../../store/auth';
-
+import Rating from '@mui/material/Rating';
 import {Link, useNavigate, useParams} from 'react-router-dom'; 
 import styles from './CourseDescription.module.css'; 
 
@@ -17,7 +17,8 @@ import certificate from './images/certificate.png';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { Button, Input, InputAdornment, Skeleton, TextField } from '@mui/material';
+import { Button, InputAdornment, Skeleton, TextField } from '@mui/material';
+import { backendUrl } from '../../url';
 
 
 
@@ -26,7 +27,6 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }
-
 
 
 const CourseDetails = () => {
@@ -39,15 +39,16 @@ const CourseDetails = () => {
     const user = useSelector(state => state.auth);
     const [isWishlisted, setIsWishlisted] = useState(false);
     const [isPurchased, setIsPurchased] = useState(false);
-
+    // const [rating, setRatings] = useState({});
     const [comment, setComment] = useState('');
     const [courseComments, setCourseComments] = useState([]);
+    const [rating, setRating] = useState({count: 0, value: 0});
 
   const handleChange = (event) => {
     setComment(event.target.value);
   };
 
- 
+
 
     useEffect(() => {
       if(user?.isLoggedin == false){
@@ -55,10 +56,10 @@ const CourseDetails = () => {
         setIsWishlisted(false);
         return ;
       }
-      if(user?.wishlist?.find(course => course._id === params.courseId)){
+      if(user?.wishlist?.find(course => course?._id === params.courseId)){
         setIsWishlisted(true);
       }
-      console.log(user?.courses)
+     
       if(user?.courses?.find(course => course?.course?._id === params.courseId)){
         setIsPurchased(true);
       }
@@ -71,7 +72,7 @@ const CourseDetails = () => {
     async function getCourseComments() {
       try {
         const res = await axios.post(
-          "http://localhost:8000/api/course/get-comments",
+          `${backendUrl}/api/course/get-comments`,
           {
             courseId: params.courseId,
           }
@@ -86,12 +87,11 @@ const CourseDetails = () => {
       }
     }
 
-
     useEffect(() => {
       async function getCourseInfo() {
         try {
           const res = await axios.get(
-            `http://localhost:8000/api/course/description/${params.courseId}`
+            `${backendUrl}/api/course/description/${params.courseId}`
           );
           if (res.status == "200") {
             setCourse(res.data.course);
@@ -103,7 +103,20 @@ const CourseDetails = () => {
         }
       }
 
+      async function getCourseRatings() {
+        try {
+          const res = await axios.get(`${backendUrl}/api/course/getCourseRating/${params.courseId}`);
+          if(res.status == 200){
+            console.log(res)
+            setRating(res.data.ratings);
+          }
+        } catch(e){
+          console.log(e);
+          // toast.error()
+        }
+      }
 
+      getCourseRatings();
       getCourseInfo();
       getCourseComments();
     }, []);
@@ -124,7 +137,7 @@ const CourseDetails = () => {
         return ;
       }
       try {
-        const req = await axios.post('http://localhost:8000/api/v1/user/add-to-wl', {
+        const req = await axios.post(`${backendUrl}/api/v1/user/add-to-wl`, {
           userId: user?.id,
           courseId: params.courseId
         }, {
@@ -166,7 +179,7 @@ const CourseDetails = () => {
         return ;
       }
       try {
-        const request = await axios.post('http://localhost:8000/api/course/add-comment', {
+        const request = await axios.post(`${backendUrl}/api/course/add-comment`, {
           courseId: params.courseId,
           comment: comment,
           userId: user?.id
@@ -251,13 +264,14 @@ const CourseDetails = () => {
                     {!loading ? (
                       <Fragment>
                         <div className="flex">
-                          <span className="mr-3">4.0</span>
-                          <span className="fa fa-star checked"></span>
-                          <span className="fa fa-star checked"></span>
-                          <span className="fa fa-star checked"></span>
-                          <span className="fa fa-star checked"></span>
-                          <span className="fa fa-star"></span>
-                          <span className="mx-2">(22 Ratings)</span>
+                          <span className="mr-3">{rating.value}</span>
+                          <Rating
+                            name="read-only"
+                            value={rating.value}
+                            readOnly
+                            precision={0.5}
+                          />
+                          <span className="mx-2">{`${rating.count} Ratings`}</span>
                         </div>
                       </Fragment>
                     ) : (
@@ -338,7 +352,7 @@ const CourseDetails = () => {
                           style={{ color: "black" }}
                         >
                           {!loading ? (
-                            course?.description.slice(0,200)+"..."
+                            course?.description.slice(0, 200) + "..."
                           ) : (
                             <Fragment>
                               <Skeleton
@@ -385,7 +399,6 @@ const CourseDetails = () => {
                               ? "Already in Wishlist"
                               : "Add To Wishlist"}
                           </button>
-                         
                         </div>
                       </div>
                     </div>
@@ -584,8 +597,6 @@ const CourseDetails = () => {
                               </span>
                               Access to a well tuned Guitar.
                             </li>
-
-                            
                           </ul>
                         </div>
                       </div>
@@ -635,15 +646,17 @@ const CourseDetails = () => {
                     <div className={styles.commentTitle}>Comments : </div>
                     <div className="mt-4">
                       <form noValidate autoComplete="off">
-                        <div className="flex flex-col">
+                        <div className="flex flex-col mb-4">
                           <TextField
+                            type='text'
+                            multiline
+                            maxRows={4}
                             id="comment-input"
+                            sx={{scrollBehavior: 'smooth', width: '100%', scrollbarWidth: 0}}
                             label="Add a comment"
                             InputProps={{
                               startAdornment: (
-                                <InputAdornment position="start">
-                            
-                                </InputAdornment>
+                                <InputAdornment position="start" width="100%"></InputAdornment>
                               ),
                             }}
                             value={comment}
@@ -663,14 +676,17 @@ const CourseDetails = () => {
                       </form>
 
                       <div>
-                        {courseComments && courseComments?.map((comment)=>{
-                          return (<div key={comment._id} className='text-slate-950 border-2 p-2 mt-2 border-violet-900 rounded-xl'>
-                          <div className='ml-5 '>
-                          {comment.comment}
-                          </div>
-                          </div>)
-                          
-                        })}
+                        {courseComments &&
+                          courseComments?.map((comment) => {
+                            return (
+                              <div
+                                key={comment._id}
+                                className="text-slate-950 border-2 p-2 mt-2 border-violet-900 rounded-xl"
+                              >
+                                <div className="ml-5 ">{comment.comment}</div>
+                              </div>
+                            );
+                          })}
                       </div>
                     </div>
                   </div>
@@ -686,119 +702,3 @@ const CourseDetails = () => {
 
 export default CourseDetails;
 
-
-//                     <div className="course-content">
-//                         <div className="row g-5 mb-5">
-//                             <div className="col-lg-6">
-//                                 <div className="title">
-//                                     <div className="title-style">
-//                                         <h4 className = "style1">Requirements</h4>
-//                                     </div>
-//                                 </div>
-//                                 <div className="list1 req">
-//                                     <ul className="list1 req">
-//                                         <li className="mt-0">
-//                                             <span className = "greentick mt-1"><img src="/images/checkmark.png" alt=""/></span>
-//                                             No Prior Experience Required. 
-//                                         </li>
-//                                         <li className="mt-0">
-//                                             <span className = "greentick mt-1"><img src="/images/checkmark.png" alt=""/></span>
-//                                             A working Internet connection. 
-//                                         </li>
-//                                         <li>
-//                                             <span className = "greentick mt-1"><img src="/images/checkmark.png" alt=""/></span>
-//                                             Access to a well tuned Guitar.
-//                                         </li>
-
-//                                         <li>
-//                                             <span className = "greentick mt-1"><img src="/images/checkmark.png" alt=""/>
-//                                             </span>
-//                                             A Burning Passion to Learn. 
-//                                         </li>
-                        
-//                                     </ul>
-//                                 </div>
-//                             </div>
-
-// //                             <div className="col-lg-6">
-// //                                 <div className="title">
-// //                                     <div className="title-style">
-// //                                         <h4 className = "style1">Description</h4>
-// //                                     </div>
-// //                                 </div>
-// //                                 <div className="list1 req">
-// //                                     <ul className="list1 req">
-// //                                         <li className="mt-0">
-// //                                             <span className = "greentick mt-1"><img src="/images/checkmark.png" alt=""/></span>
-// //                                             Learn Basics of Music Notes and pitches 
-// //                                         </li>
-                                      
-
-// //                                         <li>
-// //                                             <span className = "greentick mt-1"><img src="/images/checkmark.png" alt=""/></span>
-// //                                             Be Able to Play Pop Songs
-// //                                         </li>
-// //                                         <li>
-// //                                             <span className = "greentick mt-1"><img src="/images/checkmark.png" alt=""/></span>
-// //                                             Become an advanced and confident Guitar Player within a month. 
-// //                                         </li>
-                                      
-                        
-// //                                     </ul>
-// //                                 </div>
-// //                             </div>
-// //                         </div>
-
-                       
-// //                     </div>
-                    
-// //                     </div>
-// //                     <div className="course-box" style="margin-bottom: 10px;">
-// //                         <div className="title">
-// //                             <div className="title-style">
-// //                                 <h4 className = "style1">Rating</h4>
-// //                             </div>
-// //                         </div>
-
-// //                         <div className="row g-5 mb-5">
-// //                             <div className="col-lg-12">
-// //                                 <div className="ratingval">
-// //                                     <div className="numb">4.3</div>
-// //                                     <div className="rating">
-                                   
-// //                                 <span className="fa fa-star checked"></span>
-// //                                 <span className="fa fa-star checked"></span>
-// //                                 <span className="fa fa-star checked"></span>
-// //                                 <span className="fa fa-star checked"></span>
-// //                                 <span className="fa fa-star"></span>
-// //                                 </div>
-
-// //                                 <span className="gb">
-// //                                    Course Rating
-// //                                 </span>
-// //                                 </div>
-// //                             </div>
-
-
-// //                             <a href="/checkout" className="btn btn-dark">Buy This Course</a>
-// //                                   <a href="/wishlist" className="btn btn-dark">Add to Wishlist</a>
-// //                         </div>
-// //                     </div>
-// //                 </div>
-// //             </div>
-            // </div>
-            // </div>
-//             </div>
-//             </div>
-//         </div>
-
-//         </div>
-//             </Fragment>
-
-
-//     )
-
-// }
-
-
-// export default CourseDescription;

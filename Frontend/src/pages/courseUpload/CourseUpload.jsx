@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import ImageUpload from '../../components/ImageUpload/ImageUpload';
 import background from '../../images/contactUsBg.jpg';
+import { backendUrl } from '../../url';
 
 
 const CourseUpload = () => {
@@ -31,7 +32,7 @@ const CourseUpload = () => {
 
         console.log(formData);
         setLoading(true)
-        const response = await axios.post('http://localhost:8000/api/course/createcourse',formData,{
+        const response = await axios.post(`${backendUrl}/api/course/createcourse`,formData,{
           headers:{
             'Content-Type': 'multipart/form-data'
           }

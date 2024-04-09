@@ -4,7 +4,7 @@ import { Fragment, startTransition, useEffect, useState } from "react"
 import {useNavigate} from 'react-router'
 
 import './Wishlist.css'
-import { Celebration, Delete } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -13,6 +13,7 @@ import { logout, removeFromWl } from "../../store/auth";
 import axios from "axios";
 import CourseCard from "../../components/UserDashboard/CourseCard";
 import LoadingSign from "../../components/UserDashboard/LoadingSign";
+import { backendUrl } from "../../url";
 
 
 function capitalizeFirstLetter(string) {
@@ -36,9 +37,9 @@ function WishlistPage(){
 
    useEffect(()=>{
     async function getCourseInfo(){
-
+      const timestamp = new Date().getTime();
       try {
-        const req = await axios.get(`http://localhost:8000/api/v1/user/your-courses/${user?.id}`, {
+        const req = await axios.get(`${backendUrl}/api/v1/user/your-courses/${user?.id}?timestamp=${timestamp}`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': user?.token
@@ -74,7 +75,7 @@ function WishlistPage(){
     async function removeFromWishListHandler(course){
       
       try {
-        const req = await axios.post('http://localhost:8000/api/v1/user/remove-wishlist', {userId: user.id, courseId: course._id},
+        const req = await axios.post(`${backendUrl}/api/v1/user/remove-wishlist`, {userId: user.id, courseId: course._id},
         {
           headers: {
             'Content-Type': 'application/json',
@@ -96,7 +97,7 @@ function WishlistPage(){
 
     // async function getCourseProgress(){
     //   const data = {'userId':user.id}
-    //   const response = await axios.post(`http://localhost:8000/api/v1/user/course/get-all-progress`, data , 
+    //   const response = await axios.post(`/api/v1/user/course/get-all-progress`, data , 
     //    { headers: {
     //       'Content-Type': 'application/json',
     //       'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -354,6 +355,9 @@ function WishlistPage(){
                                 return (
                                   course && ( 
                                   <CourseCard
+                                    user={user}
+                                    currentRating={course?.rating}
+                                    // course={course?.course?._id}
                                     key={course?.course?._id}
                                     course={course?.course}
                                     progress={course?.progress}

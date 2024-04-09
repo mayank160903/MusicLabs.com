@@ -5,6 +5,7 @@ import { Fragment, useState } from "react";
 import DeleteWarning from "./DeleteWarning";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { backendUrl } from "../../url";
 
 
 
@@ -17,7 +18,7 @@ function CreateLesson({ index, contentChangeHandler, lesson, currentSection, set
     async function deleteVideoHandler() {
         setWarning(false)
         try {
-            const response = await axios.post(`http://localhost:8000/api/course/deletevideo`, { videoId: lesson._id }, {
+            const response = await axios.post(`${backendUrl}/api/course/deletevideo`, { videoId: lesson._id }, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -49,7 +50,7 @@ function CreateLesson({ index, contentChangeHandler, lesson, currentSection, set
             if(e.key === 'Enter'){
                 setEditedTitle(e.target.value)
                 try {
-                const req = await axios.post('http://localhost:8000/api/course/editVideoTitle', {lessonId: lesson._id, newName: e.target.value}, {
+                const req = await axios.post(`${backendUrl}/api/course/editVideoTitle`, {lessonId: lesson._id, newName: e.target.value}, {
                     headers: {
                         'Content-Type': 'application/json',
                     }

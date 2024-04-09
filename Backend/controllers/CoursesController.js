@@ -4,10 +4,11 @@ const categorySchema = require('../models/category.js');
 const sectionSchema = require('../models/sections.js');
 const videoSchema = require('../models/videos.js');
 const commentSchema = require('../models/comment.js')
+const ratingSchema = require('../models/rating.js')
 const cloudinary = require("cloudinary").v2;
 const Multer = require("multer");
 const bodyParser = require("body-parser");
-
+const mongoose  = require("mongoose")
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -18,7 +19,7 @@ cloudinary.config({
   const apiSecret = cloudinary.config().api_secret;
   
   
-  function handleUploadVideo(file) {
+  function handleUploadImage(file) {
     try{
       cloudinary.uploader.upload (file, {
         resource_type: 'image'
@@ -138,13 +139,12 @@ exports.getComments = async (req,res) => {
 exports.createCourse = async (req,res) => {
 
     try{
+      console.log("HELLLLO");
+      console.log(req.file.path);
       console.log("inside create course");
-      console.log(req.body)
+
         const {title, description, price, category, instructor, teacherId} = req.body;
-        // console.log(req.files)
-        console.log(req.file.filename)
-        const image = req.file.filename
-        console.log(image);
+     
         
         const teacher = await teacherSchema.findById(teacherId);
         if(!teacher){
@@ -160,7 +160,7 @@ exports.createCourse = async (req,res) => {
             price: price,
             category: categoryId._id,
             teacher: teacherId,
-            imageUrl: `http://localhost:8000/images/${req.file.filename}`,
+            imageUrl: req.file.path,
             sections: []
         });
 
@@ -295,6 +295,60 @@ exports.getCourse = async(req , res) =>{
   }
   catch(error){
       return res.status(500).send({success : false , message : "Internal server error" });
+  }
+
+}
+
+exports.rateCourse = async(req, res) => {
+  const userId = req.user.id;
+  
+  try {
+    const {courseId,newRating} = req.body;
+
+    const rating = await ratingSchema.findOne({userId: userId, courseId: courseId})
+    console.log("HERERERERERR")
+    console.log(rating)
+    if(!rating){
+    rating = await ratingSchema.create({
+      userId : userId,
+      courseId: courseId,
+      rating: newRating
+    })
+  } else {
+      console.log('ok')
+      rating.rating = newRating;
+      await rating.save()
+    }
+
+    return res.status(200).send({success: true, rating})
+
+  }  catch(e){
+    console.log(e)
+    return res.status(501).send({success: false, message: "Error"})
+  }
+}
+
+exports.getRatings = async(req,res) => {
+  try{
+  const courseId = req.params.id;
+  console.log(courseId)
+  
+  const ratings = await ratingSchema.aggregate([
+    { $match: { courseId: new mongoose.Types.ObjectId(courseId) }}, // Filter ratings by courseId
+    {
+      $group: {
+        _id: '$courseId',
+        count: { $sum: 1 }, // Count the number of ratings
+        averageRating: { $avg: '$rating' } // Calculate the average rating
+      }
+    }
+  ])
+  console.log(ratings)
+  return res.status(200).send({success: true, ratings: {count: ratings[0].count, value: ratings[0].averageRating}})
+
+  } catch(e){
+    console.log(e)
+    return res.status(501).send({success: false, message: "Error"})
   }
 
 }

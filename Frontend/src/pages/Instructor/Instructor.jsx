@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./instructor.css";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import { backendUrl } from "../../url";
 
 
 const Instructor = () => {
@@ -10,7 +11,7 @@ const Instructor = () => {
   const Instructor_Data = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/v1/user/instructorData",
+        `${backendUrl}/api/v1/user/instructorData`,
         {
           headers: {
             "Content-Type": "application/json",

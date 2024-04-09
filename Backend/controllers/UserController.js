@@ -5,6 +5,8 @@ const courseSchema = require('../models/course.js')
 const videoSchema = require('../models/videos.js');
 const purchaseSchema = require('../models/purchase.js')
 const user = require('../models/user.js');
+const ratingSchema = require('../models/rating.js');
+const mongoose  = require("mongoose")
 
 exports.AddToWishlist = async (req,res) => {
     
@@ -35,12 +37,13 @@ exports.AddToWishlist = async (req,res) => {
 
 
 exports.RemoveWishlist = async (req,res) => {
-        
+        console.log(req.user)
+        console.log('here i am')
         const {userId, courseId} = req.body;
-        console.log(userId)
+        
         try {
-            const user = await userSchema.findById(userId);
-            console.log(user)
+            const user = await userSchema.findById(req.user.id);
+            
     
             if(!user){
                 return res.status(404).json({error: "User not found"});
@@ -60,6 +63,7 @@ exports.RemoveWishlist = async (req,res) => {
 }
 
 exports.getWishlist = async (req,res) => {
+   
     const {userId} = req.body;
 
     try {
@@ -77,29 +81,74 @@ exports.getWishlist = async (req,res) => {
 }
 
 exports.getYourCourses = async (req,res) => {
-    const userId = req.params.id;
-  
-    console.log(userId)
+
+     /* #swagger.responses[200] = {
+            description: 'Returns the courses the user has purchased',
+            schema: {
+                user: 'John Doe',
+                age: 29,
+                about: ''
+            }
+    } */
+
+    const userId = req.user.id;
+    
 
     try {
         const user = await userSchema.findById(userId).populate({ path: 'courses', populate: {
-        path: 'course' , populate: [{
-        path: 'teacher',
-        model: 'teachers',
-        select: '-password -email -courses -isApproved -role -createdAt -updatedAt -__v'
-        },{
-          path: 'sections',
-          model: 'sections'
-        }]
-      }
-    
-         });
-        
+            path: 'course' , populate: [{
+                path: 'teacher',
+                model: 'teachers',
+                select: '-password -email -courses -isApproved -role -createdAt -updatedAt -__v'
+            },{
+                path: 'sections',
+                model: 'sections'
+            }]
+        }
+    });
+    user.courses = user.courses.filter(course => course.course !== null);
+    // console.log(user.courses[0].course)
+        const ratings = await ratingSchema.aggregate([
+            { 
+              $match: { 
+                userId: new mongoose.Types.ObjectId(userId), // Filter ratings by userId
+                courseId: { $in: user.courses.map((course) => (course?.course._id))} 
+              } 
+            }
+          ])
+          console.log(ratings);
+
+          const addRatingToCourses = (courses, ratings) => {
+            // Create a map of ratings by courseId
+            const ratingsMap = new Map();
+            ratings.map(rating => ratingsMap.set(rating.courseId.toString(), rating.rating))
+       
+            
+           const finalCourses = courses.map((courseItem) => {
+              let courseId = courseItem.course._id;
+              let rating = ratingsMap.get(courseId.toString()) || 0; // Default to 0 if rating not found
+              console.log(rating)
+              
+              let updatedCourseItem = {
+                ...courseItem, // Spread the properties of courseItem
+                rating: rating // Update the course property
+             };
+              console.log(updatedCourseItem)
+              return updatedCourseItem; 
+            });
+
+            return finalCourses;
+          };
+          
+          // Add rating field to courses
+          let courses1 = user.courses.toObject();
+          const coursesWithRating = addRatingToCourses(courses1, ratings);
+          console.log(coursesWithRating)
         if(!user){
            return res.status(404).json({error: "User not found"});
         }
         
-        return res.status(200).json({success:true, courses: user.courses});
+        return res.status(200).json({success:true, courses: coursesWithRating});
     } catch (e) {
         console.error("error: " + e.message);
         return res.status(500).json({ error: e.message });

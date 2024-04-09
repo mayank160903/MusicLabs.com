@@ -2,6 +2,7 @@ import { Fragment, useState } from "react"
 
 import './Wishlist.css'
 import { Delete } from "@mui/icons-material";
+import { backendUrl } from "../../url";
 
 let HOLDER_DATA = [{
     title: "Guitar",
@@ -111,7 +112,7 @@ function YourCoursesPage(){
 
                                 <div className="wishitemleft d-flex flex-column">
                                   <div className="title2">
-                                    <a href = "http://localhost:8000/coursedescpage/<%=user.wishlist[i]._id%>" className = "courselink">{wishitem.title}</a>
+                                    <a href = {`${backendUrl}/coursedescpage/${wishitem._id}`} className = "courselink">{wishitem.title}</a>
                                   </div>
 
                                   <div className="teacher">

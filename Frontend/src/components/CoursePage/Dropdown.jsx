@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router"
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { backendUrl } from "../../url";
 
 function Dropdown({currentSection, setCurrentSection, id, title, num, content, setVideo, progress, setProgress}) {
 
@@ -54,7 +55,7 @@ function Dropdown({currentSection, setCurrentSection, id, title, num, content, s
         }
         console.log(formData)
         try {
-            const res = await axios.post("http://localhost:8000/api/v1/user/course/progress", data1)
+            const res = await axios.post(`${backendUrl}/api/v1/user/course/progress`, data1)
             console.log(res)
 
         } catch (e) {

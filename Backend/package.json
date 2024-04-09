@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "swagger": "node ./swagger.js"
   },
   "author": "",
   "license": "ISC",
@@ -24,10 +25,14 @@
     "mongoose": "^7.6.6",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0",
     "node": "^20.10.0",
     "nodemailer": "^6.9.8",
     "nodemon": "^3.0.2",
     "razorpay": "^2.9.2",
-    "rotating-file-stream": "^3.2.1"
+    "rotating-file-stream": "^3.2.1",
+    "swagger-autogen": "^2.23.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   }
 }

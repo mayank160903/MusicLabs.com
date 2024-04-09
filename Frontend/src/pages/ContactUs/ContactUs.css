@@ -121,8 +121,7 @@
     font-weight: 400;
   }
   
-  .form-control, 
-  textarea {
+  .form-control {
     max-width: 430px;
     background-color: #000;
     color: #000;

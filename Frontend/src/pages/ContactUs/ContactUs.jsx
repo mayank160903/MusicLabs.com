@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import background from '../../images/contactUsBg.jpg';
 import { useSelector } from "react-redux";
+import { backendUrl } from "../../url";
 
 
 function ContactUs(){
@@ -27,7 +28,7 @@ function ContactUs(){
             }
             try {
                 setLoader(true);
-                const req = await axios.post('http://localhost:8000/api/v1/user/contactus', {
+                const req = await axios.post(`${backendUrl}/api/v1/user/contactus`, {
                     firstName,
                     lastName,
                     email,

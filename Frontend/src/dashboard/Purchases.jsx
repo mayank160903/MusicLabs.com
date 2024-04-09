@@ -1,4 +1,4 @@
-import react, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Paper from "@mui/material/Paper";
 import TableContainer from "@mui/material/TableContainer";
@@ -7,11 +7,12 @@ import TableHead from "@mui/material/TableHead";
 import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
-import Button from "@mui/material/Button";
+
 import { useTheme } from "@mui/material/styles";
 import BasicBars from './Chart';
 import BasicLineChart from './LineCharts';
-import { LineChart } from "recharts";
+
+import { backendUrl } from "../url";
 
 const Purchases = () => {
   const theme = useTheme();
@@ -23,7 +24,7 @@ const Purchases = () => {
     const fetchPurchaseData = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:8000/api/v1/admin/getpurchases`
+            `${backendUrl}/api/v1/admin/getpurchases`
           );
         
         setPurchaseData(response.data.purchases);
