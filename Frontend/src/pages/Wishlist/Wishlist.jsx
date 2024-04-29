@@ -95,19 +95,6 @@ function WishlistPage(){
     }
 
 
-    // async function getCourseProgress(){
-    //   const data = {'userId':user.id}
-    //   const response = await axios.post(`/api/v1/user/course/get-all-progress`, data , 
-    //    { headers: {
-    //       'Content-Type': 'application/json',
-    //       'Authorization': `Bearer ${localStorage.getItem('token')}`
-    //   }
-    //   }
-    // )
-    // }
-
- 
-
     return (
       <Fragment>
         <div className="bg-white">

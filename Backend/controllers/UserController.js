@@ -10,8 +10,8 @@ const mongoose  = require("mongoose")
 
 exports.AddToWishlist = async (req,res) => {
     
-    const {userId, courseId} = req.body;
-    console.log(userId)
+    const {courseId} = req.body;
+    const userId = req.user.id;
     try {
         const user = await userSchema.findById(userId);
         console.log(user)
@@ -37,12 +37,12 @@ exports.AddToWishlist = async (req,res) => {
 
 
 exports.RemoveWishlist = async (req,res) => {
-        console.log(req.user)
-        console.log('here i am')
-        const {userId, courseId} = req.body;
-        
+     
+        const {courseId} = req.body;
+        const userId = req.user.id;
+
         try {
-            const user = await userSchema.findById(req.user.id);
+            const user = await userSchema.findById(userId);
             
     
             if(!user){
@@ -64,7 +64,7 @@ exports.RemoveWishlist = async (req,res) => {
 
 exports.getWishlist = async (req,res) => {
    
-    const {userId} = req.body;
+    const userId = req.user.id;
 
     try {
         const user = await userSchema.findOne(userId).populate('wishlist','-sections');
@@ -158,8 +158,8 @@ exports.getYourCourses = async (req,res) => {
 
 exports.purchaseCourse = async (req,res) => {
 
-    const {userId, courseId} = req.body;
-    console.log(userId)
+    const { courseId} = req.body;
+    const userId = req.user.id;
     try {
         const user = await userSchema.findById(userId);
         const course = await courseSchema.findById(courseId);
@@ -220,7 +220,8 @@ exports.createQuery = async (req,res) => {
 
 exports.getCourseProgress = async (req,res) => {
 
-    const {courseId, userId} = req.body;
+    const {courseId} = req.body;
+    const userId = req.user.id;
     try {
     const user = await userSchema.findById(userId);
     
@@ -258,7 +259,8 @@ exports.getAllCourseProgress = async (req,res) => {
 
 exports.updateCourseProgress  = async (req,res) => {
     
-    const {userId,courseId, videoId} = req.body;
+    const {courseId, videoId} = req.body;
+    const userId = req.user.id;
     console.log(userId, courseId, videoId)
     if(!userId || !courseId || !videoId){
         return res.status(404).json({error: "Please fill all the fields"});

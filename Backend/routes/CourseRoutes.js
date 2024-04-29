@@ -38,13 +38,13 @@ console.log("inside course route")
 router.get('/get-signature', getSignature);
 
 
-router.post('/createcourse',(req,res,next)=>{console.log(req.files); next();},upload.single('image'), createCourse);
-router.post('/ratecourse',requireSignIn, rateCourse)
+router.post('/createcourse', requireSignIn,  (req,res,next)=>{console.log(req.files); next();},upload.single('image'), createCourse);
+router.post('/ratecourse', requireSignIn,  rateCourse)
 router.get('/getCourseRating/:id', getRatings)
 router.post('/add-comment', addComment);
 router.post('/get-comments', getComments)
 
-router.post('/addcontent', addVideoContent);
+router.post('/addcontent',requireSignIn, addVideoContent);
 router.post('/deletevideo', deleteVideoContent);
 router.post('/editVideoTitle', editVideoTitleHandler);
 router.post('/addsection',  addSection);

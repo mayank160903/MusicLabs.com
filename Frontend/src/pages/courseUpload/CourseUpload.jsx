@@ -34,7 +34,8 @@ const CourseUpload = () => {
         setLoading(true)
         const response = await axios.post(`${backendUrl}/api/course/createcourse`,formData,{
           headers:{
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            'Authorization' : teacher.token
           }
         });
 

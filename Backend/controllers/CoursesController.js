@@ -138,20 +138,21 @@ exports.getComments = async (req,res) => {
 
 exports.createCourse = async (req,res) => {
 
+  const teacherId = req.user.id;
     try{
-      console.log("HELLLLO");
+      
       console.log(req.file.path);
       console.log("inside create course");
 
-        const {title, description, price, category, instructor, teacherId} = req.body;
-     
+        const {title, description, price, category, instructor} = req.body;
+      
         
         const teacher = await teacherSchema.findById(teacherId);
         if(!teacher){
             return res.status(404).send({success: false, message: "Teacher not found"});
         }
         const categoryId = await categorySchema.findOne({name: category})
-        console.log("yeh krlo pehle");
+     
         // console.log(categoryId);
 
         const course = await coursesSchema.create({
@@ -228,7 +229,7 @@ exports.deleteSectionHandler = async (req,res) => {
 exports.addVideoContent = async (req,res) => {
     try{
         const {sectionId, videoName, videoUrl} = req.body;
-
+        const user = req.user.id
         const [section, vid] = await Promise.all([
           sectionSchema.findById(sectionId),
           videoSchema.create({name: videoName, url: videoUrl})
