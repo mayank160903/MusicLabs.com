@@ -20,8 +20,8 @@ const AdminUsers = () =>{
         <div className='grid-container'>
         
           <Sidebar  className="sidebar" openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
-          <div  className="overflow-y-auto h-screen w-1000"> 
-         <ListOfUsers />
+          <div  className="overflow-y-auto h-screen w-1000 ml-5"> 
+            <ListOfUsers />
             </div>
           </div>
      
