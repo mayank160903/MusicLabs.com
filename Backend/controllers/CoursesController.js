@@ -67,21 +67,27 @@ exports.getSignature = async (req,res) => {
 
 // })
 }
-
+//Redis Working !!!
 exports.getCourseDescription = async (req,res) => {
   const {courseId} = req.params;
 
   try{
     
-   redisClient.setex(courseId, 3600, JSON.stringify({success: true, message: "Course fetched successfully"}));
+    redisClient.get(courseId, async (err, cachedData) => {
+      if (err) throw err;
+
+  if (cachedData) {
+    return res.json(JSON.parse(cachedData));
+  } else {
     const course = await coursesSchema.findById(courseId).populate([{path :'category'},{path: 'teacher', 
     select: '-password' },{path: 'sections'}])
     if(!course){
       return res.status(404).send({success: false, message: "Course not found"});
     }
-    
+    redisClient.setex(courseId, 3600, JSON.stringify({success: true, message: "Course fetched successfully", course: course}));
     return res.status(200).send({success: true, message: "Course fetched successfully", course});
   
+}})
 } catch(e){
     console.log(e);
     return res.status(500).send({success: false, message: "Error while fetching course"});
@@ -93,9 +99,7 @@ exports.getCourseInfo = async (req,res) => {
   const {courseId} = req.params;
     try{
 
-     
 
-      
         const course = await coursesSchema.findById(courseId).populate({path: "sections",
         populate: {path: "videos"}
         })
@@ -355,8 +359,9 @@ exports.getRatings = async(req,res) => {
       }
     }
   ])
+
   console.log(ratings)
-  return res.status(200).send({success: true, ratings: {count: ratings[0]?.count ? ratings[0]?.count : 0, value: ratings[0].averageRating}})
+  return res.status(200).send({success: true, ratings: {count: ratings[0]?.count ? ratings[0]?.count : 0, value: ratings[0]?.averageRating}})
 
   } catch(e){
     console.log(e)

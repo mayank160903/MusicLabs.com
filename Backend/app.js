@@ -10,41 +10,13 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const express = require('express');
 // const swaggerAutogen = require('swagger-autogen')();
-const Redis = require('ioredis');
 
 
 
 dotenv.config();
 
-const options = {
-  definition: {
-    openapi: "3.1.0",
-    info: {
-      title: "Music Lab API",
-      version: "1.1.0",
-      description:
-        "This is Backend API used by our React SPA for our project Music Labs. It is used to manage users, teachers, courses, sections, and payments.",
-      license: {
-        name: "MIT",
-        url: "https://spdx.org/licenses/MIT.html",
-      },
-    },
-    servers: [
-      {
-        url: "http://localhost:8000/",
-      },
-    ],
-  },
-  apis: ["./index.js"],
-};
 
-// const swaggerspecs = swaggerJsDoc(options);
 const swaggerFile = require('./swagger-output.json')
-// const userSchema = require("./models/user.js");
-// const contactSchema = require("./models/contact.js");
-// const teacherSchema = require(__dirname + "/models/teacher.js");
-// const coursesSchema = require(__dirname + "/models/course.js");
-// const sectionSchema = require(__dirname + "/models/sections.js");
 
 
 
@@ -77,7 +49,7 @@ app.use(bodyParser.raw())
 app.use(cors());
 
 
-
+connectDb();
 
 
 
