@@ -8,7 +8,8 @@ const ratingSchema = require('../models/rating.js')
 const cloudinary = require("cloudinary").v2;
 const Multer = require("multer");
 const bodyParser = require("body-parser");
-const mongoose  = require("mongoose")
+const mongoose  = require("mongoose");
+const { redisClient } = require('../database/cache.js');
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -68,15 +69,20 @@ exports.getSignature = async (req,res) => {
 }
 
 exports.getCourseDescription = async (req,res) => {
+  const {courseId} = req.params;
+
   try{
-    const {courseId} = req.params;
+    
+   redisClient.setex(courseId, 3600, JSON.stringify({success: true, message: "Course fetched successfully"}));
     const course = await coursesSchema.findById(courseId).populate([{path :'category'},{path: 'teacher', 
-    select: '-password' },{path: 'sections'}]);
+    select: '-password' },{path: 'sections'}])
     if(!course){
       return res.status(404).send({success: false, message: "Course not found"});
     }
+    
     return res.status(200).send({success: true, message: "Course fetched successfully", course});
-  } catch(e){
+  
+} catch(e){
     console.log(e);
     return res.status(500).send({success: false, message: "Error while fetching course"});
   }
@@ -84,12 +90,15 @@ exports.getCourseDescription = async (req,res) => {
 }
 
 exports.getCourseInfo = async (req,res) => {
+  const {courseId} = req.params;
     try{
-        const {courseId} = req.params;
-        
+
+     
+
+      
         const course = await coursesSchema.findById(courseId).populate({path: "sections",
         populate: {path: "videos"}
-      })
+        })
         
 
         console.log(course);
@@ -98,7 +107,9 @@ exports.getCourseInfo = async (req,res) => {
             return res.status(404).send({success: false, message: "Course not found"});
         }
         return res.status(200).send({success: true, message: "Course fetched successfully", course});
-    } catch (error){
+      }
+    catch (error){
+        
         console.log(error);
         return res.status(500).send({success: false, message: "Error while fetching course"});
     }
@@ -345,7 +356,7 @@ exports.getRatings = async(req,res) => {
     }
   ])
   console.log(ratings)
-  return res.status(200).send({success: true, ratings: {count: ratings[0].count, value: ratings[0].averageRating}})
+  return res.status(200).send({success: true, ratings: {count: ratings[0]?.count ? ratings[0]?.count : 0, value: ratings[0].averageRating}})
 
   } catch(e){
     console.log(e)

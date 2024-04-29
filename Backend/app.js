@@ -1,7 +1,7 @@
 const bodyParser = require("body-parser");
 const dotenv = require('dotenv');
 const cors  = require('cors');
-const fileUpload = require('express-fileupload');
+// const fileUpload = require('express-fileupload');
 const path = require('path');
 const morgan=require('morgan')
 let rfs=require('rotating-file-stream');
@@ -9,7 +9,9 @@ const multer = require("multer");
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const express = require('express');
-const swaggerAutogen = require('swagger-autogen')();
+// const swaggerAutogen = require('swagger-autogen')();
+const Redis = require('ioredis');
+
 
 
 dotenv.config();
@@ -73,7 +75,7 @@ app.use(express.json());
 
 app.use(bodyParser.raw())
 app.use(cors());
-connectDb();
+
 
 
 
@@ -86,24 +88,6 @@ app.use('/api/v1/teacher', TeacherRoutes);
 app.use('/api/course', courseRoutes);
 app.use('/api/v1/admin' , AdminRoutes);
 
-
-/**
- * @swagger
- * /test:
- *    get:
- *      summary: Returns some message
- *      responses:
- *        '200':
- *        description: OK
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                message:
- *                  type: string
- *                  example: Hello, World!
- */
 
 app.get('/test', (req,res)=>{
   return res.send("This is Working")
@@ -127,3 +111,5 @@ app.use((err, req, res, next) => {
       message,
     });
   });
+
+ 
