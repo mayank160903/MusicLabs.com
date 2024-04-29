@@ -8,7 +8,8 @@ const ratingSchema = require('../models/rating.js')
 const cloudinary = require("cloudinary").v2;
 const Multer = require("multer");
 const bodyParser = require("body-parser");
-const mongoose  = require("mongoose")
+const mongoose  = require("mongoose");
+const { redisClient } = require('../database/cache.js');
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -66,17 +67,28 @@ exports.getSignature = async (req,res) => {
 
 // })
 }
-
+//Redis Working !!!
 exports.getCourseDescription = async (req,res) => {
+  const {courseId} = req.params;
+
   try{
-    const {courseId} = req.params;
+    
+    redisClient.get(courseId, async (err, cachedData) => {
+      if (err) throw err;
+
+  if (cachedData) {
+    return res.json(JSON.parse(cachedData));
+  } else {
     const course = await coursesSchema.findById(courseId).populate([{path :'category'},{path: 'teacher', 
-    select: '-password' },{path: 'sections'}]);
+    select: '-password' },{path: 'sections'}])
     if(!course){
       return res.status(404).send({success: false, message: "Course not found"});
     }
+    redisClient.setex(courseId, 3600, JSON.stringify({success: true, message: "Course fetched successfully", course: course}));
     return res.status(200).send({success: true, message: "Course fetched successfully", course});
-  } catch(e){
+  
+}})
+} catch(e){
     console.log(e);
     return res.status(500).send({success: false, message: "Error while fetching course"});
   }
@@ -84,12 +96,13 @@ exports.getCourseDescription = async (req,res) => {
 }
 
 exports.getCourseInfo = async (req,res) => {
+  const {courseId} = req.params;
     try{
-        const {courseId} = req.params;
-        
+
+
         const course = await coursesSchema.findById(courseId).populate({path: "sections",
         populate: {path: "videos"}
-      })
+        })
         
 
         console.log(course);
@@ -98,7 +111,9 @@ exports.getCourseInfo = async (req,res) => {
             return res.status(404).send({success: false, message: "Course not found"});
         }
         return res.status(200).send({success: true, message: "Course fetched successfully", course});
-    } catch (error){
+      }
+    catch (error){
+        
         console.log(error);
         return res.status(500).send({success: false, message: "Error while fetching course"});
     }
@@ -138,20 +153,21 @@ exports.getComments = async (req,res) => {
 
 exports.createCourse = async (req,res) => {
 
+  const teacherId = req.user.id;
     try{
-      console.log("HELLLLO");
+      
       console.log(req.file.path);
       console.log("inside create course");
 
-        const {title, description, price, category, instructor, teacherId} = req.body;
-     
+        const {title, description, price, category, instructor} = req.body;
+      
         
         const teacher = await teacherSchema.findById(teacherId);
         if(!teacher){
             return res.status(404).send({success: false, message: "Teacher not found"});
         }
         const categoryId = await categorySchema.findOne({name: category})
-        console.log("yeh krlo pehle");
+     
         // console.log(categoryId);
 
         const course = await coursesSchema.create({
@@ -228,7 +244,7 @@ exports.deleteSectionHandler = async (req,res) => {
 exports.addVideoContent = async (req,res) => {
     try{
         const {sectionId, videoName, videoUrl} = req.body;
-
+        const user = req.user.id
         const [section, vid] = await Promise.all([
           sectionSchema.findById(sectionId),
           videoSchema.create({name: videoName, url: videoUrl})
@@ -343,8 +359,9 @@ exports.getRatings = async(req,res) => {
       }
     }
   ])
+
   console.log(ratings)
-  return res.status(200).send({success: true, ratings: {count: ratings[0].count, value: ratings[0].averageRating}})
+  return res.status(200).send({success: true, ratings: {count: ratings[0]?.count ? ratings[0]?.count : 0, value: ratings[0]?.averageRating}})
 
   } catch(e){
     console.log(e)

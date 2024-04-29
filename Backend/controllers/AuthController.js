@@ -26,7 +26,7 @@ exports.registerController = async (req, res) => {
       }
 
       const existingUser = await userSchema.findOne({ email: email });
-
+      console.log("hellow ja")
       if (existingUser) {
         return res
           .status(400)
@@ -59,6 +59,7 @@ exports.registerController = async (req, res) => {
 
  
   } catch (error) {
+    console.log(error)
     return res
       .status(500)
       .send({ success: false, message: "Error While registering" });

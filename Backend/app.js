@@ -1,7 +1,7 @@
 const bodyParser = require("body-parser");
 const dotenv = require('dotenv');
 const cors  = require('cors');
-const fileUpload = require('express-fileupload');
+// const fileUpload = require('express-fileupload');
 const path = require('path');
 const morgan=require('morgan')
 let rfs=require('rotating-file-stream');
@@ -9,40 +9,14 @@ const multer = require("multer");
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const express = require('express');
-const swaggerAutogen = require('swagger-autogen')();
+// const swaggerAutogen = require('swagger-autogen')();
+
 
 
 dotenv.config();
 
-const options = {
-  definition: {
-    openapi: "3.1.0",
-    info: {
-      title: "Music Lab API",
-      version: "1.1.0",
-      description:
-        "This is Backend API used by our React SPA for our project Music Labs. It is used to manage users, teachers, courses, sections, and payments.",
-      license: {
-        name: "MIT",
-        url: "https://spdx.org/licenses/MIT.html",
-      },
-    },
-    servers: [
-      {
-        url: "http://localhost:8000/",
-      },
-    ],
-  },
-  apis: ["./index.js"],
-};
 
-// const swaggerspecs = swaggerJsDoc(options);
 const swaggerFile = require('./swagger-output.json')
-// const userSchema = require("./models/user.js");
-// const contactSchema = require("./models/contact.js");
-// const teacherSchema = require(__dirname + "/models/teacher.js");
-// const coursesSchema = require(__dirname + "/models/course.js");
-// const sectionSchema = require(__dirname + "/models/sections.js");
 
 
 
@@ -73,9 +47,9 @@ app.use(express.json());
 
 app.use(bodyParser.raw())
 app.use(cors());
+
+
 connectDb();
-
-
 
 
 
@@ -86,24 +60,6 @@ app.use('/api/v1/teacher', TeacherRoutes);
 app.use('/api/course', courseRoutes);
 app.use('/api/v1/admin' , AdminRoutes);
 
-
-/**
- * @swagger
- * /test:
- *    get:
- *      summary: Returns some message
- *      responses:
- *        '200':
- *        description: OK
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                message:
- *                  type: string
- *                  example: Hello, World!
- */
 
 app.get('/test', (req,res)=>{
   return res.send("This is Working")
@@ -127,3 +83,5 @@ app.use((err, req, res, next) => {
       message,
     });
   });
+
+ 

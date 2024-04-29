@@ -30,7 +30,7 @@ function CourseLayout(){
         const response = await axios.post(`http://localhost:8000/api/v1/user/course/get-progress`, data , 
          { headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            'Authorization': user.token
         }
         }
       )
