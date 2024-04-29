@@ -3,7 +3,7 @@ const router = app.Router();
 
 
 const {InstructorDataController} = require('../controllers/InstructorController.js');
-const { AddToWishlist, RemoveWishlist, getWishlist, createQuery, purchaseCourse, updateCourseProgress, getCourseProgress, getYourCourses } = require("../controllers/USerController.js");
+const { AddToWishlist, RemoveWishlist, getWishlist, createQuery, purchaseCourse, updateCourseProgress, getCourseProgress, getYourCourses } = require("../controllers/UserController.js");
 const { getTeacherAndCourses } = require('../controllers/TeacherProfileController.js');
 const {updateTeacherProfile} = require('../controllers/TeacherEditProfileController.js');
 const {dashboardTeacherProfile} = require('../controllers/DashboardTeacherProfileController.js')
