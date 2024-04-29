@@ -12,12 +12,43 @@ const purchaseModel = require('../models/purchase.js');
 const solr = require('solr-client');
 
 
-const client = new solr.createClient({
-  host: 'localhost',
-  port: '8983',
-  core: 'courses',
-  path: '/solr/courses'
+const redis = require('redis');
+
+
+// const redisClient = redis.createClient(6379 , '127.0.0.1');
+// redisClient.connect();
+// redisClient.on('connect' , function(err) {
+//   console.log("redis connected");
+// })
+
+const redisClient = redis.createClient({
+  socket: {
+    host: '127.0.0.1',
+    port: 6379,
+  },
 });
+
+// Handle connection errors
+redisClient.on('error', (err) => {
+  console.error('Redis connection error:', err);
+});
+
+// Connect to Redis
+redisClient.connect().then(() => {
+  console.log('Redis connected');
+
+  
+});
+
+// redisClient.on('error', (err) => console.log('Redis Client Error', err));
+
+
+// const client = new solr.createClient({
+//   host: 'localhost',
+//   port: '8983',
+//   core: 'courses',
+//   path: '/solr/courses'
+// });
 
 exports.getAllQuery = async (req, res) => {
   try {
@@ -282,20 +313,66 @@ exports.getAllCourses = async (req, res) => {
 
     const searchQuery = req.query.search
     if(!searchQuery){
-      const courses = await courseModel.find({});
-      return res
-      .status(200)
-      .send({ success: true, message: "List of courses", courses });  
+      // const courses = await courseModel.find({});
+      // return res
+      // .status(200)
+      // .send({ success: true, message: "List of courses", courses });  
+      try {
+        // Try to get courses from Redis
+        console.log("first comes here");
+        const getcatchedData = await redisClient.get("courses");
+
+
+        
+
+        if(getcatchedData){
+          res.status(200).send({
+            success: true,
+            message: 'List of courses',
+            courses: JSON.parse(getcatchedData),
+          });
+        }
+
+        else{
+          const courses = await courseModel.find({});
+
+          // Set courses in Redis
+          redisClient.set('courses', JSON.stringify(courses));
+
+          res.status(200).send({
+            success: true,
+            message: 'List of courses',
+            courses,
+          });
+        }
+        
+      } catch (err) {
+        res.status(500).send({
+          success: false,
+          message: 'Error fetching courses',
+          error: err.message,
+        });
+      }
+  
+  
+
+
+
+
     }
 
-    client.search(searchQuery, (err, result) => {
-      if (err) {
-        return res.status(500).send({ success: false, message: 'Error searching courses' });
-      }
 
-      const courses = result.response.docs;
-      return res.status(200).send({ success: true, message: 'List of courses', courses });
-    });
+    
+
+
+    // client.search(searchQuery, (err, result) => {
+    //   if (err) {
+    //     return res.status(500).send({ success: false, message: 'Error searching courses' });
+    //   }
+
+    //   const courses = result.response.docs;
+    //   return res.status(200).send({ success: true, message: 'List of courses', courses });
+    // });
 
 
   } catch (error) {
