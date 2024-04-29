@@ -7,9 +7,8 @@ const morgan=require('morgan')
 let rfs=require('rotating-file-stream');
 const multer = require("multer");
 const swaggerUi = require('swagger-ui-express');
-const swaggerJsDoc = require('swagger-jsdoc');
 const express = require('express');
-// const swaggerAutogen = require('swagger-autogen')();
+const swaggerAutogen = require('swagger-autogen')();
 
 
 
@@ -17,12 +16,12 @@ dotenv.config();
 
 
 const swaggerFile = require('./swagger-output.json')
+let accessLogStream=rfs.createStream("access.log",{interval:'1d',path:path.join(__dirname,'log')})
 
 
 
 const app = express();
 
-let accessLogStream=rfs.createStream("access.log",{interval:'1d',path:path.join(__dirname,'log')})
 
 app.use(morgan(':date[iso] :method :url :status :response-time ms', { stream: accessLogStream}));
 app.use('/images',express.static(__dirname+'/images'));
@@ -52,17 +51,89 @@ app.use(cors());
 connectDb();
 
 
+app.use("/api/v1/user",
+  // #swagger.tags = ['Auth']
+  // #swagger.produces = ['application/json']
 
-app.use('/api/v1/user', AuthRoutes)
-app.use('/api/v1/user', UserRoutes)
-app.use('/api', paymentRoutes)
-app.use('/api/v1/teacher', TeacherRoutes);
-app.use('/api/course', courseRoutes);
-app.use('/api/v1/admin' , AdminRoutes);
+  /* #swagger.responses[409] = {
+      description: 'Form Validation Failed',
+      schema: { $ref: "#/definitions/FormValidationError" },
+    }
+
+    #swagger.responses[500] = {
+      description: 'Internal Server Error',
+      schema: {
+          error: "Internal Server Error"
+      }
+  } */
+
+  AuthRoutes
+);
+
+app.use("/api/v1/user",
+  // #swagger.tags = ['Users']
+  // #swagger.produces = ['application/json']
+  /* #swagger.responses[500] = {
+    description: 'Internal Server Error',
+    schema: {
+        error: 'Internal server error message'
+    }
+} */
+  UserRoutes
+);
+
+app.use("/api",
+  // #swagger.tags = ['Payment']
+  // #swagger.produces = ['application/json']
+  /* #swagger.responses[500] = {
+    description: 'Internal Server Error',
+    schema: {
+        error: 'Internal server error message'
+    }
+} */
+  paymentRoutes
+);
+app.use("/api/v1/teacher",
+  // #swagger.tags = ['Teacher']
+  // #swagger.produces = ['application/json']
+  /* #swagger.responses[500] = {
+    description: 'Internal Server Error',
+    schema: {
+        error: 'Internal server error message'
+    }
+} */
+  TeacherRoutes
+);
+
+app.use("/api/course",
+  // #swagger.tags = ['Course']
+  // #swagger.produces = ['application/json']
+  /* #swagger.responses[500] = {
+    description: 'Internal Server Error',
+    schema: {
+        error: 'Internal server error message'
+    }
+} */
+  courseRoutes
+);
+
+app.use("/api/v1/admin",
+  // #swagger.tags = ['Admin']
+  // #swagger.produces = ['application/json']
+  AdminRoutes
+);
 
 
 app.get('/test', (req,res)=>{
-  return res.send("This is Working")
+  // #swagger.tags = ['Testing']
+  // #swagger.description = 'This is a Test route to check health of Server'
+  /* #swagger.responses[200] = {
+            description: 'Server Running',
+            schema: {
+               message: "This is Working",
+            }
+    } */
+  return res.send({message: "This is Working"})
 })
 
 

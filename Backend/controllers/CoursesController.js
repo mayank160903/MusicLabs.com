@@ -301,6 +301,7 @@ exports.editVideoTitleHandler = async (req,res) => {
 
 exports.getCourse = async(req , res) =>{
   try{
+    
     const id = req.params.id;
     const cid = id.slice(1);
    

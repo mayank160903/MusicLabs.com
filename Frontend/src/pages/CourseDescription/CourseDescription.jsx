@@ -179,6 +179,11 @@ const CourseDetails = () => {
         return ;
       }
       try {
+        if(user?.isLoggedin == false){
+          toast.info('Please Login to Comment');
+          navigate('/login');
+          return ;
+        }
         const request = await axios.post(`${backendUrl}/api/course/add-comment`, {
           courseId: params.courseId,
           comment: comment,

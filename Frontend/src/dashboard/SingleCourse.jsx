@@ -8,6 +8,7 @@ const SingleCourse = () => {
   const [courseData, setCourseData] = useState({});
   const [teacherData, setTeacherData] = useState({});
   const [comments, setComments] = useState([]);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {

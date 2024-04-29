@@ -3,6 +3,10 @@ const JWT = require('jsonwebtoken');
 const userModel =  require('../models/user.js');
 
 exports.requireSignIn = async(req , res , next) =>{
+    /* #swagger.responses[401] = {
+            description: 'UnAuthorized Access',
+            schema: {$ref: "#/definitions/UnauthorizedError"}
+    } */
     try{
         
         const decode = JWT.verify(req.headers.authorization , process.env.JWT_SECRET);

@@ -34,8 +34,6 @@ exports.AddToWishlist = async (req,res) => {
     }   
 }
 
-
-
 exports.RemoveWishlist = async (req,res) => {
      
         const {courseId} = req.body;
@@ -82,14 +80,7 @@ exports.getWishlist = async (req,res) => {
 
 exports.getYourCourses = async (req,res) => {
 
-     /* #swagger.responses[200] = {
-            description: 'Returns the courses the user has purchased',
-            schema: {
-                user: 'John Doe',
-                age: 29,
-                about: ''
-            }
-    } */
+ 
 
     const userId = req.user.id;
     
@@ -254,7 +245,7 @@ exports.getAllCourseProgress = async (req,res) => {
             console.log(e);
             return res.status(501).send({success: false, message: "Error Please Try Again"})
         }
-    }
+}
   
 
 exports.updateCourseProgress  = async (req,res) => {

@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "My API",
-    "description": "Description",
+    "title": "Music Labs API",
+    "description": "This is the API Documentation for the Music Labs Application. The Backend relies on Express for routing, MongoDB for Database and JWT for Authentication along with cloudinary for image and video storage",
     "version": "1.0.0"
   },
   "host": "localhost:8000",
@@ -13,35 +13,61 @@
   "paths": {
     "/test": {
       "get": {
-        "description": "",
+        "tags": [
+          "Testing"
+        ],
+        "description": "This is a Test route to check health of Server",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Server Running",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "This is Working"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/v1/user/register": {
       "post": {
-        "description": "",
+        "tags": [
+          "Auth"
+        ],
+        "description": "Register New Users To the Platform",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "Email and Password",
             "schema": {
               "type": "object",
               "properties": {
                 "firstName": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Harshit"
                 },
                 "lastName": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Chauhan"
                 },
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "harshit.c21@gmail.com"
                 },
                 "password": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "MeraPassword"
                 }
               }
             }
@@ -49,49 +75,176 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Registration Successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Registration Successfully"
+                },
+                "user": {
+                  "$ref": "#/definitions/User"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Bad Request - User already exists",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "User already exists. Please login."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "409": {
-            "description": "Conflict"
+            "description": "Conflict - Missing or incomplete user details",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Please fill all the details."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error while registering."
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/v1/user/login": {
       "post": {
-        "description": "",
+        "tags": [
+          "Auth"
+        ],
+        "description": "Logs New Users To the Platform",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "Email and Password",
             "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/EmailPassword"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Login Succussful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Login Successfully"
+                },
+                "user": {
+                  "$ref": "#/definitions/User"
+                },
+                "token": {
+                  "type": "string",
+                  "example": "auth-adjasdlasldsadlkasdsda"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Teacher Not Approved By Admin",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Teacher is not approved contact to admin"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Login Failed",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "User Not Registered"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "409": {
+            "description": "Form Validation Failed",
+            "schema": {
+              "$ref": "#/definitions/FormValidationError"
+            }
           },
           "500": {
             "description": "Internal Server Error"
@@ -104,16 +257,25 @@
     },
     "/api/v1/user/google": {
       "post": {
-        "description": "",
+        "tags": [
+          "Auth"
+        ],
+        "description": "Google Login Route, allows user to login with their google account",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "Google sign-in details",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "harshit.c21@iiits.in"
                 }
               }
             }
@@ -121,69 +283,256 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Sign in Successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Sign in Successful"
+                },
+                "teacher": {
+                  "$ref": "#/definitions/Teacher"
+                },
+                "token": {
+                  "type": "string",
+                  "example": "Bearersaiasd-asdasmdkasnd-asdnda"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Unauthorized - User not found with the provided email",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "User not found with email address"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "409": {
+            "description": "Form Validation Failed",
+            "schema": {
+              "$ref": "#/definitions/FormValidationError"
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/v1/user/forgot": {
       "post": {
-        "description": "",
+        "tags": [
+          "Auth"
+        ],
+        "description": "Forgot Password Route, allows user to reset their password with their email address",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "Password reset details",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/EmailPassword"
             }
           }
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Password Updated Successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Password updated successfully"
+                },
+                "user": {
+                  "$ref": "#/definitions/User"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found - User not found with the provided email",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "User not found with this email id"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "409": {
+            "description": "Form Validation Failed",
+            "schema": {
+              "$ref": "#/definitions/FormValidationError"
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error while updating the password"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/v1/user/wishlist": {
       "get": {
-        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "description": "Gets a Users Wishlist using their ID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Wishlist fetched successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "wishlist": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "courseId": {
+                        "type": "string",
+                        "example": "65d7c494c44cec15f9adf35d"
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthorized Access",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedError"
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found - User not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "User not found"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/v1/user/your-courses/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "description": "Gets a Users Courses using their ID",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -199,21 +548,50 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the courses the user has purchased",
+            "description": "Courses retrieved successfully",
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "John Doe"
+                "success": {
+                  "type": "boolean",
+                  "example": true
                 },
-                "age": {
-                  "type": "number",
-                  "example": 29
-                },
-                "about": {
-                  "type": "string",
-                  "example": ""
+                "courses": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "course": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "example": "65d7c494c44cec15f9adf35c"
+                          },
+                          "title": {
+                            "type": "string",
+                            "example": "Sample Course A"
+                          },
+                          "description": {
+                            "type": "string",
+                            "example": "This is a sample course description"
+                          }
+                        }
+                      },
+                      "sections": {
+                        "type": "array",
+                        "example": [],
+                        "items": {}
+                      },
+                      "teacher": {
+                        "$ref": "#/definitions/Teacher"
+                      },
+                      "rating": {
+                        "type": "number",
+                        "example": 4.5
+                      }
+                    }
+                  }
                 }
               },
               "xml": {
@@ -222,20 +600,53 @@
             }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "UnAuthorized Access",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedError"
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found - User not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "User not found"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/v1/user/add-to-wl": {
       "post": {
-        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "description": "Adds a Course to the Wishlist",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "authorization",
@@ -245,14 +656,14 @@
           {
             "name": "body",
             "in": "body",
+            "description": "Course ID",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "userId": {
-                  "example": "any"
-                },
                 "courseId": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "65d7c494c44cec15f9adf35c"
                 }
               }
             }
@@ -260,26 +671,92 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Course added to wishlist successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Course added to wishlist"
+                },
+                "course": {
+                  "type": "string",
+                  "example": "65d7c494c44cec15f9adf35c"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Bad Request - Course already in wishlist",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Course already in wishlist"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "UnAuthorized Access",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedError"
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found - User not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "User not found"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/user/remove-wishlist": {
       "post": {
-        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "description": "Removes a Course from the Wishlist",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "authorization",
@@ -289,14 +766,14 @@
           {
             "name": "body",
             "in": "body",
+            "description": "Course ID",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "userId": {
-                  "example": "any"
-                },
                 "courseId": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "65d7c494c44cec15f9adf35c"
                 }
               }
             }
@@ -304,26 +781,188 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Course removed from wishlist successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "The respective course is removed from the wishlist"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Bad Request - Course not in wishlist",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Course not in wishlist"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "UnAuthorized Access",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedError"
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found - User not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "User not found"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/v1/user/purchase": {
       "post": {
-        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "description": "Purchases a Course",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "courseId": {
+                  "type": "string",
+                  "example": "65d7c494c44cec15f9adf35c"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course purchased successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Course purchased successfully"
+                },
+                "course": {
+                  "type": "string",
+                  "example": "65d7c494c44cec15f9adf35c"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Course already purchased",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Course already purchased, refund initiated"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "UnAuthorized Access",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedError"
+            }
+          },
+          "404": {
+            "description": "Not Found - User or course not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "User not found or Course not found"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/course/progress": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Updates the Progress of a Course",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "authorization",
@@ -336,9 +975,68 @@
             "schema": {
               "type": "object",
               "properties": {
-                "userId": {
+                "courseId": {
                   "example": "any"
                 },
+                "videoId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "UnAuthorized Access",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedError"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/course/get-progress": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Gets the Progress of a Course",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
                 "courseId": {
                   "example": "any"
                 }
@@ -350,24 +1048,39 @@
           "200": {
             "description": "OK"
           },
-          "400": {
-            "description": "Bad Request"
-          },
           "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found"
+            "description": "UnAuthorized Access",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedError"
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/v1/user/contactus": {
       "post": {
-        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "description": "Creates a Query",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "body",
@@ -406,7 +1119,13 @@
     },
     "/api/v1/user/instructorData": {
       "get": {
-        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "description": "Gets all the Instructors",
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -422,7 +1141,13 @@
     },
     "/api/v1/user/teacher/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "description": "Gets a Teacher and their Courses",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -444,75 +1169,15 @@
         }
       }
     },
-    "/api/v1/user/course/progress": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userId": {
-                  "example": "any"
-                },
-                "courseId": {
-                  "example": "any"
-                },
-                "videoId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/api/v1/user/course/get-progress": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "courseId": {
-                  "example": "any"
-                },
-                "userId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/api/v1/user/teachereditprofile/{id}": {
       "put": {
-        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "description": "Updates the Profile of a Teacher",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -566,37 +1231,34 @@
           },
           "400": {
             "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/api/v1/user/dashboardteacherprofile/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/v1/user/studenteditprofile/{id}": {
       "put": {
+        "tags": [
+          "Users"
+        ],
         "description": "",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -650,13 +1312,64 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/dashboardteacherprofile/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
     "/api/v1/user/studentprofile/{id}": {
       "get": {
+        "tags": [
+          "Users"
+        ],
         "description": "",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -680,20 +1393,76 @@
     },
     "/api/create-order": {
       "post": {
-        "description": "",
+        "tags": [
+          "Payment"
+        ],
+        "description": "Create RazorPay Order for Payment Gateway Facilitation",
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Payment order created successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "order_id"
+                },
+                "entity": {
+                  "type": "string",
+                  "example": "order_entity"
+                },
+                "amount": {
+                  "type": "string",
+                  "example": "order_amount"
+                },
+                "currency": {
+                  "type": "string",
+                  "example": "order_currency"
+                },
+                "receipt": {
+                  "type": "string",
+                  "example": "order_receipt"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "order_status"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/v1/teacher/register": {
       "post": {
+        "tags": [
+          "Teacher"
+        ],
         "description": "",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "body",
@@ -747,7 +1516,13 @@
     },
     "/api/v1/teacher/lsitofteachersrequest": {
       "get": {
-        "description": "",
+        "tags": [
+          "Teacher"
+        ],
+        "description": "Get List of Teachers Request",
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -760,7 +1535,13 @@
     },
     "/api/v1/teacher/acceptrequest/{id}": {
       "put": {
+        "tags": [
+          "Teacher"
+        ],
         "description": "",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -784,7 +1565,13 @@
     },
     "/api/v1/teacher/ignorerequest/{id}": {
       "delete": {
+        "tags": [
+          "Teacher"
+        ],
         "description": "",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -808,7 +1595,13 @@
     },
     "/api/v1/teacher/teacher/studentlist/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Teacher"
+        ],
+        "description": "Get Student List of a particular teacher",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -829,7 +1622,13 @@
     },
     "/api/v1/teacher/teacherdashboard/student/{id}": {
       "delete": {
-        "description": "",
+        "tags": [
+          "Teacher"
+        ],
+        "description": "Delete Student from Teacher Dashboard",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -841,13 +1640,34 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/v1/teacher/teacher/numberofstudent/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Teacher"
+        ],
+        "description": "Get Number of Students",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -868,7 +1688,13 @@
     },
     "/api/v1/teacher/teacher/noofcourseandcoursewithcategory/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Teacher"
+        ],
+        "description": "Get Number of Courses and Courses with Category",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -889,7 +1715,13 @@
     },
     "/api/v1/teacher/teacher/earnmoney/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Teacher"
+        ],
+        "description": "Get Total Earned Money",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -910,7 +1742,13 @@
     },
     "/api/v1/teacher/getTeacher/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Teacher"
+        ],
+        "description": "Get Single Teacher",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -931,7 +1769,13 @@
     },
     "/api/v1/teacher/teacher/studentcomment/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Teacher"
+        ],
+        "description": "Get Student Comments",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -955,18 +1799,66 @@
     },
     "/api/course/get-signature": {
       "get": {
-        "description": "",
+        "tags": [
+          "Course"
+        ],
+        "description": "Get Signature for Uploading Image on Cloudinary, Required for Uploading Image",
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Signature generated successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "signature": {
+                  "type": "string",
+                  "example": "cloudinary_signature"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "example": "12/07/2024:13:03:22PM"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/course/createcourse": {
       "post": {
-        "description": "",
+        "tags": [
+          "Course"
+        ],
+        "description": "Create A New Course",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
           {
             "name": "body",
             "in": "body",
@@ -987,8 +1879,67 @@
                 },
                 "instructor": {
                   "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "UnAuthorized Access",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedError"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/course/ratecourse": {
+      "post": {
+        "tags": [
+          "Course"
+        ],
+        "description": "Rate the Course",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "courseId": {
+                  "example": "any"
                 },
-                "teacherId": {
+                "newRating": {
                   "example": "any"
                 }
               }
@@ -999,18 +1950,84 @@
           "200": {
             "description": "OK"
           },
-          "404": {
-            "description": "Not Found"
+          "401": {
+            "description": "UnAuthorized Access",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedError"
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "501": {
+            "description": "Not Implemented"
+          }
+        }
+      }
+    },
+    "/api/course/getCourseRating/{id}": {
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "description": "Gets the Rating of the Course",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "501": {
+            "description": "Not Implemented"
           }
         }
       }
     },
     "/api/course/add-comment": {
       "post": {
-        "description": "",
+        "tags": [
+          "Course"
+        ],
+        "description": "Adds New Comment to the Course",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "body",
@@ -1046,7 +2063,13 @@
     },
     "/api/course/get-comments": {
       "post": {
-        "description": "",
+        "tags": [
+          "Course"
+        ],
+        "description": "Gets All Comments of the Course",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "body",
@@ -1063,7 +2086,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Comments Fetched Successfully",
+            "schema": {
+              "$ref": "#/definitions/Comments"
+            }
           },
           "500": {
             "description": "Internal Server Error"
@@ -1073,8 +2099,19 @@
     },
     "/api/course/addcontent": {
       "post": {
-        "description": "",
+        "tags": [
+          "Course"
+        ],
+        "description": "Adds New Video Content to the Course",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
           {
             "name": "body",
             "in": "body",
@@ -1098,18 +2135,42 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "UnAuthorized Access",
+            "schema": {
+              "$ref": "#/definitions/UnauthorizedError"
+            }
+          },
           "404": {
             "description": "Not Found"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/course/deletevideo": {
       "post": {
-        "description": "",
+        "tags": [
+          "Course"
+        ],
+        "description": "Delete Video Content to the Course",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "body",
@@ -1139,7 +2200,13 @@
     },
     "/api/course/editVideoTitle": {
       "post": {
-        "description": "",
+        "tags": [
+          "Course"
+        ],
+        "description": "Edit Video Title Handler",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "body",
@@ -1172,7 +2239,13 @@
     },
     "/api/course/addsection": {
       "post": {
-        "description": "",
+        "tags": [
+          "Course"
+        ],
+        "description": "Adds New Section in the Course",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "body",
@@ -1205,7 +2278,13 @@
     },
     "/api/course/editsection": {
       "post": {
-        "description": "",
+        "tags": [
+          "Course"
+        ],
+        "description": "Edits Section Title in the Course",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "body",
@@ -1238,7 +2317,13 @@
     },
     "/api/course/deletesection": {
       "post": {
-        "description": "",
+        "tags": [
+          "Course"
+        ],
+        "description": "Deletes Section from the Course",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "body",
@@ -1268,7 +2353,13 @@
     },
     "/api/course/description/{courseId}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Course"
+        ],
+        "description": "Gets the Description of the Course",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "courseId",
@@ -1292,7 +2383,13 @@
     },
     "/api/course/{courseId}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Course"
+        ],
+        "description": "Gets the Information of the Course",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "courseId",
@@ -1316,7 +2413,13 @@
     },
     "/api/course/singlecourse/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Course"
+        ],
+        "description": "Gets the Information of a single Course in complete detail",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1335,9 +2438,56 @@
         }
       }
     },
+    "/api/course/get-signaturecourseId": {
+      "get": {
+        "description": "Get Signature for Uploading Image on Cloudinary, Required for Uploading Image",
+        "responses": {
+          "200": {
+            "description": "Signature generated successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "signature": {
+                  "type": "string",
+                  "example": "cloudinary_signature"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "example": "12/07/2024:13:03:22PM"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error message"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/admin/query": {
       "get": {
-        "description": "",
+        "tags": [
+          "Admin"
+        ],
+        "description": "Gets All Contact Us Queries",
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -1350,7 +2500,13 @@
     },
     "/api/v1/admin/teacheruniversalSearch": {
       "get": {
-        "description": "",
+        "tags": [
+          "Admin"
+        ],
+        "description": "Gets All Teachers",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "query",
@@ -1370,7 +2526,13 @@
     },
     "/api/v1/admin/universalSearch": {
       "get": {
-        "description": "",
+        "tags": [
+          "Admin"
+        ],
+        "description": "Search All Users",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "query",
@@ -1390,7 +2552,13 @@
     },
     "/api/v1/admin/allcourses": {
       "get": {
-        "description": "",
+        "tags": [
+          "Admin"
+        ],
+        "description": "Get All Courses From The Database",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "search",
@@ -1410,7 +2578,13 @@
     },
     "/api/v1/admin/allcategories": {
       "get": {
-        "description": "",
+        "tags": [
+          "Admin"
+        ],
+        "description": "Get All Categories From The Database",
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1423,7 +2597,13 @@
     },
     "/api/v1/admin/deletecategories/{id}": {
       "delete": {
-        "description": "",
+        "tags": [
+          "Admin"
+        ],
+        "description": "Delete A Category",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1444,7 +2624,13 @@
     },
     "/api/v1/admin/create-category": {
       "post": {
-        "description": "",
+        "tags": [
+          "Admin"
+        ],
+        "description": "Create A New Category",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "body",
@@ -1471,7 +2657,13 @@
     },
     "/api/v1/admin/getpurchases": {
       "get": {
-        "description": "",
+        "tags": [
+          "Admin"
+        ],
+        "description": "Get All Purchases From The Database",
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1484,13 +2676,215 @@
     },
     "/api/v1/admin/custom": {
       "get": {
-        "description": "",
+        "tags": [
+          "Admin"
+        ],
+        "description": "Get All Purchases From The Database",
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "OK"
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "example": "Harshit"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Chauhan"
+        },
+        "email": {
+          "type": "string",
+          "example": "test@email.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "$2b$10$ZAdSkEDp0zT1r9zUJ/Y/HuNJkOKkPrePn3UPk6eCxiMGb9a/rTDW"
+        },
+        "role": {
+          "type": "string",
+          "example": "User"
+        },
+        "wishlist": {
+          "type": "array",
+          "example": [],
+          "items": {}
+        },
+        "_id": {
+          "type": "string",
+          "example": "65d09daa60a9d925c87a6a0c"
+        },
+        "courses": {
+          "type": "array",
+          "example": [],
+          "items": {}
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2024-04-29T19:57:53.187Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2024-04-29T19:57:53.187Z"
+        }
+      }
+    },
+    "Teacher": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "example": "Harshit"
+        },
+        "lastName": {
+          "type": "string",
+          "example": "Chauhan"
+        },
+        "email": {
+          "type": "string",
+          "example": "test@email.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "$2b$10$ZAdSkEDp0zT1r9zUJ/Y/HuNJkOKkPrePn3UPk6eCxiMGb9a/rTDW"
+        },
+        "role": {
+          "type": "string",
+          "example": "Teacher"
+        },
+        "courses": {
+          "type": "array",
+          "example": [],
+          "items": {}
+        },
+        "_id": {
+          "type": "string",
+          "example": "65d09daa60a9d925c87a6a0c"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2024-04-29T19:57:53.187Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2024-04-29T19:57:53.187Z"
+        }
+      }
+    },
+    "EmailPassword": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "harshit@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "MeraPassword"
+        }
+      }
+    },
+    "Wishlist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65d09daa60a9d925c87a6a0c"
+          },
+          "course": {
+            "type": "string",
+            "example": "65d7bfcef6e43a005af95bb5"
+          },
+          "user": {
+            "type": "string",
+            "example": "65d09daa60a9d925c87a6a0c"
+          }
+        }
+      }
+    },
+    "UnauthorizedError": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "string",
+          "example": "false"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "JsonWebTokenError"
+            },
+            "message": {
+              "type": "string",
+              "example": "jwt malformed"
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "Unauthorized Access"
+        }
+      }
+    },
+    "FormValidationError": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "string",
+          "example": "false"
+        },
+        "message": {
+          "type": "string",
+          "example": "Please fill all the details "
+        }
+      }
+    },
+    "Rating": {
+      "type": "object",
+      "properties": {
+        "father": {
+          "type": "string",
+          "example": "Simon Doe"
+        },
+        "mother": {
+          "type": "string",
+          "example": "Marie Doe"
+        }
+      }
+    },
+    "Comments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "comment": {
+            "type": "string",
+            "example": "Wow this is an Amazing Course"
+          },
+          "userId": {
+            "type": "string",
+            "example": "65d09daa60a9d925c87a6a0c"
+          },
+          "courseId": {
+            "type": "string",
+            "example": "65d7bfcef6e43a005af95bb5"
           }
         }
       }
