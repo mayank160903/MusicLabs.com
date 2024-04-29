@@ -9,6 +9,15 @@ const userModel = require("../models/user.js");
 const categoryModel = require('../models/category.js');
 
 const purchaseModel = require('../models/purchase.js');
+const solr = require('solr-client');
+
+
+const client = new solr.createClient({
+  host: 'localhost',
+  port: '8983',
+  core: 'courses',
+  path: '/solr/courses'
+});
 
 exports.getAllQuery = async (req, res) => {
   try {
@@ -251,31 +260,44 @@ exports.getAllUsers = async (req, res) => {
 
 exports.getAllCourses = async (req, res) => {
   try {
-    const searchQuery = req.query.search;
-    console.log(searchQuery);
-    // const courses = await courseModel
-    //   .find({})
+    // const searchQuery = req.query.search;
+    // console.log(searchQuery);
+    
+    // let courses;
+    // if (searchQuery) {
       
-    // console.log("comes here");
-    // console.log(courses);
-    // console.log(courses.length)
-    // console.log("comes here");
-    let courses;
-    if (searchQuery) {
-      
-      courses = await courseModel.find({
-        $or: [
-          { title: { $regex: searchQuery, $options: "i" } },
-          { description: { $regex: searchQuery, $options: "i" } }
-        ]
-      });
-    } else {
+    //   courses = await courseModel.find({
+    //     $or: [
+    //       { title: { $regex: searchQuery, $options: "i" } },
+    //       { description: { $regex: searchQuery, $options: "i" } }
+    //     ]
+    //   });
+    // } else {
      
-      courses = await courseModel.find({});
-    }
-    return res
+    //   courses = await courseModel.find({});
+    // }
+    // return res
+    //   .status(200)
+    //   .send({ success: true, message: "List of courses", courses });  
+
+    const searchQuery = req.query.search
+    if(!searchQuery){
+      const courses = await courseModel.find({});
+      return res
       .status(200)
       .send({ success: true, message: "List of courses", courses });  
+    }
+
+    client.search(searchQuery, (err, result) => {
+      if (err) {
+        return res.status(500).send({ success: false, message: 'Error searching courses' });
+      }
+
+      const courses = result.response.docs;
+      return res.status(200).send({ success: true, message: 'List of courses', courses });
+    });
+
+
   } catch (error) {
     return res
       .status(500)

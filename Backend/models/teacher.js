@@ -68,7 +68,13 @@ createdAt: {
   default: Date.now,
 },
 
-});
+},
+{
+  indexes :{
+    email : 1,
+  }
+}
+);
 
 
 

@@ -65,6 +65,9 @@ const userSchema = new Schema({
 
 {
   timestamps: true,
+  indexes :{
+    email : 1
+  },
 }
 );
 
