@@ -54,13 +54,6 @@ exports.registerController = async (req, res) => {
 
 exports.listOfTeachers = async(req , res) =>{
   try{
-      const {err, cachedData} = await redisClient.get("allTeachers");
-      if(err){
-        throw new Error("Something Went Wrong with the Cache")
-      }
-      if (cachedData) {
-        return res.json(JSON.parse(cachedData));
-      }
       
       const teachers = await teacherSchema.find({isApproved : false});
 
@@ -80,8 +73,7 @@ exports.listOfTeachers = async(req , res) =>{
               ]
           }
       } */          
-        redisClient.setex("allTeachers", 3600 ,
-        JSON.stringify({success:true, message:"List of all Teachers Accept request", teachers: teachers}));
+       
         return res.status(200).send({success : true , message : "List of all Teachers Accept request" , teachers});
 
       } catch(error){

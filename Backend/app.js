@@ -138,10 +138,14 @@ app.get('/test', (req,res)=>{
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-const PORT = 8000;
+let PORT = 8000;
+if(process.env.NODE_ENV == "test"){
+  PORT = 0;
+}
 app.listen(PORT, (req, res) => {
     console.log(`server is listening on PORT number ${PORT}`);
 })
+
 
 
 app.use((err, req, res, next) => {

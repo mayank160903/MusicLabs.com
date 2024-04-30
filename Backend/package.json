@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production nodemon app.js",
     "swagger": "node ./swagger.js",
-    "test": "cross-env NODE_ENV=test jest --coverage --forceExit"
+    "test": "cross-env NODE_ENV=test jest --coverage --verbose --forceExit"
   },
   "author": "",
   "license": "ISC",

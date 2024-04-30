@@ -75,11 +75,11 @@ function WishlistPage(){
     async function removeFromWishListHandler(course){
       
       try {
-        const req = await axios.post(`${backendUrl}/api/v1/user/remove-wishlist`, {userId: user.id, courseId: course._id},
+        const req = await axios.post(`${backendUrl}/api/v1/user/remove-wishlist`, {userId: user?.id, courseId: course._id},
         {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `${user.token}`
+            'Authorization': `${user?.token}`
       }}) 
 
       if(req.status === 200){
@@ -93,6 +93,11 @@ function WishlistPage(){
     }
   
     }
+    useEffect(()=>{ 
+      if(user.isLoggedin == false || !user.wishlist || !user ){
+        navigate('/');
+      }
+    })
 
 
     return (
@@ -226,6 +231,7 @@ function WishlistPage(){
                               className="logout-button"
                               onClick={() => {
                                 dispatch(logout());
+                                navigate('/')
                               }}
                             >
                               Log Out
@@ -252,7 +258,7 @@ function WishlistPage(){
                         <div className="overflow-auto max-h-[70vh]">
                           {mode === "wish" ? (
                             user?.wishlist?.length != 0 ? (
-                              user?.wishlist.map((wishitem) => {
+                              user?.wishlist?.map((wishitem) => {
                                 return (
                                   <div
                                     key={wishitem._id}

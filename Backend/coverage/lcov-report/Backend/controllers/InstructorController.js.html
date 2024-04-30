@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">17.64% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/10</span>
+                <span class='fraction'>3/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">18.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/10</span>
+                <span class='fraction'>3/16</span>
             </div>
         
             
@@ -81,37 +81,73 @@
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const teacherSchema = require('../models/teacher.js');
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { redisClient } = require('../database/cache.js');
+const teacherSchema = require('../models/teacher.js');
 &nbsp;
 exports.InstructorDataController = <span class="fstat-no" title="function not covered" >as</span>ync (req,res) =&gt; {
     
 <span class="cstat-no" title="statement not covered" >    try {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      redisClient.get("allTeachers", <span class="fstat-no" title="function not covered" >as</span>ync (err, cachedData) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        if (err) <span class="cstat-no" title="statement not covered" >throw err;</span></span>
+  
+<span class="cstat-no" title="statement not covered" >       if (cachedData) {</span>
+<span class="cstat-no" title="statement not covered" >         return res.json(JSON.parse(cachedData));</span>
+      } else {
+&nbsp;
         const teacherData = <span class="cstat-no" title="statement not covered" >await teacherSchema.find();</span>
 <span class="cstat-no" title="statement not covered" >        console.log(teacherData )</span>
     
 <span class="cstat-no" title="statement not covered" >        if (teacherData.length &gt; 0) {</span>
 <span class="cstat-no" title="statement not covered" >          res.status(200).json( teacherData );</span>
+<span class="cstat-no" title="statement not covered" >          redisClient.setex("allTeachers", 3600, JSON.stringify(teacherData));</span>
         } else {
 <span class="cstat-no" title="statement not covered" >          res.status(404).json({ error: "Teacher data not found" });</span>
         }
+      }
+    })
       } catch (error) {
 <span class="cstat-no" title="statement not covered" >        console.error("error: " + error.message);</span>
 <span class="cstat-no" title="statement not covered" >        res.status(500).json({ error: error.message });</span>
@@ -124,7 +160,7 @@ exports.InstructorDataController = <span class="fstat-no" title="function not co
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-30T14:54:34.397Z
+                at 2024-04-30T21:13:28.363Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

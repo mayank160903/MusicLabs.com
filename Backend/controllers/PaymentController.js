@@ -9,8 +9,10 @@ exports.PaymentController=async (req, res) => {
     const options = {
       currency: 'INR',
       receipt: 'receipt_order_1',
+      amount: req.body.amount
+      
     };
-  
+    console.log("Payment Processing")
     try {
       const order = await razorpay.orders.create(options);
       res.json(order);

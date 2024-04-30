@@ -2,7 +2,7 @@
 module.exports = {
     roots: ["./"],
     collectCoverageFrom: ["./**/*.{js,jsx,ts,tsx}", "!src/**/*.d.ts","!**/node_modules/**", 
-    "!**/swagger.js","!**/mainserver.js","!**/coverage/**","!**/*.config.js"],
+    "!**/swagger.js","!./mainServer.js","!**/coverage/**","!**/db.js","!**/*.config.js","!**/helper/*"],
     // setupFilesAfterEnv: ["<rootDir>/setupTests.js"],
     testMatch: [
       "./**/__tests__/**/*.{js,jsx,ts,tsx}",

@@ -64,7 +64,10 @@ function PaymentPage(){
     setPaymentLoading(true);
     try {
       const response = await axios.post(
-        `${backendUrl}/api/create-order`
+        `${backendUrl}/api/create-order`,
+        {
+          amount: course?.price*100
+        }
       );
       setOrderId(response.data.id);
     } catch (error) {
