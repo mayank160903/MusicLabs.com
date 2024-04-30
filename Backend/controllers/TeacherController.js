@@ -1,5 +1,6 @@
 const teacherSchema = require("../models/teacher.js");
 const { hashPassword, comparePassword } = require("../helper/authhelper.js");
+const { redisClient } = require("../database/cache.js");
 
 exports.registerController = async (req, res) => {
     try {
@@ -51,17 +52,44 @@ exports.registerController = async (req, res) => {
   
 
 
-  exports.listOfTeachers = async(req , res) =>{
-      try{
-          const teachers = await teacherSchema.find({isApproved : false});
-
-          return res.status(200).send({success : true , message : "List of all Teachers Accept request" , teachers});
-
-
+exports.listOfTeachers = async(req , res) =>{
+  try{
+      const {err, cachedData} = await redisClient.get("allTeachers");
+      if(err){
+        throw new Error("Something Went Wrong with the Cache")
       }
-      catch(error){
-          console.log("Error while getting the list of teachers");
+      if (cachedData) {
+        return res.json(JSON.parse(cachedData));
+      }
+      
+      const teachers = await teacherSchema.find({isApproved : false});
 
+      /* #swagger.responses[200] = {
+          description: 'List of teachers retrieved successfully',
+          schema: {
+              success: true,
+              message: 'List of all Teachers Accept request',
+              teachers: [
+                  {
+                      _id: 'tqweewqwe123deqd21d',
+                      firstName: 'Harsh',
+                      lastName: 'Doe',
+                      email: 'h.doe@example.com',
+                      isApproved: false,
+                  },
+              ]
+          }
+      } */          
+        redisClient.setex("allTeachers", 3600 ,
+        JSON.stringify({success:true, message:"List of all Teachers Accept request", teachers: teachers}));
+        return res.status(200).send({success : true , message : "List of all Teachers Accept request" , teachers});
+
+      } catch(error){
+        /* #swagger.responses[500] = {
+          description: 'Internal Server Error',
+          schema: { $ref: "#/definitions/InternalServerError" }
+      } */        
+          console.log("Error while getting the list of teachers");
           return res.status(500).send({success : false , message : "Internal server error"});
       }
   }

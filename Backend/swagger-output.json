@@ -1316,7 +1316,7 @@
         "tags": [
           "Users"
         ],
-        "description": "",
+        "description": "Update The Profile of a Student",
         "produces": [
           "application/json"
         ],
@@ -1586,10 +1586,54 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "List of teachers retrieved successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "message": {
+                  "type": "string",
+                  "example": "List of all Teachers Accept request"
+                },
+                "teachers": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Teacher"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/InternalServerError"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway - Cache retrieval error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Something Went Wrong with the Cache"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -1608,15 +1652,43 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Teacher ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Teacher request updated successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Teacher request updated successfully"
+                },
+                "teacher": {
+                  "$ref": "#/definitions/Teacher"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found - Teacher not found with the specified ID",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Teacher not found"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
             "description": "Internal Server Error"
@@ -1643,13 +1715,52 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Teacher request deleted successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Teacher request deleted successfully"
+                },
+                "teacher": {
+                  "$ref": "#/definitions/Teacher"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found - Teacher not found with the specified ID",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Teacher not found"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -1864,9 +1975,6 @@
           "Course"
         ],
         "description": "Get Signature for Uploading Image on Cloudinary, Required for Uploading Image",
-        "produces": [
-          "application/json"
-        ],
         "responses": {
           "200": {
             "description": "Signature generated successfully",
@@ -1911,9 +2019,6 @@
           "Course"
         ],
         "description": "Create A New Course",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "authorization",
@@ -1947,7 +2052,45 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Course created successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Course created successfully"
+                },
+                "course": {
+                  "$ref": "#/definitions/Course"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid input data",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Invalid input data"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "401": {
             "description": "UnAuthorized Access",
@@ -1956,7 +2099,23 @@
             }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found - Teacher not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Teacher not found"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
             "description": "Internal Server Error",
@@ -1982,9 +2141,6 @@
           "Course"
         ],
         "description": "Rate the Course",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "authorization",
@@ -1994,14 +2150,18 @@
           {
             "name": "body",
             "in": "body",
+            "description": "Course ID and new rating",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "courseId": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "65d278b7342ef66267b5bb9b"
                 },
                 "newRating": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "4"
                 }
               }
             }
@@ -2009,7 +2169,36 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "rating": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "string",
+                      "example": "2ef662b72675d34b5b78b9"
+                    },
+                    "courseId": {
+                      "type": "string",
+                      "example": "5d278b7342ef66267b5bb9"
+                    },
+                    "rating": {
+                      "type": "string",
+                      "example": "4"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "401": {
             "description": "UnAuthorized Access",
@@ -2033,7 +2222,23 @@
             }
           },
           "501": {
-            "description": "Not Implemented"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -2044,20 +2249,57 @@
           "Course"
         ],
         "description": "Gets the Rating of the Course",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "path",
+            "in": "path",
+            "description": "Course ID",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "b72675d34b34b34b5b"
+                }
+              }
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "ratings": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "string",
+                      "example": "12"
+                    },
+                    "value": {
+                      "type": "string",
+                      "example": "3.4"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
             "description": "Internal Server Error",
@@ -2075,7 +2317,23 @@
             }
           },
           "501": {
-            "description": "Not Implemented"
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
@@ -2086,9 +2344,6 @@
           "Course"
         ],
         "description": "Adds New Comment to the Course",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "body",
@@ -2160,9 +2415,6 @@
           "Course"
         ],
         "description": "Gets All Comments of the Course",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "body",
@@ -2196,9 +2448,6 @@
           "Course"
         ],
         "description": "Adds New Video Content to the Course",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "authorization",
@@ -2261,9 +2510,6 @@
           "Course"
         ],
         "description": "Delete Video Content to the Course",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "body",
@@ -2297,9 +2543,6 @@
           "Course"
         ],
         "description": "Edit Video Title Handler",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "body",
@@ -2336,9 +2579,6 @@
           "Course"
         ],
         "description": "Adds New Section in the Course",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "body",
@@ -2375,9 +2615,6 @@
           "Course"
         ],
         "description": "Edits Section Title in the Course",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "body",
@@ -2414,9 +2651,6 @@
           "Course"
         ],
         "description": "Deletes Section from the Course",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "body",
@@ -2450,9 +2684,6 @@
           "Course"
         ],
         "description": "Gets the Description of the Course",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "courseId",
@@ -2480,9 +2711,6 @@
           "Course"
         ],
         "description": "Gets the Information of the Course",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "courseId",
@@ -2510,9 +2738,6 @@
           "Course"
         ],
         "description": "Gets the Information of a single Course in complete detail",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "id",
@@ -2949,16 +3174,79 @@
         }
       }
     },
+    "InternalServerError": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "example": false
+        },
+        "message": {
+          "type": "string",
+          "example": "Something Went Wrong, Please Try Again!"
+        }
+      }
+    },
+    "Course": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "65d278b7342ef66267b5bb9b"
+        },
+        "title": {
+          "type": "string",
+          "example": "Rock in 5 Days"
+        },
+        "description": {
+          "type": "string",
+          "example": "Course Description"
+        },
+        "price": {
+          "type": "number",
+          "example": 1200
+        },
+        "category": {
+          "type": "string",
+          "example": "Rock"
+        },
+        "teacher": {
+          "type": "string",
+          "example": "t65d278b7342eadsh85bb9b"
+        },
+        "imageUrl": {
+          "type": "string",
+          "example": "https://example.com/course-image.jpg"
+        },
+        "sections": {
+          "type": "array",
+          "example": [],
+          "items": {}
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2024-02-03T14:57:48.561Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2024-02-03T14:58:19.598Z"
+        }
+      }
+    },
     "Rating": {
       "type": "object",
       "properties": {
-        "father": {
-          "type": "string",
-          "example": "Simon Doe"
+        "Rating": {
+          "type": "number",
+          "example": 5
         },
-        "mother": {
+        "userId": {
           "type": "string",
-          "example": "Marie Doe"
+          "example": "a65d09daa60jad12dasndad"
+        },
+        "courseId": {
+          "type": "string",
+          "example": "65d7bfcef6e43a005af95bb5"
         }
       }
     },

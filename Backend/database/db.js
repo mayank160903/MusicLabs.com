@@ -4,7 +4,7 @@ const connectDb = async () => {
     try {
 
     await mongoose.connect(process.env.NODE_ENV === "test"
-    ? process.env.MONGO_URL_TEST
+    ? process.env.MONGO_URL
     : process.env.MONGO_URL);
 
         console.log('MongoDB connection established');
