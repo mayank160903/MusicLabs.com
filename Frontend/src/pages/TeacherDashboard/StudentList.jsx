@@ -1,9 +1,7 @@
-import React, { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import "./studentlist.css";
-import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SideBar from "./Sidebar";
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +9,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useParams } from "react-router";
 import { toast } from 'react-toastify';
+import { backendUrl } from "../../url";
 
 const StudentList = () => {
 
@@ -24,7 +23,7 @@ const StudentList = () => {
 
   const fetchStudents = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/v1/teacher/teacher/studentlist/${id}`,
+      const response = await axios.get(`${backendUrl}/api/v1/teacher/teacher/studentlist/${id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -49,7 +48,7 @@ const StudentList = () => {
 
   const deleteUserHandler = async(id) => {
     try{
-      const res = await axios.delete(`http://localhost:8000/api/v1/teacher/teacherdashboard/student/${id}`,
+      const res = await axios.delete(`${backendUrl}/api/v1/teacher/teacherdashboard/student/${id}`,
       {
         headers: {
           "Content-Type": "application/json",

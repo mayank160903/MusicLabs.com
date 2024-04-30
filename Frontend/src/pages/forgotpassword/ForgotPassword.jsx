@@ -1,9 +1,10 @@
-import React , {useState} from 'react';
+import  {useState} from 'react';
 import signup from '../../images/signup1.jpg';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { backendUrl } from '../../url';
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const [forgotData, setForgotData] = useState({
@@ -29,7 +30,7 @@ const ForgotPassword = () => {
         return ;
       }
      console.log(forgotData);
-      const response = await axios.post('http://localhost:8000/api/v1/user/forgot', forgotData);
+      const response = await axios.post(`${backendUrl}/api/v1/user/forgot`, forgotData);
 
       console.log(response.data);
       if (response.data.success===true) {

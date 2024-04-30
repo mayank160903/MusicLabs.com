@@ -972,14 +972,18 @@
           {
             "name": "body",
             "in": "body",
+            "description": "Course and video details",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "courseId": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "65d7c494c44cec15f9adf35c"
                 },
                 "videoId": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "789def012345abcde67890fg"
                 }
               }
             }
@@ -987,7 +991,22 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Course progress updated successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "All Good"
+                },
+                "user": {
+                  "$ref": "#/definitions/User"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "401": {
             "description": "UnAuthorized Access",
@@ -996,7 +1015,19 @@
             }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found - User, course, or video not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "User not found, Course not found, or Video not found"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
             "description": "Internal Server Error",
@@ -1085,20 +1116,26 @@
           {
             "name": "body",
             "in": "body",
+            "description": "Query details",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "firstName": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "John"
                 },
                 "lastName": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Doe"
                 },
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "john.doe@example.com"
                 },
                 "message": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "This is a sample query message"
                 }
               }
             }
@@ -1106,10 +1143,34 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Query submitted successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Query Submitted Successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Bad Request - Missing required fields",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Please fill all the fields"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
             "description": "Internal Server Error"
@@ -2050,10 +2111,42 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Comment added successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Comment added successfully"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found - Course not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Course not found"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
             "description": "Internal Server Error"

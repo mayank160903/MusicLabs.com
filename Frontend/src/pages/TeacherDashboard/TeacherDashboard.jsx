@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import "./teacherdashboard.css";
 import { Typography } from "@material-ui/core";
@@ -7,6 +7,7 @@ import { Doughnut, Line } from "react-chartjs-2";
 import webFont from "webfontloader";
 import { useSelector } from 'react-redux';
 import axios from "axios";
+import { backendUrl } from "../../url";
 
 
 const TeacherDashboard = () => {
@@ -22,7 +23,7 @@ const TeacherDashboard = () => {
   // For Number of Students
   const NumberOfStudents = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/v1/teacher/teacher/numberofstudent/${teacherId}`,
+      const response = await axios.get(`${backendUrl}/api/v1/teacher/teacher/numberofstudent/${teacherId}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +49,7 @@ const TeacherDashboard = () => {
   // For Total Number of Courses and Total Number of Course with Category Wise
   const NoOfCourseAndCourseWithCategory = async() => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/v1/teacher/teacher/noofcourseandcoursewithcategory/${teacherId}`,
+      const response = await axios.get(`${backendUrl}/api/v1/teacher/teacher/noofcourseandcoursewithcategory/${teacherId}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +75,7 @@ const TeacherDashboard = () => {
   // Total Earned Money
   const EarnedMoney = async() => {
     try{
-      const response = await axios.get(`http://localhost:8000/api/v1/teacher/teacher/earnmoney/${teacherId}`,
+      const response = await axios.get(`${backendUrl}/api/v1/teacher/teacher/earnmoney/${teacherId}`,
       {
         headers: {
           "Content-Type": "application/json",

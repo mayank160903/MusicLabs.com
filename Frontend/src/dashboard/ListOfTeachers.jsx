@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Paper from "@mui/material/Paper";
 import TableContainer from "@mui/material/TableContainer";
@@ -10,6 +10,7 @@ import TableCell from "@mui/material/TableCell";
 import Button from "@mui/material/Button";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from 'react-router-dom';
+import { backendUrl } from "../url";
 
 const ListOfTeachers = () => {
   const theme = useTheme();
@@ -20,7 +21,7 @@ const ListOfTeachers = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/v1/admin/teacheruniversalSearch?query=${searchQuery}`
+          `${backendUrl}/api/v1/admin/teacheruniversalSearch?query=${searchQuery}`
         );
         setTeachers(response.data.teachers);
         console.log(teachers);

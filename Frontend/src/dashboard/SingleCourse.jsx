@@ -1,7 +1,9 @@
-import react, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import course1 from "../images/beginnerpic.jpg";
+import { backendUrl } from "../url";
+
 const SingleCourse = () => {
   const { courseId } = useParams();
   
@@ -13,18 +15,18 @@ const SingleCourse = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/course/singlecourse/:${courseId}`
+          `${backendUrl}/api/course/singlecourse/:${courseId}`
         );
 
         setCourseData(response.data.course);
         
         const teacherResponse = await axios.get(
-          `http://localhost:8000/api/v1/teacher/getTeacher/${response.data.course.teacher}`
+          `${backendUrl}/api/v1/teacher/getTeacher/${response.data.course.teacher}`
         );
 
         setTeacherData(teacherResponse.data.teacher);
         const commentsResponse = await axios.get(
-          `http://localhost:8000/api/comments/${courseId}`
+          `${backendUrl}/api/comments/${courseId}`
         );
 
         setComments(commentsResponse.data.comments);

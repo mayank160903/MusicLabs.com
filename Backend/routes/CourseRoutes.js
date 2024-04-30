@@ -64,6 +64,22 @@ router.get('/getCourseRating/:id', getRatings
 
 router.post('/add-comment', addComment
 // #swagger.description = 'Adds New Comment to the Course'
+/* #swagger.responses[200] = {
+    description: 'Comment added successfully',
+    schema: {
+        success: true,
+        message: 'Comment added successfully'
+    }
+} */
+
+/* #swagger.responses[404] = {
+    description: 'Not Found - Course not found',
+    schema: {
+        success: false,
+        message: 'Course not found'
+    }
+} */
+
 );
 
 router.post('/get-comments', getComments

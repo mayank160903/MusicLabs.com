@@ -9,6 +9,7 @@ import profileImage from "./teacher_Profile_image copy.png";
 import axios from "axios";
 import Slidebar from "./Sidebar";
 import { useSelector } from 'react-redux';
+import { backendUrl } from "../../url";
 
 const DashboardTeacherProfile = () => {
   const { id } = useParams("");
@@ -21,7 +22,7 @@ const DashboardTeacherProfile = () => {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/user/dashboardteacherprofile/${id}`,
+        `${backendUrl}/api/v1/user/dashboardteacherprofile/${id}`,
         {
           headers: {
             "Content-Type": "application/json",

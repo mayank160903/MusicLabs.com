@@ -1,12 +1,14 @@
 import bg from '../../images/homebg2.jpg';
-import React  , {useState , useEffect} from 'react'
+import  {useState , useEffect} from 'react'
 
 import axios from 'axios';
+import {Link, } from 'react-router-dom'
+import { backendUrl } from '../../url';
 
 const links = [
     { name: 'All Courses', href: '/catalogue' },
     { name: 'Our Team', href: '/instructor' },
-    { name: 'About Us', href: '/aboutus' },
+    { name: 'About Us', href: '/' },
 
   ]
  
@@ -18,11 +20,12 @@ const links = [
   const [categories, setCategories] = useState();
   const [queries, setQueries] = useState();
   const [users, setUsers] = useState();
+
   useEffect(() => {
     const fetchData = async () => {
         try {
             
-            const coursesResponse = await axios.get('http://localhost:8000/api/v1/admin/custom');
+            const coursesResponse = await axios.get(`${backendUrl}/api/v1/admin/custom`);
             setCourses(coursesResponse.data.courseCount);
             setCategories(coursesResponse.data.categoryCount);
             setQueries(coursesResponse.data.contactCount);
@@ -84,9 +87,9 @@ const stats = [
           <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
             <div className="grid grid-cols-1 gap-x-8 gap-y-6 text-base font-semibold leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10">
               {links.map((link) => (
-                <a key={link.name} href={link.href}>
+                <Link key={link.name} to={link.href}>
                   {link.name} <span aria-hidden="true">&rarr;</span>
-                </a>
+                </Link>
               ))}
             </div>
             <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">

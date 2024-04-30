@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ import signup from '../../images/signup1.jpg';
 import { Input } from '@mui/base';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import { backendUrl } from '../../url';
 
 const BecomeInstructor = () => {
 
@@ -82,7 +83,7 @@ const handleRegister = async () => {
   try {
    
     console.log(formData);
-    const response = await axios.post('http://localhost:8000/api/v1/teacher/register', formData);
+    const response = await axios.post(`${backendUrl}/api/v1/teacher/register`, formData);
     
     
     if (response.data.success === true) {
@@ -284,7 +285,7 @@ const handleRegister = async () => {
    
                {showMasters && ( <div className="mb-4  flex">
               
-              <button class="bg-white  hover:bg-red-500 font-bold py-2 px-3 rounded w-30 ml-auto " onClick={handleMastersClick}>
+              <button className="bg-white  hover:bg-red-500 font-bold py-2 px-3 rounded w-30 ml-auto " onClick={handleMastersClick}>
                    Delete
               </button>
               

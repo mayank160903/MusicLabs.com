@@ -33,6 +33,7 @@ const doc = {
       createdAt: "2024-04-29T19:57:53.187Z",
       updatedAt: "2024-04-29T19:57:53.187Z",
     },
+    
     EmailPassword: {
       email: "harshit@gmail.com",
       password: "MeraPassword",

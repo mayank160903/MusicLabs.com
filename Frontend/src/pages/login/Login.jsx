@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
@@ -8,6 +8,7 @@ import signup from '../../images/signup1.jpg';
 import { useDispatch } from 'react-redux';
 import OAuth from './GoogleAuth';
 import { toast } from 'react-toastify';
+import { backendUrl } from '../../url';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -36,16 +37,14 @@ const LoginForm = () => {
         return ;
       }
       setLoading(true)
-      const response = await axios.post('http://localhost:8000/api/v1/user/login', loginData);
+      const response = await axios.post(`${backendUrl}/api/v1/user/login`, loginData);
       setLoading(false)
-      console.log(response.data);
+
       if (response.data.success===true) {
         
-       
-        console.log(response.data);
         const user = response.data.user
         const token = response.data.token;
-        console.log(user)
+
         dispatch(login({firstName : user.firstName , 
                         lastName : user.lastName , 
                         role : user.role , 
