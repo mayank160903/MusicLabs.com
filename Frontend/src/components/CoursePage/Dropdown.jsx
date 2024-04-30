@@ -55,7 +55,13 @@ function Dropdown({currentSection, setCurrentSection, id, title, num, content, s
         }
         console.log(formData)
         try {
-            const res = await axios.post(`${backendUrl}/api/v1/user/course/progress`, data1)
+            const res = await axios.post(`${backendUrl}/api/v1/user/course/progress`, data1, {
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization' : user.token
+                    }    
+                  }
+                )
             console.log(res)
 
         } catch (e) {

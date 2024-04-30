@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Paper from "@mui/material/Paper";
 import TableContainer from "@mui/material/TableContainer";
@@ -8,8 +8,11 @@ import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Button from "@mui/material/Button";
+import Checkbox from '@mui/material/Checkbox';
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from 'react-router-dom';
+import { backendUrl } from "../url";
+
 const ListOfTeachers = () => {
   const theme = useTheme();
   const [users, setUsers] = useState([]);
@@ -20,7 +23,7 @@ const ListOfTeachers = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/v1/admin/universalSearch?query=${searchQuery}`
+          `${backendUrl}api/v1/admin/universalSearch?query=${searchQuery}`
         );
         setUsers(response.data.users);
         console.log(users);
@@ -74,28 +77,33 @@ const ListOfTeachers = () => {
         <Table sx={{ color: "white" }}>
           <TableHead>
             <TableRow>
+
+            {/* backgroundColor: "#f2f2f2" */}
+            <TableCell sx={{ fontSize: "20px", fontWeight: "bolder", color: "#3b82f6", borderLeft: "1px solid white", borderTop: "1px solid white",backgroundColor: "#f2f2f2"  }}>
+          {/* <Checkbox color="primary" /> */}
+        </TableCell>
               <TableCell
-                sx={{ fontSize: "5xl", fontWeight: "bolder", color: "white" }}
+                sx={{ fontSize: "20px", fontWeight: "bolder", color: "#3b82f6",  borderLeft: "1px solid white" ,  borderTop: "1px solid white", backgroundColor: "#f2f2f2" }}
               >
                 Name
               </TableCell>
               <TableCell
-                sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
+                sx={{ fontSize: "20px", fontWeight: "bolder", color: "#3b82f6" ,   borderTop: "1px solid white" ,  backgroundColor: "#f2f2f2" }}
               >
                 Email
               </TableCell>
               <TableCell
-                sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
+                sx={{ fontSize: "20px", fontWeight: "bolder", color: "#3b82f6" ,  borderTop: "1px solid white" , backgroundColor: "#f2f2f2"}}
               >
                 Courses Purchased
               </TableCell>
               <TableCell
-                sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
+                sx={{ fontSize: "20px", fontWeight: "bolder", color: "#3b82f6" ,  borderTop: "1px solid white" , backgroundColor: "#f2f2f2" }}
               >
                 View Profile
               </TableCell>
               <TableCell
-                sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
+                sx={{ fontSize: "20px", fontWeight: "bolder", color: "#3b82f6" ,  borderTop: "1px solid white" , backgroundColor: "#f2f2f2" }}
               >
                 Actions
               </TableCell>
@@ -105,7 +113,10 @@ const ListOfTeachers = () => {
             {users.map((user) => (
               <TableRow key={user._id}>
                 {/* <TableCell sx={{ color: 'white' }}>{user.firstName} &nbsp; {user.lastName}</TableCell> */}
-                <TableCell sx={{ color: "white" }}>
+                <TableCell sx={{ borderLeft: "1px solid white" }}>
+            <Checkbox color="primary" />
+          </TableCell>
+                <TableCell sx={{ color: "white", borderLeft: "1px solid white" }}>
                   {user.fullname
                     ? user.fullname
                     : `${user.firstName} ${user.lastName}`}

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import course1 from '../../images/beginnerpic.jpg'
 import course2 from '../../images/course_rock.jpg'

@@ -15,7 +15,6 @@ const nodemailer = require('nodemailer');
 exports.registerController = async (req, res) => {
   try {
 
-   
     const { firstName, lastName, email, password  } = req.body;
     console.log("here is coming");
     
@@ -26,7 +25,7 @@ exports.registerController = async (req, res) => {
       }
 
       const existingUser = await userSchema.findOne({ email: email });
-
+      console.log("hellow ja")
       if (existingUser) {
         return res
           .status(400)
@@ -59,6 +58,7 @@ exports.registerController = async (req, res) => {
 
  
   } catch (error) {
+    console.log(error)
     return res
       .status(500)
       .send({ success: false, message: "Error While registering" });
@@ -103,12 +103,14 @@ exports.loginController = async (req, res) => {
             expiresIn: "7d",
           }
         );
+
         return res
           .status(200)
           .send({
             success: true,
             message: "Sign In successful",
-            user , token
+            user , 
+            token
           });
       }
 
@@ -117,7 +119,6 @@ exports.loginController = async (req, res) => {
 
       user = await teacherSchema.findOne({ email });
       if (!user) {
-
         user = await adminSchema.findOne({email });
         if(!user){
           return res

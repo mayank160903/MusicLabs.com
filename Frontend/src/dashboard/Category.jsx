@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { backendUrl } from "../url";
 
 const Category = () => {
   const [categories, setCategories] = useState([]);
@@ -11,7 +12,7 @@ const Category = () => {
   const handleAddCategory = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/admin/create-category`,
+        `${backendUrl}/api/v1/admin/create-category`,
         {
           name: categoryName,
         }
@@ -28,7 +29,7 @@ const Category = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/admin/allcategories`
+        `${backendUrl}/api/v1/admin/allcategories`
       );
       setCategories(response.data.categories);
     } catch (error) {
@@ -39,7 +40,7 @@ const Category = () => {
   const handleDelete = async (categoryId) => {
     try {
       await axios.delete(
-        `http://localhost:8000/api/v1/admin/deletecategories/${categoryId}`
+        `${backendUrl}/api/v1/admin/deletecategories/${categoryId}`
       );
 
       setCategories(categories.filter((c) => c._id !== categoryId));

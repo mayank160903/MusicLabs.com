@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import sidepic from '../../images/signup-pic.jpg';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
@@ -34,7 +34,8 @@ const CourseUpload = () => {
         setLoading(true)
         const response = await axios.post(`${backendUrl}/api/course/createcourse`,formData,{
           headers:{
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            'Authorization' : teacher.token
           }
         });
 

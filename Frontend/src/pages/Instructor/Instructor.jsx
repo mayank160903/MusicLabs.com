@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import "./instructor.css";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
@@ -72,7 +72,7 @@ const Instructor = () => {
               {instructordata &&
                 instructordata != null &&
                 instructordata.map((instructor, i) => (
-                  <div className="col">
+                  <div className="col" key={Math.random}>
                     <div
                       className="bg-white border border-gray-300 rounded-md p-4 shadow-md"
                       style={{ width: "18rem" }}
@@ -97,14 +97,14 @@ const Instructor = () => {
                         {instructor.description}
                       </p> */}
                       </div>
-                      <hr class="border-t border-black my-1 mt-2"></hr>
+                      <hr className="border-t border-black my-1 mt-2"></hr>
                       <ul className="list-group list-group-flush text-black px-auto">
                         {/* <li className="list-group-item">Blues, Rock</li> */}
                         <li className="list-group-item mb-2 ">
                           {instructor.username}
                         </li>
                       </ul>
-                      <hr class="border-t border-black -my-1 "></hr>
+                      <hr className="border-t border-black -my-1 "></hr>
                       <div className="text-blue-500 underline mt-3">
                         <NavLink
                           to={`/teacher/${instructor._id}`}

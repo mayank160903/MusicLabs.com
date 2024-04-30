@@ -1,4 +1,4 @@
-import React from 'react'
+
 import background from '../../images/reviewBg.jpg'
 import Rating from '../Rating/Rating'
 

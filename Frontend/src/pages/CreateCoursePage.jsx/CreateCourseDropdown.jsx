@@ -10,12 +10,14 @@ import {  EditIcon,  Trash2, XCircle } from "lucide-react";
 import DeleteWarning from "./DeleteWarning";
 import CreateLesson from "./CreateLesson";
 import { backendUrl } from "../../url";
+import { useSelector } from "react-redux";
 
 const API_KEY = '396353668692966'
 const CLOUD_NAME = 'djcg8mvbx'
 
 function CreateCourseDropdown({id, currentSection, setCurrentSection, title, num, total, content, setContent, setCurrentVideo}) {
 
+    const user = useSelector(state => state.auth) 
 
     const params = useParams();
     const [addSection, setAddSection] = useState(false);
@@ -152,7 +154,8 @@ function CreateCourseDropdown({id, currentSection, setCurrentSection, title, num
         
           let video_res = await axios.post(`${backendUrl}/api/course/addcontent`, {courseId: params.courseid, sectionId: currentSection, videoUrl: res.data.url, videoName: videoName}, {
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': user.token
             }})
 
           setVideoName("");

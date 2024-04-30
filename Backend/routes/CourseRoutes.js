@@ -26,34 +26,100 @@ const storage = new CloudinaryStorage({
   },
 })
 
-// file.fieldname + '-' + Date.now() + path.extname
-
 const upload = Multer({
   storage: storage
 });
 
-console.log("inside course route")
+router.get('/get-signature', getSignature
+// #swagger.description = 'Get Signature for Uploading Image on Cloudinary, Required for Uploading Image'
+/* #swagger.responses[200] = {
+    description: 'Signature generated successfully',
+    schema: {
+        signature: 'cloudinary_signature',
+        timestamp: '12/07/2024:13:03:22PM'
+    }
+} */
+
+/* #swagger.responses[500] = {
+    description: 'Internal Server Error',
+    schema: {
+        error: 'Internal server error message'
+    }
+} */
+
+);
 
 
-router.get('/get-signature', getSignature);
+router.post('/createcourse', requireSignIn,  (req,res,next)=>{console.log(req.files); next();},upload.single('image'), createCourse
+// #swagger.description = 'Create A New Course'
+);
 
+router.post('/ratecourse', requireSignIn,  rateCourse
+// #swagger.description = 'Rate the Course'
+)
 
-router.post('/createcourse',(req,res,next)=>{console.log(req.files); next();},upload.single('image'), createCourse);
-router.post('/ratecourse',requireSignIn, rateCourse)
-router.get('/getCourseRating/:id', getRatings)
-router.post('/add-comment', addComment);
-router.post('/get-comments', getComments)
+router.get('/getCourseRating/:id', getRatings
+// #swagger.description = 'Gets the Rating of the Course'
+)
 
-router.post('/addcontent', addVideoContent);
-router.post('/deletevideo', deleteVideoContent);
-router.post('/editVideoTitle', editVideoTitleHandler);
-router.post('/addsection',  addSection);
-router.post('/editsection', editSectionHandler);
-router.post('/deletesection', deleteSectionHandler);
+router.post('/add-comment', addComment
+// #swagger.description = 'Adds New Comment to the Course'
+/* #swagger.responses[200] = {
+    description: 'Comment added successfully',
+    schema: {
+        success: true,
+        message: 'Comment added successfully'
+    }
+} */
 
-router.get('/description/:courseId', getCourseDescription)
-router.get('/:courseId', getCourseInfo);
+/* #swagger.responses[404] = {
+    description: 'Not Found - Course not found',
+    schema: {
+        success: false,
+        message: 'Course not found'
+    }
+} */
 
-router.get('/singlecourse/:id', getCourse);
+);
+
+router.post('/get-comments', getComments
+// #swagger.description = 'Gets All Comments of the Course'
+ /* #swagger.responses[200] = {
+            description: 'Comments Fetched Successfully',
+            schema: { $ref: '#/definitions/Comments' }
+    } */
+)
+
+router.post('/addcontent',requireSignIn, addVideoContent
+// #swagger.description = 'Adds New Video Content to the Course'
+);
+
+router.post('/deletevideo', deleteVideoContent
+// #swagger.description = 'Delete Video Content to the Course'
+);
+router.post('/editVideoTitle', editVideoTitleHandler
+// #swagger.description = 'Edit Video Title Handler'
+);
+router.post('/addsection',  addSection
+// #swagger.description = 'Adds New Section in the Course'
+);
+router.post('/editsection', editSectionHandler
+// #swagger.description = 'Edits Section Title in the Course'
+);
+router.post('/deletesection', deleteSectionHandler
+// #swagger.description = 'Deletes Section from the Course'
+);
+
+router.get('/description/:courseId', getCourseDescription
+// #swagger.description = 'Gets the Description of the Course'
+)
+router.get('/:courseId', getCourseInfo
+// #swagger.description = 'Gets the Information of the Course'
+);
+
+router.get('/singlecourse/:id', getCourse
+// #swagger.description = 'Gets the Information of a single Course in complete detail'
+
+);
 
 module.exports = router;

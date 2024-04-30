@@ -1,4 +1,4 @@
-import React from 'react'
+
 import intro_carl from "../../Videos/jamplay_vid.mp4"
 import Button from '../Buttons/Button'
 

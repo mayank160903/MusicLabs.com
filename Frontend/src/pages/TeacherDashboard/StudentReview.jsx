@@ -1,10 +1,11 @@
-import React, { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import "./studentReview.css";
 import SideBar from "./Sidebar";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { backendUrl } from "../../url";
 
 
 const StudentReview = () => {
@@ -17,7 +18,7 @@ const StudentReview = () => {
 
   const usercomment = async() => {
     try{
-      const response = await axios.get(`http://localhost:8000/api/v1/teacher/teacher/studentcomment/${id}`,
+      const response = await axios.get(`${backendUrl}/api/v1/teacher/teacher/studentcomment/${id}`,
       {
         headers: {
           "Content-Type": "application/json",

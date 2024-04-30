@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,7 @@ import './Signup.css';
 import signup from '../../images/signup1.jpg';
 
 import { toast } from 'react-toastify';
+import { backendUrl } from '../../url';
 const RegistrationForm = () => {
 
 const navigate = useNavigate(); // Initialize useNavigate
@@ -54,7 +55,7 @@ const handleRegister = async () => {
   try {
     console.log("Here is coming");
     console.log(formData);
-    const response = await axios.post('http://localhost:8000/api/v1/user/register', formData);
+    const response = await axios.post(`${backendUrl}/api/v1/user/register`, formData);
     console.log(response.data);
     const check = "User already exist please login"
     console.log(typeof response.data.messages);

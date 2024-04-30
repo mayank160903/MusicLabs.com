@@ -7,6 +7,7 @@ import MainContent from "../../components/CoursePage/MainContent";
 import { useParams } from "react-router";
 import { Box } from "@mui/material";
 import axios from "axios";
+import { backendUrl } from "../../url";
 
 
 
@@ -27,10 +28,10 @@ function CourseLayout(){
         const data = {
           'userId':user.id, 'courseId' : params.courseId
         }
-        const response = await axios.post(`http://localhost:8000/api/v1/user/course/get-progress`, data , 
+        const response = await axios.post(`${backendUrl}/api/v1/user/course/get-progress`, data , 
          { headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            'Authorization': user.token
         }
         }
       )
@@ -50,8 +51,8 @@ function CourseLayout(){
   },[])
 
     useEffect(()=>{
-      async function getCourseInfo(id){
-          const response = await fetch(`http://localhost:8000/api/course/${params.courseId}`,{
+      async function getCourseInfo(){
+          const response = await fetch(`${backendUrl}/api/course/${params.courseId}`,{
               method: 'GET',
               headers: {
                   'Content-Type': 'application/json',

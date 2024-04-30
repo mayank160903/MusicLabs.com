@@ -1,3 +1,31 @@
+import { useEffect, useRef, useState } from "react";
+
+// Handler hook for when Outside click dropdown close
+let useClickOutside = (handler) => {
+  let domNode = useRef();
+
+  useEffect(() => {
+    let maybeHandler = (event) => {
+      if (!domNode.current.contains(event.target)) {
+        handler();
+      }
+    };
+    document.addEventListener("mousedown", maybeHandler);
+
+    return () => {
+      document.removeEventListener("mousedown", maybeHandler);
+    };
+  });
+  return domNode;
+};
+// Handler hook for when Outside click dropdown close End Code====>>
+
+const VideoBox = () => {
+  const [videoOpen, setvideoOpen] = useState(false);
+
+  let domNode = useClickOutside(() => {
+    setvideoOpen(false);
+  });
 import React, { useState, useRef } from 'react';
 // import {test} from '../../Videos/jamplay_vid.mp4';
 const VideoPlayer = ({ videoLinks }) => {
