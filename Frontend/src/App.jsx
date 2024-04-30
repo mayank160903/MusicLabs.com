@@ -49,6 +49,8 @@ import StudentReview from './pages/TeacherDashboard/StudentReview';
 import SingleCourse from  './dashboard/SingleCourse'; 
 import AdminCategory from './dashboard/AdminCategory';
 import AdminPurchases from './dashboard/AdminPurchases';
+import RegistrationForm from './pages/Signup/Signuptest';
+import VideoBox from './components/Video-box/VideoBox';
 
 
 function App() {
@@ -94,6 +96,7 @@ function App() {
         {path: '/spotlight', element: <Spotlight/>},
         {path: '/faq', element: <Faq/>},
         {path: '/register', element: <SigninSignupForm/>},
+        {path: '/registerTest', element: <RegistrationForm />},
         {path: '/certificate', element: <Certificate/>},
         {path: '/login', element: <LoginForm/>},
         { path: '/dashboard', element: <AdminDashboard /> },
@@ -107,7 +110,11 @@ function App() {
         {path: '/createcourse/:courseid', element: <CreateCourseLayout/>},
         {path: '/createcourse/:courseid/:section', element: <CreateCourseLayout/>},
       
-        {path: '/courseUpload', element: < CourseUpload />}
+        {path: '/courseUpload', element: < CourseUpload />},
+        {path: '/videoPlayerTest', element: < VideoBox />},
+        {path: '/aboutus', element: < Faq />}
+
+        
       ]
     },  
   ]);

@@ -1,41 +1,59 @@
-import React, { useState, useRef } from 'react';
-// import {test} from '../../Videos/jamplay_vid.mp4';
+// import React from 'react'
+
+// const VideoPlayer = () => {
+//   return (
+// 	<div>
+	  
+// 	</div>
+//   )
+// }
+
+// export default VideoPlayer
+import React, { useState, useEffect } from 'react';
+
 const VideoPlayer = ({ videoLinks }) => {
+  // State variables
   const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(1);
-  const videoRef = useRef(null);
 
-  const handleTimeUpdate = () => {
-    setCurrentTime(videoRef.current.currentTime);
+  // Function to handle video time update
+  const handleTimeUpdate = (event) => {
+    setCurrentTime(event.target.currentTime);
   };
 
+  // Function to handle video duration change
+  const handleDurationChange = (event) => {
+    setDuration(event.target.duration);
+  };
+
+  // Function to toggle play/pause
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
-    if (videoRef.current.paused) {
-      videoRef.current.play();
-    } else {
-      videoRef.current.pause();
-    }
   };
 
+  // Function to toggle mute/unmute
   const toggleMute = () => {
     setIsMuted(!isMuted);
-    videoRef.current.muted = !videoRef.current.muted;
   };
 
+  // Function to handle volume change
   const handleVolumeChange = (event) => {
     setVolume(event.target.value);
-    videoRef.current.volume = event.target.value;
   };
+
+  useEffect(() => {
+    // Your code to store total time of video played in the backend
+  }, [currentTime]);
 
   return (
     <div className="video-player">
       <video
-        ref={videoRef}
-        // src={test} // Assuming only one video link for simplicity
+        src={videoLinks[0]} // Assuming only one video link for simplicity
         onTimeUpdate={handleTimeUpdate}
+        onDurationChange={handleDurationChange}
         controls
         autoPlay
         muted={isMuted}

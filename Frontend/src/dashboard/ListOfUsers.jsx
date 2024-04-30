@@ -111,7 +111,7 @@ const ListOfTeachers = () => {
                     : `${user.firstName} ${user.lastName}`}
                 </TableCell>
                 <TableCell sx={{ color: "white" }}>{user.email}</TableCell>
-                <TableCell sx={{ color: "white" }}>{user.email}</TableCell>
+                <TableCell sx={{ color: "white" }}>{user.courses.length}</TableCell>
                 <TableCell>
                   <Button
                     variant="outlined"
