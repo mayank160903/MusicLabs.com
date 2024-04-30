@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./teacherProfile.css";
 import { NavLink } from "react-router-dom";
 import PlaceIcon from "@mui/icons-material/Place";
@@ -7,6 +7,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import { useParams } from "react-router";
 import profileImage from "./teacher_Profile_image copy.png";
 import axios from "axios";
+import { backendUrl } from "../../url";
 
 const Teacher = () => {
   const { id } = useParams("");
@@ -17,7 +18,7 @@ const Teacher = () => {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/user/teacher/${id}`,
+        `${backendUrl}/api/v1/user/teacher/${id}`,
         {
           headers: {
             "Content-Type": "application/json",

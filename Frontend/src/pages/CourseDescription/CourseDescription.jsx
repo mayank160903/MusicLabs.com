@@ -348,7 +348,7 @@ const CourseDetails = () => {
                               Price :{" "}
                             </div>
                             <div style={{ fontFamily: "quicksand" }}>
-                              {course?.price}
+                              Rs. {course?.price}
                             </div>
                           </div>
                         </h5>
@@ -650,6 +650,20 @@ const CourseDetails = () => {
                   <div className={styles.titleStyle1}>
                     <div className={styles.commentTitle}>Comments : </div>
                     <div className="mt-4">
+                    
+                      <div className='p-4'>
+                        {courseComments &&
+                          courseComments?.map((comment) => {
+                            return (
+                              <div
+                                key={comment._id}
+                                className="text-slate-950 border-2 p-2 mt-2 border-violet-900 rounded-xl"
+                              >
+                                <div className="ml-5 ">{comment.comment}</div>
+                              </div>
+                            );
+                          })}
+                      </div>
                       <form noValidate autoComplete="off">
                         <div className="flex flex-col mb-4">
                           <TextField
@@ -667,7 +681,7 @@ const CourseDetails = () => {
                             value={comment}
                             onChange={handleChange}
                           />
-                          <div className="flex justify-end">
+                          <div className="flex justify-end ">
                             <Button
                               variant="contained"
                               color="primary"
@@ -679,20 +693,6 @@ const CourseDetails = () => {
                           </div>
                         </div>
                       </form>
-
-                      <div>
-                        {courseComments &&
-                          courseComments?.map((comment) => {
-                            return (
-                              <div
-                                key={comment._id}
-                                className="text-slate-950 border-2 p-2 mt-2 border-violet-900 rounded-xl"
-                              >
-                                <div className="ml-5 ">{comment.comment}</div>
-                              </div>
-                            );
-                          })}
-                      </div>
                     </div>
                   </div>
                 </div>

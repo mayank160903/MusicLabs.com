@@ -107,7 +107,6 @@ app.use("/api/v1/teacher",
 
 app.use("/api/course",
   // #swagger.tags = ['Course']
-  // #swagger.produces = ['application/json']
   /* #swagger.responses[500] = {
     description: 'Internal Server Error',
     schema: {
@@ -155,4 +154,5 @@ app.use((err, req, res, next) => {
     });
   });
 
- 
+
+module.exports = app;

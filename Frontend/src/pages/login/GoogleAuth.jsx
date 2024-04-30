@@ -4,6 +4,7 @@ import { app } from '../firebase';
 // import { signInSuccess } from '../redux/user/userSlice';
 // import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { backendUrl } from '../../url';
 
 export default function OAuth() {
   // const dispatch = useDispatch();
@@ -17,7 +18,7 @@ export default function OAuth() {
         const email = result.user.email;
 
         console.log(email);
-        const res =  await axios.post('http://localhost:8000/api/v1/user/google' , email)
+        const res =  await axios.post(`${backendUrl}/api/v1/user/google` , email)
 
         console.log(res.data);
         
@@ -37,7 +38,7 @@ export default function OAuth() {
   // </button>
 
   <button
-  className="block w-full max-w-xs mx-auto bg-red-500 hover:bg-red-700 focus:bg-red-700 mt-3 text-white rounded-lg px-1 py-1 font-semibold text-center"
+  className="block w-full max-w-xs mx-auto bg-gray-500 hover:bg-gray-700 focus:bg-gray-700 text-white rounded-sm px-1 py-1 font-semibold text-center"
   type="submit"
   onClick={handleGoogleClick}
 >

@@ -1,11 +1,9 @@
-import React  , {useState , useEffect} from 'react'
+import  {useState , useEffect} from 'react'
 import 
-{ BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill}
- from 'react-icons/bs'
- import 
- { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } 
- from 'recharts';
+{ BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill} from 'react-icons/bs'
+ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
  import axios from 'axios';
+import { backendUrl } from '../url';
 
 function Home() {
   const [courses, setCourses] = useState();
@@ -16,7 +14,7 @@ function Home() {
     const fetchData = async () => {
         try {
             
-            const coursesResponse = await axios.get('http://localhost:8000/api/v1/admin/custom');
+            const coursesResponse = await axios.get(`${backendUrl}/api/v1/admin/custom`);
             setCourses(coursesResponse.data.courseCount);
             setCategories(coursesResponse.data.categoryCount);
             setQueries(coursesResponse.data.contactCount);

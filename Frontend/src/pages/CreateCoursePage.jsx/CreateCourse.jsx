@@ -8,6 +8,7 @@ import { AddCircleRounded } from "@mui/icons-material";
 import CreateCourseDropdown from "./CreateCourseDropdown";
 import axios from "axios";
 import background from '../../images/contactUsBg.jpg';
+import { backendUrl } from "../../url";
 
 
 
@@ -24,7 +25,7 @@ function CreateCourseLayout(){
     
     useEffect(()=>{
         async function getCourseInfo(id){
-            const response = await fetch(`http://localhost:8000/api/course/${id}`,{
+            const response = await fetch(`${backendUrl}/api/course/${id}`,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,7 +56,7 @@ function CreateCourseLayout(){
         sectionName: 'Enter Name'
     }
     
-    const response = await axios.post(`http://localhost:8000/api/course/addsection`, formData,{
+    const response = await axios.post(`${backendUrl}/api/course/addsection`, formData,{
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`

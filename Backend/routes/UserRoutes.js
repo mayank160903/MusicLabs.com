@@ -173,17 +173,36 @@ router.post("/purchase", requireSignIn, purchaseCourse
     }
 } */
 
-/* #swagger.responses[500] = {
-    description: 'Internal Server Error',
-    schema: {
-        error: 'Internal server error message'
-    }
-} */
 )
 
 
 router.post('/course/progress', requireSignIn, updateCourseProgress
 // #swagger.description = 'Updates the Progress of a Course'
+/* #swagger.parameters['body'] = {
+    in: 'body',
+    description: 'Course and video details',
+    required: true,
+    schema: {
+        courseId: '65d7c494c44cec15f9adf35c',
+        videoId: '789def012345abcde67890fg'
+    }
+} */
+
+/* #swagger.responses[200] = {
+    description: 'Course progress updated successfully',
+    schema: {
+        message: 'All Good',
+        user: { $ref: '#/definitions/User' }
+    }
+} */
+
+/* #swagger.responses[404] = {
+    description: 'Not Found - User, course, or video not found',
+    schema: {
+        error: 'User not found, Course not found, or Video not found'
+    }
+} */
+
 )
 
 router.post('/course/get-progress', requireSignIn, getCourseProgress
@@ -193,6 +212,31 @@ router.post('/course/get-progress', requireSignIn, getCourseProgress
 
 router.post("/contactus",createQuery
 // #swagger.description = 'Creates a Query'
+/* #swagger.parameters['body'] = {
+    in: 'body',
+    description: 'Query details',
+    required: true,
+    schema: {
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john.doe@example.com',
+        message: 'This is a sample query message'
+    }
+} */
+
+/* #swagger.responses[200] = {
+    description: 'Query submitted successfully',
+    schema: {
+        message: 'Query Submitted Successfully'
+    }
+} */
+
+/* #swagger.responses[400] = {
+    description: 'Bad Request - Missing required fields',
+    schema: {
+        error: 'Please fill all the fields'
+    }
+} */
 )
 
 router.get('/instructorData', InstructorDataController
@@ -208,7 +252,9 @@ router.put('/teachereditprofile/:id',updateTeacherProfile
 // #swagger.description = 'Updates the Profile of a Teacher'
 );
 
-router.put('/studenteditprofile/:id',updateStudentProfile);
+router.put('/studenteditprofile/:id',updateStudentProfile
+// #swagger.description = 'Update The Profile of a Student'
+);
 
 router.get('/dashboardteacherprofile/:id', dashboardTeacherProfile);
 router.get('/studentprofile/:id', getStudent);

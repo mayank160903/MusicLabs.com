@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ import signup from '../../images/signup1.jpg';
 import { Input } from '@mui/base';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import { backendUrl } from '../../url';
 
 const BecomeInstructor = () => {
 
@@ -82,7 +83,7 @@ const handleRegister = async () => {
   try {
    
     console.log(formData);
-    const response = await axios.post('http://localhost:8000/api/v1/teacher/register', formData);
+    const response = await axios.post(`${backendUrl}/api/v1/teacher/register`, formData);
     
     
     if (response.data.success === true) {
@@ -102,13 +103,13 @@ const handleRegister = async () => {
 };
 
   return (
- 
-    <div className="min-w-screen min-h-screen flex items-center justify-center px-5 py-5">
-    <div className="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-hidden" style={{ maxWidth: '1000px' }}>
+    <div className="bg-white">
+    <div className="min-w-screen bg-purple-100 min-h-screen flex items-center justify-center px-5 py-5">
+    <div className="bg-white text-gray-900 rounded-3xl shadow-xl w-full overflow-hidden" style={{ maxWidth: '1000px' }}>
       <div className="w-full py-10 px-5 md:px-10 mx-auto max-w-screen-md" style={{ maxWidth: '70%' }}>
         <div className="text-center mb-10">
-          <h1 className="font-bold text-3xl">REGISTER</h1>
-          <p>Enter your information to register</p>
+          <h1 className="font-bold text-3xl text-black">REGISTER</h1>
+          <p className="font-bold text-3xl text-black">Enter your information to register</p>
         </div>
         <div className="flex -mx-3">
           <div className="w-1/2 px-3 mb-5">
@@ -202,7 +203,7 @@ const handleRegister = async () => {
            
             {!showPostGraduation && ( <div className="mb-4  flex">
            
-        <button class="bg-white  hover:bg-green-500 font-bold py-2 px-1 rounded w-40 ml-auto " onClick={handlePostGraduationClick}>
+        <button class="bg-black text-white text-center hover:bg-green-500 font-bold py-2 px-1 rounded-sm w-40 ml-auto " onClick={handlePostGraduationClick}>
              Post Graduation
         </button>
         
@@ -248,7 +249,7 @@ const handleRegister = async () => {
             )}
             {!showMasters && ( <div className="mb-4  flex">
            
-           <button class="bg-white  hover:bg-green-500 font-bold py-2 px-1 rounded w-40 ml-auto " onClick={handleMastersClick}>
+           <button class="bg-black text-white  hover:bg-green-500 font-bold py-2 px-1 rounded-sm w-40 ml-auto " onClick={handleMastersClick}>
                 Add Masters
            </button>
            
@@ -284,7 +285,7 @@ const handleRegister = async () => {
    
                {showMasters && ( <div className="mb-4  flex">
               
-              <button class="bg-white  hover:bg-red-500 font-bold py-2 px-3 rounded w-30 ml-auto " onClick={handleMastersClick}>
+              <button className="bg-white  hover:bg-red-500 font-bold py-2 px-3 rounded w-30 ml-auto " onClick={handleMastersClick}>
                    Delete
               </button>
               
@@ -295,7 +296,7 @@ const handleRegister = async () => {
 
             {!showExperience && ( <div className="mb-4  flex">
            
-           <button class="bg-white  hover:bg-green-500 font-bold py-2 px-1 rounded w-40 ml-auto " onClick={handleExperienceClick}>
+           <button class="bg-black text-white  hover:bg-green-500 font-bold py-2 px-1 rounded-sm w-40 ml-auto " onClick={handleExperienceClick}>
                 Add Experience
            </button>
            
@@ -344,7 +345,7 @@ const handleRegister = async () => {
 
                {!showAchievement && ( <div className="mb-4  flex">
            
-           <button class="bg-white  hover:bg-green-500 font-bold py-2 px-1 rounded w-40 ml-auto " onClick={handleAchievementClick}>
+           <button class="bg-black text-white  hover:bg-green-500 font-bold py-2 px-1 rounded-sm w-40 ml-auto " onClick={handleAchievementClick}>
                 Add Achievement
            </button>
            
@@ -392,7 +393,7 @@ const handleRegister = async () => {
         <div className="flex -mx-3">
           <div className="w-full px-3 mb-5">
             <button
-              className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-1 py-1 font-semibold"
+              className="block w-full max-w-xs mx-auto bg-black text-white rounded-sm px-1 py-1 font-semibold"
               type="submit"
               onClick={handleRegister}
             >
@@ -400,11 +401,13 @@ const handleRegister = async () => {
             </button>
           </div>
         </div>
-        <div className="font-bold text-blue-400 mt-3">
-                Sign up as a <Link to='/register'>User</Link>
+        <div className="font-bold text-center text-black mt-3">
+          <p className='text-black pb-5'>OR</p>
+                <Link to='/register'>Sign up as a User</Link>
             </div>
       </div>
     </div>
+  </div>
   </div>
   );
 };

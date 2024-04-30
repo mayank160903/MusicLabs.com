@@ -33,6 +33,7 @@ const doc = {
       createdAt: "2024-04-29T19:57:53.187Z",
       updatedAt: "2024-04-29T19:57:53.187Z",
     },
+    
     EmailPassword: {
       email: "harshit@gmail.com",
       password: "MeraPassword",
@@ -58,10 +59,27 @@ const doc = {
       success: "false",
       message: "Please fill all the details " 
     },
+    InternalServerError: {
+      success: false,
+      message: "Something Went Wrong, Please Try Again!"
+    },
+    Course: {
+      _id: '65d278b7342ef66267b5bb9b',
+      title: 'Rock in 5 Days',
+      description: 'Course Description',
+      price: 1200,
+      category: 'Rock',
+      teacher: 't65d278b7342eadsh85bb9b',
+      imageUrl: 'https://example.com/course-image.jpg',
+      sections: [],
+      createdAt: '2024-02-03T14:57:48.561Z',
+      updatedAt: '2024-02-03T14:58:19.598Z',
+    },
 
     Rating: {
-      father: "Simon Doe",
-      mother: "Marie Doe",
+      Rating: 5,
+      userId: "a65d09daa60jad12dasndad",
+      courseId: "65d7bfcef6e43a005af95bb5"
     },
 
     Comments: [

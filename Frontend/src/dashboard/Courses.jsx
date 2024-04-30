@@ -1,7 +1,8 @@
-import react, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import course1 from "../images/beginnerpic.jpg";
 import { Link } from "react-router-dom";
+import { backendUrl } from "../url";
 const Courses = () => {
   const [courses, setCourses] = useState([]);
 
@@ -9,7 +10,7 @@ const Courses = () => {
     const fetchCourses = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/v1/admin/allcourses"
+          `${backendUrl}/api/v1/admin/allcourses`
         );
         setCourses(response.data.courses);
         console.log("here");
@@ -25,7 +26,7 @@ const Courses = () => {
   const fetchTeacherData = async (teacherId) => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/v1/teacher/getTeacher/${teacherId}`
+        `${backendUrl}/api/v1/teacher/getTeacher/${teacherId}`
       );
       return response.data.teacher;
     } catch (error) {

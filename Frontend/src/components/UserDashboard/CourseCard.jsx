@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import Rating from '@mui/material/Rating';
 import {toast} from 'react-toastify'
 import axios from 'axios'
+import { backendUrl } from "../../url";
 
 function capitalizeFirstLetter(s){
     if(s){
@@ -53,7 +54,7 @@ function CourseCard({user,course,progress,currentRating}){
       }
       try {
         await axios.post(
-          "http://localhost:8000/api/course/ratecourse", formData,
+          `${backendUrl}/api/course/ratecourse`, formData,
           {
             headers: {
               "Content-Type": "application/json",

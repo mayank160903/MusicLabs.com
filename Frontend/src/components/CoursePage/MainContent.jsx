@@ -28,11 +28,11 @@ return(
     
     <Fragment>
      <div className="flex flex-col">
-        <div className="font-bold ml-4 mt-4 text-2xl ">
+        <div className="font-bold mt-4 text-2xl ">
         {currentSection}
             
         </div>
-        <div className="flex justify-center align-top mt-4">
+        <div className="flex justify-center align-top">
                 <video controls={true} ref={videoRef} onLoadedData={generateThumbnail}
                     src = {currentVideo?.url}
                     style={{ borderColor: "black"}}

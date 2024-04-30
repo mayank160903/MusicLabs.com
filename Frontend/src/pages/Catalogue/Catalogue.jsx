@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import c1 from "../../images/carousel-1.jpg";
 import c2 from "../../images/carousel-2.jpg";
@@ -8,9 +7,10 @@ import products from "./productdata";
 import Slide from "./Slide";
 import axios from "axios";
 import "./Catalogue.css";
-import react, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import CataMonial from "../../components/CataMonial/CataMonial";
+import { backendUrl } from "../../url";
 
 const Catalogue = (props) => {
   const [open, setOpen] = useState(false);
@@ -25,7 +25,7 @@ const Catalogue = (props) => {
     const fetchCourses = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/v1/admin/allcourses?search=${searchInput}`
+          `${backendUrl}/api/v1/admin/allcourses?search=${searchInput}`
         );
         setCourses(response.data.courses);
       

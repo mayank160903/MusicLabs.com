@@ -1,4 +1,5 @@
-import react , {useState , useEffect} from 'react';
+import {useState , useEffect} from 'react';
+import {backendUrl} from '../url';
 
 import axios from 'axios';
 
@@ -11,7 +12,7 @@ const Query = () =>{
 
   useEffect(() => {
     
-    const apiUrl = 'http://localhost:8000/api/v1/admin/query';
+    const apiUrl = `${backendUrl}/api/v1/admin/query`;
 
     const fetchData = async () => {
       try {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import "./studentProfile.css";
 import Image from "react-bootstrap/Image";
 import PlaceIcon from "@mui/icons-material/Place";
@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useEffect } from "react";
 import { useParams } from "react-router";
+import { backendUrl } from "../../url";
 
 const Student = () => {
   const user = useSelector(state => state.auth)
@@ -27,7 +28,7 @@ const Student = () => {
     }
 
     try{
-      const response = await axios.get(`http://localhost:8000/api/v1/user/studenteditprofile/${id}`, {
+      const response = await axios.get(`${backendUrl}/api/v1/user/studenteditprofile/${id}`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${user.token}`
@@ -50,7 +51,7 @@ const Student = () => {
         return ;
       }
       try {
-        const req = await axios.get(`http://localhost:8000/api/v1/user/your-courses/${user?.id}`, {
+        const req = await axios.get(`${backendUrl}/api/v1/user/your-courses/${user?.id}`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': user?.token

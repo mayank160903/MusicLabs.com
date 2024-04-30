@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import sidepic from '../../images/signup-pic.jpg';
 import { useSelector } from 'react-redux';
 import axios from 'axios';

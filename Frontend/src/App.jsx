@@ -49,6 +49,8 @@ import StudentReview from './pages/TeacherDashboard/StudentReview';
 import SingleCourse from  './dashboard/SingleCourse'; 
 import AdminCategory from './dashboard/AdminCategory';
 import AdminPurchases from './dashboard/AdminPurchases';
+import RegistrationForm from './pages/Signup/Signuptest';
+// import VideoBox from './components/Video-box/VideoBox';
 
 
 function App() {
@@ -69,6 +71,7 @@ function App() {
         {path: '/Teacher-Dashboard', element: <Teachers_Dashboard />},
         {path: '/quiz', element: <Quiz />},
         {path: '/becomeInstructor', element: <BecomeInstructor />},
+        
         {path : '/dashboard/admin/query' , element : <AdminQuery/>},
         {path:'/dashboard', element:<AdminDashboard/>},
         {path: '/dashboard/admin/accept' , element : <AdminAcceptance/>},
@@ -77,7 +80,8 @@ function App() {
         {path: '/dashboard/adminpurchases' , element : <AdminPurchases/>},
         {path: '/dashboard/admin/Teachers' , element : <AdminTeachers/>},
         {path: '/dashboard/admin/Users' , element : <AdminUsers/>},
-        {path: '/wishlist', element: <WishlistPage/>},
+       
+        
         {path: '/teacher/dashboard', element: <TeacherDashboard/>},
         {path: '/teacher/studentlist/:id', element:<StudentList/>},
         {path: '/teacher/reviews', element:<StudentReview/>},
@@ -88,12 +92,14 @@ function App() {
         {path:'/teachereditprofile/:id',element:<TeacherEditProfile/>},
         {path:'/catalogue', element:<Catalogue />},
         {path: '/studenteditprofile/:id', element: <StudentEditProfile/>},
-       {path:'/studentprofile', element:<StudentProfile/>},
+        {path:'/studentprofile', element:<StudentProfile/>},
         {path: '/checkout/:id', element: <PaymentPage/>},
-        // {path: '/query', element: <Query/>},
+        
+        {path: '/wishlist', element: <WishlistPage/>},
         {path: '/spotlight', element: <Spotlight/>},
         {path: '/faq', element: <Faq/>},
         {path: '/register', element: <SigninSignupForm/>},
+        {path: '/registerTest', element: <RegistrationForm />},
         {path: '/certificate', element: <Certificate/>},
         {path: '/login', element: <LoginForm/>},
         { path: '/dashboard', element: <AdminDashboard /> },
@@ -107,7 +113,11 @@ function App() {
         {path: '/createcourse/:courseid', element: <CreateCourseLayout/>},
         {path: '/createcourse/:courseid/:section', element: <CreateCourseLayout/>},
       
-        {path: '/courseUpload', element: < CourseUpload />}
+        {path: '/courseUpload', element: < CourseUpload />},
+        // {path: '/videoPlayerTest', element: < VideoBox />},
+        {path: '/aboutus', element: < Faq />}
+
+        
       ]
     },  
   ]);

@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import {useState} from "react";
 import "./StudentEditProfile.css";
 import profileImage from "./teacher_Profile_image copy.png";
 import {useNavigate} from "react-router-dom";
@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import axios from "axios";
 import { toast } from 'react-toastify';
 import { useSelector } from "react-redux";
+import { backendUrl } from "../../url";
 
 const StudentEditProfile = () => {
 
@@ -64,7 +65,7 @@ const StudentEditProfile = () => {
 
       try{
         console.log(formData);
-          const response = await axios.put(`http://localhost:8000/api/v1/user/studenteditprofile/${id}`,formData, config);
+          const response = await axios.put(`${backendUrl}/api/v1/user/studenteditprofile/${id}`,formData, config);
 
            
 

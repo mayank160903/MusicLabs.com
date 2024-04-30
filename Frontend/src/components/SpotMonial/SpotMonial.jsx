@@ -1,4 +1,3 @@
-import React from 'react'
 import background from '../../images/martyyy.jpeg';
 
 function SpotMonial() {

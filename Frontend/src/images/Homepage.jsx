@@ -1,4 +1,3 @@
-import React from "react";
 import "./homestyle.css";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Paper from "@mui/material/Paper";
 import TableContainer from "@mui/material/TableContainer";
@@ -11,6 +11,8 @@ import Button from "@mui/material/Button";
 import Checkbox from '@mui/material/Checkbox';
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from 'react-router-dom';
+import { backendUrl } from "../url";
+
 const ListOfTeachers = () => {
   const theme = useTheme();
   const [users, setUsers] = useState([]);
@@ -21,7 +23,7 @@ const ListOfTeachers = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/v1/admin/universalSearch?query=${searchQuery}`
+          `${backendUrl}api/v1/admin/universalSearch?query=${searchQuery}`
         );
         setUsers(response.data.users);
         console.log(users);
@@ -120,7 +122,7 @@ const ListOfTeachers = () => {
                     : `${user.firstName} ${user.lastName}`}
                 </TableCell>
                 <TableCell sx={{ color: "white" }}>{user.email}</TableCell>
-                <TableCell sx={{ color: "white" }}>{user.email}</TableCell>
+                <TableCell sx={{ color: "white" }}>{user.courses.length}</TableCell>
                 <TableCell>
                   <Button
                     variant="outlined"
