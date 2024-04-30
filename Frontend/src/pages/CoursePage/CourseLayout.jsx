@@ -73,7 +73,7 @@ function CourseLayout(){
 
     return (
       !initialLoading && (
-        <div className="relative h-auto flex pb-6">
+        <div className="relative h-auto flex bg-gray-900">
         
         <div className="flex flex-col">
             <div className="w-[76vw] h-fit">

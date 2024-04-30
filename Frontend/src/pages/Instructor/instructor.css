@@ -1,6 +1,6 @@
 .banner_img{
   background-color: #3a3f47; 
-background-image: url('https://jtgt-static.b-cdn.net/redesign/2020/lessons-page/guitar-xl.png');
+background-image: url('https://getwallpapers.com/wallpaper/full/c/2/7/328708.jpg');
 background-size: cover; 
 background-position: center center; 
 background-repeat: no-repeat; 
@@ -36,11 +36,8 @@ overflow: hidden;
 
 .our-team-content{
   font-family: 'Quicksand', sans-serif;
-  font-weight: lighter;
-  color: #174ea6;
-  font-size: 18px;
+  font-size: 25px;
   transition: opacity 0.5s ease, transform 0.5s ease;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 

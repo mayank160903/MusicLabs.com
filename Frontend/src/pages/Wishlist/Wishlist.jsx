@@ -2,7 +2,7 @@ import { Fragment, startTransition, useEffect, useState } from "react"
 
 // import { useDispatch } from '@reduxjs/toolkit'
 import {useNavigate} from 'react-router'
-
+import logo from '../../images/logo-new.png';
 import './Wishlist.css'
 import { Delete } from "@mui/icons-material";
 import { Link } from "react-router-dom";
@@ -97,8 +97,10 @@ function WishlistPage(){
 
     return (
       <Fragment>
-        <div className="bg-white">
-        <div className="bg-white toast-container position-fixed top-0 end-0 p-3">
+        <div className="bg-purple-300">
+
+        <div className="bg-purple-400">
+        <div className="bg-purple-400 toast-container position-fixed top-0 end-0 p-3">
           <div
             className="toast"
             role="alert"
@@ -119,10 +121,10 @@ function WishlistPage(){
           </div>
         </div>
 
-        <div className="bodyMain">
-          <div className="outer3">
+        <div className="bodyMain bg-purple-200">
+          <div className="outer3 ">
             <div>
-              <div className="maincontainer">
+              <div className="maincontainer ">
                 <div className="wishmain d-flex ">
                   <div className="d-none d-lg-block mb-5">
                     <div className="">
@@ -136,8 +138,8 @@ function WishlistPage(){
                         }}
                       >
                         <img
-                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACoCAMAAABt9SM9AAAAA1BMVEUAlv+tY//LAAAAR0lEQVR4nO3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO8GxYgAAb0jQ/cAAAAASUVORK5CYII="
-                          className="card-img-top"
+                          src={logo}
+                          className="p-4"
 
                           alt="..."
                         />
@@ -148,12 +150,12 @@ function WishlistPage(){
                             paddingBottom: "1.5rem",
                           }}
                         >
-                          <div className="userpic_con">
+                          {/* <div className="userpic_con">
                             <div className="userpic"></div>
-                          </div>
+                          </div> */}
 
-                          <h5 className="proftitle2 align-items-end ml-8">
-                            Welcome, {user?.firstName}
+                          <h5 className="text-white pt-2 pl-6 align-items-center">
+                            Welcome, {user?.firstName + ' ' + user?.lastName}
                           </h5>
                         </div>
                         <ul
@@ -215,13 +217,13 @@ function WishlistPage(){
                           </li>
 
                           <li
-                            className="atb list-group-item"
+                            className="list-group-item atb"
                             style={{
                               borderBottom: "2px solid grey",
                               backgroundColor: "#181a1b",
                             }}
                           >
-                            <a
+                            <Link
                               id="logoutbtn"
                               className="logout-button"
                               onClick={() => {
@@ -229,7 +231,7 @@ function WishlistPage(){
                               }}
                             >
                               Log Out
-                            </a>
+                            </Link>
                           </li>
                         </ul>
                       </div>
@@ -241,11 +243,11 @@ function WishlistPage(){
                     <div className="rightcont">
                       <div className="rightmain d-flex flex-column">
                         <div className="rhead">
-                          <div className="font-black" id="wishlist-count">
+                          <div className="font-black text-black" id="wishlist-count">
                             {" "}
                             {mode === "wish"
-                              ? `Your Wishlist (${user?.wishlist?.length})`
-                              : `Your Courses (${user?.courses?.length})`}
+                              ? `YOUR WISHLIST (${user?.wishlist?.length})`
+                              : `YOUR COURSES (${user?.courses?.length})`}
                           </div>
                         </div>
 
@@ -368,6 +370,7 @@ function WishlistPage(){
             </div>
           </div>
         </div>
+        </div>          
         </div>
       </Fragment>
     );
