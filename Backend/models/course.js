@@ -37,7 +37,6 @@ const courseSchema = new mongoose.Schema({
         type : mongoose.Types.ObjectId,
         ref:'sections',
 
-    //    required:[true , 'Sections are required'], 
     }],
 
     totalVideos : {

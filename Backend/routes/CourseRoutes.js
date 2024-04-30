@@ -52,14 +52,94 @@ router.get('/get-signature', getSignature
 
 router.post('/createcourse', requireSignIn,  (req,res,next)=>{console.log(req.files); next();},upload.single('image'), createCourse
 // #swagger.description = 'Create A New Course'
+/* #swagger.responses[200] = {
+    description: 'Course created successfully',
+    schema: {
+        success: true,
+        message: 'Course created successfully',
+        course: {$ref: "#/definitions/Course"}
+    }
+} */
+/* #swagger.responses[400] = {
+    description: 'Bad Request - Invalid input data',
+    schema: {
+        success: false,
+        message: 'Invalid input data'
+    }
+} */
+/* #swagger.responses[404] = {
+    description: 'Not Found - Teacher not found',
+    schema: {
+        success: false,
+        message: 'Teacher not found'
+    }
+} */
 );
 
 router.post('/ratecourse', requireSignIn,  rateCourse
 // #swagger.description = 'Rate the Course'
+// #swagger.description = 'Rate a Course'
+/*  #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Course ID and new rating',
+            required: true,
+            schema: { 
+                courseId: "65d278b7342ef66267b5bb9b",
+                newRating: "4"
+            }
+    } */
+
+/* #swagger.responses[200] = {
+            description: 'Success',
+            schema: { 
+                success: true,
+                rating: {
+                    userId: "2ef662b72675d34b5b78b9",
+                    courseId: "5d278b7342ef66267b5bb9",
+                    rating: "4"
+                }
+            }
+    } */
+
+/* #swagger.responses[501] = {
+            description: 'Internal Server Error',
+            schema: { 
+                success: false,
+                message: "Error"
+            }
+    } */
+
 )
 
 router.get('/getCourseRating/:id', getRatings
 // #swagger.description = 'Gets the Rating of the Course'
+/*  #swagger.parameters['path'] = {
+            in: 'path',
+            description: 'Course ID',
+            required: true,
+            schema: { 
+                id: "b72675d34b34b34b5b"
+            }
+    } */
+
+/* #swagger.responses[200] = {
+            description: 'Success',
+            schema: { 
+                success: true,
+                ratings: {
+                    count: "12",
+                    value: "3.4"
+                }
+            }
+    } */
+
+/* #swagger.responses[501] = {
+            description: 'Internal Server Error',
+            schema: { 
+                success: false,
+                message: "Error"
+            }
+    } */
 )
 
 router.post('/add-comment', addComment

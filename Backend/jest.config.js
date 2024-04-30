@@ -1,11 +1,12 @@
 // jest.config.js
 module.exports = {
     roots: ["./"],
-    collectCoverageFrom: [".//.{js,jsx,ts,tsx}", "!src//.d.ts"],
+    collectCoverageFrom: ["./**/*.{js,jsx,ts,tsx}", "!src/**/*.d.ts","!**/node_modules/**", 
+    "!**/swagger.js","!**/mainserver.js","!**/coverage/**","!**/*.config.js"],
     // setupFilesAfterEnv: ["<rootDir>/setupTests.js"],
     testMatch: [
-      ".//_tests_//*.{js,jsx,ts,tsx}",
-      ".//*.{spec,test}.{js,jsx,ts,tsx}",
+      "./**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "./**/*.{spec,test}.{js,jsx,ts,tsx}",
     ],
     testEnvironment: "node",
     transform: {
@@ -30,5 +31,6 @@ module.exports = {
     // watchPlugins: [
     //   "jest-watch-typeahead/filename",
     //   "jest-watch-typeahead/testname",
-    // ],
-    };
+    // ],
+  };
+  
