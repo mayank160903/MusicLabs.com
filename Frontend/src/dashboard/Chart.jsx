@@ -9,7 +9,8 @@ export default function BasicBars() {
       series={[{ data: [4, 3, 6] }]}
       width={500}
       height={300}
-      
+      barColors={['#FF6384']} // Set the bar color to a shade of red
+      backgroundColor="#000000" // Set the background color to black
     />
   );
 }

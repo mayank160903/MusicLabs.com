@@ -56,70 +56,120 @@ const Query = () =>{
     return (
         <>
 
-    <div className="flex justify-center">
-      <div className="bg-gray-200 rounded-full px-2 mt-5 mb-4">
-         <h1 className="font-bold text-4xl text-black">All Queries</h1>
+{/* 
+<div className="flex justify-center">
+  <div className="bg-gray-700 rounded-full px-4 py-2 mt-5 mb-4">
+    <h1 className="font-bold text-4xl text-white">All Queries</h1>
+  </div>
+</div>
+<div className="mt-4">
+  {queryData.map((request) => (
+    <div
+      key={request._id}
+      className="mb-4 mx-auto py-6 px-4 max-w-md bg-gray-800 rounded-lg shadow-md transition-transform hover:scale-105"
+    >
+      <div className="flex justify-between items-center mb-3">
+        <p className="text-white font-bold">
+          {request.firstname} {request.lastname}
+        </p>
+        <p className="text-gray-400 text-sm">{request.email}</p>
+      </div>
+      <div className="mb-4">
+        <p className="text-white">{request.message}</p>
+      </div>
+      <div className="flex justify-end">
+        {showReply && replyData._id === request._id ? (
+          // Render Reply Section
+          <div className="w-full bg-gray-700 p-4 rounded-lg">
+            <textarea
+              value={replyMessage}
+              onChange={(e) => setReplyMessage(e.target.value)}
+              className="w-full h-20 border p-2 bg-gray-600 text-white hover:border-blue-500 focus:border-blue-500 rounded-md"
+              placeholder="Type your reply here..."
+            />
+            <div className="flex justify-end mt-3">
+              <button
+                onClick={handleSendReply}
+                className="bg-green-500 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded"
+              >
+                Send Reply
+              </button>
+            </div>
+          </div>
+        ) : (
+          // Render Reply Button
+          <button
+            onClick={() => handleReplyClick(request._id)}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded"
+          >
+            Reply
+          </button>
+        )}
       </div>
     </div>
+  ))}
+</div> */}
 
-    <div className=" mt-4">
-       
-       {queryData.map((request) => (
-         <div key={request._id} className="mb-4 mx-auto py-4 px-2 max-w-md bg-gray-200 rounded-lg shadow-md transition-transform hover:scale-105">
-             <div className="flex justify-center">
-             <p className="text-black text-xl"><strong>Name :</strong> &nbsp;  </p> 
-               <p className="text-black text-xl">{request.firstname} &nbsp;   {request.lastname}</p>
-           
-           </div>
-           <div className="flex justify-center mt-3">
-             <p className="text-black text-xl"><strong>Email :</strong> &nbsp;  </p> 
-               <p className="text-black text-xl">{request.email}</p>
-           
-           </div>
-           <div className="flex justify-center mt-3">
-             <p className="text-black text-xl"><strong>Message :</strong> &nbsp;  </p> 
-               <p className="text-black text-xl">{request.message}</p>
-           
-           </div>
-          
-           
-          
-
-            <div className="mt-3 flex justify-center">
-            {showReply && replyData._id === request._id ? (
-              // Render Reply Section
-              <div className="mx-auto bg-gray-200 p-4 rounded-lg ">
-                <textarea
-                  value={replyMessage}
-                  onChange={(e) => setReplyMessage(e.target.value)}
-                  className="w-64 h-16 border p-2 bg-gray-200 hover:border-blue-500 focus:border-blue-500"
-                  placeholder="Type your reply here..."
-                />
-                <div className="flex justify-center mt-3">
-                  <button
-                    onClick={handleSendReply}
-                    className="bg-green-500 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded"
-                  >
-                    Send Reply
-                  </button>
-                </div>
-              </div>
-            ) : (
-              // Render Reply Button
+<div className="flex justify-center bg-white">
+  {/* <div className="bg-gray-700 rounded-full px-4 py-2 mt-5 mb-4"> */}
+    <h1 className="font-bold text-4xl text-blue-400">All Queries</h1>
+  {/* </div> */}
+</div>
+<div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-white ml-4">
+  {queryData.map((request) => (
+    <div
+      key={request._id}
+      className="bg-gray-800 rounded-lg shadow-md p-4 transition-transform hover:scale-105"
+    >
+      <div className="flex items-center mb-3">
+        {/* <div className="bg-gray-700 rounded-full h-12 w-12 flex items-center justify-center mr-3">
+          <span className="text-white font-bold">{request.firstname.charAt(0)}{request.lastname.charAt(0)}</span>
+        </div> */}
+        <div>
+          <p className=" font-bold text-red-400">
+            {request.firstname} {request.lastname}
+          </p>
+          <p className="text-gray-400 text-sm">{request.email}</p>
+        </div>
+      </div>
+      <div className="mb-4">
+        <p className="text-white">{request.message}</p>
+      </div>
+      <div className="flex justify-end">
+        {showReply && replyData._id === request._id ? (
+          // Render Reply Section
+          <div className="w-full bg-gray-700 p-4 rounded-lg">
+            <textarea
+              value={replyMessage}
+              onChange={(e) => setReplyMessage(e.target.value)}
+              className="w-full h-20 border p-2 bg-gray-600 text-white hover:border-blue-500 focus:border-blue-500 rounded-md"
+              placeholder="Type your reply here..."
+            />
+            <div className="flex justify-end mt-3">
               <button
-                onClick={() => handleReplyClick(request._id)}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded mr-2"
+                onClick={handleSendReply}
+                className="bg-green-500 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded"
               >
-                Reply
+                Send Reply
               </button>
-            )}
+            </div>
           </div>
-           
-          
-         </div>
-       ))}
-       
-     </div>
+        ) : (
+          // Render Reply Button
+          <button
+            onClick={() => handleReplyClick(request._id)}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded"
+          >
+            Reply
+          </button>
+        )}
+      </div>
+    </div>
+  ))}
+</div>
+
+
+
  </>
     )
 

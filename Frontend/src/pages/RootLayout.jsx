@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import TeacherHeaderTest from "./Header/TeacherHeaderTest";
 import StudentHeaderTest from "./Header/StudentHeaderTest";
 import AdminHeader from './Header/AdminHeader';
+import WishlistPage from "./Wishlist/Wishlist";
 // import { useSelector } from "react-redux/es/hooks/useSelector";
 // import HeaderBar from "../components/Header";
 // import SideBar from "../components/Sidebar";

@@ -1,7 +1,6 @@
 
 import intro_carl from "../../Videos/jamplay_vid.mp4"
 import Button from '../Buttons/Button'
-import testBg from '../../images/testimonialBg.png'
 
 function Testimonial() {
   return (

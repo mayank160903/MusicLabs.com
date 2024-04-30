@@ -23,7 +23,7 @@ const ListOfTeachers = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${backendUrl}api/v1/admin/universalSearch?query=${searchQuery}`
+          `${backendUrl}/api/v1/admin/universalSearch?query=${searchQuery}`
         );
         setUsers(response.data.users);
         console.log(users);
@@ -122,7 +122,7 @@ const ListOfTeachers = () => {
                     : `${user.firstName} ${user.lastName}`}
                 </TableCell>
                 <TableCell sx={{ color: "white" }}>{user.email}</TableCell>
-                <TableCell sx={{ color: "white" }}>{user.email}</TableCell>
+                <TableCell sx={{ color: "white" }}>{user.courses.length}</TableCell>
                 <TableCell>
                   <Button
                     variant="outlined"
