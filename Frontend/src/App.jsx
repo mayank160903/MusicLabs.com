@@ -50,7 +50,7 @@ import SingleCourse from  './dashboard/SingleCourse';
 import AdminCategory from './dashboard/AdminCategory';
 import AdminPurchases from './dashboard/AdminPurchases';
 import RegistrationForm from './pages/Signup/Signuptest';
-import VideoBox from './components/Video-box/VideoBox';
+// import VideoBox from './components/Video-box/VideoBox';
 
 
 function App() {
@@ -114,7 +114,7 @@ function App() {
         {path: '/createcourse/:courseid/:section', element: <CreateCourseLayout/>},
       
         {path: '/courseUpload', element: < CourseUpload />},
-        {path: '/videoPlayerTest', element: < VideoBox />},
+        // {path: '/videoPlayerTest', element: < VideoBox />},
         {path: '/aboutus', element: < Faq />}
 
         
