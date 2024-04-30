@@ -54,79 +54,83 @@ const Category = () => {
 
   return (
     <>
-      <div className="flex justify-center mb-3">
-        <h1 className="font-bold text-4xl text-white">List of Categories</h1>
-      </div>
+     
 
-      <div>
-        <div className="px-2">
-          <h1 className="ml-48 text-2xl font-bold"> Add category</h1>
-        </div>
-        <div className="w-full px-3 mb-4 flex justify-start">
-          <div className="flex">
-            <input
-              type="text"
-              id="categoryName"
-              name="categoryName"
-              className="w-full pl-10 pr-3 py-2 ml-48 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-              placeholder="Enter category name"
-              value={categoryName}
-              onChange={(e) => setCategoryName(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="px-5 mb-5">
-          <button
-            className="ml-48 bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-2 font-semibold"
-            type="submit"
-            onClick={handleAddCategory}
-          >
-            Add Category
-          </button>
-        </div>
-      </div>
+<div className="flex justify-center mb-8">
+  <h1 className="font-bold text-4xl text-white">List of Categories</h1>
+</div>
+<div className="max-w-3xl mx-auto">
+  <div className="px-4">
+    <h1 className="text-2xl font-bold text-gray-300 mb-4">Add category</h1>
+  </div>
+  <div className="w-full px-4 mb-6 flex justify-start">
+    <div className="flex w-full">
+      <input
+        type="text"
+        id="categoryName"
+        name="categoryName"
+        className="w-full pl-4 pr-3 py-2 rounded-lg border-2 border-gray-600 bg-gray-800 text-white outline-none focus:border-indigo-400"
+        placeholder="Enter category name"
+        value={categoryName}
+        onChange={(e) => setCategoryName(e.target.value)}
+      />
+    </div>
+  </div>
+  <div className="px-4 mb-8">
+    <button
+      className="bg-indigo-500 hover:bg-indigo-700 text-white rounded-lg px-4 py-2 font-semibold"
+      type="submit"
+      onClick={handleAddCategory}
+    >
+      Add Category
+    </button>
+  </div>
+</div>
+<div className="max-w-3xl mx-auto">
+  <table className="w-full table-auto">
+    <thead>
+      <tr className="bg-gray-800 text-gray-300">
+        <th className="px-4 py-2">Name</th>
+        <th className="px-4 py-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {categories.map((c) => (
+        <tr key={c._id} className="bg-gray-900 hover:bg-gray-800">
+          <td className="px-4 py-2 text-gray-300">{c.name}</td>
+          <td className="px-4 py-2 flex gap-2">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white rounded-lg px-3 py-1 font-semibold"
+              onClick={() => {
+                setVisible(true);
+                setUpdatedName(c.name);
+                setSelected(c);
+              }}
+            >
+              Edit
+            </button>
+            <button
+              className="bg-red-500 hover:bg-red-700 text-white rounded-lg px-3 py-1 font-semibold"
+              onClick={() => {
+                handleDelete(c._id);
+              }}
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
 
-      <div className="w-75 mx-auto">
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col" className="text-white">
-                Name
-              </th>
-              <th scope="col" className="text-white">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {categories.map((c) => (
-              <tr key={c._id} className="py-2">
-                <td className="text-white">{c.name}</td>
-                <td className="flex gap-5">
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => {
-                      setVisible(true);
-                      setUpdatedName(c.name);
-                      setSelected(c);
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => {
-                      handleDelete(c._id);
-                    }}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+
+
+
+
+
+
+
     </>
   );
 };

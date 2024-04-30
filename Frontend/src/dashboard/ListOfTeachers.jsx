@@ -10,6 +10,7 @@ import TableCell from "@mui/material/TableCell";
 import Button from "@mui/material/Button";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from 'react-router-dom';
+import Checkbox from '@mui/material/Checkbox';
 
 const ListOfTeachers = () => {
   const theme = useTheme();
@@ -72,33 +73,42 @@ const ListOfTeachers = () => {
         <Table sx={{ color: "white" }}>
           <TableHead>
             <TableRow>
+            <TableCell sx={{ fontSize: "20px", fontWeight: "bolder", color: "#3b82f6", borderLeft: "1px solid white", borderTop: "1px solid white",backgroundColor: "#f2f2f2"  }}>
+          
+        </TableCell>
               <TableCell
-                sx={{ fontSize: "5xl", fontWeight: "bolder", color: "white" }}
+                // sx={{ fontSize: "5xl", fontWeight: "bolder", color: "white" }}
+                sx={{ fontSize: "20px", fontWeight: "bolder", color: "#3b82f6", borderLeft: "1px solid white", borderTop: "1px solid white",backgroundColor: "#f2f2f2"  }}
               >
                 Name
               </TableCell>
               <TableCell
-                sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
+                // sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
+                sx={{ fontSize: "20px", fontWeight: "bolder", color: "#3b82f6", borderLeft: "1px solid white", borderTop: "1px solid white",backgroundColor: "#f2f2f2"  }}
               >
                 Email
               </TableCell>
               <TableCell
-                sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
+                // sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
+                sx={{ fontSize: "20px", fontWeight: "bolder", color: "#3b82f6", borderLeft: "1px solid white", borderTop: "1px solid white",backgroundColor: "#f2f2f2"  }}
               >
                 Master's
               </TableCell>
               <TableCell
-                sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
+                // sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
+                sx={{ fontSize: "20px", fontWeight: "bolder", color: "#3b82f6", borderLeft: "1px solid white", borderTop: "1px solid white",backgroundColor: "#f2f2f2"  }}
               >
                 Experience
               </TableCell>
               <TableCell
-                sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
+                // sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
+                sx={{ fontSize: "20px", fontWeight: "bolder", color: "#3b82f6", borderLeft: "1px solid white", borderTop: "1px solid white",backgroundColor: "#f2f2f2"  }}
               >
                 View Profile
               </TableCell>
               <TableCell
-                sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
+                // sx={{ fontSize: "3xl", fontWeight: "bolder", color: "white" }}
+                sx={{ fontSize: "20px", fontWeight: "bolder", color: "#3b82f6", borderLeft: "1px solid white", borderTop: "1px solid white",backgroundColor: "#f2f2f2"  }}
               >
                 Actions
               </TableCell>
@@ -107,18 +117,20 @@ const ListOfTeachers = () => {
           <TableBody>
             {teachers.map((teacher) => (
               <TableRow key={teacher._id}>
-                {/* <TableCell sx={{ color: 'white' }}>{teacher.firstName}&nbsp;{teacher.lastName}</TableCell> */}
-                <TableCell sx={{ color: "white" }}>
+              <TableCell sx={{ borderLeft: "1px solid white" }}>
+            <Checkbox color="primary" />
+          </TableCell>
+                <TableCell sx={{ color: "white", borderLeft: "1px solid white" }}>
                   {teacher.fullname
                     ? teacher.fullname
                     : `${teacher.firstName} ${teacher.lastName}`}
                 </TableCell>
                 <TableCell sx={{ color: "white" }}>{teacher.email}</TableCell>
-                {/* <TableCell sx={{ color: 'white' }}>{teacher.master}</TableCell> */}
+                
                 <TableCell sx={{ color: "white" }}>
                   {teacher.master ? teacher.master : "Not done"}
                 </TableCell>
-                {/* <TableCell sx={{ color: 'white' }}>{teacher.experience}</TableCell> */}
+                
                 <TableCell sx={{ color: "white" }}>
                   {teacher.experience ? teacher.experience : "Not experience"}
                 </TableCell>
