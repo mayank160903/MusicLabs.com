@@ -6,14 +6,12 @@ const teacherModel = require("../models/teacher.js");
 
 const userModel = require("../models/user.js");
 
-const categoryModel = require('../models/category.js');
+const categoryModel = require("../models/category.js");
 
-const purchaseModel = require('../models/purchase.js');
-const solr = require('solr-client');
+const purchaseModel = require("../models/purchase.js");
+const solr = require("solr-client");
 
-
-const redis = require('redis');
-
+const redis = require("redis");
 
 // const redisClient = redis.createClient(6379 , '127.0.0.1');
 // redisClient.connect();
@@ -28,7 +26,7 @@ const redisClient = redis.createClient({
   },
 });
 
-// Handle connection errors
+// // Handle connection errors
 redisClient.on('error', (err) => {
   console.error('Redis connection error:', err);
 });
@@ -37,11 +35,9 @@ redisClient.on('error', (err) => {
 redisClient.connect().then(() => {
   console.log('Redis connected');
 
-  
 });
 
-// redisClient.on('error', (err) => console.log('Redis Client Error', err));
-
+redisClient.on('error', (err) => console.log('Redis Client Error', err));
 
 // const client = new solr.createClient({
 //   host: 'localhost',
@@ -64,8 +60,7 @@ exports.getAllQuery = async (req, res) => {
   }
 };
 
-exports.getDetails = async(req , res) =>{
-
+exports.getDetails = async (req, res) => {
   try {
     const courseCount = await courseModel.countDocuments();
     const contactCount = await contactModel.countDocuments();
@@ -77,54 +72,129 @@ exports.getDetails = async(req , res) =>{
       courseCount,
       contactCount,
       categoryCount,
-      userCount
+      userCount,
     });
   } catch (error) {
     console.error("Error fetching details:", error);
     return res.status(500).json({
       success: false,
-      message: "Error fetching details"
+      message: "Error fetching details",
     });
   }
-
-}
+};
 
 exports.createCategory = async (req, res) => {
   const { name } = req.body;
   try {
-      const newCategory = await categoryModel.create({ name });
-      return res.status(201).json({ success: true, message: "Category created successfully", category: newCategory });
+    const newCategory = await categoryModel.create({ name });
+    return res
+      .status(201)
+      .json({
+        success: true,
+        message: "Category created successfully",
+        category: newCategory,
+      });
   } catch (error) {
-      console.error("Error creating category:", error);
-      return res.status(500).json({ success: false, message: "Error creating category" });
+    console.error("Error creating category:", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Error creating category" });
   }
 };
 
-exports.getPurchases = async(req , res) =>{
+exports.getPurchases = async (req, res) => {
   try {
-    const purchases = await purchaseModel.find({})
-      .populate({
-        path: 'userId',
-        select: 'firstName lastName'
-      })
-      .populate({
-        path: 'teachers',
-        select: 'firstName lastName'
-      })
-      .populate({
-        path: 'courseId',
-        select: 'title'
-      });
-     
+   
+    const purchases = await purchaseModel.aggregate([
+      {
+        $lookup: {
+          from: "users",
+          localField: "userId",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      {
+        $unwind: "$user",
+      },
+      {
+        $lookup: {
+          from: "teachers",
+          localField: "teachers",
+          foreignField: "_id",
+          as: "teachers",
+        },
+      },
+      {
+        $unwind: "$teachers",
+      },
+      {
+        $group: {
+          _id: "$_id",
+          firstName: { $first: "$user.firstName" },
+          lastName: { $first: "$user.lastName" },
+          teachers: {
+            $push: {
+              firstName: "$teachers.firstName",
+              lastName: "$teachers.lastName",
+            },
+          },
+          courseId: { $first: "$courseId" },
+        },
+      },
+      {
+        $lookup: {
+          from: "courses",
+          localField: "courseId",
+          foreignField: "_id",
+          as: "course",
+        },
+      },
+      {
+        $unwind: "$course",
+      },
+      {
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: [
+              "$$ROOT",
+              {
+                title: "$course.title",
+              },
+            ],
+          },
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          firstName: 1,
+          lastName: 1,
+          teachers: 1,
+          title: 1,
+          
+        },
+      },
+    ]);
 
-    return res.status(200).json({ success: true, message: "All purchases with populated fields", purchases });
+    const timestamp = await purchaseModel.find({});
+
+
+    return res
+      .status(200)
+      .json({
+        success: true,
+        message: "All purchases with populated fields",
+        purchases,
+        timestamp
+      });
   } catch (error) {
     console.error("Error fetching purchases:", error);
-    return res.status(500).json({ success: false, message: "Error fetching purchases" });
+    return res
+      .status(500)
+      .json({ success: false, message: "Error fetching purchases" });
   }
-
-
-}
+};
 
 exports.createQuery = async (req, res) => {
   try {
@@ -155,27 +225,30 @@ exports.createQuery = async (req, res) => {
 exports.getAllCategories = async (req, res) => {
   try {
     const categories = await categoryModel.find({});
-    return res.status(200).json({ success: true, message: "All categories", categories });
+    return res
+      .status(200)
+      .json({ success: true, message: "All categories", categories });
   } catch (error) {
     console.error("Error while querying categories:", error);
-    return res.status(500).json({ success: false, message: "Error while querying categories" });
+    return res
+      .status(500)
+      .json({ success: false, message: "Error while querying categories" });
   }
 };
 
 exports.deleteCategory = async (req, res) => {
   const categoryId = req.params.id;
   try {
-   
     console.log(categoryId);
     const deletedCategory = await categoryModel.findByIdAndDelete(categoryId);
-   
 
-
-    
-    return res.status(200).json({ success: true, message: "Category deleted successfully" });
+    return res
+      .status(200)
+      .json({ success: true, message: "Category deleted successfully" });
   } catch (error) {
-    
-    return res.status(500).json({ success: false, message: "Error deleting category" });
+    return res
+      .status(500)
+      .json({ success: false, message: "Error deleting category" });
   }
 };
 
@@ -195,21 +268,6 @@ exports.deleteController = async (req, res) => {
   }
 };
 
-// exports.getAllCourses = async (req, res) => {
-//   try {
-//     const courses = await courseModel.find({});
-
-//     console.log(courses);
-//     consol.log(courses.length);
-//     return res
-//       .status(201)
-//       .send({ success: true, message: "All courses", courses });
-//   } catch (error) {
-//     return res
-//       .status(500)
-//       .send({ success: false, message: "Error while getting all courses" });
-//   }
-// };
 
 exports.deleteCourses = async (req, res) => {
   try {
@@ -251,12 +309,10 @@ exports.getAllTeachers = async (req, res) => {
       .send({ success: true, message: "List of Teachers", teachers: result });
   } catch (error) {
     console.error("Error searching users:", error);
-    return res
-      .status(500)
-      .send({
-        success: false,
-        message: "Error while getting list of teachers",
-      });
+    return res.status(500).send({
+      success: false,
+      message: "Error while getting list of teachers",
+    });
   }
 };
 
@@ -291,39 +347,14 @@ exports.getAllUsers = async (req, res) => {
 
 exports.getAllCourses = async (req, res) => {
   try {
-    // const searchQuery = req.query.search;
-    // console.log(searchQuery);
     
-    // let courses;
-    // if (searchQuery) {
+
+    const searchQuery = req.query.search;
+    if (!searchQuery) {
       
-    //   courses = await courseModel.find({
-    //     $or: [
-    //       { title: { $regex: searchQuery, $options: "i" } },
-    //       { description: { $regex: searchQuery, $options: "i" } }
-    //     ]
-    //   });
-    // } else {
-     
-    //   courses = await courseModel.find({});
-    // }
-    // return res
-    //   .status(200)
-    //   .send({ success: true, message: "List of courses", courses });  
-
-    const searchQuery = req.query.search
-    if(!searchQuery){
-      // const courses = await courseModel.find({});
-      // return res
-      // .status(200)
-      // .send({ success: true, message: "List of courses", courses });  
       try {
-        // Try to get courses from Redis
-        console.log("first comes here");
-        const getcatchedData = await redisClient.get("courses");
-
-
         
+        const getcatchedData = await redisClient.get("courses");
 
         if(getcatchedData){
           res.status(200).send({
@@ -334,36 +365,34 @@ exports.getAllCourses = async (req, res) => {
         }
 
         else{
-          const courses = await courseModel.find({});
+        const courses = await courseModel.find({});
 
-          // Set courses in Redis
-          redisClient.set('courses', JSON.stringify(courses));
+        redisClient.set('courses', JSON.stringify(courses));
 
-          res.status(200).send({
-            success: true,
-            message: 'List of courses',
-            courses,
-          });
+        res.status(200).send({
+          success: true,
+          message: "List of courses",
+          courses,
+        });
         }
-        
       } catch (err) {
         res.status(500).send({
           success: false,
-          message: 'Error fetching courses',
+          message: "Error fetching courses",
           error: err.message,
         });
       }
-  
-  
-
-
-
-
+    } else {
+      const courses = await courseModel.find({
+        $or: [
+          { title: { $regex: searchQuery, $options: "i" } },
+          { description: { $regex: searchQuery, $options: "i" } },
+        ],
+      });
+      return res
+        .status(200)
+        .send({ success: true, message: "List of courses", courses });
     }
-
-
-    
-
 
     // client.search(searchQuery, (err, result) => {
     //   if (err) {
@@ -373,8 +402,6 @@ exports.getAllCourses = async (req, res) => {
     //   const courses = result.response.docs;
     //   return res.status(200).send({ success: true, message: 'List of courses', courses });
     // });
-
-
   } catch (error) {
     return res
       .status(500)
