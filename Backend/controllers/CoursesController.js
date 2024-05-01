@@ -64,18 +64,20 @@ exports.getCourseDescription = async (req,res) => {
     redisClient.get(courseId, async (err, cachedData) => {
       if (err) throw err;
 
-  if (cachedData) {
-    return res.json(JSON.parse(cachedData));
-  } else {
-    const course = await coursesSchema.findById(courseId).populate([{path :'category'},{path: 'teacher', 
-    select: '-password' },{path: 'sections'}])
-    if(!course){
-      return res.status(404).send({success: false, message: "Course not found"});
-    }
-    redisClient.setex(courseId, 3600, JSON.stringify({success: true, message: "Course fetched successfully", course: course}));
-    return res.status(200).send({success: true, message: "Course fetched successfully", course});
+    if (cachedData) {
+     return res.json(JSON.parse(cachedData));
+    } else {
+     const course = await coursesSchema.findById(courseId).populate([{path :'category'},{path: 'teacher', 
+      select: '-password' },{path: 'sections'}])
+     if(!course){
+        return res.status(404).send({success: false, message: "Course not found"});
+     }
+      redisClient.setex(courseId, 3600, JSON.stringify({success: true, message: "Course fetched successfully", course: course}));
+      return res.status(200).send({success: true, message: "Course fetched successfully", course});
   
-}})
+  }}
+    )
+
 } catch(e){
     console.log(e);
     return res.status(500).send({success: false, message: "Error while fetching course"});
@@ -93,7 +95,7 @@ exports.getCourseInfo = async (req,res) => {
         })
         
 
-        console.log(course);
+       
         
         if(!course){
             return res.status(404).send({success: false, message: "Course not found"});

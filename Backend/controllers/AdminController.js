@@ -199,7 +199,7 @@ exports.deleteController = async (req, res) => {
 //   try {
 //     const courses = await courseModel.find({});
 
-//     console.log(courses);
+
 //     consol.log(courses.length);
 //     return res
 //       .status(201)

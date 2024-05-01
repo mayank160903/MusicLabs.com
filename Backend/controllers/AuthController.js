@@ -25,7 +25,7 @@ exports.registerController = async (req, res) => {
       }
 
       const existingUser = await userSchema.findOne({ email: email });
-      console.log("hellow ja")
+     
       if (existingUser) {
         return res
           .status(400)
@@ -58,7 +58,7 @@ exports.registerController = async (req, res) => {
 
  
   } catch (error) {
-    console.log(error)
+
     return res
       .status(500)
       .send({ success: false, message: "Error While registering" });
@@ -203,7 +203,7 @@ exports.loginController = async (req, res) => {
 exports.googleController = async (req, res) => {
   try {
     const { email } = req.body;
-    console.log(req.body);
+
     const user = await userSchema.findOne({ email: email });
     if (!user) {
       const teacher = await teacherSchema.findOne({ email: email });

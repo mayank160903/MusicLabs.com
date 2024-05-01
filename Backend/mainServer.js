@@ -324,7 +324,7 @@ app.get('/coursepage/:courseid/:num', async (req, res) => {
         user12 = req.session.user
         id = req.params.courseid
         num = req.params.num
-        console.log(num)
+     
         
         
 
@@ -335,7 +335,7 @@ app.get('/coursepage/:courseid/:num', async (req, res) => {
                return res.redirect('/coursedescpage/'+courseid)
                 }
 
-            else{console.log(course)   
+            else{
                  res.render('coursepage',{user:user12,
                                            auth:true,
                                            course:course,
@@ -504,7 +504,7 @@ app.post('/submit',  async(req, res) => {
     const role = req.body.userType;
     // const pno = req.body.phno
     const password = req.body.password;
-    console.log(req.body);
+   
     // const confirm_password = req.body.confirm_password;
    
 
@@ -512,9 +512,9 @@ app.post('/submit',  async(req, res) => {
     if (role == 'user') {    
        
         const user = await userSchema.findOne({username :username});
-        console.log(user);
+       
         if(user){
-            console.log("firsr");
+            
             // console.log(user);
             return res.status(404).send({ message: 'Username is already taken'});
         }
@@ -543,7 +543,6 @@ app.post('/submit',  async(req, res) => {
         const user = await teacherSchema.findOne({username :username});
         console.log("f" + user);
         if(user){
-            console.log("here");
             return res.status(404).send({ message: 'Username is already taken'});
         }
         const newUser = new teacherSchema({
@@ -563,7 +562,6 @@ app.post('/submit',  async(req, res) => {
               console.error('Error saving user:', error);
               // Handle the error appropriately
             });
-            console.log("here");
 
             return res.status(200).send({message : "User saved successfully"});
 
@@ -578,18 +576,17 @@ app.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
     const role = req.body.userType;
-    console.log(req.body);
+   
     if(role == 'admin'){
         req.session.admin = true
         res.redirect('admin')
     }
     if (role == 'user') {
-        console.log("first");
         userSchema.findOne({username: username}).then((usercollection) => {
             if (!usercollection) {
                 console.log("Invalid Username")
                 // return res.render('./login.ejs', { error: 'Wrong Password.', user: null });
-                console.log("second");
+             
                 return res.status(404).send({message : "user not found"})
             } else {
                 
@@ -600,7 +597,6 @@ app.post('/login', (req, res) => {
                 req.session.user = usercollection;
                 
 
-                console.log(req.session)
                 return res.status(200).send({message : "login successfully "});
 
                 return req.session.save((err) => {
@@ -612,7 +608,6 @@ app.post('/login', (req, res) => {
             
                 }
                 else{
-                    console.log("Wrong Password");
                     return res.status(404).send({mesage : "password is wrong"});
                     // return res.render('./login.ejs', { error: 'Wrong Password.', user: null });
 
@@ -636,7 +631,7 @@ app.post('/login', (req, res) => {
                 req.session.role = "teacher" 
                 req.session.user = teachercollection;
                 
-                console.log(req.session)
+       
                 return res.status(200).send({message : "login successfully "});
                 // return req.session.save((err) => {
                 // console.log(err);
@@ -662,7 +657,7 @@ app.post('/login', (req, res) => {
 app.get('/search',async (req,res) => {
     
    search = req.query.squery
-   console.log(search)
+  
 //    let pattern=new RegExp(search,"i");
    coursesSchema.find({$or:
     [{ title: { $regex: search, $options: "i" }}, 
