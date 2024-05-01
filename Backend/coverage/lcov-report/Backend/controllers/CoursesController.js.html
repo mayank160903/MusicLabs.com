@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.37% </span>
+                <span class="strong">33.13% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>66/172</span>
+                <span class='fraction'>57/172</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">14.28% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/28</span>
+                <span class='fraction'>4/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.75% </span>
+                <span class="strong">31.25% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/16</span>
+                <span class='fraction'>5/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.59% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>66/171</span>
+                <span class='fraction'>57/171</span>
             </div>
         
             
@@ -484,23 +484,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -845,24 +845,24 @@ exports.getSignature = async (req,res) =&gt; {
 // })
 }
 //Redis Working !!!
-exports.getCourseDescription = async (req,res) =&gt; {
-  const {courseId} = req.params;
+exports.getCourseDescription = <span class="fstat-no" title="function not covered" >as</span>ync (req,res) =&gt; {
+  const {courseId} = <span class="cstat-no" title="statement not covered" >req.params;</span>
 &nbsp;
-  try{
+<span class="cstat-no" title="statement not covered" >  try{</span>
     
-    redisClient.get(courseId, async (err, cachedData) =&gt; {
-      <span class="missing-if-branch" title="if path not taken" >I</span>if (err) <span class="cstat-no" title="statement not covered" >throw err;</span>
+<span class="cstat-no" title="statement not covered" >    redisClient.get(courseId, <span class="fstat-no" title="function not covered" >as</span>ync (err, cachedData) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      if (err) <span class="cstat-no" title="statement not covered" >throw err;</span></span>
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (cachedData) {
+<span class="cstat-no" title="statement not covered" >  if (cachedData) {</span>
 <span class="cstat-no" title="statement not covered" >    return res.json(JSON.parse(cachedData));</span>
   } else {
-    const course = await coursesSchema.findById(courseId).populate([{path :'category'},{path: 'teacher', 
+    const course = <span class="cstat-no" title="statement not covered" >await coursesSchema.findById(courseId).populate([{path :'category'},{path: 'teacher', </span>
     select: '-password' },{path: 'sections'}])
-    <span class="missing-if-branch" title="if path not taken" >I</span>if(!course){
+<span class="cstat-no" title="statement not covered" >    if(!course){</span>
 <span class="cstat-no" title="statement not covered" >      return res.status(404).send({success: false, message: "Course not found"});</span>
     }
-    redisClient.setex(courseId, 3600, JSON.stringify({success: true, message: "Course fetched successfully", course: course}));
-    return res.status(200).send({success: true, message: "Course fetched successfully", course});
+<span class="cstat-no" title="statement not covered" >    redisClient.setex(courseId, 3600, JSON.stringify({success: true, message: "Course fetched successfully", course: course}));</span>
+<span class="cstat-no" title="statement not covered" >    return res.status(200).send({success: true, message: "Course fetched successfully", course});</span>
   
 }})
 } catch(e){
@@ -1156,7 +1156,7 @@ exports.getRatings = async(req,res) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-01T18:01:23.113Z
+                at 2024-05-01T18:10:19.720Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

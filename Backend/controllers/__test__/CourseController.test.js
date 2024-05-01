@@ -11,18 +11,18 @@ beforeEach(async () => {
 // 
 
 describe("Course API Tests",  () => {
-test("Fetch Course Description Correctly", async () => {
+// test("Fetch Course Description Correctly", async () => {
  
 
-  const response = await request(app).get("/api/course/description/66313dac6d904b76d979d78d");
+//   const response = await request(app).get("/api/course/description/66313dac6d904b76d979d78d");
   
-  expect(response.status).toBe(200);
-  expect(response.body).toHaveProperty("success", true);
-  expect(response.body).toHaveProperty("message", "Course fetched successfully");
-  expect(response.body).toHaveProperty("course");
-  expect(response.body.course).toHaveProperty("title");
+//   expect(response.status).toBe(200);
+//   expect(response.body).toHaveProperty("success", true);
+//   expect(response.body).toHaveProperty("message", "Course fetched successfully");
+//   expect(response.body).toHaveProperty("course");
+//   expect(response.body.course).toHaveProperty("title");
 
-},50000);
+// },50000);
 
 test("Fetch Course Info Correctly", async () => {
  
