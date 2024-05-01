@@ -17,26 +17,28 @@ const solr = require("solr-client");
 
 const redis = require("redis");
 
-// const redisClient = redis.createClient(6379 , '127.0.0.1');
-// redisClient.connect();
-// redisClient.on('connect' , function(err) {
-//   console.log("redis connected");
-// })
+
+
+// const redisClient = redis.createClient({
+//   socket: {
+    
+//     host: "frankfurt-redis.render.com" || '127.0.0.1',
+//     port: 6379,
+//     tls: true,
+//     passphrase: process.env.REDIS_PASSPHRASE || 'vsf6P9dRJphFLBt5rdu0PGcOlGROxAnI',
+
+//   },
+// });
 
 const redisClient = redis.createClient({
-  socket: {
-    host: process.env.REDIS_SERVER || '127.0.0.1',
-    port: 6379,
-  },
+  url: process.env.REDIS_SERVER || '127.0.0.1'
 });
 
+redisClient.on('error', (err) => console.log('Redis Client Error', err));
+
+// redisClient.connect();
 
 // // Handle connection errors
-redisClient.on('error', (err) => {
-  console.error('Redis connection error:', err);
-});
-
-// Handle connection errors
 // redisClient.on('error', (err) => {
 //   console.error('Redis connection error:', err);
 // });

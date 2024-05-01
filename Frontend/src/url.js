@@ -1,6 +1,6 @@
 const backendUrl =
     window.location.hostname === 'localhost'
         ? "http://localhost:8000"
-        : "backend deployed url";
+        : "https://music-labs-backend-v6.onrender.com";
 
 export {backendUrl};
