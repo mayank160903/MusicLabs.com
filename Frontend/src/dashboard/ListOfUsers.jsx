@@ -18,12 +18,12 @@ const ListOfTeachers = () => {
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
-  
+  console.log(backendUrl);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${backendUrl}api/v1/admin/universalSearch?query=${searchQuery}`
+          `${backendUrl}/api/v1/admin/universalSearch?query=${searchQuery}`
         );
         setUsers(response.data.users);
         console.log(users);
