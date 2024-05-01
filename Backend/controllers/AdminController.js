@@ -8,8 +8,12 @@ const userModel = require("../models/user.js");
 
 const categoryModel = require("../models/category.js");
 
+
 const purchaseModel = require("../models/purchase.js");
 const solr = require("solr-client");
+
+
+
 
 const redis = require("redis");
 
@@ -19,25 +23,33 @@ const redis = require("redis");
 //   console.log("redis connected");
 // })
 
-const redisClient = redis.createClient({
-  socket: {
-    host: '127.0.0.1',
-    port: 6379,
-  },
-});
+// const redisClient = redis.createClient({
+//   socket: {
+//     host: 'redis-server',
+//     port: 6379,
+//   },
+// });
+
 
 // // Handle connection errors
 redisClient.on('error', (err) => {
   console.error('Redis connection error:', err);
 });
 
+// Handle connection errors
+// redisClient.on('error', (err) => {
+//   console.error('Redis connection error:', err);
+// });
+
+
 // Connect to Redis
 redisClient.connect().then(() => {
   console.log('Redis connected');
 
-});
 
-redisClient.on('error', (err) => console.log('Redis Client Error', err));
+
+
+
 
 // const client = new solr.createClient({
 //   host: 'localhost',
@@ -353,6 +365,7 @@ exports.getAllCourses = async (req, res) => {
     if (!searchQuery) {
       
       try {
+
         
         const getcatchedData = await redisClient.get("courses");
 
@@ -364,6 +377,7 @@ exports.getAllCourses = async (req, res) => {
           });
         }
 
+
         else{
         const courses = await courseModel.find({});
 
@@ -374,7 +388,9 @@ exports.getAllCourses = async (req, res) => {
           message: "List of courses",
           courses,
         });
-        }
+      }
+
+ 
       } catch (err) {
         res.status(500).send({
           success: false,

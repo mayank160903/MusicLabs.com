@@ -42,6 +42,18 @@ describe("Login Tests",  () => {
         expect(response.status).toBe(404);
       
       },50000);
+
+      test("User Password Wrong", async () => {
+       
+      
+        const response = await request(app).post("/api/v1/user/login").send({
+          email: "charshit166@gmail.com",
+          password: "Harshit1ssasaas*"
+        });
+        
+        expect(response.status).toBe(501);
+      
+      },50000);
       
       
       

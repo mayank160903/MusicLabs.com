@@ -11,7 +11,7 @@ import ContactUs from './pages/ContactUs/ContactUs'
 import WishlistPage from './pages/Wishlist/Wishlist'
 import Instructor from './pages/Instructor/Instructor';
 import PaymentPage from './pages/PaymentPage/PaymentPage';
-import Homepage from './pages/Homepage/homepage'
+import Homepage from './pages/Homepage/Homepage'
 import Spotlight from './pages/Spotlight/Spotlight'
 import Faq from './pages/Faq/Faq'
 import StudentProfile from './pages/StudentProfile/StudentProfile';
@@ -34,7 +34,7 @@ import StudentEditProfile from './pages/StudentEditProfile/StudentEditProfile';
 import CreateCourseLayout from './pages/CreateCoursePage.jsx/CreateCourse'
 // import Headertest from './pages/Header/Headertest'
 import DefaultHeader from './pages/Header/DefaultHeader';
-import CourseUpload from './pages/courseUpload/courseUpload'
+import CourseUpload from './pages/courseUpload/CourseUpload'
 import Teachers_Dashboard from './Teacher Dashboard/Teachers_Dashboard';
 import Dashboard from './admin/Dashboard'
 import Quiz from  './pages/Quiz/Quiz';

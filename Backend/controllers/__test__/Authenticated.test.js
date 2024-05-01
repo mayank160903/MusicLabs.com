@@ -4,7 +4,6 @@ const request = require("supertest");
 const app = require('../../app')
 
 
-
 let user_token;
 const user_id = "66313c2e1d6b02196b676a12"
 
@@ -28,7 +27,7 @@ describe("Get Wishlist", () => {
     expect(response.status).toBe(404);
 
   });
-
+  
  
 });
 

@@ -2,9 +2,9 @@ const cloudinary = require('cloudinary').v2;
 const teacherSchema = require('../models/teacher'); 
 
 cloudinary.config({
-    cloud_name: process.env.CLOUDNAME,
-    api_key: process.env.APIKEY,
-    api_secret: process.env.APISECRET
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET
 });
 
 exports.updateTeacherProfile = async (req, res) => {
