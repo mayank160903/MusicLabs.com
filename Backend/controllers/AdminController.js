@@ -12,7 +12,7 @@ const purchaseModel = require('../models/purchase.js');
 const solr = require('solr-client');
 
 
-const redis = require('redis');
+// const redis = require('redis');
 
 
 // const redisClient = redis.createClient(6379 , '127.0.0.1');
@@ -21,24 +21,24 @@ const redis = require('redis');
 //   console.log("redis connected");
 // })
 
-const redisClient = redis.createClient({
-  socket: {
-    host: '127.0.0.1',
-    port: 6379,
-  },
-});
+// const redisClient = redis.createClient({
+//   socket: {
+//     host: 'redis-server',
+//     port: 6379,
+//   },
+// });
 
 // Handle connection errors
-redisClient.on('error', (err) => {
-  console.error('Redis connection error:', err);
-});
+// redisClient.on('error', (err) => {
+//   console.error('Redis connection error:', err);
+// });
 
 // Connect to Redis
-redisClient.connect().then(() => {
-  console.log('Redis connected');
+// redisClient.connect().then(() => {
+//   console.log('Redis connected');
 
   
-});
+// });
 
 // redisClient.on('error', (err) => console.log('Redis Client Error', err));
 
@@ -320,31 +320,31 @@ exports.getAllCourses = async (req, res) => {
       try {
         // Try to get courses from Redis
         console.log("first comes here");
-        const getcatchedData = await redisClient.get("courses");
+        // const getcatchedData = await redisClient.get("courses");
 
 
         
 
-        if(getcatchedData){
-          res.status(200).send({
-            success: true,
-            message: 'List of courses',
-            courses: JSON.parse(getcatchedData),
-          });
-        }
+        // if(getcatchedData){
+        //   res.status(200).send({
+        //     success: true,
+        //     message: 'List of courses',
+        //     courses: JSON.parse(getcatchedData),
+        //   });
+        // }
 
-        else{
+        // else{
           const courses = await courseModel.find({});
 
           // Set courses in Redis
-          redisClient.set('courses', JSON.stringify(courses));
+          // redisClient.set('courses', JSON.stringify(courses));
 
           res.status(200).send({
             success: true,
             message: 'List of courses',
             courses,
           });
-        }
+        // }
         
       } catch (err) {
         res.status(500).send({

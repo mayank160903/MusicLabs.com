@@ -2,9 +2,9 @@ const cloudinary = require('cloudinary').v2;
 const userSchema = require('../models/user'); 
 
 cloudinary.config({
-    cloud_name: process.env.CLOUDNAME,
-    api_key: process.env.APIKEY,
-    api_secret: process.env.APISECRET
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET
 });
 
 exports.updateStudentProfile = async (req, res) => {

@@ -19,19 +19,7 @@ cloudinary.config({
 
   const apiSecret = cloudinary.config().api_secret;
   
-  
-  function handleUploadImage(file) {
-    try{
-      cloudinary.uploader.upload (file, {
-        resource_type: 'image'
-      }).then((res) => {
-        console.log(res);
-        return res;
-      });
-    } catch (e){
-      console.log(e);
-    }
-  }
+ 
 
 
 exports.getSignature = async (req,res) => {
