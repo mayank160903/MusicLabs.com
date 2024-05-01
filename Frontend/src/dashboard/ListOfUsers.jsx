@@ -18,7 +18,7 @@ const ListOfTeachers = () => {
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
-  
+  console.log(backendUrl);
   useEffect(() => {
     const fetchData = async () => {
       try {
