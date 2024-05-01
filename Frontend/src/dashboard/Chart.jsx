@@ -5,12 +5,12 @@ export default function BasicBars() {
     
   return (
     <BarChart
-      xAxis={[{ scaleType: 'band', data: ['December', 'January', 'february'] }]}
-      series={[{ data: [4, 3, 6] }]}
+      xAxis={[{ scaleType: 'band', data: ['December', 'January', 'february' , 'March' , 'April'] }]}
+      series={[{ data: [4, 3, 6 , 2 , 5] }]}
       width={500}
       height={300}
-      barColors={['#FF6384']} // Set the bar color to a shade of red
-      backgroundColor="#000000" // Set the background color to black
+      barColors={['#FF6384']} 
+      backgroundColor="#000000" 
     />
   );
 }
