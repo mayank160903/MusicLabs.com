@@ -36,15 +36,7 @@ const redisClient = redis.createClient({
 
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
 
-// redisClient.connect();
 
-// // Handle connection errors
-// redisClient.on('error', (err) => {
-//   console.error('Redis connection error:', err);
-// });
-
-
-// Connect to Redis
 redisClient.connect().then(() => {
   console.log('Redis connected');
 })
@@ -53,12 +45,7 @@ redisClient.connect().then(() => {
 
 
 
-// const client = new solr.createClient({
-//   host: 'localhost',
-//   port: '8983',
-//   core: 'courses',
-//   path: '/solr/courses'
-// });
+
 
 exports.getAllQuery = async (req, res) => {
   try {
@@ -207,6 +194,25 @@ exports.getPurchases = async (req, res) => {
     return res
       .status(500)
       .json({ success: false, message: "Error fetching purchases" });
+  }
+};
+exports.updateCategory = async (req, res) => {
+  try {
+    const { name } = req.body;
+    const category = await categoryModel.findByIdAndUpdate(
+      req.params.id,
+      { name },
+      { new: true }
+    );
+
+    if (!category) {
+      return res.status(404).json({ message: "Category not found" });
+    }
+
+    res.status(200).json(category);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
