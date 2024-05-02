@@ -156,7 +156,7 @@ exports.createCourse = async (req,res) => {
         if(!teacher){
             return res.status(404).send({success: false, message: "Teacher not found"});
         }
-        await categorySchema.create({name: category})
+        // await categorySchema.create({name: category})
 
         const categoryId = await categorySchema.findOne({name: category})
      
