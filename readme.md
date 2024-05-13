@@ -1,4 +1,8 @@
-# Instructions
+# About
+MusicLabs is a MERN based web application, designed for users to learn music courses from the courses provided by the registered Instructors. 
+A student can buy, access, rate and complete courses. An instructor can upload, edit or delete their courses. The Admin can view and control all the actions performed in the application
+
+# Instructions to view the website
 
 You can view the Website on the URL : https://musiclabs.vercel.app/
 
